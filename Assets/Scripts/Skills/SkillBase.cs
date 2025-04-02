@@ -47,9 +47,9 @@ public class SkillBase : ScriptableObject
     }
 
     // Ejecutar la habilidad seleccionada
-    public void ExecuteSkill()
+    public void ExecuteSkill(SkillManager.SkillNumber numSkill)
     {
-        selectedSkill?.Execute();  // Si la habilidad no es nula, ejecutarla
+        selectedSkill?.Execute(numSkill, this);  // Si la habilidad no es nula, ejecutarla
     }
 
     // Actualizar el estado de la habilidad (como el cooldown)

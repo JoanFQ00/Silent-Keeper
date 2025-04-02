@@ -10,7 +10,8 @@ public class SkillManager : MonoBehaviour
     private SkillBase skill2;
     private SkillBase passiveSkill;
 
-    private bool canUpdateSkill1, canUpdateSkill2;
+    [HideInInspector]
+    public bool canUpdateSkill1, canUpdateSkill2;
 
     private void Awake()
     {
@@ -24,6 +25,12 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public enum SkillNumber
+    {
+        SKILL1 = 0,
+        SKILL2
+    }
+
     private void Start()
     {
         canUpdateSkill1 = false;
@@ -33,15 +40,15 @@ public class SkillManager : MonoBehaviour
     private void Update()
     {
         // Ejecutar habilidad 1 si se presiona la tecla correspondiente
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !canUpdateSkill1)
         {
-            skill1.ExecuteSkill();
+            skill1.ExecuteSkill(SkillNumber.SKILL1);
         }
 
         // Ejecutar habilidad 2 si se presiona la tecla correspondiente
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2)&& !canUpdateSkill2)
         {
-            skill2.ExecuteSkill();
+            skill2.ExecuteSkill(SkillNumber.SKILL2);
         }
 
         // Actualizar las habilidades (para manejar cooldowns)
