@@ -12,7 +12,9 @@ public class KidMachine : MonoBehaviour
     [SerializeField] float speed = 1.5f;
     [SerializeField] float distToPlayer = 2.0f;
     private GameObject player;
-    private List<GameObject> waypoints;
+
+    private List<GameObject> waypoints = new List<GameObject>();
+    private int currentWaypointIndex = 0;
 
     void Start()
     {
@@ -33,22 +35,41 @@ public class KidMachine : MonoBehaviour
 
             break;
 
-            case States.Waypoints:
+            case States.Waypoints:  
 
-                //if (waypoints.Length < 1) 
-                //{
-                //    ChangeState(States.Stoped); 
-                //}
-                //else if () 
-                //{
-                    
-                //}
+                if (waypoints.Count < 1) 
+                {
+                    ChangeState(States.Stoped); 
+                }
+                else  
+                {
+                    GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
+                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) > 0.1) 
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
+                    }
+                    else 
+                    {
+                        currentWaypointIndex += 1;
+                        if (currentWaypointIndex +1 > waypoints.Count) 
+                        {
+                            waypoints = new List<GameObject>();
+                            currentWaypointIndex = 0;
+                            WaypointsPool.DeactivateAll();
+                            break;
+                        }
+                        
+                        if (waypoints.Count != 0) 
+                        {
+                            currentWaypoint = waypoints[currentWaypointIndex];
+                        }
+                    }
+                }
 
             break;
 
             case States.Stoped:
-
             break;
         }
     }
@@ -67,6 +88,10 @@ public class KidMachine : MonoBehaviour
         }
         else 
         {
+            if (lastState == States.Waypoints && waypoints.Count == 0) 
+            {
+                lastState = States.Following;
+            }
             ChangeState(lastState);
         }
     }

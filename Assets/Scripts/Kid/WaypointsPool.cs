@@ -53,4 +53,15 @@ public class WaypointsPool: MonoBehaviour
 
         return ret;
     }
+
+    public static void DeactivateAll()
+    {
+        for (int i = 0; i < Instance.maxCap; i++) 
+        {
+            if (Instance.pool[i].activeInHierarchy == true) 
+            {
+                Instance.pool[i].SetActive(false);
+            }
+        }
+    }
 }

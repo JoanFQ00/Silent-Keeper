@@ -20,12 +20,14 @@ public class KidControl : MonoBehaviour
     private void OnMakeWaypoint() 
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0.0f;
 
         var waypoint = WaypointsPool.GetObject();
 
         if (waypoint != null)
         {
             waypoint.transform.position = mousePos;
+            kidMachine.AddWaypoint(waypoint);
         }
     }
 
