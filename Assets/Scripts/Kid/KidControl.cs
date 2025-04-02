@@ -29,6 +29,11 @@ public class KidControl : MonoBehaviour
         }
     }
 
+    private void OnFollowWay() 
+    {
+        kidMachine.ChangeState(KidMachine.States.Waypoints);
+    }
+
     private void OnStopKid() 
     {
         kidMachine.StopResume();
