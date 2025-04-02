@@ -1,5 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class KidMachine : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class KidMachine : MonoBehaviour
     [SerializeField] float speed = 1.5f;
     [SerializeField] float distToPlayer = 2.0f;
     private GameObject player;
+    private List<GameObject> waypoints;
 
     void Start()
     {
@@ -31,6 +34,16 @@ public class KidMachine : MonoBehaviour
             break;
 
             case States.Waypoints:
+
+                if (waypoints.Length < 1) 
+                {
+                    ChangeState(States.Stoped); 
+                }
+                else if () 
+                {
+                    
+                }
+
 
             break;
 
@@ -56,5 +69,10 @@ public class KidMachine : MonoBehaviour
         {
             ChangeState(lastState);
         }
+    }
+
+    public void AddWaypoint(GameObject waypoint) 
+    {
+        waypoints.Add(waypoint);
     }
 }
