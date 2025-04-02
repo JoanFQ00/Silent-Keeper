@@ -35,14 +35,14 @@ public class KidMachine : MonoBehaviour
 
             case States.Waypoints:
 
-                if (waypoints.Length < 1) 
-                {
-                    ChangeState(States.Stoped); 
-                }
-                else if () 
-                {
+                //if (waypoints.Length < 1) 
+                //{
+                //    ChangeState(States.Stoped); 
+                //}
+                //else if () 
+                //{
                     
-                }
+                //}
 
 
             break;
