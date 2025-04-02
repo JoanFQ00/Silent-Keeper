@@ -15,6 +15,8 @@ public class SkillBase : ScriptableObject
         ZONE
     }
 
+    public Sprite bigImage, gameplayImage;
+
     [HideInInspector]
     public string selectedSkillName;
 
