@@ -51,7 +51,9 @@ public class KidMachine : MonoBehaviour
                     }
                     else 
                     {
+                        waypoints[currentWaypointIndex].SetActive(false);
                         currentWaypointIndex += 1;
+ 
                         if (currentWaypointIndex +1 > waypoints.Count) 
                         {
                             waypoints = new List<GameObject>();

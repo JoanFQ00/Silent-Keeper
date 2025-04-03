@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ public class MonsterMove : MonoBehaviour
     public Mode currentMode;
 
     KidMachine kidMachine;
+    CameraFollow cameraFollow;
 
     public static Action<string> OnChangeTxt; 
 
@@ -22,6 +24,7 @@ public class MonsterMove : MonoBehaviour
         currentMode = Mode.MonsterCon;
         OnChangeTxt?.Invoke(currentMode.ToString());
         kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
+        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
     }
 
     void Update()
@@ -40,6 +43,7 @@ public class MonsterMove : MonoBehaviour
     {
         moveDir = value.Get<Vector2>();
         currentMode = Mode.MonsterCon;
+        cameraFollow.ChangeTarget(GetComponentInParent<Transform>());
 
         if (kidMachine.GetCurrentState() == KidMachine.States.Stoped) 
         {
@@ -63,6 +67,7 @@ public class MonsterMove : MonoBehaviour
         if (currentMode == Mode.MonsterCon)
         {
             currentMode = Mode.KidCon;
+            cameraFollow.ChangeTarget(kidMachine.GetComponentInParent<Transform>());
             OnChangeTxt?.Invoke(currentMode.ToString());
         }
     }
