@@ -107,4 +107,9 @@ public class KidMachine : MonoBehaviour
     {
         waypoints.Add(waypoint);
     }
+
+    public List<GameObject> GetWaypoints() 
+    {
+        return waypoints;
+    }
 }

@@ -47,7 +47,10 @@ public class MonsterMove : MonoBehaviour
 
         if (kidMachine.GetCurrentState() == KidMachine.States.Stoped) 
         {
-            kidMachine.ChangeState(KidMachine.States.Following);
+            if (kidMachine.GetWaypoints().Count == 0) 
+            {
+                kidMachine.ChangeState(KidMachine.States.Following);
+            }
         }
 
         OnChangeTxt?.Invoke(currentMode.ToString());

@@ -35,7 +35,14 @@ public class KidControl : MonoBehaviour
     {
         if (monsterMove.currentMode == MonsterMove.Mode.KidCon)
         {
-            kidMachine.ChangeState(KidMachine.States.Waypoints);
+            if(kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
+            {
+                kidMachine.ChangeState(KidMachine.States.Stoped);
+            }
+            else 
+            {
+                kidMachine.ChangeState(KidMachine.States.Waypoints);
+            }
         }
     }
 
