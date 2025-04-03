@@ -1,17 +1,20 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager Instance;
 
-    public SkillBase[] allSkills; // Todas las habilidades disponibles
+    public GameObject player;
+    public GameObject[] allSkills; // Todas las habilidades disponibles
 
-    private SkillBase skill1;
-    private SkillBase skill2;
-    private SkillBase passiveSkill;
+    private GameObject skill1;
+    private GameObject skill2;
+    private GameObject passiveSkill;
 
-    [HideInInspector]
-    public bool canUpdateSkill1, canUpdateSkill2;
+    private bool canStartCooldown1, canStartCooldown2;
+    private float cooldownSkill1, cooldownSkill2;
+    private uint numUsesSkill1, numUsesSkill2;
 
     private void Awake()
     {
@@ -33,41 +36,153 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {
-        canUpdateSkill1 = false;
-        canUpdateSkill2 = false;
+        canStartCooldown1 = false;
+        canStartCooldown2 = false;
+
+        foreach (GameObject g in allSkills)
+        {
+            g.GetComponent<ISkill>().SetInitialHasFinished();
+        }
+
+        //Esto es solo para el prototipo
+        AssignSkillToSlot(allSkills[0], 1);
     }
 
     private void Update()
     {
-        // Ejecutar habilidad 1 si se presiona la tecla correspondiente
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !canUpdateSkill1)
-        {
-            skill1.ExecuteSkill(SkillNumber.SKILL1);
-        }
+        //// Ejecutar habilidad 1 si se presiona la tecla correspondiente
+        //if (Input.GetKeyDown(KeyCode.K) && !canUpdateSkill1)
+        //{
+        //    skill1?.GetComponent<ISkill>().Execute(player);
+        //}
 
-        // Ejecutar habilidad 2 si se presiona la tecla correspondiente
-        if (Input.GetKeyDown(KeyCode.Alpha2)&& !canUpdateSkill2)
-        {
-            skill2.ExecuteSkill(SkillNumber.SKILL2);
-        }
+        //// Ejecutar habilidad 2 si se presiona la tecla correspondiente
+        //if (Input.GetKeyDown(KeyCode.G)&& !canUpdateSkill2)
+        //{
+        //    skill2?.GetComponent<ISkill>().Execute(player);
+        //}
 
         // Actualizar las habilidades (para manejar cooldowns)
-        if (canUpdateSkill1)
-            skill1.UpdateSkill();
-        if (canUpdateSkill2)
-            skill2.UpdateSkill();
+        if (skill1 != null && Input.GetKeyDown(KeyCode.K))
+        {
+            if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
+            {
+                numUsesSkill1--;
+                canStartCooldown1 = true;
+                cooldownSkill1 = skill1.GetComponent<ISkill>().GetSkill().cooldown;
+
+                skill1.GetComponent<ISkill>().Execute(player);
+            }
+        }
+
+        if (skill1 != null)
+        {
+            if (!skill1.GetComponent<ISkill>().HasFinished())
+                skill1.GetComponent<ISkill>().UpdateSkill();
+
+            if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 > 1)
+            {
+                if (cooldownSkill1 >= 0f) cooldownSkill1 -= Time.deltaTime;
+                else canStartCooldown1 = false;
+            }
+            else if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 == 0)
+            {
+                canStartCooldown1 = false;
+
+                //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
+                //skill1.Color = blalblalba;
+            }
+        }
+
+        if (skill2 != null)
+        {
+            if (!skill2.GetComponent<ISkill>().HasFinished())
+                skill2.GetComponent<ISkill>().UpdateSkill();
+
+            if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && numUsesSkill2 > 1)
+            {
+                if (cooldownSkill2 >= 0f) cooldownSkill2 -= Time.deltaTime;
+                else canStartCooldown2 = false;
+            }
+            else if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && numUsesSkill2 == 0)
+            {
+                canStartCooldown2 = false;
+
+                //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
+                //skill2.Color = blalblalba;
+            }
+        }
     }
 
-    // Método para asignar una habilidad a una ranura del jugador
-    public void AssignSkillToSlot(SkillBase skill, int slot)
+    // Método para ser llamado desde la máquina exprendedora
+    public void AssignSkillToSlot(GameObject skill, int slot)
     {
         if (slot == 1)
         {
             skill1 = skill;
+            numUsesSkill1 = skill1.GetComponent<ISkill>().GetSkill().uses;
         }
         else if (slot == 2)
         {
             skill2 = skill;
+            numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
+        }
+        else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
+        {
+            passiveSkill = skill;
+        }
+    }
+
+    //YA MIRARÉ SI SE HA DE AÑADIR UNA COLUMNA MÁS AL EXCXEL
+    public void SetNumUsesSkill(ISkill reloadSkill)
+    {
+        foreach (GameObject g in allSkills)
+        {
+            if (skill1.GetComponent<ISkill>() == reloadSkill)
+            {
+                numUsesSkill1 = skill1.GetComponent<ISkill>().GetSkill().uses;
+
+                //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
+                //skill2.Color = blalblalba;
+            }
+            else
+            {
+                numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
+
+                //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
+                //skill1.Color = blalblalba;
+            }
+        }
+    }
+
+    //INPUTS
+    public void OnSkillOneActivated()
+    {
+        if (skill1 != null)
+        {
+            if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
+            {
+                numUsesSkill1--;
+                canStartCooldown1 = true;
+                cooldownSkill1 = skill1.GetComponent<ISkill>().GetSkill().cooldown;
+
+                skill1.GetComponent<ISkill>().Execute(player);
+            }
+        }
+    }
+
+    public void OnSkillTwoActivated()
+    {
+        if (skill2 != null)
+        {
+            if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && numUsesSkill2 > 0)
+            {
+                numUsesSkill2--;
+                canStartCooldown2 = true;
+                cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+
+                skill2.GetComponent<ISkill>().Execute(player);
+            }
         }
     }
 }

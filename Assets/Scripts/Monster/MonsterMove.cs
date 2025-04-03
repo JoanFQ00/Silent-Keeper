@@ -29,4 +29,14 @@ public class MonsterMove : MonoBehaviour
     {
         moveDir = value.Get<Vector2>();
     }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
 }

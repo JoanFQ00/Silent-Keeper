@@ -542,7 +542,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -645,6 +645,53 @@ Transform:
   - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1284205554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1284205556}
+  - component: {fileID: 1284205555}
+  m_Layer: 0
+  m_Name: LocaCola
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1284205555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284205554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af1dc451e4a3bf4fa05c78c9922e98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSkill: {fileID: 11400000, guid: 3049fdf35b989624d805f541456466bc, type: 2}
+  exrtaSpeed: 4
+  buffTime: 3
+--- !u!4 &1284205556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284205554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0216527, y: 0.020006925, z: 0.0077073528}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1315897973
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,8 +721,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6bd432c45395fe4dab3a468a7fb1c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 707755354}
   allSkills:
-  - {fileID: 11400000, guid: e9bda7af322ea4043baa692060103b23, type: 2}
+  - {fileID: 1284205554}
 --- !u!4 &1315897975
 Transform:
   m_ObjectHideFlags: 0
@@ -699,3 +747,4 @@ SceneRoots:
   - {fileID: 707755360}
   - {fileID: 452572460}
   - {fileID: 1315897975}
+  - {fileID: 1284205556}

@@ -648,6 +648,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Skills",
+            "id": "9396acf2-d1d9-4d33-a9b4-2c57ee881d81",
+            "actions": [
+                {
+                    "name": "SkillOneActivated",
+                    "type": "Button",
+                    "id": "cf8769c2-8ca8-470e-8d59-5d9f84d2704a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3c37aace-b69d-4c32-9f92-1aff79341796",
+                    "path": "<Keyboard>/k",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillOneActivated",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

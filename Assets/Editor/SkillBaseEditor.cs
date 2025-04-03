@@ -34,7 +34,14 @@ public class SkillBaseEditor : Editor
             if (selectedIndex == -1) selectedIndex = 0;
 
             selectedIndex = EditorGUILayout.Popup("Select Skill", selectedIndex, skillNames.ToArray());
-            skillBase.selectedSkillName = skillNames[selectedIndex];
+            string newSelectedSkillName = skillNames[selectedIndex];
+
+            // Solo cargar el CSV si la habilidad seleccionada cambia
+            if (newSelectedSkillName != skillBase.selectedSkillName)
+            {
+                skillBase.selectedSkillName = newSelectedSkillName;
+                skillBase.LoadFromCSV(csvFile); // Cargar los valores del CSV al cambiar la habilidad
+            }
         }
         else
         {
