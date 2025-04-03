@@ -9,13 +9,10 @@ public class MonsterMove : MonoBehaviour
     Vector2 moveDir;
     [SerializeField] float speed = 2f;
     [SerializeField] float deceleration = 5f;
-
     public enum Mode { MonsterCon, KidCon }
-    public Mode currentMode;
-
+    private Mode currentMode;
     KidMachine kidMachine;
     CameraFollow cameraFollow;
-
     public static Action<string> OnChangeTxt; 
 
     void Start()
@@ -52,7 +49,6 @@ public class MonsterMove : MonoBehaviour
                 kidMachine.ChangeState(KidMachine.States.Following);
             }
         }
-
         OnChangeTxt?.Invoke(currentMode.ToString());
     }
 
@@ -73,5 +69,10 @@ public class MonsterMove : MonoBehaviour
             cameraFollow.ChangeTarget(kidMachine.GetComponentInParent<Transform>());
             OnChangeTxt?.Invoke(currentMode.ToString());
         }
+    }
+
+    public Mode GetCurrentMode() 
+    {
+        return currentMode;
     }
 }

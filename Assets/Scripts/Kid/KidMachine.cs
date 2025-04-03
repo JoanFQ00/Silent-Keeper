@@ -8,14 +8,12 @@ public class KidMachine : MonoBehaviour
     public enum States { Following, Waypoints, Stoped }
     private States lastState;
     private States currentState;
-
     [SerializeField] float speed = 1.5f;
     [SerializeField] float distToPlayer = 2.0f;
     private GameObject player;
-
     private List<GameObject> waypoints = new List<GameObject>();
     private int currentWaypointIndex = 0;
-
+    
     void Start()
     {
         currentState = States.Following;

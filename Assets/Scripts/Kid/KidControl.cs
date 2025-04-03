@@ -16,7 +16,7 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse() 
     {
-        if (monsterMove.currentMode == MonsterMove.Mode.KidCon)
+        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0.0f;
@@ -33,7 +33,7 @@ public class KidControl : MonoBehaviour
 
     private void OnRightMouse() 
     {
-        if (monsterMove.currentMode == MonsterMove.Mode.KidCon)
+        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
         {
             if(kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
             {
@@ -44,10 +44,5 @@ public class KidControl : MonoBehaviour
                 kidMachine.ChangeState(KidMachine.States.Waypoints);
             }
         }
-    }
-
-    private void OnStopKid() 
-    {
-        kidMachine.StopResume();
     }
 }
