@@ -79,6 +79,11 @@ public class KidMachine : MonoBehaviour
         currentState = state;
     }
 
+    public States GetCurrentState() 
+    {
+        return currentState;
+    }
+
     public void StopResume() 
     {
         if (currentState != States.Stoped)

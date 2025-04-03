@@ -12,12 +12,15 @@ public class MonsterMove : MonoBehaviour
     public enum Mode { MonsterCon, KidCon }
     public Mode currentMode;
 
+    KidMachine kidMachine;
+
     public static Action<string> OnChangeTxt; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentMode = Mode.MonsterCon;
+        kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
     }
 
     void Update()
@@ -36,6 +39,12 @@ public class MonsterMove : MonoBehaviour
     {
         moveDir = value.Get<Vector2>();
         currentMode = Mode.MonsterCon;
+
+        if (kidMachine.GetCurrentState() == KidMachine.States.Stoped) 
+        {
+            kidMachine.ChangeState(KidMachine.States.Following);
+        }
+
         OnChangeTxt?.Invoke("MonsterCon");
     }
 
