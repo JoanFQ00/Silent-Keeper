@@ -20,6 +20,7 @@ public class MonsterMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentMode = Mode.MonsterCon;
+        OnChangeTxt?.Invoke(currentMode.ToString());
         kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
     }
 
@@ -45,7 +46,7 @@ public class MonsterMove : MonoBehaviour
             kidMachine.ChangeState(KidMachine.States.Following);
         }
 
-        OnChangeTxt?.Invoke("MonsterCon");
+        OnChangeTxt?.Invoke(currentMode.ToString());
     }
 
     private void OnLeftMouse() 
@@ -62,7 +63,7 @@ public class MonsterMove : MonoBehaviour
         if (currentMode == Mode.MonsterCon)
         {
             currentMode = Mode.KidCon;
-            OnChangeTxt?.Invoke("KidCon");
+            OnChangeTxt?.Invoke(currentMode.ToString());
         }
     }
 }
