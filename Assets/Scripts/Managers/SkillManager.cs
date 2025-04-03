@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -50,19 +49,6 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
-        //// Ejecutar habilidad 1 si se presiona la tecla correspondiente
-        //if (Input.GetKeyDown(KeyCode.K) && !canUpdateSkill1)
-        //{
-        //    skill1?.GetComponent<ISkill>().Execute(player);
-        //}
-
-        //// Ejecutar habilidad 2 si se presiona la tecla correspondiente
-        //if (Input.GetKeyDown(KeyCode.G)&& !canUpdateSkill2)
-        //{
-        //    skill2?.GetComponent<ISkill>().Execute(player);
-        //}
-
-        // Actualizar las habilidades (para manejar cooldowns)
         if (skill1 != null && Input.GetKeyDown(KeyCode.K))
         {
             if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
