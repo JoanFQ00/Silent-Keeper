@@ -5,35 +5,38 @@ public class KidControl : MonoBehaviour
 {
     GameObject kid;
     KidMachine kidMachine;
+    MonsterMove monsterMove;
 
     void Start()
     {
         kid = GameObject.FindGameObjectWithTag("Kid");
+        monsterMove = GetComponent<MonsterMove>();
         kidMachine = kid.GetComponent<KidMachine>();
     }
 
-    void Update()
+    private void OnLeftMouse() 
     {
-        
-    }
-
-    private void OnMakeWaypoint() 
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0.0f;
-
-        var waypoint = WaypointsPool.GetObject();
-
-        if (waypoint != null)
+        if (monsterMove.currentMode == MonsterMove.Mode.KidCon)
         {
-            waypoint.transform.position = mousePos;
-            kidMachine.AddWaypoint(waypoint);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0.0f;
+
+            var waypoint = WaypointsPool.GetObject();
+
+            if (waypoint != null)
+            {
+                waypoint.transform.position = mousePos;
+                kidMachine.AddWaypoint(waypoint);
+            }
         }
     }
 
-    private void OnFollowWay() 
+    private void OnRightMouse() 
     {
-        kidMachine.ChangeState(KidMachine.States.Waypoints);
+        if (monsterMove.currentMode == MonsterMove.Mode.KidCon)
+        {
+            kidMachine.ChangeState(KidMachine.States.Waypoints);
+        }
     }
 
     private void OnStopKid() 

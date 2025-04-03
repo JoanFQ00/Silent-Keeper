@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MakeWaypoint",
+                    "name": "LeftMouse",
                     "type": "Button",
                     "id": "6c602248-94e0-442c-aadd-6c5d03263bd2",
                     "expectedControlType": "",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FollowWay",
+                    "name": "RightMouse",
                     "type": "Button",
                     "id": "9790d455-59cf-4708-9921-16d35bae4359",
                     "expectedControlType": "",
@@ -105,7 +105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MakeWaypoint",
+                    "action": "LeftMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -127,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FollowWay",
+                    "action": "RightMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
