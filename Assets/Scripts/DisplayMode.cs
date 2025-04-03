@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class DisplayTxt : MonoBehaviour
+public class DisplayMode : MonoBehaviour
 {
     public static Action<string> OnChangeTxt;
     [SerializeField] private TMP_Text text;
@@ -26,7 +26,4 @@ public class DisplayTxt : MonoBehaviour
     {
         text.text = "Current Mode: " + newTxt;
     }
-
-
-
 }
