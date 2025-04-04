@@ -33,9 +33,9 @@ public class TestingDoor : MonoBehaviour
     }
 
     
-    private void OpenDoor(bool activated, int key ) 
+    private void OpenDoor(bool activated, int key) 
     {
-        if (key == thisKey) 
+        if (key == thisKey)
         {
             thisActivated = !thisActivated;
 
