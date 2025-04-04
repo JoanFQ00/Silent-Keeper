@@ -1,19 +1,54 @@
-public class LocaCola : ISkill
+using UnityEngine;
+
+public class LocaCola : MonoBehaviour, ISkill
 {
-    public void Execute(SkillManager.SkillNumber numSkill, SkillBase skill)
+    [Header("Skill (ScriptableObject)")]
+    public SkillBase thisSkill;
+
+    [Header("Skill Variables")]
+    public float extraSpeed;
+    public float buffTime;
+
+    private float defaultBuffTime;
+    private GameObject player;
+    private bool finishedSkill;
+
+    public void Execute(GameObject monster)
     {
-        if (numSkill == SkillManager.SkillNumber.SKILL1)
-        {
-            SkillManager.Instance.canUpdateSkill1 = true;
-        }
-        else
-        {
-            SkillManager.Instance.canUpdateSkill2 = true;
-        }
+        defaultBuffTime = buffTime;
+        player = monster;
+        player.GetComponent<MonsterMove>().SetSpeed(extraSpeed);
+
+        finishedSkill = false;
     }
 
     public void UpdateSkill()
     {
-        
+        if (buffTime >= 0f)
+        {
+            buffTime -= Time.deltaTime;
+        }
+        else
+        {
+            buffTime = defaultBuffTime;
+            player.GetComponent<MonsterMove>().SetSpeed(1f);
+
+            finishedSkill = true;
+        }
+    }
+
+    public SkillBase GetSkill()
+    {
+        return thisSkill;
+    }
+
+    public void SetInitialHasFinished()
+    {
+        finishedSkill = true;
+    }
+
+    public bool HasFinished()
+    {
+        return finishedSkill;
     }
 }

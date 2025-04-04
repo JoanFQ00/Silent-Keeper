@@ -7,14 +7,25 @@ public class CameraFollow : MonoBehaviour
     private float smoothTime = 0.25f;
     Vector3 velocity = Vector3.zero;
 
+    Camera camera;
+
     private void Start()
     {
         transform.position = target.position;
+        camera = GetComponent<Camera>();
     }
-
 
     void Update()
     {
+        if (target.tag == "Player") 
+        {
+            
+        }
+        else 
+        {
+
+        }
+
         Vector3 targetPosition = target.position;
         targetPosition.z = -1;
 

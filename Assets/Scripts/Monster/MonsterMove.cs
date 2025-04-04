@@ -75,4 +75,14 @@ public class MonsterMove : MonoBehaviour
     {
         return currentMode;
     }
+
+    public void SetSpeed(float _speed)
+    {
+        speed = _speed;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
 }
