@@ -6,6 +6,16 @@ public class Interact : MonoBehaviour
     public LayerMask detectionLayer;
     private Lever lever;
 
+    void Update()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
+
+        if (hit != null) 
+        {
+            
+        }
+    }
+
     public void Interacting() 
     {
          Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);

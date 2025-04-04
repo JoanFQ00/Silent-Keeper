@@ -10,7 +10,14 @@ public class TestingDoor : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;
+        if (thisActivated) 
+        {
+            spriteRenderer.color = Color.green;
+        }
+        else 
+        {
+            spriteRenderer.color = Color.red;
+        }
     }
 
     void OnEnable() 
