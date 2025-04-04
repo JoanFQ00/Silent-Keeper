@@ -54,15 +54,6 @@ public class MonsterMove : MonoBehaviour
         OnChangeTxt?.Invoke(currentMode.ToString());
     }
 
-    private void OnLeftMouse() 
-    {
-        //Interact only if controlling Monster
-        if (currentMode == Mode.MonsterCon) 
-        {
-            Debug.Log("interacting");
-        }
-    }
-
     private void OnRightMouse() 
     {
         if (currentMode == Mode.MonsterCon)

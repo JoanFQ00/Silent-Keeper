@@ -1,9 +1,8 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Door", menuName = "Element/Door")]
-public class DoorBase : ScriptableObject
+public class DoorBase : MonoBehaviour
 {
     public Sprite doorImage;
     public SkillBase.ReloadType reloadType;
+
 }
