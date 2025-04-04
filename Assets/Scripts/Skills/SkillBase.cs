@@ -15,14 +15,14 @@ public class SkillBase : ScriptableObject
         ZONE
     }
 
-    public Sprite bigImage, gameplayImage; //Se usará en SkillManager para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public Sprite bigImage, gameplayImage; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
 
     [HideInInspector]
-    public string selectedSkillName; //Se usará en SkillManager para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public string selectedSkillName; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
 
     public SkillType currentSkillType { get; private set; } //Se usará en la máquina exprendedora a la hora de asignar a qué stak va usando la función de SkillManager "AssignSkillToSlot"
-    public ReloadType currentReloadType { get; private set; } //Se ha de aplicar un observer externamente y que afecte a las condiciones del SkillManager (va en relación a "uses") (por ejemplo al cruzar purtas, por lo tanto 2 tipos, puestas de sala (de 1 solo uso) y la puerta final de zona)
-    public string skillDescription { get; private set; } //Se usará en el SkillManager para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public ReloadType currentReloadType { get; private set; } //Se ha de aplicar un observer externamente y que afecte a las condiciones del SkillManager (va en relación a "uses") (por ejemplo al cruzar purtas, por lo tanto 2 tipos, puertas de sala (de 1 solo uso) y la puerta final de zona)
+    public string skillDescription { get; private set; } //Se usará en el SkillManager (gameplayImage) y/o en la máquiana exprendedora (bigImage) para hacer el observer con la UI | No hace falta ponerse en el update ;)
     public uint uses { get; private set; } //Se usa en SkillManager (si se gastan que se queden transparentes hasta que se recarguen)
     public float cooldown { get; private set; } //Se usa en SkillManager para recargar la habilidad
 

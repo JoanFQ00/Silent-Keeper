@@ -49,6 +49,7 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
+        //ESTO BORRAR CUANDO ESTÉN LOS INPUTS BIEN IMPLEMENTADOS
         if (skill1 != null && Input.GetKeyDown(KeyCode.K))
         {
             if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
