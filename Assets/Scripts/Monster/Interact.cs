@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -6,13 +7,19 @@ public class Interact : MonoBehaviour
     public LayerMask detectionLayer;
     private Lever lever;
 
+    public static Action<bool> ShowInteraction;
+
     void Update()
     {
         Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
 
         if (hit != null) 
         {
-            
+            ShowInteraction?.Invoke(true);
+        }
+        else 
+        {
+            ShowInteraction?.Invoke(false);
         }
     }
 
