@@ -1,46 +1,41 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 [CustomEditor(typeof(SkillBase))]
 public class SkillBaseEditor : Editor
 {
+    private static TextAsset csvFile;
+
+    private void OnEnable()
+    {
+        LoadCSV();
+    }
+
     public override void OnInspectorGUI()
     {
         SkillBase skillBase = (SkillBase)target;
-        TextAsset csvFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/CSV/Skills.csv");
 
         if (csvFile == null)
         {
-            EditorGUILayout.HelpBox("CSV file not found! Make sure it's in Assets/CSV/Skills.csv", MessageType.Warning);
+            EditorGUILayout.HelpBox("CSV file not found! Make sure it's in Resources/CSV/Skills.csv", MessageType.Warning);
             return;
         }
 
-        // Cargar habilidades del CSV solo para esta instancia
-        List<string> skillNames = new List<string>();
-        string[] lines = csvFile.text.Split('\n');
-
-        for (int i = 1; i < lines.Length; i++) // Saltar la cabecera
-        {
-            string[] values = lines[i].Split(',');
-            if (values.Length < 6) continue;
-            skillNames.Add(values[0].Trim());
-        }
-
+        List<string> skillNames = GetSkillNames();
         if (skillNames.Count > 0)
         {
-            // Buscar la habilidad seleccionada en la lista, si no está, usar el primer elemento
             int selectedIndex = skillNames.IndexOf(skillBase.selectedSkillName);
             if (selectedIndex == -1) selectedIndex = 0;
 
             selectedIndex = EditorGUILayout.Popup("Select Skill", selectedIndex, skillNames.ToArray());
             string newSelectedSkillName = skillNames[selectedIndex];
 
-            // Solo cargar el CSV si la habilidad seleccionada cambia
             if (newSelectedSkillName != skillBase.selectedSkillName)
             {
                 skillBase.selectedSkillName = newSelectedSkillName;
-                skillBase.LoadFromCSV(csvFile); // Cargar los valores del CSV al cambiar la habilidad
+                skillBase.LoadFromCSV(csvFile);
             }
         }
         else
@@ -48,12 +43,61 @@ public class SkillBaseEditor : Editor
             EditorGUILayout.HelpBox("No skills found in CSV!", MessageType.Warning);
         }
 
-        // Guardar cambios en la instancia actual
+        if (GUILayout.Button("Refresh CSV"))
+        {
+            RefreshAllSkillBases();
+        }
+
         if (GUI.changed)
         {
             EditorUtility.SetDirty(skillBase);
         }
 
         base.OnInspectorGUI();
+    }
+
+    private static void LoadCSV()
+    {
+        csvFile = Resources.Load<TextAsset>("CSV/Skills");
+    }
+
+    private static List<string> GetSkillNames()
+    {
+        List<string> skillNames = new List<string>();
+        if (csvFile == null) return skillNames;
+
+        string[] lines = csvFile.text.Split('\n');
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] values = lines[i].Split(',');
+            if (values.Length < 6) continue;
+            skillNames.Add(values[0].Trim());
+        }
+        return skillNames;
+    }
+
+    private static void RefreshAllSkillBases()
+    {
+        LoadCSV();
+        if (csvFile == null)
+        {
+            Debug.LogError("CSV file not found in Resources/CSV!");
+            return;
+        }
+
+        string[] skillBaseGuids = AssetDatabase.FindAssets("t:SkillBase");
+        foreach (string guid in skillBaseGuids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            SkillBase skillBase = AssetDatabase.LoadAssetAtPath<SkillBase>(path);
+            if (skillBase != null)
+            {
+                skillBase.LoadFromCSV(csvFile);
+                EditorUtility.SetDirty(skillBase);
+            }
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log("All SkillBase instances updated from CSV.");
     }
 }

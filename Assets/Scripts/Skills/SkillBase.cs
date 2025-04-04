@@ -26,7 +26,9 @@ public class SkillBase : ScriptableObject
     public uint uses { get; private set; } //Se usa en SkillManager (si se gastan que se queden transparentes hasta que se recarguen)
     public float cooldown { get; private set; } //Se usa en SkillManager para recargar la habilidad
 
-    // Cargar habilidades desde el archivo CSV
+    private const string CSV_PATH = "CSV/Skills";  // Ruta a la carpeta Resources
+
+    // Método para cargar datos desde el CSV
     public void LoadFromCSV(TextAsset csvFile)
     {
         if (csvFile == null)
@@ -50,6 +52,17 @@ public class SkillBase : ScriptableObject
                 cooldown = float.TryParse(values[4], out float parsedCooldown) ? parsedCooldown : 0;
                 currentReloadType = values[5].Trim().ToUpper() == "ROOM" ? ReloadType.ROOM : ReloadType.ZONE;
             }
+        }
+    }
+
+    // Este método se ejecutará al cargar el ScriptableObject (cuando se reinicie el proyecto o ejecute la build)
+    public void Awake()
+    {
+        // Si ya se tiene un selectedSkillName, cargar desde el CSV
+        TextAsset csvFile = Resources.Load<TextAsset>(CSV_PATH);  // Cargar desde Resources
+        if (!string.IsNullOrEmpty(selectedSkillName))
+        {
+            LoadFromCSV(csvFile);
         }
     }
 }
