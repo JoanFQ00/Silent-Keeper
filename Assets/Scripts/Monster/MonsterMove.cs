@@ -7,7 +7,8 @@ public class MonsterMove : MonoBehaviour
 {
     Rigidbody2D rb;
     Vector2 moveDir;
-    [SerializeField] float speed = 2f;
+    [SerializeField] float defaultSpeed = 2f;
+    private float currentSpeed;
     [SerializeField] float deceleration = 5f;
     public enum Mode { MonsterCon, KidCon }
     private Mode currentMode;
@@ -22,13 +23,14 @@ public class MonsterMove : MonoBehaviour
         OnChangeTxt?.Invoke(currentMode.ToString());
         kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        currentSpeed = defaultSpeed;
     }
 
     void Update()
     {
         if (moveDir.magnitude > 0.1f) 
         {
-            rb.linearVelocity = moveDir * speed;
+            rb.linearVelocity = moveDir * currentSpeed;
         }
         else // When input out, inercy on movement
         {
@@ -78,11 +80,16 @@ public class MonsterMove : MonoBehaviour
 
     public void SetSpeed(float _speed)
     {
-        speed = _speed;
+        currentSpeed = _speed;
     }
 
     public float GetSpeed()
     {
-        return speed;
+        return currentSpeed;
+    }
+
+    public void SetDefaultSpeed() 
+    {
+        currentSpeed = defaultSpeed;
     }
 }
