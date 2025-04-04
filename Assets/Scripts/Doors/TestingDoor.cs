@@ -23,11 +23,13 @@ public class TestingDoor : MonoBehaviour
     void OnEnable() 
     {
         Lever.LeverActivated += OpenDoor;
+        PresurePlate.PresureActivated += OpenDoor;
     }
 
     void OnDisable()
     {
         Lever.LeverActivated -= OpenDoor;
+        PresurePlate.PresureActivated -= OpenDoor;
     }
 
     
