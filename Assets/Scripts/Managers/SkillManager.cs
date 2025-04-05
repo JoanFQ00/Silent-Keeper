@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class SkillManager : MonoBehaviour
 {
@@ -14,6 +16,13 @@ public class SkillManager : MonoBehaviour
     private bool canStartCooldown1, canStartCooldown2;
     private float cooldownSkill1, cooldownSkill2;
     private uint numUsesSkill1, numUsesSkill2;
+
+    public static Action<Sprite, GameObject, float, SkillUI.SlotNumber> OnSlotImageUpdated;
+    public static Action<uint, SkillUI.SlotNumber> OnSlotUsesUpdated;
+    public static Action<float, SkillUI.SlotNumber> OnSlotCooldownUpdated; //bool para activar o no el texto e pantalla en el SkillUI
+    public static Action<bool, SkillUI.SlotNumber> OnSlotCooldownActivatedUpdated;
+    public static Action<bool, SkillUI.SlotNumber> OnSlotImageColorWhiteUpdated;
+    public static Action<string> OnSlotTextUpdated;
 
     private void Awake()
     {
@@ -59,6 +68,11 @@ public class SkillManager : MonoBehaviour
                 cooldownSkill1 = skill1.GetComponent<ISkill>().GetSkill().cooldown;
 
                 skill1.GetComponent<ISkill>().Execute(player);
+
+                OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
+                OnSlotCooldownUpdated?.Invoke(cooldownSkill1, SkillUI.SlotNumber.SLOT1);
+                OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
+                OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
             }
         }
 
@@ -67,14 +81,29 @@ public class SkillManager : MonoBehaviour
             if (!skill1.GetComponent<ISkill>().HasFinished())
                 skill1.GetComponent<ISkill>().UpdateSkill();
 
-            if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 > 1)
+            if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 > 0)
             {
-                if (cooldownSkill1 >= 0f) cooldownSkill1 -= Time.deltaTime;
-                else canStartCooldown1 = false;
+                if (cooldownSkill1 >= 0f)
+                {
+                    OnSlotCooldownActivatedUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
+                    OnSlotCooldownUpdated?.Invoke(cooldownSkill1, SkillUI.SlotNumber.SLOT1);
+                    OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
+                    OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
+
+                    cooldownSkill1 -= Time.deltaTime;
+                }
+                else
+                {
+                    canStartCooldown1 = false;
+                    OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
+                    OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImage, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
+                }
             }
             else if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 == 0)
             {
                 canStartCooldown1 = false;
+                OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
+                OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
 
                 //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
                 //skill1.Color = blalblalba;
@@ -88,6 +117,8 @@ public class SkillManager : MonoBehaviour
 
             if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && numUsesSkill2 > 1)
             {
+                //OnSlotCooldownUpdated?.Invoke(cooldownSkill2);
+
                 if (cooldownSkill2 >= 0f) cooldownSkill2 -= Time.deltaTime;
                 else canStartCooldown2 = false;
             }
@@ -108,6 +139,9 @@ public class SkillManager : MonoBehaviour
         {
             skill1 = skill;
             numUsesSkill1 = skill1.GetComponent<ISkill>().GetSkill().uses;
+            OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImage, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
+            OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
+            OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
         }
         else if (slot == 2)
         {
@@ -128,6 +162,8 @@ public class SkillManager : MonoBehaviour
             if (skill1.GetComponent<ISkill>() == reloadSkill)
             {
                 numUsesSkill1 = skill1.GetComponent<ISkill>().GetSkill().uses;
+                OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
+                OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImage, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
 
                 //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
                 //skill2.Color = blalblalba;
@@ -135,6 +171,7 @@ public class SkillManager : MonoBehaviour
             else
             {
                 numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
+                OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
 
                 //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
                 //skill1.Color = blalblalba;
@@ -154,6 +191,9 @@ public class SkillManager : MonoBehaviour
                 cooldownSkill1 = skill1.GetComponent<ISkill>().GetSkill().cooldown;
 
                 skill1.GetComponent<ISkill>().Execute(player);
+
+                //OnSlotCooldownUpdated?.Invoke(cooldownSkill1);
+                OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
             }
         }
     }
@@ -169,6 +209,9 @@ public class SkillManager : MonoBehaviour
                 cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
 
                 skill2.GetComponent<ISkill>().Execute(player);
+
+                //OnSlotCooldownUpdated?.Invoke(cooldownSkill2);
+                OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
             }
         }
     }

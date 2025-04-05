@@ -29,7 +29,7 @@ public class VisionDetector : MonoBehaviour
     {
         if (CheckPlayerInVision())
         {
-            Debug.Log("Jugador detectado");
+            //Debug.Log("Jugador detectado");
         }
     }
 

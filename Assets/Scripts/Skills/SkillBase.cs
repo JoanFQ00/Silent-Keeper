@@ -15,7 +15,7 @@ public class SkillBase : ScriptableObject
         ZONE
     }
 
-    public Sprite bigImage, gameplayImage; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public Sprite bigImage, gameplayImage, gameplayImageBW, gameplayImageWhite; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
 
     [HideInInspector]
     public string selectedSkillName; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
