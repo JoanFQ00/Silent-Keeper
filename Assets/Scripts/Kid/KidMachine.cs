@@ -24,6 +24,7 @@ public class KidMachine : MonoBehaviour
     {
         switch (currentState) 
         {
+
             case States.Following:
 
                 if (Vector2.Distance(transform.position, player.transform.position) > distToPlayer) 

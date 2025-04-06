@@ -16,9 +16,12 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse() 
     {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
         if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0.0f;
 
             var waypoint = WaypointsPool.GetObject();

@@ -192,8 +192,10 @@ public class SkillManager : MonoBehaviour
 
                 skill1.GetComponent<ISkill>().Execute(player);
 
-                //OnSlotCooldownUpdated?.Invoke(cooldownSkill1);
+                OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
+                OnSlotCooldownUpdated?.Invoke(cooldownSkill1, SkillUI.SlotNumber.SLOT1);
                 OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
+                OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
             }
         }
     }
@@ -210,8 +212,10 @@ public class SkillManager : MonoBehaviour
 
                 skill2.GetComponent<ISkill>().Execute(player);
 
-                //OnSlotCooldownUpdated?.Invoke(cooldownSkill2);
+                OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+                OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
                 OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
+                OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
             }
         }
     }
