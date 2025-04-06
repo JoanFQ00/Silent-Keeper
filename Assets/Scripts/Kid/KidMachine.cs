@@ -5,11 +5,12 @@ using System;
 
 public class KidMachine : MonoBehaviour
 {
-    public enum States { Following, Waypoints, Stoped }
+    public enum States { Following, Hand, Waypoints, Stoped }
     private States lastState;
     private States currentState;
-    [SerializeField] float speed = 1.5f;
-    [SerializeField] float distToPlayer = 2.0f;
+    [SerializeField] float defaultSpeed = 1.5f;
+    private float currentSpeed;
+    private float distToPlayer = 0.7f;
     private GameObject player;
     private List<GameObject> waypoints = new List<GameObject>();
     private int currentWaypointIndex = 0;
@@ -18,66 +19,96 @@ public class KidMachine : MonoBehaviour
     {
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
+        currentSpeed = defaultSpeed;
+        distToPlayer = GetComponent<Interact>().GetDetectionRadius();
     }
 
     void Update()
     {
-        switch (currentState) 
+        switch (currentState)
         {
-
             case States.Following:
 
-                if (Vector2.Distance(transform.position, player.transform.position) > distToPlayer) 
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= distToPlayer)
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+                    ChangeState(States.Hand);
                 }
+                currentSpeed = defaultSpeed;
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
 
-            break;
+                break;
 
-            case States.Waypoints:  
+            case States.Waypoints:
 
-                if (waypoints.Count < 1) 
+                currentSpeed = defaultSpeed;
+                if (waypoints.Count < 1)
                 {
-                    ChangeState(States.Stoped); 
+                    ChangeState(States.Stoped);
                 }
-                else  
+                else
                 {
                     GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
-                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) > 0.1) 
+                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) > 0.1)
                     {
-                        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
+                        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, currentSpeed * Time.deltaTime);
                     }
-                    else 
+                    else
                     {
                         waypoints[currentWaypointIndex].SetActive(false);
                         currentWaypointIndex += 1;
- 
-                        if (currentWaypointIndex +1 > waypoints.Count) 
+
+                        if (currentWaypointIndex + 1 > waypoints.Count)
                         {
                             waypoints = new List<GameObject>();
                             currentWaypointIndex = 0;
                             WaypointsPool.DeactivateAll();
                             break;
                         }
-                        
-                        if (waypoints.Count != 0) 
+
+                        if (waypoints.Count != 0)
                         {
                             currentWaypoint = waypoints[currentWaypointIndex];
                         }
                     }
                 }
 
-            break;
+                break;
+
+            case States.Hand:
+
+                if (distToPlayer < Vector2.Distance(player.transform.position, gameObject.transform.position))
+                {
+                    currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
+                }
+
+                break;
 
             case States.Stoped:
-            break;
+
+                if (Vector2.Distance(player.transform.position, gameObject.transform.position) < distToPlayer)
+                {
+                    ChangeState(States.Hand);
+                }
+
+                break;
         }
     }
+
 
     public void ChangeState(States state) 
     {
         currentState = state;
+
+        if (currentState == States.Hand)
+        {
+            distToPlayer = GetComponent<Interact>().GetDetectionRadius();
+        }
+        else 
+        {
+            distToPlayer = 0.7f;
+        }
     }
 
     public States GetCurrentState() 
@@ -110,5 +141,10 @@ public class KidMachine : MonoBehaviour
     public List<GameObject> GetWaypoints() 
     {
         return waypoints;
+    }
+
+    public void RemoveList() 
+    {
+        waypoints.Clear();
     }
 }

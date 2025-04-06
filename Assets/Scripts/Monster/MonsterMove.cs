@@ -13,7 +13,7 @@ public class MonsterMove : MonoBehaviour
     public enum Mode { MonsterCon, KidCon }
     private Mode currentMode;
     KidMachine kidMachine;
-    CameraFollow cameraFollow;
+    public CameraFollow cameraFollow;
     public static Action<string> OnChangeTxt; 
 
     void Start()
@@ -43,14 +43,6 @@ public class MonsterMove : MonoBehaviour
         moveDir = value.Get<Vector2>();
         currentMode = Mode.MonsterCon;
         cameraFollow.ChangeTarget(GetComponentInParent<Transform>());
-
-        if (kidMachine.GetCurrentState() == KidMachine.States.Stoped) 
-        {
-            if (kidMachine.GetWaypoints().Count == 0) 
-            {
-                kidMachine.ChangeState(KidMachine.States.Following);
-            }
-        }
         OnChangeTxt?.Invoke(currentMode.ToString());
     }
 
@@ -82,5 +74,21 @@ public class MonsterMove : MonoBehaviour
     public void SetDefaultSpeed() 
     {
         currentSpeed = defaultSpeed;
+    }
+
+    public void ChangeMode(Mode mode) 
+    {
+        currentMode = mode;
+
+        if (currentMode == Mode.KidCon)
+        {
+            cameraFollow.ChangeTarget(kidMachine.GetComponentInParent<Transform>());
+            OnChangeTxt?.Invoke(currentMode.ToString());
+        }
+        else 
+        {
+            cameraFollow.ChangeTarget(GetComponent<Transform>());
+            OnChangeTxt?.Invoke(currentMode.ToString());
+        }
     }
 }

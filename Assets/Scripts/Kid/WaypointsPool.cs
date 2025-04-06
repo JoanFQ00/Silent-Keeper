@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class WaypointsPool: MonoBehaviour
+public class WaypointsPool : MonoBehaviour
 {
 
     public static WaypointsPool Instance;
@@ -56,12 +56,33 @@ public class WaypointsPool: MonoBehaviour
 
     public static void DeactivateAll()
     {
-        for (int i = 0; i < Instance.maxCap; i++) 
+        for (int i = 0; i < Instance.maxCap; i++)
         {
-            if (Instance.pool[i].activeInHierarchy == true) 
+            if (Instance.pool[i].activeInHierarchy == true)
             {
                 Instance.pool[i].SetActive(false);
             }
         }
+    }
+
+    public static bool GetActivatedPoints() 
+    {
+        int activatedPoints = 0;
+
+        for (int i = 0; i < Instance.maxCap; i++) 
+        {
+
+            if (Instance.pool[i].activeInHierarchy == true)
+            { 
+                activatedPoints += 1; 
+            }
+            
+        }
+        if (activatedPoints > 0) 
+        {
+            return true;
+        }
+
+        return false;
     }
 }

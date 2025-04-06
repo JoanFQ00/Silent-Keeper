@@ -58,6 +58,8 @@ public class Interact : MonoBehaviour
         }
     }
 
+    public float GetDetectionRadius() { return detectionRadius; }
+
     private void OnDrawGizmos()
     {
         // Establece el color del Gizmo (puedes cambiarlo si prefieres otro color)

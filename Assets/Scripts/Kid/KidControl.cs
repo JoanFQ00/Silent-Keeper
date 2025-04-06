@@ -19,24 +19,26 @@ public class KidControl : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
+        if (hit.collider == null || hit.collider.isTrigger == true) 
         {
-            //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0.0f;
-
-            var waypoint = WaypointsPool.GetObject();
-
-            if (waypoint != null)
+            if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
             {
-                waypoint.transform.position = mousePos;
-                kidMachine.AddWaypoint(waypoint);
+                mousePos.z = 0.0f;
+
+                var waypoint = WaypointsPool.GetObject();
+
+                if (waypoint != null)
+                {
+                    waypoint.transform.position = mousePos;
+                    kidMachine.AddWaypoint(waypoint);
+                }
             }
         }
     }
 
     private void OnRightMouse() 
     {
-        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon)
+        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon && WaypointsPool.GetActivatedPoints())
         {
             if(kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
             {
@@ -47,5 +49,13 @@ public class KidControl : MonoBehaviour
                 kidMachine.ChangeState(KidMachine.States.Waypoints);
             }
         }
+    }
+
+    private void OnStopResume() 
+    {
+        kidMachine.ChangeState(KidMachine.States.Following);
+        WaypointsPool.DeactivateAll();
+        kidMachine.RemoveList();
+        monsterMove.ChangeMode(MonsterMove.Mode.MonsterCon);
     }
 }
