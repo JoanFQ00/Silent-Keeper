@@ -8,23 +8,24 @@ public class TestingDoor : MonoBehaviour
     [SerializeField] bool thisActivated;
 
     private Collider2D col;
-    
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (thisActivated) 
+        col = GetComponent<Collider2D>();
+        if (thisActivated)
         {
             spriteRenderer.color = Color.green;
             col.isTrigger = true;
         }
-        else 
+        else
         {
             spriteRenderer.color = Color.red;
             col.isTrigger = false;
         }
     }
 
-    void OnEnable() 
+    void OnEnable()
     {
         Lever.LeverActivated += OpenDoor;
         PresurePlate.PresureActivated += OpenDoor;
@@ -36,22 +37,22 @@ public class TestingDoor : MonoBehaviour
         PresurePlate.PresureActivated -= OpenDoor;
     }
 
-    
-    private void OpenDoor(bool activated, int key) 
+
+    private void OpenDoor(bool activated, int key)
     {
         if (key == thisKey)
         {
             thisActivated = !thisActivated;
 
-            if(thisActivated) 
+            if (thisActivated)
             {
                 spriteRenderer.color = Color.green;
-                  col.isTrigger = true;
+                col.isTrigger = true;
             }
-            else 
+            else
             {
                 spriteRenderer.color = Color.red;
-                  col.isTrigger = false;
+                col.isTrigger = false;
             }
         }
     }

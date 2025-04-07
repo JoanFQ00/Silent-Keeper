@@ -1,14 +1,25 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+
+
 
 public class StaticGuard : MonoBehaviour
 {
     public float VisionRange = 10f;
     public float VisionAngle = 60f;
-    public Transform SpawnerPosition;
+    //public Transform SpawnerPosition;
     public LayerMask Walls;
 
     private Transform _player;
     private Transform _kid;
+
+    public enum Characters
+    {
+        BOTH,
+        ONE
+    }
+    public Characters enemyState;
 
     void Start()
     {
@@ -18,14 +29,18 @@ public class StaticGuard : MonoBehaviour
 
     void Update()
     {
-        if (CheckTargetInVision(_player))
+        if (Characters.BOTH == enemyState)
         {
-            SendToSpawner(_player);
+            if (CheckTargetInVision(_player) || CheckTargetInVision(_kid))
+                SendToSpawner();
         }
-        if (CheckTargetInVision(_kid))
+        else
         {
-            SendToSpawner(_kid);
+            if (CheckTargetInVision(_kid))
+                SendToSpawner();
         }
+
+
     }
 
     private bool CheckTargetInVision(Transform target)
@@ -37,7 +52,7 @@ public class StaticGuard : MonoBehaviour
 
         if (distanceToTarget <= VisionRange)
         {
-            float angleToTarget = Vector2.Angle(transform.right, directionToTarget);
+            float angleToTarget = Vector2.Angle(transform.up, directionToTarget);
             if (angleToTarget < VisionAngle / 2)
             {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
@@ -47,11 +62,14 @@ public class StaticGuard : MonoBehaviour
         return false;
     }
 
-    private void SendToSpawner(Transform target)
+    private void SendToSpawner()
     {
-        if (SpawnerPosition != null)
+        gameObject.GetComponent<Light2D>().color = Color.red;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*if (SpawnerPosition != null)
         {
-            target.position = SpawnerPosition.position;
-        }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //target.position = SpawnerPosition.position;
+        }*/
     }
 }

@@ -14,7 +14,7 @@ public class InteractTxt : MonoBehaviour
 
     void OnDisable()
     {
-        Interact.ShowInteraction += ChangeActive;
+        Interact.ShowInteraction -= ChangeActive;
     }
 
     private void ChangeActive(GameObject parent, bool hasToActivate)
