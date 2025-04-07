@@ -5,7 +5,7 @@ using System;
 
 public class KidMachine : MonoBehaviour
 {
-    public enum States { Following, Hand, Waypoints, Stoped }
+    public enum States { Following, Hand, Waypoints, Stoped, Hidden }
     private States lastState;
     private States currentState;
     [SerializeField] float defaultSpeed = 1.5f;
@@ -66,11 +66,6 @@ public class KidMachine : MonoBehaviour
                             WaypointsPool.DeactivateAll();
                             break;
                         }
-
-                        //if (waypoints.Count != 0)
-                        //{
-                        //    currentWaypoint = waypoints[currentWaypointIndex];
-                        //}
                     }
                 }
 
@@ -94,6 +89,14 @@ public class KidMachine : MonoBehaviour
                 }
 
                 break;
+
+            default:
+                break;
+        }
+
+        if (currentState == States.Hand && player.GetComponent<MonsterMove>().GetMonsterState() == States.Hidden)
+        {
+            currentState = States.Stoped;
         }
     }
 

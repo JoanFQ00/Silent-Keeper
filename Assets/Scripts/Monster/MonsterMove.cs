@@ -14,10 +14,12 @@ public class MonsterMove : MonoBehaviour
     private Mode currentMode;
     KidMachine kidMachine;
     public CameraFollow cameraFollow;
-    public static Action<string> OnChangeTxt; 
+    public static Action<string> OnChangeTxt;
+    private KidMachine.States monsterState;
 
     void Start()
     {
+        monsterState = KidMachine.States.Stoped;
         rb = GetComponent<Rigidbody2D>();
         currentMode = Mode.MonsterCon;
         OnChangeTxt?.Invoke(currentMode.ToString());
@@ -36,6 +38,16 @@ public class MonsterMove : MonoBehaviour
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.deltaTime * deceleration); 
         }
+    }
+
+    public void ChangeState(KidMachine.States state)
+    {
+        monsterState = state;
+    }
+
+    public KidMachine.States GetMonsterState()
+    {
+        return monsterState;
     }
 
     private void OnMove(InputValue value)

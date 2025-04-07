@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -24,39 +25,41 @@ public class Interact : MonoBehaviour
             ShowInteraction?.Invoke(null, false);
             lastMode = GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode();
         }
-
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
-
-        if (gameObject.CompareTag("Kid"))
+        else
         {
-            kidHit = hit;
-            kidDetected = hit != null;
-        }
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
 
-        if (gameObject.CompareTag("Player"))
-        {
-            MonsterHit = hit;
-            playerDetected = hit != null;
-        }
-
-        if (hit != null)
-        {
             if (gameObject.CompareTag("Kid"))
             {
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
-                    ShowInteraction?.Invoke(kidHit.gameObject, true);
+                kidHit = hit;
+                kidDetected = hit != null;
+            }
+
+            if (gameObject.CompareTag("Player"))
+            {
+                MonsterHit = hit;
+                playerDetected = hit != null;
+            }
+
+            if (hit != null)
+            {
+                if (gameObject.CompareTag("Kid"))
+                {
+                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+                        ShowInteraction?.Invoke(kidHit.gameObject, true);
+                }
+                else
+                {
+                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon && gameObject.tag == "Player")
+                        ShowInteraction?.Invoke(MonsterHit.gameObject, true);
+                }
             }
             else
             {
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon && gameObject.tag == "Player")
-                    ShowInteraction?.Invoke(MonsterHit.gameObject, true);
-            }
-        }
-        else
-        {
-            if (!kidDetected && !playerDetected)
-            {
-                ShowInteraction?.Invoke(null, false);
+                if (!kidDetected && !playerDetected)
+                {
+                    ShowInteraction?.Invoke(null, false);
+                }
             }
         }
     }
@@ -76,8 +79,11 @@ public class Interact : MonoBehaviour
                 }
                 else if (hit.GetComponent<Locker>() != null)
                 {
-                    var element = hit.GetComponent<Locker>();
-                    element.Interacted(this.gameObject, hit.gameObject);
+                    if (this.gameObject == hit.GetComponent<Locker>().GetObjectContained() || hit.GetComponent<Locker>().GetObjectContained() == null)
+                    {
+                        var element = hit.GetComponent<Locker>();
+                        element.Interacted(this.gameObject, hit.gameObject);
+                    }
                 }
             }
         }
@@ -89,9 +95,9 @@ public class Interact : MonoBehaviour
 
         if (monsterMove != null)
         {
-            if (GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+            if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
             {
-                Interacting(GameObject.FindGameObjectWithTag("Kid"));
+                GameObject.FindGameObjectWithTag("Kid").GetComponent<Interact>().Interacting(GameObject.FindGameObjectWithTag("Kid"));
             }
             else
             {

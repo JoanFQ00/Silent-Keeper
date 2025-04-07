@@ -38,13 +38,13 @@ public class KidControl : MonoBehaviour
 
     private void OnRightMouse() 
     {
-        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon && WaypointsPool.GetIfAnyActivatedPoints())
+        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon && WaypointsPool.GetIfAnyActivatedPoints() && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
         {
-            if(kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
+            if (kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
             {
                 kidMachine.ChangeState(KidMachine.States.Stoped);
             }
-            else 
+            else
             {
                 kidMachine.ChangeState(KidMachine.States.Waypoints);
             }
@@ -53,10 +53,13 @@ public class KidControl : MonoBehaviour
 
     private void OnStopResume() 
     {
-        kidMachine.ChangeState(KidMachine.States.Following);
-        WaypointsPool.DeactivateAll();
-        kidMachine.RemoveList();
-        kidMachine.ResetCurrentWaypointIndex();
-        monsterMove.ChangeMode(MonsterMove.Mode.MonsterCon);
+        if (monsterMove.GetMonsterState() != KidMachine.States.Hidden && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
+        {
+            kidMachine.ChangeState(KidMachine.States.Following);
+            WaypointsPool.DeactivateAll();
+            kidMachine.RemoveList();
+            kidMachine.ResetCurrentWaypointIndex();
+            monsterMove.ChangeMode(MonsterMove.Mode.MonsterCon);
+        }
     }
 }
