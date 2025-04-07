@@ -45,13 +45,13 @@ public class Interact : MonoBehaviour
             {
                 if (gameObject.CompareTag("Kid"))
                 {
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon) 
                         ShowInteraction?.Invoke(kidHit.gameObject, true);
                 }
                 else
                 {
                     if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon && gameObject.tag == "Player")
-                        ShowInteraction?.Invoke(MonsterHit.gameObject, true);
+                        ShowInteraction?.Invoke(MonsterHit.gameObject, true); 
                 }
             }
             else

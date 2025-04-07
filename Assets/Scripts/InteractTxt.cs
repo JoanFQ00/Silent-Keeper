@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InteractTxt : MonoBehaviour
 {
+    [SerializeField] GameObject txt;
     private void Start()
     {
-        gameObject.SetActive(false);
+        txt.SetActive(false);
     }
 
     void OnEnable()
@@ -19,16 +21,16 @@ public class InteractTxt : MonoBehaviour
 
     private void ChangeActive(GameObject parent, bool hasToActivate)
     {
-        if (parent == gameObject.transform.parent.gameObject)
+        if (parent == txt.transform.parent.gameObject)
         {
             if (hasToActivate)
-                gameObject.SetActive(true);
+                txt.SetActive(true);
             else
-                gameObject.SetActive(false);
+                txt.SetActive(false);
         }
         else
         {
-            gameObject.SetActive(false);
+            txt.SetActive(false);
         }
     }
 }
