@@ -37,6 +37,6 @@ public class Lever : MonoBehaviour
             spriteRenderer.color = Color.red;
         }
 
-        Debug.Log(activated + " " + key);
+        //Debug.Log(activated + " " + key);
     }
 }
