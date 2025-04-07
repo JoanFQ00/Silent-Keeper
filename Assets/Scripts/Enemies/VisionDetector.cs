@@ -9,6 +9,7 @@ public class VisionDetector : MonoBehaviour
     private Transform _eyePosition;
     private SpriteRenderer _visionIndicator;
 
+
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -30,6 +31,7 @@ public class VisionDetector : MonoBehaviour
         if (CheckPlayerInVision())
         {
             //Debug.Log("Jugador detectado");
+            //Comprobar a quien ve el enemigo
         }
     }
 
