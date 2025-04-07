@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 public class InteractTxt : MonoBehaviour
 {
     [SerializeField] GameObject txt;
+
     private void Start()
     {
         txt.SetActive(false);
