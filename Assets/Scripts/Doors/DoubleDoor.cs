@@ -9,18 +9,23 @@ public class DoubleDoor : MonoBehaviour
 
     private bool OneActivated;
     private bool TwoActivated;
+    private Collider2D col;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
+
         if (thisActivated) 
         {
             spriteRenderer.color = Color.green;
+            col.isTrigger = true;
         }
         else 
         {
             spriteRenderer.color = Color.red;
-        }
+            col.isTrigger = false;
+        }  
 
         OneActivated = false;
         TwoActivated = false;
@@ -52,10 +57,12 @@ public class DoubleDoor : MonoBehaviour
         if (thisActivated) 
         {
             spriteRenderer.color = Color.green;
+            col.isTrigger = true;
         }
         else 
         {
             spriteRenderer.color = Color.red;
+            col.isTrigger = false;
         }
     }
 

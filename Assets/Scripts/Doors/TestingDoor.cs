@@ -6,6 +6,8 @@ public class TestingDoor : MonoBehaviour
     SpriteRenderer spriteRenderer;
     [SerializeField] int thisKey;
     [SerializeField] bool thisActivated;
+
+    private Collider2D col;
     
     void Start()
     {
@@ -13,10 +15,12 @@ public class TestingDoor : MonoBehaviour
         if (thisActivated) 
         {
             spriteRenderer.color = Color.green;
+            col.isTrigger = true;
         }
         else 
         {
             spriteRenderer.color = Color.red;
+            col.isTrigger = false;
         }
     }
 
@@ -42,10 +46,12 @@ public class TestingDoor : MonoBehaviour
             if(thisActivated) 
             {
                 spriteRenderer.color = Color.green;
+                  col.isTrigger = true;
             }
             else 
             {
                 spriteRenderer.color = Color.red;
+                  col.isTrigger = false;
             }
         }
     }
