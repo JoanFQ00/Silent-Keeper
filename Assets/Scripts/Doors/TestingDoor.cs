@@ -37,7 +37,6 @@ public class TestingDoor : MonoBehaviour
         PresurePlate.PresureActivated -= OpenDoor;
     }
 
-
     private void OpenDoor(bool activated, int key)
     {
         if (key == thisKey)

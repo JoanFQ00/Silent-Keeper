@@ -67,23 +67,13 @@ public class WaypointsPool : MonoBehaviour
 
     public static bool GetIfAnyActivatedPoints() 
     {
-        //int activatedPoints = 0;
-
         for (int i = 0; i < Instance.maxCap; i++) 
         {
             if (Instance.pool[i].activeInHierarchy == true)
             {
-                //activatedPoints += 1; 
                 return true;
             }
         }
         return false;
-
-        //if (activatedPoints > 0) 
-        //{
-        //    return true;
-        //}
-
-        //return false;
     }
 }

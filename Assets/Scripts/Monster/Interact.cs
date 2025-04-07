@@ -40,15 +40,16 @@ public class Interact : MonoBehaviour
                 MonsterHit = hit;
                 playerDetected = hit != null;
             }
-
+       
             if (hit != null)
             {
                 if (gameObject.CompareTag("Kid"))
                 {
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon) 
-                        ShowInteraction?.Invoke(kidHit.gameObject, true);
+                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+                        ShowInteraction?.Invoke(kidHit.gameObject, true); 
+                    
                 }
-                else
+                else 
                 {
                     if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon && gameObject.tag == "Player")
                         ShowInteraction?.Invoke(MonsterHit.gameObject, true); 

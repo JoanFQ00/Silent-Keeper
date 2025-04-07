@@ -32,8 +32,12 @@ public class PresurePlate : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        spriteRenderer.color = Color.green;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         activated = true;
         PresureActivated?.Invoke(activated, key);
-        spriteRenderer.color = Color.green;
     }
 }
