@@ -54,6 +54,26 @@ public class StaticGuard : MonoBehaviour
         }
     }
 
+    //private bool CheckTargetInVision(Transform target)
+    //{
+    //    if (target == null) return false;
+
+    //    Vector2 directionToTarget = (target.position - transform.position).normalized;
+    //    float distanceToTarget = Vector2.Distance(transform.position, target.position);
+
+    //    if (distanceToTarget <= VisionRange)
+    //    {
+    //        float angleToTarget = Vector2.Angle(transform.up, directionToTarget);
+    //        if (angleToTarget < VisionAngle / 2f)
+    //        {
+    //            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
+    //            return hit.collider == null || hit.collider.transform == target;
+    //        }
+    //    }
+
+    //    return false;
+    //}
+
     private bool CheckTargetInVision(Transform target)
     {
         if (target == null) return false;
@@ -67,7 +87,17 @@ public class StaticGuard : MonoBehaviour
             if (angleToTarget < VisionAngle / 2f)
             {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
-                return hit.collider == null || hit.collider.transform == target;
+
+                // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
+                if (hit.collider == null)
+                    return true;
+
+                // Si el collider es un trigger, lo ignoramos
+                if (hit.collider.isTrigger)
+                    return true;
+
+                // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
+                return hit.collider.transform == target;
             }
         }
 

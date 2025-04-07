@@ -12,6 +12,9 @@ public class PatrolBehaviour : MonoBehaviour
     private Transform _player;
     private Rigidbody2D _rb;
 
+    private Quaternion _startRotation;
+    private Quaternion _targetRotation;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -23,9 +26,29 @@ public class PatrolBehaviour : MonoBehaviour
 
     void Update()
     {
+        //if (_waiting)
+        //{
+        //    _waitCounter -= Time.deltaTime;
+        //    RotateTowards(transform, direction);
+
+        //    if (_waitCounter <= 0)
+        //    {
+        //        _waiting = false;
+        //        _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+        //    }
+        //    return;
+        //}
+
+        Transform targetPoint = PatrolPoints[_currentPoint];
+        Vector2 direction = (targetPoint.position - transform.position).normalized;
+
         if (_waiting)
         {
             _waitCounter -= Time.deltaTime;
+
+            float t = 1f - (_waitCounter / WaitTime); // Normalizado de 0 a 1
+            transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, t);
+
             if (_waitCounter <= 0)
             {
                 _waiting = false;
@@ -34,23 +57,37 @@ public class PatrolBehaviour : MonoBehaviour
             return;
         }
 
-        Transform targetPoint = PatrolPoints[_currentPoint];
-        Vector2 direction = (targetPoint.position - transform.position).normalized;
-        _rb.linearVelocity = direction * Speed;
-
         if (Vector2.Distance(transform.position, targetPoint.position) < 0.2f)
         {
             _waiting = true;
             _waitCounter = WaitTime;
             _rb.linearVelocity = Vector2.zero;
+
+            // Guardar rotaciones para interpolar
+            _startRotation = transform.rotation;
+            _targetRotation = _startRotation * Quaternion.Euler(0, 0, 180f);
+        }
+        else
+        {
+            _rb.linearVelocity = direction * Speed;
         }
 
-        RotateTowards(transform, direction);
+        //if (Vector2.Distance(transform.position, targetPoint.position) < 0.2f)
+        //{
+        //    _waiting = true;
+        //    _waitCounter = WaitTime;
+        //    _rb.linearVelocity = Vector2.zero;
+
+        //    RotateTowards(transform, direction);
+        //}
     }
 
-    private void RotateTowards(Transform transform, Vector2 direction)
-    {
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-    }
+    //private void RotateTowards(Transform transform, Vector2 direction)
+    //{
+    //    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+    //    Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+
+    //    float rotationSpeed = 1f / Mathf.Max(WaitTime, 0.01f); // evita división por cero
+    //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    //}
 }

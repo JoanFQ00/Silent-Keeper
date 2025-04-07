@@ -47,19 +47,18 @@ public class DoubleDoor : MonoBehaviour
         {
             thisActivated = true;
         }
-
-        else 
-        {
-            OneActivated = false;
-            TwoActivated = false;
-        }
+        //else 
+        //{
+        //    OneActivated = false;
+        //    TwoActivated = false;
+        //}
 
         if (thisActivated) 
         {
             spriteRenderer.color = Color.green;
             col.isTrigger = true;
         }
-        else 
+        else
         {
             spriteRenderer.color = Color.red;
             col.isTrigger = false;
@@ -70,12 +69,11 @@ public class DoubleDoor : MonoBehaviour
     {
         if (key == thisKeyOne)
         {
-            OneActivated = true;
+            OneActivated = activated;
         }
-
         else if (key == thisKeyTwo) 
         {
-            TwoActivated = true;
+            TwoActivated = activated;
         }
     }
 }
