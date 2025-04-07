@@ -12,11 +12,12 @@ public class KidMachine : MonoBehaviour
     private float currentSpeed;
     private float distToPlayer = 0.7f;
     private GameObject player;
-    private List<GameObject> waypoints = new List<GameObject>();
+    private List<GameObject> waypoints;
     private int currentWaypointIndex = 0;
     
     void Start()
     {
+        waypoints = new List<GameObject>();
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
         currentSpeed = defaultSpeed;
@@ -61,15 +62,15 @@ public class KidMachine : MonoBehaviour
                         if (currentWaypointIndex + 1 > waypoints.Count)
                         {
                             waypoints = new List<GameObject>();
-                            currentWaypointIndex = 0;
+                            ResetCurrentWaypointIndex();
                             WaypointsPool.DeactivateAll();
                             break;
                         }
 
-                        if (waypoints.Count != 0)
-                        {
-                            currentWaypoint = waypoints[currentWaypointIndex];
-                        }
+                        //if (waypoints.Count != 0)
+                        //{
+                        //    currentWaypoint = waypoints[currentWaypointIndex];
+                        //}
                     }
                 }
 
@@ -146,5 +147,10 @@ public class KidMachine : MonoBehaviour
     public void RemoveList() 
     {
         waypoints.Clear();
+    }
+
+    public void ResetCurrentWaypointIndex()
+    {
+        currentWaypointIndex = 0;
     }
 }

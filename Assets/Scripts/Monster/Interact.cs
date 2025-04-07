@@ -5,21 +5,59 @@ public class Interact : MonoBehaviour
 {
     [SerializeField] float detectionRadius;
     public LayerMask detectionLayer;
-    //private Lever lever;
 
-    public static Action<bool> ShowInteraction;
+    public static Action<GameObject, bool> ShowInteraction;
+    private static bool kidDetected = false;
+    private static bool playerDetected = false;
+    private static Collider2D kidHit, MonsterHit;
+    private static MonsterMove.Mode lastMode;
+
+    private void Start()
+    {
+        lastMode = GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode();
+    }
 
     void Update()
     {
+        if (lastMode != GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode())
+        {
+            ShowInteraction?.Invoke(null, false);
+            lastMode = GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode();
+        }
+
         Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
 
-        if (hit != null) 
+        if (gameObject.CompareTag("Kid"))
         {
-            ShowInteraction?.Invoke(true);
+            kidHit = hit;
+            kidDetected = hit != null;
         }
-        else 
+
+        if (gameObject.CompareTag("Player"))
         {
-            ShowInteraction?.Invoke(false);
+            MonsterHit = hit;
+            playerDetected = hit != null;
+        }
+
+        if (hit != null)
+        {
+            if (gameObject.CompareTag("Kid"))
+            {
+                if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+                    ShowInteraction?.Invoke(kidHit.gameObject, true);
+            }
+            else
+            {
+                if (GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon && gameObject.tag == "Player")
+                    ShowInteraction?.Invoke(MonsterHit.gameObject, true);
+            }
+        }
+        else
+        {
+            if (!kidDetected && !playerDetected)
+            {
+                ShowInteraction?.Invoke(null, false);
+            }
         }
     }
 
@@ -47,14 +85,18 @@ public class Interact : MonoBehaviour
 
     private void OnInteractionExecuted()
     {
-        //Interact only if controlling Monster
-        if (GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+        MonsterMove monsterMove = gameObject.GetComponent<MonsterMove>();
+
+        if (monsterMove != null)
         {
-            Interacting(GameObject.FindGameObjectWithTag("Kid"));
-        }
-        else
-        {
-            Interacting(GameObject.FindGameObjectWithTag("Player"));
+            if (GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.KidCon)
+            {
+                Interacting(GameObject.FindGameObjectWithTag("Kid"));
+            }
+            else
+            {
+                Interacting(GameObject.FindGameObjectWithTag("Player"));
+            }
         }
     }
 
@@ -62,10 +104,7 @@ public class Interact : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Establece el color del Gizmo (puedes cambiarlo si prefieres otro color)
         Gizmos.color = Color.red;
-
-        // Dibuja un círculo en la posición del objeto con el radio de detección
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }

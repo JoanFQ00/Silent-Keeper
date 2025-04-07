@@ -7,7 +7,7 @@ public class WaypointsPool : MonoBehaviour
 
     public static WaypointsPool Instance;
     private List<GameObject> pool;
-    public int maxCap = 3;
+    public int maxCap = 4;
 
     public GameObject Prefab;
 
@@ -65,24 +65,25 @@ public class WaypointsPool : MonoBehaviour
         }
     }
 
-    public static bool GetActivatedPoints() 
+    public static bool GetIfAnyActivatedPoints() 
     {
-        int activatedPoints = 0;
+        //int activatedPoints = 0;
 
         for (int i = 0; i < Instance.maxCap; i++) 
         {
-
             if (Instance.pool[i].activeInHierarchy == true)
-            { 
-                activatedPoints += 1; 
+            {
+                //activatedPoints += 1; 
+                return true;
             }
-            
         }
-        if (activatedPoints > 0) 
-        {
-            return true;
-        }
-
         return false;
+
+        //if (activatedPoints > 0) 
+        //{
+        //    return true;
+        //}
+
+        //return false;
     }
 }

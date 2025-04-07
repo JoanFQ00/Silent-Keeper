@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class InteractTxt : MonoBehaviour
 {
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
 
     void OnEnable()
     {
@@ -13,13 +17,16 @@ public class InteractTxt : MonoBehaviour
         Interact.ShowInteraction += ChangeActive;
     }
 
-    private void ChangeActive(bool active) 
+    private void ChangeActive(GameObject parent, bool hasToActivate)
     {
-        if (active) 
+        if (parent == gameObject.transform.parent.gameObject)
         {
-            gameObject.SetActive(true);
+            if (hasToActivate)
+                gameObject.SetActive(true);
+            else
+                gameObject.SetActive(false);
         }
-        else 
+        else
         {
             gameObject.SetActive(false);
         }

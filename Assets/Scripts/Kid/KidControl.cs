@@ -38,7 +38,7 @@ public class KidControl : MonoBehaviour
 
     private void OnRightMouse() 
     {
-        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon && WaypointsPool.GetActivatedPoints())
+        if (monsterMove.GetCurrentMode() == MonsterMove.Mode.KidCon && WaypointsPool.GetIfAnyActivatedPoints())
         {
             if(kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
             {
@@ -56,6 +56,7 @@ public class KidControl : MonoBehaviour
         kidMachine.ChangeState(KidMachine.States.Following);
         WaypointsPool.DeactivateAll();
         kidMachine.RemoveList();
+        kidMachine.ResetCurrentWaypointIndex();
         monsterMove.ChangeMode(MonsterMove.Mode.MonsterCon);
     }
 }
