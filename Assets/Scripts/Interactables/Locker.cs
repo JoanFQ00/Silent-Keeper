@@ -41,7 +41,7 @@ public class Locker : MonoBehaviour
             else
             {
                 // Poner al jugador fuera de la taquilla en la dirección correcta
-                _other.transform.position = this.transform.position + this.transform.right * 2f; // Usa 'up' para moverse en 2D
+                _other.transform.position = this.transform.position + this.transform.right * 1f; // Usa 'up' para moverse en 2D
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
                 if (_other.gameObject.tag == "Kid")

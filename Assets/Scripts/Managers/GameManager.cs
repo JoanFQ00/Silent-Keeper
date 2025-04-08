@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject finalPanel, _player;
+
     public static GameManager Instance;
 
     public static Action<string> OnTimerUpdating;
@@ -13,6 +15,11 @@ public class GameManager : MonoBehaviour
     public float timerSpeedMultiplier = 1f;
 
     private bool estaContando = true;
+
+    private void Start()
+    {
+        finalPanel.SetActive(false);
+    }
 
     private void Awake()
     {
@@ -42,6 +49,11 @@ public class GameManager : MonoBehaviour
             ActualizarTexto();
         }
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            RestartZone();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -59,5 +71,12 @@ public class GameManager : MonoBehaviour
     public void RestartZone()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //Útil para máquina exprendedora
+    public void ActiveFinalPanel()
+    {
+        _player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        finalPanel.SetActive(true);
     }
 }

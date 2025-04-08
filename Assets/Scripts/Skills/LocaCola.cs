@@ -7,6 +7,7 @@ public class LocaCola : MonoBehaviour, ISkill
 
     [Header("Skill Variables")]
     public float extraSpeed;
+    public float reduceSpeed;
     public float buffTime;
 
     private float defaultBuffTime;
@@ -31,7 +32,7 @@ public class LocaCola : MonoBehaviour, ISkill
         else
         {
             buffTime = defaultBuffTime;
-            player.GetComponent<MonsterMove>().SetSpeed(1f);
+            player.GetComponent<MonsterMove>().SetSpeed(reduceSpeed);
 
             finishedSkill = true;
         }

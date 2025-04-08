@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -63,6 +64,20 @@ public class TestingDoor : MonoBehaviour
                 spriteRenderer.color = Color.red;
                 col.isTrigger = false;
                 if (shadowCaster2D != null) shadowCaster2D.enabled = true;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
+        {
+            if (collision.gameObject.GetComponent<PlayerInventory>().GetKeyValue() == thisKey)
+            {
+                thisActivated = true;
+                spriteRenderer.color = Color.green;
+                col.isTrigger = true;
+                if (shadowCaster2D != null) shadowCaster2D.enabled = false;
             }
         }
     }

@@ -83,6 +83,7 @@ public class MonsterMove : MonoBehaviour
         return currentSpeed;
     }
 
+    //Al cambiar de zona
     public void SetDefaultSpeed() 
     {
         currentSpeed = defaultSpeed;

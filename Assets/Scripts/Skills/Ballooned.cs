@@ -6,7 +6,10 @@ public class Ballooned : MonoBehaviour, ISkill
     public SkillBase thisSkill;
 
     [Header("Skill Variables")]
-    public float buffTime;
+    public float bloonSpeed, bloonTime;
+    public GameObject balloon;
+
+    private Vector3 mousePos, ballonDirection;
 
     private float defaultBuffTime;
     //private GameObject player;
@@ -14,22 +17,29 @@ public class Ballooned : MonoBehaviour, ISkill
 
     public void Execute(GameObject monster)
     {
-        defaultBuffTime = buffTime;
-        //player = monster;
+        defaultBuffTime = bloonTime;
 
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+        balloon.transform.position = monster.transform.position;
+        ballonDirection = (mousePos - balloon.transform.position).normalized;
+
+        balloon.SetActive(true);
         finishedSkill = false;
     }
 
     public void UpdateSkill()
     {
-        if (buffTime >= 0f)
+        if (bloonTime >= 0f)
         {
-            buffTime -= Time.deltaTime;
+            balloon.transform.Translate(ballonDirection * bloonSpeed * Time.deltaTime);
+            bloonTime -= Time.deltaTime;
         }
         else
         {
-            buffTime = defaultBuffTime;
+            bloonTime = defaultBuffTime;
 
+            balloon.SetActive(false);
             finishedSkill = true;
         }
     }

@@ -88,16 +88,50 @@ public class StaticGuard : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
 
-                // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
-                if (hit.collider == null)
-                    return true;
+                if (target.gameObject.tag == "Player")
+                {
+                    if (target.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
+                    {
+                        // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
+                        if (hit.collider == null)
+                            return true;
 
-                // Si el collider es un trigger, lo ignoramos
-                if (hit.collider.isTrigger)
-                    return true;
+                        // Si el collider es un trigger, lo ignoramos
+                        if (hit.collider.isTrigger)
+                            return true;
 
-                // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
-                return hit.collider.transform == target;
+                        // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
+                        return hit.collider.transform == target;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (target.gameObject.tag == "Kid")
+                {
+                    if (target.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
+                    {
+                        // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
+                        if (hit.collider == null)
+                            return true;
+
+                        // Si el collider es un trigger, lo ignoramos
+                        if (hit.collider.isTrigger)
+                            return true;
+
+                        // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
+                        return hit.collider.transform == target;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

@@ -187,15 +187,11 @@ public class SkillManager : MonoBehaviour
         //    }
         //}
 
-        if (passiveSkill != null && Input.GetKeyDown(KeyCode.P))
+        if (passiveSkill != null) //if (passiveSkill != null && Input.GetKeyDown(KeyCode.P))
         {
             passiveSkill.GetComponent<ISkill>().Execute(player);
         }
     }
-
-    //ESTA VARIABLE BORRAR
-    private bool passiveActivated;
-    //LA VARIABLE DE ARRIBA BORRAR
 
     // Método para ser llamado desde la máquina exprendedora
     public void AssignSkillToSlot(GameObject skill, int slot)
@@ -212,6 +208,9 @@ public class SkillManager : MonoBehaviour
         {
             skill2 = skill;
             numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
+            OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
+            OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
+            OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
         }
         else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
         {
