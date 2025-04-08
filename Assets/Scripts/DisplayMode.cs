@@ -24,6 +24,6 @@ public class DisplayMode : MonoBehaviour
 
     private void ChangeTxt(string newTxt) 
     {
-        text.text = "Current Mode: " + newTxt;
+        text.text = "Modo Actual: " + newTxt;
     }
 }

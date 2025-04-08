@@ -109,7 +109,7 @@ public class StaticGuard : MonoBehaviour
         if (_light2D != null)
             _light2D.color = Color.red;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.RestartZone();
     }
 
     //private void SendToSpawner()
