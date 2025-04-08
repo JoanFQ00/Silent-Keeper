@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1480901552007579160}
   - component: {fileID: 7961776657872304135}
   - component: {fileID: 2074252761006600226}
+  - component: {fileID: 5941683365600380753}
   m_Layer: 8
   m_Name: StaticEnemy2
   m_TagString: Untagged
@@ -104,7 +105,7 @@ MonoBehaviour:
   Walls:
     serializedVersion: 2
     m_Bits: 128
-  enemyState: 0
+  enemyPlayerDetector: 0
 --- !u!114 &2074252761006600226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +158,39 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!58 &5941683365600380753
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2774765415400160023}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5000001

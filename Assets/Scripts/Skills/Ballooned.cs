@@ -6,7 +6,7 @@ public class Ballooned : MonoBehaviour, ISkill
     public SkillBase thisSkill;
 
     [Header("Skill Variables")]
-    public float bloonSpeed, bloonTime;
+    public float bloonSpeed, bloonTime, stunTime;
     public GameObject balloon;
 
     private Vector3 mousePos, ballonDirection;
@@ -24,6 +24,9 @@ public class Ballooned : MonoBehaviour, ISkill
         balloon.transform.position = monster.transform.position;
         ballonDirection = (mousePos - balloon.transform.position).normalized;
 
+        float angle = Mathf.Atan2(ballonDirection.y, ballonDirection.x) * Mathf.Rad2Deg - 90f;
+        balloon.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
         balloon.SetActive(true);
         finishedSkill = false;
     }
@@ -32,16 +35,21 @@ public class Ballooned : MonoBehaviour, ISkill
     {
         if (bloonTime >= 0f)
         {
-            balloon.transform.Translate(ballonDirection * bloonSpeed * Time.deltaTime);
+            balloon.transform.Translate(ballonDirection * bloonSpeed * Time.deltaTime, Space.World);
             bloonTime -= Time.deltaTime;
         }
         else
         {
             bloonTime = defaultBuffTime;
-
             balloon.SetActive(false);
             finishedSkill = true;
         }
+    }
+
+    public void BallonHasEnemyCollided(GameObject enemy)
+    {
+        enemy.GetComponent<StaticGuard>().SetEnemyState(StaticGuard.EnemyState.STUNED);
+        enemy.GetComponent<StaticGuard>().SetStunTime(stunTime);
     }
 
     public SkillBase GetSkill()

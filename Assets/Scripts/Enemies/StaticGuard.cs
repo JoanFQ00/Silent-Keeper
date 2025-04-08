@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using static StaticGuard;
 
 
 
@@ -16,6 +17,13 @@ public class StaticGuard : MonoBehaviour
 
     private float VisionRange;
     private float VisionAngle;
+    private float stunTime;
+
+    public enum EnemyState
+    {
+        NORMAL = 0,
+        STUNED
+    }
 
     public enum Characters
     {
@@ -23,10 +31,13 @@ public class StaticGuard : MonoBehaviour
         ONE
     }
 
-    public Characters enemyState;
+    public Characters enemyPlayerDetector;
+    private EnemyState enemyState;
 
     void Start()
     {
+        stunTime = 0f;
+        enemyState = EnemyState.NORMAL;
         _player = GameObject.FindGameObjectWithTag("Player")?.transform;
         _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
 
@@ -35,23 +46,58 @@ public class StaticGuard : MonoBehaviour
 
     void Update()
     {
-        if (_light2D != null)
+        if (enemyState == EnemyState.NORMAL)
         {
-            // Actualiza los valores desde la luz
-            VisionRange = _light2D.pointLightOuterRadius;
-            VisionAngle = _light2D.pointLightOuterAngle;
-        }
+            if (_light2D != null)
+            {
+                // Actualiza los valores desde la luz
+                VisionRange = _light2D.pointLightOuterRadius;
+                VisionAngle = _light2D.pointLightOuterAngle;
+            }
 
-        if (enemyState == Characters.BOTH)
-        {
-            if (CheckTargetInVision(_player) || CheckTargetInVision(_kid))
-                SendToSpawner();
+            if (enemyPlayerDetector == Characters.BOTH)
+            {
+                if (CheckTargetInVision(_player) || CheckTargetInVision(_kid))
+                    SendToSpawner();
+            }
+            else
+            {
+                if (CheckTargetInVision(_kid))
+                    SendToSpawner();
+            }
         }
         else
         {
-            if (CheckTargetInVision(_kid))
-                SendToSpawner();
+            if (stunTime >= 0f)
+            {
+                stunTime -= Time.deltaTime;
+            }
+            else
+            {
+                stunTime = 0f;
+                SetEnemyState(EnemyState.NORMAL);
+            }
         }
+    }
+
+    public void SetStunTime(float time)
+    {
+        stunTime = time;
+    }
+
+    public void SetEnemyState(EnemyState state)
+    {
+        enemyState = state;
+
+        if (enemyState == EnemyState.STUNED)
+            _light2D.enabled = false;
+        else
+            _light2D.enabled = true;
+    }
+
+    public EnemyState GetEnemyState()
+    {
+        return enemyState;
     }
 
     //private bool CheckTargetInVision(Transform target)

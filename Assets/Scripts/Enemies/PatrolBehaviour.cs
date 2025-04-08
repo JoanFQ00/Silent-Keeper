@@ -1,4 +1,5 @@
 using UnityEngine;
+using static StaticGuard;
 
 public class PatrolBehaviour : MonoBehaviour
 {
@@ -39,37 +40,45 @@ public class PatrolBehaviour : MonoBehaviour
         //    return;
         //}
 
-        Transform targetPoint = PatrolPoints[_currentPoint];
-        Vector2 direction = (targetPoint.position - transform.position).normalized;
-
-        if (_waiting)
+        if (gameObject.GetComponent<StaticGuard>().GetEnemyState() == EnemyState.NORMAL)
         {
-            _waitCounter -= Time.deltaTime;
+            Transform targetPoint = PatrolPoints[_currentPoint];
+            Vector2 direction = (targetPoint.position - transform.position).normalized;
 
-            float t = 1f - (_waitCounter / WaitTime); // Normalizado de 0 a 1
-            transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, t);
-
-            if (_waitCounter <= 0)
+            if (_waiting)
             {
-                _waiting = false;
-                _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+                _waitCounter -= Time.deltaTime;
+
+                float t = 1f - (_waitCounter / WaitTime); // Normalizado de 0 a 1
+                transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, t);
+
+                if (_waitCounter <= 0)
+                {
+                    _waiting = false;
+                    _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+                }
+                return;
             }
-            return;
-        }
 
-        if (Vector2.Distance(transform.position, targetPoint.position) < 0.2f)
-        {
-            _waiting = true;
-            _waitCounter = WaitTime;
-            _rb.linearVelocity = Vector2.zero;
+            if (Vector2.Distance(transform.position, targetPoint.position) < 0.2f)
+            {
+                _waiting = true;
+                _waitCounter = WaitTime;
+                _rb.linearVelocity = Vector2.zero;
 
-            // Guardar rotaciones para interpolar
-            _startRotation = transform.rotation;
-            _targetRotation = _startRotation * Quaternion.Euler(0, 0, 180f);
+                // Guardar rotaciones para interpolar
+                _startRotation = transform.rotation;
+                _targetRotation = _startRotation * Quaternion.Euler(0, 0, 180f);
+            }
+            else
+            {
+                _rb.linearVelocity = direction * Speed;
+            }
         }
         else
         {
-            _rb.linearVelocity = direction * Speed;
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
         }
 
         //if (Vector2.Distance(transform.position, targetPoint.position) < 0.2f)
