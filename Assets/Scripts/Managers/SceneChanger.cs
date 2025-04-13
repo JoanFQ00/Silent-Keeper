@@ -5,7 +5,7 @@ public class SceneChanger : MonoBehaviour
 {
     public static SceneChanger instance;
 
-    private const string titleSceneName = "Title", gameplaySceneName = "Gameplay", endingSceneName = "Ending";
+    private const string titleSceneName = "MainMenu", gameplaySceneName = "Demo", endingSceneName = "Ending";
     private void Awake()
     {
         if (instance == null)
@@ -26,17 +26,18 @@ public class SceneChanger : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Exit Game");
         Application.Quit();
     }
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene(titleSceneName);
     }
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene(gameplaySceneName);
     }
 
     public void LoadEnd()
