@@ -7,6 +7,8 @@ public class PatrolBehaviour : MonoBehaviour
     public float WaitTime = 2f;
     public Transform[] PatrolPoints;
 
+    public float RotationAngle = 180f;
+
     private int _currentPoint;
     private float _waitCounter;
     private bool _waiting;
@@ -40,7 +42,7 @@ public class PatrolBehaviour : MonoBehaviour
         //    return;
         //}
 
-        if (gameObject.GetComponent<StaticGuard>().GetEnemyState() == EnemyState.NORMAL)
+        if (gameObject.GetComponent<Detector>().GetEnemyState() == Detector.EnemyState.NORMAL)
         {
             Transform targetPoint = PatrolPoints[_currentPoint];
             Vector2 direction = (targetPoint.position - transform.position).normalized;
@@ -68,7 +70,7 @@ public class PatrolBehaviour : MonoBehaviour
 
                 // Guardar rotaciones para interpolar
                 _startRotation = transform.rotation;
-                _targetRotation = _startRotation * Quaternion.Euler(0, 0, 180f);
+                _targetRotation = _startRotation * Quaternion.Euler(0, 0, RotationAngle);
             }
             else
             {
@@ -96,7 +98,7 @@ public class PatrolBehaviour : MonoBehaviour
     //    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
     //    Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
 
-    //    float rotationSpeed = 1f / Mathf.Max(WaitTime, 0.01f); // evita división por cero
+    //    float rotationSpeed = 1f / Mathf.Max(WaitTime, 0.01f); // evita divisiï¿½n por cero
     //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     //}
 }

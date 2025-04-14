@@ -138,7 +138,7 @@ public class StaticGuard : MonoBehaviour
                 {
                     if (target.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
                     {
-                        // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
+                        // Si no hay colisiï¿½n, o la colisiï¿½n es el objetivo Y no es un trigger
                         if (hit.collider == null)
                             return true;
 
@@ -158,7 +158,7 @@ public class StaticGuard : MonoBehaviour
                 {
                     if (target.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
                     {
-                        // Si no hay colisión, o la colisión es el objetivo Y no es un trigger
+                        // Si no hay colisiï¿½n, o la colisiï¿½n es el objetivo Y no es un trigger
                         if (hit.collider == null)
                             return true;
 
@@ -214,18 +214,18 @@ public class StaticGuard : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 forward = transform.up;
 
-        // Dibuja el círculo del rango
+        // Dibuja el cï¿½rculo del rango
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, range);
 
-        // Calcula los límites del ángulo de visión
+        // Calcula los lï¿½mites del ï¿½ngulo de visiï¿½n
         Quaternion leftRotation = Quaternion.Euler(0, 0, -angle / 2f);
         Quaternion rightRotation = Quaternion.Euler(0, 0, angle / 2f);
 
         Vector3 leftDir = leftRotation * forward;
         Vector3 rightDir = rightRotation * forward;
 
-        // Dibuja las dos líneas del ángulo
+        // Dibuja las dos lï¿½neas del ï¿½ngulo
         Gizmos.color = Color.red;
         Gizmos.DrawLine(origin, origin + leftDir * range);
         Gizmos.DrawLine(origin, origin + rightDir * range);
