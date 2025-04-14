@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             {
                 tiempoRestante = 0f;
                 estaContando = false;
-                RestartZone();
+                SceneChanger.instance.RestartZone();
             }
 
             ActualizarTexto();
@@ -51,13 +51,12 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            RestartZone();
+            SceneChanger.instance.RestartZone();    
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
-            Debug.Log("Saliendo de la aplicación...");
+            SceneChanger.instance.QuitGame();
         }
     }
 
@@ -66,11 +65,6 @@ public class GameManager : MonoBehaviour
         int minutos = Mathf.FloorToInt(tiempoRestante / 60f);
         int segundos = Mathf.FloorToInt(tiempoRestante % 60f);
         OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
-    }
-
-    public void RestartZone()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     //Útil para máquina exprendedora

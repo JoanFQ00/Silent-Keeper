@@ -40,6 +40,11 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(gameplaySceneName);
     }
 
+    public void RestartZone()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void LoadEnd()
     {
         SceneManager.LoadScene(endingSceneName);
