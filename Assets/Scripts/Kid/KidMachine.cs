@@ -21,7 +21,7 @@ public class KidMachine : MonoBehaviour
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
         currentSpeed = defaultSpeed;
-        distToPlayer = GetComponent<Interact>().GetDetectionRadius();
+        //distToPlayer = GetComponent<Interact>().GetDetectionRadius();
     }
 
     void Update()
@@ -107,7 +107,7 @@ public class KidMachine : MonoBehaviour
 
         if (currentState == States.Hand)
         {
-            distToPlayer = GetComponent<Interact>().GetDetectionRadius();
+         //   distToPlayer = GetComponent<Interact>().GetDetectionRadius();
         }
         else 
         {

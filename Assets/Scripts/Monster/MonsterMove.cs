@@ -10,8 +10,6 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] float defaultSpeed = 2f;
     private float currentSpeed;
     [SerializeField] float deceleration = 5f;
-    public enum Mode { MonsterCon, KidCon }
-    private Mode currentMode;
     KidMachine kidMachine;
     public CameraFollow cameraFollow;
     public static Action<string> OnChangeTxt;
@@ -21,8 +19,6 @@ public class MonsterMove : MonoBehaviour
     {
         monsterState = KidMachine.States.Stoped;
         rb = GetComponent<Rigidbody2D>();
-        currentMode = Mode.MonsterCon;
-        OnChangeTxt?.Invoke(currentMode.ToString());
         kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         currentSpeed = defaultSpeed;
@@ -53,29 +49,12 @@ public class MonsterMove : MonoBehaviour
     private void OnMove(InputValue value)
     {
         moveDir = value.Get<Vector2>();
-        currentMode = Mode.MonsterCon;
         cameraFollow.ChangeTarget(GetComponentInParent<Transform>());
-        OnChangeTxt?.Invoke(currentMode.ToString());
-    }
-
-    private void OnRightMouse() 
-    {
-        if (currentMode == Mode.MonsterCon)
-        {
-            currentMode = Mode.KidCon;
-            cameraFollow.ChangeTarget(kidMachine.GetComponentInParent<Transform>());
-            OnChangeTxt?.Invoke(currentMode.ToString());
-        }
     }
 
     private void OnEscapeButt() 
     {
         GameManager.Instance.Pause();
-    }
-
-    public Mode GetCurrentMode() 
-    {
-        return currentMode;
     }
 
     public void SetSpeed(float _speed)
@@ -92,21 +71,5 @@ public class MonsterMove : MonoBehaviour
     public void SetDefaultSpeed() 
     {
         currentSpeed = defaultSpeed;
-    }
-
-    public void ChangeMode(Mode mode) 
-    {
-        currentMode = mode;
-
-        if (currentMode == Mode.KidCon)
-        {
-            cameraFollow.ChangeTarget(kidMachine.GetComponentInParent<Transform>());
-            OnChangeTxt?.Invoke(currentMode.ToString());
-        }
-        else 
-        {
-            cameraFollow.ChangeTarget(GetComponent<Transform>());
-            OnChangeTxt?.Invoke(currentMode.ToString());
-        }
     }
 }

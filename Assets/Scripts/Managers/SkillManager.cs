@@ -61,8 +61,8 @@ public class SkillManager : MonoBehaviour
     private void Update()
     {
         //ESTO BORRAR CUANDO ESTÉN LOS INPUTS BIEN IMPLEMENTADOS
-        if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
+        //if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && 
+        //    GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
         {
             if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
             {
@@ -114,8 +114,8 @@ public class SkillManager : MonoBehaviour
         }
 
         //ESTO BORRAR CUANDO ESTÉN LOS INPUTS BIEN IMPLEMENTADOS
-        if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
-            GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
+        //if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
+            //GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
         {
             if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && numUsesSkill2 > 0)
             {
