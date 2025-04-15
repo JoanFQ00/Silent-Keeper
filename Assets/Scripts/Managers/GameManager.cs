@@ -6,19 +6,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject finalPanel, _player;
+    [SerializeField] GameObject pausePanel;
 
     public static GameManager Instance;
 
     public static Action<string> OnTimerUpdating;
-
     [SerializeField] float tiempoRestante = 120f;
     public float timerSpeedMultiplier = 1f;
-
     private bool estaContando = true;
+    public bool isPaused;
 
     private void Start()
     {
         finalPanel.SetActive(false);
+        isPaused = false;
     }
 
     private void Awake()
@@ -53,11 +54,6 @@ public class GameManager : MonoBehaviour
         {
             SceneChanger.instance.RestartZone();    
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneChanger.instance.QuitGame();
-        }
     }
 
     void ActualizarTexto()
@@ -72,5 +68,14 @@ public class GameManager : MonoBehaviour
     {
         _player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
         finalPanel.SetActive(true);
+    }
+
+    public void Pause()
+    {
+        bool active = pausePanel.activeSelf;
+        pausePanel.SetActive(!active);
+
+        if (!active) { isPaused = true; }
+        else { isPaused = false; }
     }
 }

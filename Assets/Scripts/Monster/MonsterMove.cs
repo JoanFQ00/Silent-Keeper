@@ -68,6 +68,11 @@ public class MonsterMove : MonoBehaviour
         }
     }
 
+    private void OnEscapeButt() 
+    {
+        GameManager.Instance.Pause();
+    }
+
     public Mode GetCurrentMode() 
     {
         return currentMode;

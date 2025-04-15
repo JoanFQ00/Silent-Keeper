@@ -44,12 +44,16 @@ public class DynamicButt : MonoBehaviour
             case "StartButt":
                 sc.LoadGame();
                 break;
-
             case "ExitButt":
                 sc.QuitGame();
                 break;
-
             case "MenuButt":
+                sc.LoadMenu();
+                break;
+            case "UnpauseButt":
+                GameManager.Instance.isPaused = false;
+                break;
+            case "Menu":
                 sc.LoadMenu();
                 break;
 
