@@ -1570,7 +1570,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaticEnemy2 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5941683365600380753, guid: b2b98d938f126cf498fef3936f2657a2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7961776657872304135, guid: b2b98d938f126cf498fef3936f2657a2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5358,12 +5363,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.88
       objectReference: {fileID: 0}
+    - target: {fileID: 8451599082607785280, guid: 1e676ae908842124cb00d58a5dfed793, type: 3}
+      propertyPath: enemyPlayerDetector
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e676ae908842124cb00d58a5dfed793, type: 3}
---- !u!43 &921331835
+--- !u!43 &919219521
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7768,7 +7777,7 @@ MonoBehaviour:
     rid: 5770243796972863560
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 921331835}
+    m_Mesh: {fileID: 919219521}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0.47999573, y: 0.47999573, z: 0}
@@ -10491,6 +10500,10 @@ PrefabInstance:
     - target: {fileID: 4491001864747619796, guid: 932237a7810161645b95377351999cd5, type: 3}
       propertyPath: m_Name
       value: StaticEnemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227462401767222453, guid: 932237a7810161645b95377351999cd5, type: 3}
+      propertyPath: enemyPlayerDetector
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6841264127582095900, guid: 932237a7810161645b95377351999cd5, type: 3}
       propertyPath: m_Color.b

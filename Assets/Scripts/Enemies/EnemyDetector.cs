@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using static StaticGuard;
 
-
-
-public class Detector : MonoBehaviour
+public class EnemyDetector : MonoBehaviour
 {
     public LayerMask Walls;
     //public Transform spawnerPosition;
@@ -42,6 +39,14 @@ public class Detector : MonoBehaviour
         _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
 
         _light2D = GetComponent<Light2D>();
+        Color color = Color.white;
+
+        if (enemyPlayerDetector == Characters.ONE)
+            if (ColorUtility.TryParseHtmlString("#274C4D", out color))
+                _light2D.color = color;
+            else
+            if (ColorUtility.TryParseHtmlString("#FFA132", out color))
+                _light2D.color = color;
     }
 
     void Update()
@@ -138,7 +143,6 @@ public class Detector : MonoBehaviour
                 {
                     if (target.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
                     {
-                        // Si no hay colisi�n, o la colisi�n es el objetivo Y no es un trigger
                         if (hit.collider == null)
                             return true;
 
@@ -158,7 +162,6 @@ public class Detector : MonoBehaviour
                 {
                     if (target.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
                     {
-                        // Si no hay colisi�n, o la colisi�n es el objetivo Y no es un trigger
                         if (hit.collider == null)
                             return true;
 
@@ -215,18 +218,15 @@ public class Detector : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 forward = transform.up;
 
-        // Dibuja el c�rculo del rango
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, range);
 
-        // Calcula los l�mites del �ngulo de visi�n
         Quaternion leftRotation = Quaternion.Euler(0, 0, -angle / 2f);
         Quaternion rightRotation = Quaternion.Euler(0, 0, angle / 2f);
 
         Vector3 leftDir = leftRotation * forward;
         Vector3 rightDir = rightRotation * forward;
 
-        // Dibuja las dos l�neas del �ngulo
         Gizmos.color = Color.red;
         Gizmos.DrawLine(origin, origin + leftDir * range);
         Gizmos.DrawLine(origin, origin + rightDir * range);

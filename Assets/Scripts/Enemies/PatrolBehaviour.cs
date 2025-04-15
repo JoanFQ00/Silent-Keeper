@@ -42,7 +42,7 @@ public class PatrolBehaviour : MonoBehaviour
         //    return;
         //}
 
-        if (gameObject.GetComponent<Detector>().GetEnemyState() == Detector.EnemyState.NORMAL)
+        if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() == EnemyDetector.EnemyState.NORMAL)
         {
             Transform targetPoint = PatrolPoints[_currentPoint];
             Vector2 direction = (targetPoint.position - transform.position).normalized;

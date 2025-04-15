@@ -44,10 +44,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1571635447836302077}
   - component: {fileID: 1124830611857735469}
-  - component: {fileID: 3852224523587128234}
   - component: {fileID: 4403514745335138125}
   - component: {fileID: 7333393853603552530}
-  - component: {fileID: 4952312287885118780}
+  - component: {fileID: 3852224523587128234}
+  - component: {fileID: 8451599082607785280}
   - component: {fileID: 6821869642627734145}
   m_Layer: 8
   m_Name: EnemyPatrol
@@ -126,23 +126,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3852224523587128234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4124116584652829044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284c7abae74c2264cb3ac5955a298389, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 3
-  WaitTime: 2
-  PatrolPoints:
-  - {fileID: 7259432969916673302}
-  - {fileID: 5652895608876177054}
 --- !u!50 &4403514745335138125
 Rigidbody2D:
   serializedVersion: 5
@@ -207,7 +190,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.0000072430958}
   m_Size: {x: 1.0000002, y: 1.0225176}
   m_Direction: 0
---- !u!114 &4952312287885118780
+--- !u!114 &3852224523587128234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,13 +199,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 4124116584652829044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f8cfd93891e4a4196b07a9daedbf07, type: 3}
+  m_Script: {fileID: 11500000, guid: 284c7abae74c2264cb3ac5955a298389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 3
+  WaitTime: 2
+  PatrolPoints:
+  - {fileID: 7259432969916673302}
+  - {fileID: 5652895608876177054}
+  RotationAngle: 180
+--- !u!114 &8451599082607785280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124116584652829044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92e898994a5c0d64095340a6257b30f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Walls:
     serializedVersion: 2
     m_Bits: 128
-  enemyState: 0
+  enemyPlayerDetector: 0
 --- !u!114 &6821869642627734145
 MonoBehaviour:
   m_ObjectHideFlags: 0

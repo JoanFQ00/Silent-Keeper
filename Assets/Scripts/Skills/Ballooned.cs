@@ -48,8 +48,8 @@ public class Ballooned : MonoBehaviour, ISkill
 
     public void BallonHasEnemyCollided(GameObject enemy)
     {
-        enemy.GetComponent<StaticGuard>().SetEnemyState(StaticGuard.EnemyState.STUNED);
-        enemy.GetComponent<StaticGuard>().SetStunTime(stunTime);
+        //enemy.GetComponent<StaticGuard>().SetEnemyState(StaticGuard.EnemyState.STUNED);
+        //enemy.GetComponent<StaticGuard>().SetStunTime(stunTime);
     }
 
     public SkillBase GetSkill()

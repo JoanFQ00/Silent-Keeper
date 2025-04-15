@@ -50,7 +50,7 @@ public class KidMachine : MonoBehaviour
                 {
                     GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
-                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) > 0.1)
+                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
                     {
                         transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, currentSpeed * Time.deltaTime);
                     }
