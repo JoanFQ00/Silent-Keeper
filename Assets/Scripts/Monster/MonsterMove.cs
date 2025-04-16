@@ -26,13 +26,20 @@ public class MonsterMove : MonoBehaviour
 
     void Update()
     {
-        if (moveDir.magnitude > 0.1f) 
+        if (!GameManager.Instance.isPaused)
         {
-            rb.linearVelocity = moveDir * currentSpeed;
+            if (moveDir.magnitude > 0.1f)
+            {
+                rb.linearVelocity = moveDir * currentSpeed;
+            }
+            else // When input out, inercy on movement
+            {
+                rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.deltaTime * deceleration);
+            }
         }
-        else // When input out, inercy on movement
+        else 
         {
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.deltaTime * deceleration); 
+            rb.linearVelocity = Vector2.zero;
         }
     }
 

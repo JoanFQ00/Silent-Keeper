@@ -16,26 +16,29 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-
-        Vector3 origin = kid.transform.position;
-        Vector3 direction = (mousePos - origin).normalized;
-        float distance = Vector2.Distance(origin, mousePos);
-
-        RaycastHit2D hitWall = Physics2D.Raycast(origin, direction, distance, LayerMask.GetMask("Wall"));
-
-        if (hitWall.collider == null)
+        if (!GameManager.Instance.isPaused) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
 
-            if (hit.collider == null || hit.collider.isTrigger)
+            Vector3 origin = kid.transform.position;
+            Vector3 direction = (mousePos - origin).normalized;
+            float distance = Vector2.Distance(origin, mousePos);
+
+            RaycastHit2D hitWall = Physics2D.Raycast(origin, direction, distance, LayerMask.GetMask("Wall"));
+
+            if (hitWall.collider == null)
             {
-                var waypoint = WaypointsPool.GetObject();
-                if (waypoint != null)
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+                if (hit.collider == null || hit.collider.isTrigger)
                 {
-                   waypoint.transform.position = mousePos;
-                   kidMachine.AddWaypoint(waypoint);
+                    var waypoint = WaypointsPool.GetObject();
+                    if (waypoint != null)
+                    {
+                        waypoint.transform.position = mousePos;
+                        kidMachine.AddWaypoint(waypoint);
+                    }
                 }
             }
         }
@@ -43,24 +46,30 @@ public class KidControl : MonoBehaviour
 
     private void OnRightMouse() 
     {
-        if (kidMachine.GetCurrentState() == KidMachine.States.Waypoints) 
+        if (!GameManager.Instance.isPaused)
         {
-            kidMachine.ChangeState(KidMachine.States.Stoped);
-        }
-        else
-        {
-            kidMachine.ChangeState(KidMachine.States.Waypoints);
+            if (kidMachine.GetCurrentState() == KidMachine.States.Waypoints)
+            {
+                kidMachine.ChangeState(KidMachine.States.Stoped);
+            }
+            else
+            {
+                kidMachine.ChangeState(KidMachine.States.Waypoints);
+            }
         }
     }
 
-    private void OnStopResume() 
+    private void OnStopResume()
     {
-        if (monsterMove.GetMonsterState() != KidMachine.States.Hidden && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
+        if (!GameManager.Instance.isPaused)
         {
-            kidMachine.ChangeState(KidMachine.States.Following);
-            WaypointsPool.DeactivateAll();
-            kidMachine.RemoveList();
-            kidMachine.ResetCurrentWaypointIndex();
+            if (monsterMove.GetMonsterState() != KidMachine.States.Hidden && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
+            {
+                kidMachine.ChangeState(KidMachine.States.Following);
+                WaypointsPool.DeactivateAll();
+                kidMachine.RemoveList();
+                kidMachine.ResetCurrentWaypointIndex();
+            }
         }
     }
 }
