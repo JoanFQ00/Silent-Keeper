@@ -38,7 +38,6 @@ public class StaticEnemy : MonoBehaviour
     {
         if (enemyState != EnemyState.NORMAL) return;
 
-        // Si está esperando
         if (_waiting)
         {
             _waitCounter -= Time.deltaTime;

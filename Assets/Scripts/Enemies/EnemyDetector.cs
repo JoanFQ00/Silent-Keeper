@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 
 public class EnemyDetector : MonoBehaviour
 {
     public LayerMask Walls;
-    //public Transform spawnerPosition;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
     private Transform _player;
     private Transform _kid;
@@ -33,6 +33,9 @@ public class EnemyDetector : MonoBehaviour
 
     void Start()
     {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
         stunTime = 0f;
         enemyState = EnemyState.NORMAL;
         _player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -55,7 +58,6 @@ public class EnemyDetector : MonoBehaviour
         {
             if (_light2D != null)
             {
-                // Actualiza los valores desde la luz
                 VisionRange = _light2D.pointLightOuterRadius;
                 VisionAngle = _light2D.pointLightOuterAngle;
             }
@@ -85,46 +87,6 @@ public class EnemyDetector : MonoBehaviour
         }
     }
 
-    public void SetStunTime(float time)
-    {
-        stunTime = time;
-    }
-
-    public void SetEnemyState(EnemyState state)
-    {
-        enemyState = state;
-
-        if (enemyState == EnemyState.STUNED)
-            _light2D.enabled = false;
-        else
-            _light2D.enabled = true;
-    }
-
-    public EnemyState GetEnemyState()
-    {
-        return enemyState;
-    }
-
-    //private bool CheckTargetInVision(Transform target)
-    //{
-    //    if (target == null) return false;
-
-    //    Vector2 directionToTarget = (target.position - transform.position).normalized;
-    //    float distanceToTarget = Vector2.Distance(transform.position, target.position);
-
-    //    if (distanceToTarget <= VisionRange)
-    //    {
-    //        float angleToTarget = Vector2.Angle(transform.up, directionToTarget);
-    //        if (angleToTarget < VisionAngle / 2f)
-    //        {
-    //            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
-    //            return hit.collider == null || hit.collider.transform == target;
-    //        }
-    //    }
-
-    //    return false;
-    //}
-
     private bool CheckTargetInVision(Transform target)
     {
         if (target == null) return false;
@@ -146,11 +108,9 @@ public class EnemyDetector : MonoBehaviour
                         if (hit.collider == null)
                             return true;
 
-                        // Si el collider es un trigger, lo ignoramos
                         if (hit.collider.isTrigger)
                             return true;
 
-                        // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
                         return hit.collider.transform == target;
                     }
                     else
@@ -165,11 +125,9 @@ public class EnemyDetector : MonoBehaviour
                         if (hit.collider == null)
                             return true;
 
-                        // Si el collider es un trigger, lo ignoramos
                         if (hit.collider.isTrigger)
                             return true;
 
-                        // Solo permitir si lo que choca es directamente el target (y no hay nada en medio)
                         return hit.collider.transform == target;
                     }
                     else
@@ -187,25 +145,63 @@ public class EnemyDetector : MonoBehaviour
         return false;
     }
 
+    public void SetStunTime(float time)
+    {
+        stunTime = time;
+    }
+
+    public void SetEnemyState(EnemyState state)
+    {
+        enemyState = state;
+
+        if (enemyState == EnemyState.STUNED)
+            _light2D.enabled = false;
+        else
+            _light2D.enabled = true;
+    }
+
+    public EnemyState GetEnemyState()
+    {
+        return enemyState;
+    }
+
     private void SendToSpawner()
     {
         if (_light2D != null)
         {
             _light2D.color = Color.red;
         }
+
+        //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/ true)
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        //else
+        //{
+        //    ResetValues();
+        //}
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    //private void SendToSpawner()
-    //{
-    //    gameObject.GetComponent<Light2D>().color = Color.red;
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //    if (SpawnerPosition != null)
-    //    {
-    //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //        //target.position = SpawnerPosition.position;
-    //    }
-    //}
+    private void ResetValues()
+    {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+        stunTime = 0f;
+        enemyState = EnemyState.NORMAL;
+        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
+
+        _light2D = GetComponent<Light2D>();
+        Color color = Color.white;
+
+        if (enemyPlayerDetector == Characters.ONE)
+            if (ColorUtility.TryParseHtmlString("#274C4D", out color))
+                _light2D.color = color;
+            else
+            if (ColorUtility.TryParseHtmlString("#FFA132", out color))
+                _light2D.color = color;
+    }
 
     private void OnDrawGizmos()
     {

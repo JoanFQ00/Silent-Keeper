@@ -1,30 +1,29 @@
-using TMPro;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
-    [SerializeField] private Transform target;
+    [SerializeField] private Transform monsterTrasform, kidTransform;
     public float smoothTime = 0.25f;
     public float offsetFactor = 0.3f;
     public float maxOffsetDistance = 5f;
     public float deadZone = 2f;
-    private Vector3 velocity = Vector3.zero;
 
-    Camera mainCamera;
+    private Transform target;
+    private Vector3 velocity = Vector3.zero;
+    private Camera mainCamera;
 
     private void Start()
     {
+        target = monsterTrasform;
         transform.position = new Vector3(target.position.x, target.position.y, -10f);
         mainCamera = GetComponent<Camera>();
+        mainCamera.orthographicSize = 5f;
     }
 
     void Update()
     {
         if (!GameManager.Instance.isPaused) 
         {   
-            mainCamera.orthographicSize = 5f;
-
             if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f)
             {
                 Vector3 mouseScreen = Input.mousePosition;

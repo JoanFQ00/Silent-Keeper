@@ -1,7 +1,4 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Locker : MonoBehaviour
 {
@@ -25,7 +22,6 @@ public class Locker : MonoBehaviour
 
             if (activated)
             {
-                // Mover al jugador dentro de la taquilla
                 _other.transform.position = this.transform.position;
                 otherColor = _other.GetComponent<SpriteRenderer>().color;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
@@ -35,13 +31,11 @@ public class Locker : MonoBehaviour
                 else if (_other.gameObject.tag == "Player")
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Hidden);
 
-                // Congelar la posición
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
             }
             else
             {
-                // Poner al jugador fuera de la taquilla en la dirección correcta
-                _other.transform.position = this.transform.position + this.transform.right * 1f; // Usa 'up' para moverse en 2D
+                _other.transform.position = this.transform.position + this.transform.right * 1f;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
                 if (_other.gameObject.tag == "Kid")
@@ -49,7 +43,6 @@ public class Locker : MonoBehaviour
                 else if (_other.gameObject.tag == "Player")
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Stoped);
 
-                // Desbloquear las restricciones del Rigidbody2D
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);

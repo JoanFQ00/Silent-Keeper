@@ -12,7 +12,6 @@ public class Ballooned : MonoBehaviour, ISkill
     private Vector3 mousePos, ballonDirection;
 
     private float defaultBuffTime;
-    //private GameObject player;
     private bool finishedSkill;
 
     public void Execute(GameObject monster)
@@ -48,8 +47,8 @@ public class Ballooned : MonoBehaviour, ISkill
 
     public void BallonHasEnemyCollided(GameObject enemy)
     {
-        //enemy.GetComponent<StaticGuard>().SetEnemyState(StaticGuard.EnemyState.STUNED);
-        //enemy.GetComponent<StaticGuard>().SetStunTime(stunTime);
+        enemy.GetComponent<EnemyDetector>().SetEnemyState(EnemyDetector.EnemyState.STUNED);
+        enemy.GetComponent<EnemyDetector>().SetStunTime(stunTime);
     }
 
     public SkillBase GetSkill()

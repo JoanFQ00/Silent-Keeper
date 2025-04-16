@@ -1,26 +1,21 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MonsterMove : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Vector2 moveDir;
     [SerializeField] float defaultSpeed = 2f;
-    private float currentSpeed;
     [SerializeField] float deceleration = 5f;
-    KidMachine kidMachine;
-    public CameraFollow cameraFollow;
-    public static Action<string> OnChangeTxt;
+    private float currentSpeed;
+    private Rigidbody2D rb;
+    private Vector2 moveDir;
     private KidMachine.States monsterState;
+
+    public static Action<string> OnChangeTxt;
 
     void Start()
     {
         monsterState = KidMachine.States.Stoped;
         rb = GetComponent<Rigidbody2D>();
-        kidMachine = GameObject.FindGameObjectWithTag("Kid").GetComponent<KidMachine>();
-        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         currentSpeed = defaultSpeed;
     }
 
@@ -32,7 +27,7 @@ public class MonsterMove : MonoBehaviour
             {
                 rb.linearVelocity = moveDir * currentSpeed;
             }
-            else // When input out, inercy on movement
+            else
             {
                 rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.deltaTime * deceleration);
             }
@@ -51,12 +46,6 @@ public class MonsterMove : MonoBehaviour
     public KidMachine.States GetMonsterState()
     {
         return monsterState;
-    }
-
-    private void OnMove(InputValue value)
-    {
-        moveDir = value.Get<Vector2>();
-        cameraFollow.ChangeTarget(GetComponentInParent<Transform>());
     }
 
     private void OnEscapeButt() 

@@ -20,6 +20,7 @@ public class InteractTxt : MonoBehaviour
         Interact.ShowInteraction -= ChangeActive;
     }
 
+    //PONER LOS 2 OBJETOS DE TEXTO EN FUNCIÓN DE QUÉ PLAYER LO ACTIVA
     private void ChangeActive(GameObject parent, bool hasToActivate)
     {
         if (parent == txt.transform.parent.gameObject)
