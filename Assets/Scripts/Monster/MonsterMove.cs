@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -46,6 +47,11 @@ public class MonsterMove : MonoBehaviour
     public KidMachine.States GetMonsterState()
     {
         return monsterState;
+    }
+
+    private void OnMove(InputValue value)
+    {
+        moveDir = value.Get<Vector2>();
     }
 
     private void OnEscapeButt() 

@@ -3005,7 +3005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd965a24121db94f8311a8c21cf4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 707755360}
   smoothTime: 1
   offsetFactor: 3
   maxOffsetDistance: 3
@@ -3323,7 +3322,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!43 &605844772
+--- !u!1 &608097284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608097286}
+  - component: {fileID: 608097285}
+  m_Layer: 0
+  m_Name: LocaCola
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &608097285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608097284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af1dc451e4a3bf4fa05c78c9922e98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSkill: {fileID: 11400000, guid: 6ba8646197b93964fa3f991be61946fc, type: 2}
+  extraSpeed: 4.5
+  reduceSpeed: 3
+  buffTime: 3
+--- !u!4 &608097286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608097284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &615191292
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3488,54 +3535,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &608097284
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 608097286}
-  - component: {fileID: 608097285}
-  m_Layer: 0
-  m_Name: LocaCola
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &608097285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608097284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4af1dc451e4a3bf4fa05c78c9922e98f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisSkill: {fileID: 11400000, guid: 6ba8646197b93964fa3f991be61946fc, type: 2}
-  extraSpeed: 4.5
-  reduceSpeed: 3
-  buffTime: 3
---- !u!4 &608097286
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608097284}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616261758
 GameObject:
   m_ObjectHideFlags: 0
@@ -4113,7 +4112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSpeed: 3.5
   deceleration: 7
-  cameraFollow: {fileID: 0}
 --- !u!114 &707755356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7777,7 +7775,7 @@ MonoBehaviour:
     rid: 5770243796972863560
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 605844772}
+    m_Mesh: {fileID: 615191292}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0.47999573, y: 0.47999573, z: 0}
@@ -8177,8 +8175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d846628aea45874a9bbbfc73d843b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monster: {fileID: 707755354}
+  kid: {fileID: 452572456}
   finalPanel: {fileID: 1709936960}
-  _player: {fileID: 707755354}
   pausePanel: {fileID: 1840131961}
   tiempoRestante: 120
   timerSpeedMultiplier: 1

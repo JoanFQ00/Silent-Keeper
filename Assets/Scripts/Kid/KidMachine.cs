@@ -1,7 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class KidMachine : MonoBehaviour
 {
@@ -107,9 +105,9 @@ public class KidMachine : MonoBehaviour
 
         if (currentState == States.Hand)
         {
-         //   distToPlayer = GetComponent<Interact>().GetDetectionRadius();
+            //distToPlayer = GetComponent<Interact>().GetDetectionRadius();
         }
-        else 
+        else
         {
             distToPlayer = 0.7f;
         }

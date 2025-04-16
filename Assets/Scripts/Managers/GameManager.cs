@@ -1,20 +1,23 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject finalPanel, _player;
-    [SerializeField] GameObject pausePanel;
+    [SerializeField] GameObject monster, kid;
+    [SerializeField] GameObject finalPanel, pausePanel;
+    [SerializeField] float tiempoRestante = 120f;
+
+    public float timerSpeedMultiplier = 1f;
+    public bool isPaused;
+
+    private bool estaContando = true;
+    private GameObject mainCamera;
 
     public static GameManager Instance;
-
     public static Action<string> OnTimerUpdating;
-    [SerializeField] float tiempoRestante = 120f;
-    public float timerSpeedMultiplier = 1f;
-    private bool estaContando = true;
-    public bool isPaused;
 
     private void Start()
     {
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetInitialCameraReference(GameObject camera)
+    {
+        mainCamera = camera;
+        mainCamera.GetComponent<CameraFollow>().ChangeTarget(monster.transform);
+    }
+
     void Update()
     {
         if (estaContando)
@@ -48,6 +57,17 @@ public class GameManager : MonoBehaviour
             }
 
             ActualizarTexto();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (mainCamera != null)
+            {
+                if (mainCamera.GetComponent<CameraFollow>().GetCameraTarget().gameObject == monster)
+                    mainCamera.GetComponent<CameraFollow>().ChangeTarget(kid.transform);
+                else
+                    mainCamera.GetComponent<CameraFollow>().ChangeTarget(monster.transform);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -66,7 +86,7 @@ public class GameManager : MonoBehaviour
     //Útil para máquina exprendedora
     public void ActiveFinalPanel()
     {
-        _player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        monster.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
         finalPanel.SetActive(true);
     }
 
