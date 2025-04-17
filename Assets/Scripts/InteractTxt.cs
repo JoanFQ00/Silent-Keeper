@@ -3,36 +3,39 @@ using UnityEngine.Rendering;
 
 public class InteractTxt : MonoBehaviour
 {
-    [SerializeField] GameObject txt;
+    [SerializeField] GameObject txtMonster, txtKid;
 
     private void Start()
     {
-        txt.SetActive(false);
+        txtMonster.SetActive(false);
+        txtKid.SetActive(false);
     }
 
     void OnEnable()
     {
-        Interact.ShowInteraction += ChangeActive;
+        Interact.ShowInteractionMonster += VisualMonsterText;
+        Interact.ShowInteractionKid += VisualKidText;
     }
 
     void OnDisable()
     {
-        Interact.ShowInteraction -= ChangeActive;
+        Interact.ShowInteractionMonster -= VisualMonsterText;
+        Interact.ShowInteractionKid -= VisualKidText;
     }
 
     //PONER LOS 2 OBJETOS DE TEXTO EN FUNCIÓN DE QUÉ PLAYER LO ACTIVA
-    private void ChangeActive(GameObject parent, bool hasToActivate)
+    private void VisualMonsterText(GameObject parent)
     {
-        if (parent == txt.transform.parent.gameObject)
-        {
-            if (hasToActivate)
-                txt.SetActive(true);
-            else
-                txt.SetActive(false);
-        }
+        if (parent == txtMonster.transform.parent.gameObject)
+            txtMonster.SetActive(true);
         else
-        {
-            txt.SetActive(false);
-        }
+            txtMonster.SetActive(false);
+    }
+    private void VisualKidText(GameObject parent)
+    {
+        if (parent == txtKid.transform.parent.gameObject)
+            txtKid.SetActive(true);
+        else
+            txtKid.SetActive(false);
     }
 }

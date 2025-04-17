@@ -176,7 +176,7 @@ public class EnemyDetector : MonoBehaviour
             _light2D.color = Color.red;
         }
 
-        //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/ true)
+        //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/)
         //    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         //else
         //{

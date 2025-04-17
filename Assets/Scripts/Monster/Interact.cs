@@ -6,10 +6,13 @@ public class Interact : MonoBehaviour
     [SerializeField] float detectionRadius;
     public LayerMask detectionLayer;
 
-    public static Action<GameObject, bool> ShowInteraction;
     private static bool kidDetected = false;
     private static bool playerDetected = false;
     private static Collider2D kidHit, MonsterHit;
+    private float scrollCooldown = 0.3f; //AQUÍ POSAR EL TEMPS QUE TRIGA EN REALITZAR L'ANIMACIÓ D'ENTRAR A LA TAQUILLA
+    private float lastScrollTime = 0f;
+
+    public static Action<GameObject> ShowInteractionMonster, ShowInteractionKid;
 
     void Update()
     {
@@ -30,21 +33,43 @@ public class Interact : MonoBehaviour
         if (hit != null)
         {
             if (gameObject.tag == "Kid")
-                ShowInteraction?.Invoke(kidHit.gameObject, true);
+            {
+                if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
+                    ShowInteractionKid?.Invoke(kidHit.gameObject);
+            }
             else
-                ShowInteraction?.Invoke(MonsterHit.gameObject, true);
+            {
+                if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
+                    ShowInteractionMonster?.Invoke(MonsterHit.gameObject);
+            }
         }
         else
         {
-            if (!kidDetected && !playerDetected)
+            if (!playerDetected)
+                ShowInteractionMonster?.Invoke(null);
+            
+            if (!kidDetected)
+                ShowInteractionKid?.Invoke(null);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Player")
+        {
+            if (!GameManager.Instance.isPaused)
             {
-                ShowInteraction?.Invoke(null, false);
+                ShowInteractionMonster?.Invoke(null);
+                Interacting(gameObject);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.mouseScrollDelta.y < 0 && gameObject.tag == "Kid")
         {
-            Interacting(gameObject);
+            if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
+            {
+                ShowInteractionKid?.Invoke(null);
+
+                lastScrollTime = Time.time;
+                Interacting(gameObject);
+            }
         }
     }
 
@@ -76,17 +101,23 @@ public class Interact : MonoBehaviour
     //private void OnInteractionExecutedMonster()
     //{
     //    //CUANDO TENGAMOS LAS 2 TECLAS DIFERENTES
-    //    //if (gameObject.tag == "Player")
-    //    //    Interacting(this.gameObject);
+    //    if (!GameManager.Instance.isPaused)
+    //    {
+    //        if (gameObject.tag == "Player")
+    //            Interacting(this.gameObject);
 
-    //    Interacting(gameObject);
+    //        Interacting(gameObject);
+    //    }
     //}
 
-    private void OnInteractionExecutedKid()
-    {
-        if (gameObject.tag == "Kid")
-            Interacting(this.gameObject);
-    }
+    //private void OnInteractionExecutedKid()
+    //{
+    //    if (!GameManager.Instance.isPaused)
+    //    {
+    //        if (gameObject.tag == "Kid")
+    //            Interacting(this.gameObject);
+    //    }
+    //}
 
     public float GetDetectionRadius() { return detectionRadius; }
 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class KidMachine : MonoBehaviour
 {
@@ -20,7 +19,6 @@ public class KidMachine : MonoBehaviour
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
         currentSpeed = defaultSpeed;
-        //distToPlayer = GetComponent<Interact>().GetDetectionRadius();
     }
 
     void Update()
@@ -112,15 +110,6 @@ public class KidMachine : MonoBehaviour
     public void ChangeState(States state) 
     {
         currentState = state;
-
-        if (currentState == States.Hand)
-        {
-            //distToPlayer = GetComponent<Interact>().GetDetectionRadius();
-        }
-        else
-        {
-            distToPlayer = 0.7f;
-        }
     }
 
     public States GetCurrentState() 
