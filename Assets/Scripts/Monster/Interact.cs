@@ -41,6 +41,11 @@ public class Interact : MonoBehaviour
                 ShowInteraction?.Invoke(null, false);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Interacting(gameObject);
+        }
     }
 
     public void Interacting(GameObject thisObject)
@@ -68,14 +73,14 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void OnInteractionExecutedMonster()
-    {
-        //CUANDO TENGAMOS LAS 2 TECLAS DIFERENTES
-        //if (gameObject.tag == "Player")
-        //    Interacting(this.gameObject);
+    //private void OnInteractionExecutedMonster()
+    //{
+    //    //CUANDO TENGAMOS LAS 2 TECLAS DIFERENTES
+    //    //if (gameObject.tag == "Player")
+    //    //    Interacting(this.gameObject);
 
-        Interacting(this.gameObject);
-    }
+    //    Interacting(gameObject);
+    //}
 
     private void OnInteractionExecutedKid()
     {

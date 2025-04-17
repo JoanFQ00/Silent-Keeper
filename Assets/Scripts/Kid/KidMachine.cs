@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class KidMachine : MonoBehaviour
 {
@@ -28,12 +29,21 @@ public class KidMachine : MonoBehaviour
         {
             case States.Following:
 
+                Collider2D hit = Physics2D.OverlapCircle(transform.position, GetComponent<Interact>().GetDetectionRadius(), LayerMask.GetMask("Wall"));
+
                 if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= distToPlayer)
                 {
                     ChangeState(States.Hand);
                 }
-                currentSpeed = defaultSpeed;
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
+                else if (hit != null)
+                {
+                    ChangeState(States.Stoped);
+                }
+                else
+                {
+                    currentSpeed = defaultSpeed;
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
+                }
 
                 break;
 
