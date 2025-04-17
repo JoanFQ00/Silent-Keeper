@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class KidMachine : MonoBehaviour
 {
+    [SerializeField] float defaultSpeed = 1.5f;
+
     public enum States { Following, Hand, Waypoints, Stoped, Hidden }
+
     private States lastState;
     private States currentState;
-    [SerializeField] float defaultSpeed = 1.5f;
     private float currentSpeed;
     private float distToPlayer = 0.7f;
     private GameObject player;
@@ -105,7 +107,6 @@ public class KidMachine : MonoBehaviour
             currentState = States.Stoped;
         }
     }
-
 
     public void ChangeState(States state) 
     {

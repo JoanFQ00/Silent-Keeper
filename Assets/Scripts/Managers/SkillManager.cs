@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System;
 
@@ -7,7 +6,7 @@ public class SkillManager : MonoBehaviour
     public static SkillManager Instance;
 
     public GameObject player;
-    public GameObject[] allSkills; // Todas las habilidades disponibles
+    public GameObject[] allSkills;
 
     private GameObject skill1;
     private GameObject skill2;
@@ -19,7 +18,7 @@ public class SkillManager : MonoBehaviour
 
     public static Action<Sprite, GameObject, float, SkillUI.SlotNumber> OnSlotImageUpdated;
     public static Action<uint, SkillUI.SlotNumber> OnSlotUsesUpdated;
-    public static Action<float, SkillUI.SlotNumber> OnSlotCooldownUpdated; //bool para activar o no el texto e pantalla en el SkillUI
+    public static Action<float, SkillUI.SlotNumber> OnSlotCooldownUpdated;
     public static Action<bool, SkillUI.SlotNumber> OnSlotCooldownActivatedUpdated;
     public static Action<bool, SkillUI.SlotNumber> OnSlotImageColorWhiteUpdated;
     public static Action<string> OnSlotTextUpdated;

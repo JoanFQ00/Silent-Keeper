@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class InteractTxt : MonoBehaviour
 {
@@ -23,7 +22,6 @@ public class InteractTxt : MonoBehaviour
         Interact.ShowInteractionKid -= VisualKidText;
     }
 
-    //PONER LOS 2 OBJETOS DE TEXTO EN FUNCIÓN DE QUÉ PLAYER LO ACTIVA
     private void VisualMonsterText(GameObject parent)
     {
         if (parent == txtMonster.transform.parent.gameObject)

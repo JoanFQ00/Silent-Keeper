@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
-//using UnityEditor.Experimental.GraphView;
 
 public class SkillUI : MonoBehaviour
 {
@@ -51,7 +49,7 @@ public class SkillUI : MonoBehaviour
     {
         if (currentSlot == slot)
         {
-            if (image == skill.GetComponent<ISkill>().GetSkill().gameplayImageBW) // Si la imagen es la blanca (cooldown)
+            if (image == skill.GetComponent<ISkill>().GetSkill().gameplayImageBW)
             {
                 normalSkillImageUI.sprite = image;
                 normalSkillImageUI.fillAmount = Mathf.Clamp01(1 - (cooldown / skill.GetComponent<ISkill>().GetSkill().cooldown));
@@ -60,7 +58,7 @@ public class SkillUI : MonoBehaviour
                 cooldownSkillImageUI.sprite = skill.GetComponent<ISkill>().GetSkill().gameplayImageWhite;
                 cooldownSkillImageUI.fillAmount = 1f;
             }
-            else // Si la imagen no es gris (es la imagen a color)
+            else
             {
                 normalSkillImageUI.sprite = image;
                 normalSkillImageUI.fillAmount = 1f;
@@ -96,6 +94,6 @@ public class SkillUI : MonoBehaviour
             if (isWhite)
                 normalSkillImageUI.color = Color.white;
             else
-                normalSkillImageUI.color = Color.yellow; //Se puede poner un shades :)
+                normalSkillImageUI.color = Color.yellow; //Se puede poner un shader :)
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class KidControl : MonoBehaviour
@@ -52,7 +51,7 @@ public class KidControl : MonoBehaviour
             {
                 kidMachine.ChangeState(KidMachine.States.Stoped);
             }
-            else
+            else if (kidMachine.GetCurrentState() != KidMachine.States.Hidden)
             {
                 kidMachine.ChangeState(KidMachine.States.Waypoints);
             }

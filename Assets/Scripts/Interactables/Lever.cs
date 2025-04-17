@@ -1,12 +1,12 @@
 using System;
-using System.Threading;
 using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
     [SerializeField] int key;
     [SerializeField] bool activated;
-    SpriteRenderer spriteRenderer;
+
+    private SpriteRenderer spriteRenderer;
 
     public static Action<bool, int> LeverActivated;
 
@@ -36,7 +36,5 @@ public class Lever : MonoBehaviour
         {
             spriteRenderer.color = Color.red;
         }
-
-        //Debug.Log(activated + " " + key);
     }
 }

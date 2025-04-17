@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class TestingDoor : MonoBehaviour
 {
-    SpriteRenderer spriteRenderer;
     [SerializeField] int thisKey;
     [SerializeField] bool thisActivated;
+
+    private SpriteRenderer spriteRenderer;
     private ShadowCaster2D shadowCaster2D;
 
     private Collider2D col;

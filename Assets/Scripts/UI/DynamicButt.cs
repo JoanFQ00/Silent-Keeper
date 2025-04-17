@@ -4,11 +4,11 @@ using System;
 
 public class DynamicButt : MonoBehaviour
 {
-    private Button button;
-    private Slider audioSlider;
-
     public static Action<Slider> PassMusicSlider;
     public static Action<Slider> PassAudioSlider;
+
+    private Button button;
+    private Slider audioSlider;
 
     private void Start()
     {

@@ -98,6 +98,7 @@ public class Interact : MonoBehaviour
         }
     }
 
+    //INPUT SYSTEM
     //private void OnInteractionExecutedMonster()
     //{
     //    //CUANDO TENGAMOS LAS 2 TECLAS DIFERENTES

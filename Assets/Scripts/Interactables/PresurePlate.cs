@@ -1,12 +1,12 @@
 using System;
-using System.Threading;
 using UnityEngine;
 
 public class PresurePlate : MonoBehaviour
 {
     [SerializeField] int key;
     [SerializeField] bool activated;
-    SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
+    private int _activeCollisions = 0;
 
     public static Action<bool, int> PresureActivated;
 
@@ -23,8 +23,6 @@ public class PresurePlate : MonoBehaviour
         }
     }
 
-    private int _activeCollisions = 0; // Contador de colisiones activas
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
@@ -33,7 +31,6 @@ public class PresurePlate : MonoBehaviour
             PresureActivated?.Invoke(activated, key);
             spriteRenderer.color = Color.green;
 
-            // Aumentamos el contador cuando entra un collider
             _activeCollisions++;
         }
     }
@@ -42,10 +39,8 @@ public class PresurePlate : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
         {
-            // Reducimos el contador cuando sale un collider
             _activeCollisions--;
 
-            // Solo ejecutamos el código si no quedan colisiones activas
             if (_activeCollisions == 0)
             {
                 activated = false;
@@ -59,7 +54,6 @@ public class PresurePlate : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
         {
-            // Solo cambiamos el color a verde si hay al menos una colisión
             if (_activeCollisions > 0)
             {
                 spriteRenderer.color = Color.green;
