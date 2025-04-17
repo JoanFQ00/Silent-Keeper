@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 public class EnemyDetector : MonoBehaviour
 {
-    public LayerMask Walls;
+    private LayerMask wallLayer;
     private Vector3 startPosition;
     private Quaternion startRotation;
 
@@ -33,6 +33,8 @@ public class EnemyDetector : MonoBehaviour
 
     void Start()
     {
+        wallLayer = LayerMask.GetMask("Wall");
+
         startPosition = transform.position;
         startRotation = transform.rotation;
 
@@ -45,9 +47,11 @@ public class EnemyDetector : MonoBehaviour
         Color color = Color.white;
 
         if (enemyPlayerDetector == Characters.ONE)
+        {
             if (ColorUtility.TryParseHtmlString("#274C4D", out color))
                 _light2D.color = color;
-            else
+        }
+        else
             if (ColorUtility.TryParseHtmlString("#FFA132", out color))
                 _light2D.color = color;
     }
@@ -99,7 +103,7 @@ public class EnemyDetector : MonoBehaviour
             float angleToTarget = Vector2.Angle(transform.up, directionToTarget);
             if (angleToTarget < VisionAngle / 2f)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, Walls);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, wallLayer);
 
                 if (target.gameObject.tag == "Player")
                 {
@@ -196,9 +200,11 @@ public class EnemyDetector : MonoBehaviour
         Color color = Color.white;
 
         if (enemyPlayerDetector == Characters.ONE)
+        {
             if (ColorUtility.TryParseHtmlString("#274C4D", out color))
                 _light2D.color = color;
-            else
+        }
+        else
             if (ColorUtility.TryParseHtmlString("#FFA132", out color))
                 _light2D.color = color;
     }
