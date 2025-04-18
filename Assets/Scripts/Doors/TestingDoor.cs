@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class TestingDoor : MonoBehaviour, IInteractableWithButton
 {
-    [SerializeField] bool thisActivated, hasMultipleOptions;// sd sdsdasdasdasdasdasd asd as das d
-    [SerializeField] int thisKey = 0;
+    [SerializeField] bool thisActivated, hasMultipleOptions;
+    [SerializeField] private List<int> thisKey = new List<int>();
     [SerializeField] float detectionRadius;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
@@ -43,10 +42,13 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
         InteractableBase[] interactables = GameObject.FindObjectsByType<InteractableBase>(FindObjectsSortMode.None);
         foreach (var interactable in interactables)
         {
-            if (interactable.GetKey() == thisKey)
+            // Verifica si alguna de las llaves de InteractableBase coincide con esta puerta
+            foreach (int key in interactable.GetKey())
             {
-                if (!totalKeysActivated.Contains(interactable))
+                if (thisKey.Contains(key) && !totalKeysActivated.Contains(interactable))
+                {
                     totalKeysActivated.Add(interactable);
+                }
             }
         }
 
@@ -55,10 +57,14 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
     private void RemoveInteractable(InteractableBase interactable)
     {
-        if (interactable.GetKey() == thisKey && totalKeysActivated.Contains(interactable))
+        // Asegúrate de que la llave asociada se ha removido correctamente
+        foreach (int key in interactable.GetKey())
         {
-            totalKeysActivated.Remove(interactable);
-            interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
+            if (thisKey.Contains(key) && totalKeysActivated.Contains(interactable))
+            {
+                totalKeysActivated.Remove(interactable);
+                interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
+            }
         }
     }
 
@@ -68,19 +74,20 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
         int countKeys = 0;
 
+        // Cuenta cuántas llaves activadas hay
         foreach (InteractableBase interactable in totalKeysActivated)
         {
             if (interactable == null) continue;
 
             KeyBase keyBase = interactable.gameObject.GetComponent<KeyBase>();
 
-            if (keyBase != null)
+            if (keyBase != null && interactable.GetIsActivated())
             {
                 countKeys++;
-                break;
             }
         }
 
+        // Condición para abrir la puerta basada en las llaves activadas
         if (thisActivated && countKeys != 0)
         {
             stopProcessing = true;
@@ -126,6 +133,7 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
                         }
                 }
 
+                // Si son las dos llaves y están todas activadas, abre la puerta
                 if (areTwoPlayersOnDoor && countKeys == countSameKeys)
                 {
                     bool canDoorBeOpened = true;
@@ -143,8 +151,8 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
                 }
             }
         }
-        
-        if (countKeys == 0) //It doesn't have any key!
+
+        if (countKeys == 0) //No tiene ninguna llave activada
             DoorChecker();
     }
 
@@ -152,6 +160,7 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
     {
         bool canDoorBeOpened = true;
 
+        // Si no tiene todas las llaves activadas, no se abre
         foreach (InteractableBase interactable in totalKeysActivated)
         {
             if (!interactable.GetIsActivated())
@@ -163,6 +172,7 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
         if (canDoorBeOpened && !thisActivated)
             OpenDoor();
 
+        // Si alguna llave no está activada, se cierra la puerta
         foreach (InteractableBase interactable in totalKeysActivated)
         {
             if (!interactable.GetIsActivated())

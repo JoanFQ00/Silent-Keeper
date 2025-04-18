@@ -1,9 +1,9 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableBase : MonoBehaviour
 {
-    [SerializeField] int keyValue = 0;
+    [SerializeField] private List<int> keyValue = new List<int>();
     [SerializeField] bool isActivated = false;
 
     void Start()
@@ -12,7 +12,7 @@ public class InteractableBase : MonoBehaviour
             isActivated = false;
     }
 
-    public int GetKey()
+    public List<int> GetKey()
     {
         return keyValue;
     }
