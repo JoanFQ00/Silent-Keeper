@@ -8,3 +8,9 @@ public interface ISkill
     void SetInitialHasFinished();
     bool HasFinished();
 }
+
+public interface IInteractableWithButton
+{
+    void Interacted();
+    void Interacted(GameObject other, GameObject thisObject);
+}

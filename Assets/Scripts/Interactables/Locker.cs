@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Locker : MonoBehaviour
+public class Locker : MonoBehaviour, IInteractableWithButton
 {
     private bool activated;
     private GameObject _other;
@@ -56,4 +56,6 @@ public class Locker : MonoBehaviour
     {
         return _other;
     }
+
+    public void Interacted() { }
 }

@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class PresurePlate : MonoBehaviour
 {
-    [SerializeField] int key;
-    [SerializeField] bool activated;
+    [SerializeField] bool keepActivated;
+
+    private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
     private int _activeCollisions = 0;
 
-    public static Action<bool, int> PresureActivated;
-
     void Start()
     {
+        interactable = GetComponent<InteractableBase>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (activated)
+
+        if (interactable.GetIsActivated())
         {
             spriteRenderer.color = Color.green;
         }
@@ -27,8 +28,7 @@ public class PresurePlate : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
         {
-            activated = true;
-            PresureActivated?.Invoke(activated, key);
+            interactable.SetKeyActivated(true);
             spriteRenderer.color = Color.green;
 
             _activeCollisions++;
@@ -43,8 +43,9 @@ public class PresurePlate : MonoBehaviour
 
             if (_activeCollisions == 0)
             {
-                activated = false;
-                PresureActivated?.Invoke(activated, key);
+                if (!keepActivated)
+                    interactable.SetKeyActivated(false);
+
                 spriteRenderer.color = new Color(0f, 166f, 255f, 1f);
             }
         }

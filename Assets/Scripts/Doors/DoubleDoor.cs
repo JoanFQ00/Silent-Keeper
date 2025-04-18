@@ -33,12 +33,12 @@ public class DoubleDoor : MonoBehaviour
 
     void OnEnable()
     {
-        PresurePlate.PresureActivated += OpenDoor;
+        //PresurePlate.PresureActivated += OpenDoor;
     }
 
     void OnDisable()
     {
-        PresurePlate.PresureActivated -= OpenDoor;
+        //PresurePlate.PresureActivated -= OpenDoor;
     }
 
     void Update()

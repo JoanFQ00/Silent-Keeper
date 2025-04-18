@@ -1,19 +1,16 @@
-using System;
 using UnityEngine;
 
-public class Lever : MonoBehaviour
+public class Lever : MonoBehaviour, IInteractableWithButton
 {
-    [SerializeField] int key;
-    [SerializeField] bool activated;
-
+    private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
-
-    public static Action<bool, int> LeverActivated;
 
     void Start()
     {
+        interactable = GetComponent<InteractableBase>();
         spriteRenderer = GetComponent<SpriteRenderer>();   
-        if (activated)
+
+        if (interactable.GetIsActivated())
         {
             spriteRenderer.color = Color.green;
         } 
@@ -25,10 +22,9 @@ public class Lever : MonoBehaviour
 
     public void Interacted() 
     {
-        activated = !activated;
-        LeverActivated?.Invoke(activated, key);
+        interactable.SetKeyActivated(!interactable.GetIsActivated());
 
-        if (activated)
+        if (interactable.GetIsActivated())
         {
             spriteRenderer.color = Color.green;
         } 
@@ -37,4 +33,6 @@ public class Lever : MonoBehaviour
             spriteRenderer.color = Color.red;
         }
     }
+
+    public void Interacted(GameObject other, GameObject thisObject) { }
 }
