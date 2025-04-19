@@ -10,12 +10,12 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnEnable()
     {
-        TestingDoor.RefreshPlayerInventory += RefreshKeys;
+        DoorBase.RefreshPlayerInventory += RefreshKeys;
     }
 
     private void OnDisable()
     {
-        TestingDoor.RefreshPlayerInventory -= RefreshKeys;
+        DoorBase.RefreshPlayerInventory -= RefreshKeys;
 
     }
 

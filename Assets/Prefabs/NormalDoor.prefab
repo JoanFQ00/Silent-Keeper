@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5964763195943771928}
   - component: {fileID: 5759217998346520600}
-  - component: {fileID: 1518324786620187772}
   - component: {fileID: 8150156571102830685}
+  - component: {fileID: 1825320173968104267}
   - component: {fileID: 7161166935280246469}
   m_Layer: 6
-  m_Name: Door
+  m_Name: NormalDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,25 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1518324786620187772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190950008040045784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20269331a5a69e64191cc0317111be2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisActivated: 0
-  hasMultipleOptions: 0
-  isIndependent: 0
-  keepActivated: 0
-  isWall: 0
-  thisKey: 
-  detectionRadius: 2
 --- !u!61 &8150156571102830685
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,6 +136,26 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1825320173968104267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190950008040045784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5063c91afcd59df46bd8d4f463075458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisActivated: 0
+  hasMultipleOptions: 0
+  isIndependent: 0
+  keepActivated: 0
+  isWall: 0
+  thisKey: 00000000
+  detectionRadius: 2
+  doorBaseSO: {fileID: 11400000, guid: c0032fc219345434eb7fc5398791a3ff, type: 2}
 --- !u!114 &7161166935280246469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,12 +197,12 @@ MonoBehaviour:
     m_TrimEdge: 0.03
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0.03
+    m_InitialTrim: 0
   m_CastingOption: 1
   m_PreviousTrimEdge: 0.03
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 0}
+  m_PreviousShadowShape2DSource: {fileID: 5759217998346520600}
   references:
     version: 2
     RefIds:

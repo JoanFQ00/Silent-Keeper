@@ -86,9 +86,9 @@ public class Interact : MonoBehaviour
                     var element = hit.GetComponent<Lever>();
                     element.Interacted();
                 }
-                else if (hit.GetComponent<TestingDoor>() != null)
+                else if (hit.GetComponent<DoorBase>() != null)
                 {
-                    var element = hit.GetComponent<TestingDoor>();
+                    var element = hit.GetComponent<DoorBase>();
                     element.Interacted();
                 }
                 else if (hit.GetComponent<Locker>() != null)
