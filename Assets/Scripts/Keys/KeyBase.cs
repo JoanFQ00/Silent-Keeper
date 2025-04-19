@@ -7,7 +7,7 @@ public class KeyBase : MonoBehaviour
 
     private Transform followTarget;
     private InteractableBase interactable;
-    private bool hasBeenUsed = false;
+    private bool hasBeenUsed;
 
     private void OnEnable()
     {
@@ -21,6 +21,7 @@ public class KeyBase : MonoBehaviour
 
     private void Start()
     {
+        hasBeenUsed = false;
         interactable = GetComponent<InteractableBase>();
     }
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9143180850111839175}
   - component: {fileID: 4920327522976112598}
   - component: {fileID: 5710818469853852360}
+  - component: {fileID: 1686989635898128750}
   - component: {fileID: 2321221979383588840}
   m_Layer: 0
   m_Name: Key
@@ -125,6 +126,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.07}
   m_Radius: 0.63
+--- !u!114 &1686989635898128750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807808017930508335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99ff14a747cb764ebe42236fadf61dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyValue: 00000000
+  isActivated: 0
 --- !u!114 &2321221979383588840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,4 +152,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c937a07cc75c7f49a52b9783605a303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 10
+  distToTarget: 1
+  followSpeed: 5

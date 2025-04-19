@@ -44,9 +44,10 @@ public class PresurePlate : MonoBehaviour
             if (_activeCollisions == 0)
             {
                 if (!keepActivated)
+                {
                     interactable.SetKeyActivated(false);
-
-                spriteRenderer.color = new Color(0f, 166f, 255f, 1f);
+                    spriteRenderer.color = new Color(0f, 166f, 255f, 1f);
+                }
             }
         }
     }

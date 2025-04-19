@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1643597770992881854}
   - component: {fileID: 5341308062605625159}
-  - component: {fileID: 2722932057710992529}
-  - component: {fileID: 2701622130178025704}
+  - component: {fileID: 2384093532642855431}
   - component: {fileID: 6841264127582095900}
   - component: {fileID: 267399191707778739}
   m_Layer: 8
-  m_Name: StaticEnemy2
+  m_Name: StaticEnemy01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 23
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.5348139, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2722932057710992529
+--- !u!114 &2384093532642855431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,21 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPlayerDetector: 0
---- !u!114 &2701622130178025704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491001864747619796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0defa90dfe99c34ea59ab3645527bdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationAngle: 90
-  RotationSpeed: 30
-  WaitTime: 2
 --- !u!114 &6841264127582095900
 MonoBehaviour:
   m_ObjectHideFlags: 0

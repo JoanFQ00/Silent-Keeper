@@ -6,11 +6,12 @@ using UnityEngine.Rendering.Universal;
 
 public class TestingDoor : MonoBehaviour, IInteractableWithButton
 {
-    [SerializeField] bool thisActivated, hasMultipleOptions;
+    [SerializeField] bool thisActivated, hasMultipleOptions, isIndependent, keepActivated, isWall;
     [SerializeField] private List<int> thisKey = new List<int>();
     [SerializeField] float detectionRadius;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
+    private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
     private SpriteRenderer spriteRenderer;
     private ShadowCaster2D shadowCaster2D;
     private Collider2D col;
@@ -20,6 +21,8 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
     private IEnumerator Start()
     {
+        stopProcessing = true;
+
         shadowCaster2D = GetComponent<ShadowCaster2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
@@ -27,14 +30,18 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
         if (thisActivated)
         {
             spriteRenderer.color = Color.green;
-            col.isTrigger = true;
             if (shadowCaster2D != null) shadowCaster2D.enabled = false;
+
+            if (isWall)
+                col.isTrigger = true;
         }
         else
         {
             spriteRenderer.color = Color.red;
-            col.isTrigger = false;
             if (shadowCaster2D != null) shadowCaster2D.enabled = true;
+
+            if (isWall)
+                col.isTrigger = false;
         }
 
         yield return null;
@@ -50,6 +57,10 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
                 }
             }
         }
+
+        copyKeyStates.Clear();
+        foreach (InteractableBase interactable in totalKeysActivated)
+            copyKeyStates[interactable] = interactable.GetIsActivated();
 
         stopProcessing = false;
     }
@@ -68,6 +79,14 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
     private void Update()
     {
+        int playerLayerMask = 1 << LayerMask.NameToLayer("Players");
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayerMask);
+
+        if (colliders.Length == 2)
+            areTwoPlayersOnDoor = true;
+        else
+            areTwoPlayersOnDoor = false;
+
         if (stopProcessing) return;
 
         int countKeys = 0;
@@ -100,19 +119,11 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
             RefreshPlayerInventory?.Invoke();
         }
 
-        int playerLayerMask = 1 << LayerMask.NameToLayer("Players");
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayerMask);
-
-        if (colliders.Length == 2)
-            areTwoPlayersOnDoor = true;
-        else
-            areTwoPlayersOnDoor = false;
-
         if (colliders.Length != 0)
         {
             if (countKeys != 0)
             {
-                int countSameKeys = 0;
+                int countGlobalSameKeys = 0, countSingleSameKeys = 0;
 
                 foreach (var collider in colliders)
                 {
@@ -124,12 +135,15 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
                             foreach (InteractableBase interactable in totalKeysActivated)
                             {
                                 if (key.gameObject.GetComponent<InteractableBase>() == interactable)
-                                    countSameKeys++;
+                                {
+                                    countGlobalSameKeys++;
+                                    countSingleSameKeys++;
+                                }
                             }
                         }
                 }
 
-                if (areTwoPlayersOnDoor && countKeys == countSameKeys)
+                if ((areTwoPlayersOnDoor && countKeys == countGlobalSameKeys) || (countKeys == countSingleSameKeys))
                 {
                     bool canDoorBeOpened = true;
 
@@ -153,7 +167,7 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
     private void DoorChecker()
     {
-        if (!hasMultipleOptions)
+        if (!hasMultipleOptions) //SI O SI SE ABRE CON TODAS A LA VEZ
         {
             bool canDoorBeOpened = true;
 
@@ -180,39 +194,89 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
         }
         else
         {
-            bool canDoorBeOpened = false, canDoorBeClosed = true;
-
-            foreach (InteractableBase interactable in totalKeysActivated)
+            if (hasMultipleOptions && isIndependent) //SOLO NECESITA 1 PARA ACTIVARSE, Y TODAS PARA DESACTIVARSE
             {
-                if (interactable.GetIsActivated())
-                    canDoorBeOpened = true;
+                bool canDoorBeOpened = false, canDoorBeClosed = true;
 
-                if (canDoorBeOpened) break;
-            }
-
-            if (canDoorBeOpened && !thisActivated)
-                OpenDoor();
-
-            foreach (InteractableBase interactable in totalKeysActivated)
-            {
-                if (interactable.GetIsActivated())
+                foreach (InteractableBase interactable in totalKeysActivated)
                 {
-                    canDoorBeClosed = false;
-                    break;
+                    if (interactable.GetIsActivated())
+                        canDoorBeOpened = true;
+
+                    if (canDoorBeOpened) break;
+                }
+
+                if (canDoorBeOpened && !thisActivated)
+                    OpenDoor();
+
+                foreach (InteractableBase interactable in totalKeysActivated)
+                {
+                    if (interactable.GetIsActivated())
+                    {
+                        canDoorBeClosed = false;
+                        break;
+                    }
+                }
+
+                if (canDoorBeClosed && thisActivated)
+                    CloseDoor();
+            }
+            else //CADA CAMBIO CAMBIA SU ESTADO
+            {
+                int numChanges = 0;
+
+                foreach (InteractableBase interactable in totalKeysActivated)
+                {
+                    bool currentState = interactable.GetIsActivated();
+
+                    if (copyKeyStates.TryGetValue(interactable, out bool previousState))
+                    {
+                        if (currentState != previousState)
+                            numChanges++;
+                    }
+                    else
+                    {
+                        numChanges++;
+                    }
+                }
+
+                if (numChanges > 0)
+                {
+                    if (numChanges % 2 == 1)
+                    {
+                        if (thisActivated)
+                            CloseDoor();
+                        else
+                            OpenDoor();
+                    }
+
+                    copyKeyStates.Clear();
+                    foreach (InteractableBase interactable in totalKeysActivated)
+                        copyKeyStates[interactable] = interactable.GetIsActivated();
                 }
             }
-
-            if (canDoorBeClosed && thisActivated)
-                CloseDoor();
         }
     }
 
+    private bool hasInteracted = false;
     public void Interacted()
     {
-        if (areTwoPlayersOnDoor)
+        if (areTwoPlayersOnDoor && thisActivated)
         {
-            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.right * 1f;
-            GameObject.FindGameObjectWithTag("Kid").transform.position = transform.position + transform.right * 1f;
+            if (!hasInteracted)
+            {
+                hasInteracted = true;
+
+                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up * 1.2f;
+                GameObject.FindGameObjectWithTag("Kid").transform.position = transform.position + transform.up * 1.2f;
+            }
+            else
+            {
+                hasInteracted = false;
+
+                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up * (-1.5f);
+                GameObject.FindGameObjectWithTag("Kid").transform.position = transform.position + transform.up * (-1.5f);
+            }
 
             //RECARGAR HABILIDAD
         }
@@ -220,16 +284,23 @@ public class TestingDoor : MonoBehaviour, IInteractableWithButton
 
     private void OpenDoor()
     {
+        if (isWall)
+            col.isTrigger = true;
+
+        if (keepActivated)
+            stopProcessing = true;
+
         spriteRenderer.color = Color.green;
-        col.isTrigger = true;
         thisActivated = true;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = false;
     }
     private void CloseDoor()
     {
+        if (isWall)
+            col.isTrigger = false;
+
         spriteRenderer.color = Color.red;
-        col.isTrigger = false;
         thisActivated = false;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = true;

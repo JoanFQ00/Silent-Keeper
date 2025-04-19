@@ -27,7 +27,7 @@ public class PlayerInventory : MonoBehaviour
     public List<KeyBase> GetKey()
     {
         if (collectedKeys.Count == 0)
-            return null;
+            return new List<KeyBase>();
         return collectedKeys;
     }
 
