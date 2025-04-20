@@ -15,18 +15,15 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse()
     {
-        if (!GameManager.Instance.isPaused) 
+        if (!GameManager.Instance.isPaused)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
 
-            Vector3 origin = kid.transform.position;
-            Vector3 direction = (mousePos - origin).normalized;
-            float distance = Vector2.Distance(origin, mousePos);
+            float wallMargin = 0.3f;
+            Collider2D nearWall = Physics2D.OverlapCircle(mousePos, wallMargin, LayerMask.GetMask("Wall"));
 
-            RaycastHit2D hitWall = Physics2D.Raycast(origin, direction, distance, LayerMask.GetMask("Wall"));
-
-            if (hitWall.collider == null)
+            if (nearWall == null)
             {
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
@@ -63,12 +60,15 @@ public class KidControl : MonoBehaviour
         if (!GameManager.Instance.isPaused)
         {
             if (monsterMove.GetMonsterState() != KidMachine.States.Hidden && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
-            {
                 kidMachine.ChangeState(KidMachine.States.Following);
-                WaypointsPool.DeactivateAll();
-                kidMachine.RemoveList();
-                kidMachine.ResetCurrentWaypointIndex();
-            }
+        }
+    }
+
+    private void OnResetWayPoints()
+    {
+        if (!GameManager.Instance.isPaused)
+        {
+            kidMachine.SafeResetWaypoints();
         }
     }
 }

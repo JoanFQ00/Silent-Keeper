@@ -7,19 +7,20 @@ public class KidMachine : MonoBehaviour
 
     public enum States { Following, Hand, Waypoints, Stoped, Hidden }
 
-    private States lastState;
-    private States currentState;
-    private float currentSpeed;
+    private States currentState, lastState;
     private float distToPlayer = 0.7f;
     private GameObject player;
     private List<GameObject> waypoints;
     private int currentWaypointIndex = 0;
-    
+    private LayerMask wallMask;
+    private float currentSpeed;
+
     void Start()
     {
         waypoints = new List<GameObject>();
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
+        wallMask = LayerMask.GetMask("Wall");
         currentSpeed = defaultSpeed;
     }
 
@@ -28,29 +29,39 @@ public class KidMachine : MonoBehaviour
         switch (currentState)
         {
             case States.Following:
-
-                Collider2D hit = Physics2D.OverlapCircle(transform.position, GetComponent<Interact>().GetDetectionRadius(), LayerMask.GetMask("Wall"));
-
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= distToPlayer)
+                if (Vector2.Distance(transform.position, player.transform.position) <= distToPlayer)
                 {
                     ChangeState(States.Hand);
-                }
-                else if (hit != null)
-                {
-                    ChangeState(States.Stoped);
                 }
                 else
                 {
                     currentSpeed = defaultSpeed;
-                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
+                    if (!IsWallBetween(transform, player.transform))
+                    {
+                        MoveTowards(player.transform);
+                    }
+                    else
+                    {
+                        ChangeState(States.Stoped);
+                    }
                 }
+                break;
 
+            case States.Hand:
+                if (Vector2.Distance(player.transform.position, transform.position) > distToPlayer)
+                {
+                    currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
+                    if (!IsWallBetween(transform, player.transform))
+                    {
+                        MoveTowards(player.transform);
+                    }
+                }
                 break;
 
             case States.Waypoints:
-
                 currentSpeed = defaultSpeed;
-                if (waypoints.Count < 1)
+
+                if (waypoints.Count < 1 || currentWaypointIndex >= waypoints.Count)
                 {
                     ChangeState(States.Stoped);
                 }
@@ -58,94 +69,80 @@ public class KidMachine : MonoBehaviour
                 {
                     GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
-                    if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
+                    if (!IsWallBetween(transform, currentWaypoint.transform))
                     {
-                        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, currentSpeed * Time.deltaTime);
+                        if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
+                        {
+                            MoveTowards(currentWaypoint.transform);
+                        }
+                        else
+                        {
+                            currentWaypoint.SetActive(false);
+                            currentWaypointIndex++;
+
+                            if (currentWaypointIndex >= waypoints.Count)
+                            {
+                                waypoints.Clear();
+                                ResetCurrentWaypointIndex();
+                                WaypointsPool.DeactivateAll();
+                                ChangeState(States.Stoped);
+                            }
+                        }
                     }
                     else
                     {
-                        waypoints[currentWaypointIndex].SetActive(false);
-                        currentWaypointIndex += 1;
-
-                        if (currentWaypointIndex + 1 > waypoints.Count)
-                        {
-                            waypoints = new List<GameObject>();
-                            ResetCurrentWaypointIndex();
-                            WaypointsPool.DeactivateAll();
-                            break;
-                        }
+                        if (currentWaypointIndex > 0)
+                            ChangeState(States.Stoped);
+                        else if (lastState != States.Stoped)
+                            ChangeState(States.Hand);
                     }
                 }
-
-                break;
-
-            case States.Hand:
-
-                if (distToPlayer < Vector2.Distance(player.transform.position, gameObject.transform.position))
-                {
-                    currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
-                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, currentSpeed * Time.deltaTime);
-                }
-
                 break;
 
             case States.Stoped:
-
-                if (Vector2.Distance(player.transform.position, gameObject.transform.position) < distToPlayer)
+                if (Vector2.Distance(player.transform.position, transform.position) < distToPlayer &&
+                    !IsWallBetween(transform, player.transform))
                 {
                     ChangeState(States.Hand);
                 }
-
-                break;
-
-            default:
                 break;
         }
 
         if (currentState == States.Hand && player.GetComponent<MonsterMove>().GetMonsterState() == States.Hidden)
         {
-            currentState = States.Stoped;
+            ChangeState(States.Stoped);
         }
     }
 
-    public void ChangeState(States state) 
+    private void MoveTowards(Transform target)
     {
+        transform.position = Vector2.MoveTowards(transform.position, target.position, currentSpeed * Time.deltaTime);
+    }
+
+    private bool IsWallBetween(Transform from, Transform to)
+    {
+        Vector2 direction = (to.position - from.position).normalized;
+        float distance = Vector2.Distance(from.position, to.position);
+        return Physics2D.Raycast(from.position, direction, distance, wallMask);
+    }
+
+    public void ChangeState(States state)
+    {
+        lastState = currentState;
         currentState = state;
     }
 
-    public States GetCurrentState() 
+    public States GetCurrentState()
     {
         return currentState;
     }
 
-    public void StopResume() 
-    {
-        if (currentState != States.Stoped)
-        {
-            lastState = currentState;
-            ChangeState(States.Stoped);
-        }
-        else 
-        {
-            if (lastState == States.Waypoints && waypoints.Count == 0) 
-            {
-                lastState = States.Following;
-            }
-            ChangeState(lastState);
-        }
-    }
-
-    public void AddWaypoint(GameObject waypoint) 
+    public void AddWaypoint(GameObject waypoint)
     {
         waypoints.Add(waypoint);
     }
 
-    public List<GameObject> GetWaypoints() 
-    {
-        return waypoints;
-    }
-
-    public void RemoveList() 
+    public void RemoveList()
     {
         waypoints.Clear();
     }
@@ -153,5 +150,17 @@ public class KidMachine : MonoBehaviour
     public void ResetCurrentWaypointIndex()
     {
         currentWaypointIndex = 0;
+    }
+
+    public void SafeResetWaypoints()
+    {
+        RemoveList();
+        ResetCurrentWaypointIndex();
+        WaypointsPool.DeactivateAll();
+
+        if (currentState != States.Hand && currentState != States.Following)
+        {
+            ChangeState(States.Stoped);
+        }
     }
 }

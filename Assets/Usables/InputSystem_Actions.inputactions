@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ResetWayPoints",
+                    "type": "Button",
+                    "id": "c0f6a894-45ba-4ec4-9048-3cd3608e6868",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "EscapeButt",
                     "type": "Button",
                     "id": "ca9aaf46-c9b2-48a2-9537-54d16cb3abed",
@@ -177,6 +186,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "StopResume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4fca5901-47e8-4e25-a43f-8643502fe60f",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetWayPoints",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
