@@ -6,6 +6,7 @@ public class MonsterMove : MonoBehaviour
 {
     [SerializeField] float defaultSpeed = 2f;
     [SerializeField] float deceleration = 5f;
+
     private float currentSpeed;
     private Rigidbody2D rb;
     private Vector2 moveDir;
@@ -15,27 +16,29 @@ public class MonsterMove : MonoBehaviour
 
     void Start()
     {
-        monsterState = KidMachine.States.Stoped;
         rb = GetComponent<Rigidbody2D>();
+
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+
         currentSpeed = defaultSpeed;
+        monsterState = KidMachine.States.Stoped;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (!GameManager.Instance.isPaused)
-        {
-            if (moveDir.magnitude > 0.1f)
-            {
-                rb.linearVelocity = moveDir * currentSpeed;
-            }
-            else
-            {
-                rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.deltaTime * deceleration);
-            }
-        }
-        else 
+        if (GameManager.Instance.isPaused)
         {
             rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (moveDir.magnitude > 0.1f)
+        {
+            rb.linearVelocity = moveDir.normalized * currentSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
         }
     }
 
@@ -54,7 +57,7 @@ public class MonsterMove : MonoBehaviour
         moveDir = value.Get<Vector2>();
     }
 
-    private void OnEscapeButt() 
+    private void OnEscapeButt()
     {
         GameManager.Instance.Pause();
     }
@@ -69,8 +72,7 @@ public class MonsterMove : MonoBehaviour
         return currentSpeed;
     }
 
-    //Al cambiar de zona
-    public void SetDefaultSpeed() 
+    public void SetDefaultSpeed()
     {
         currentSpeed = defaultSpeed;
     }

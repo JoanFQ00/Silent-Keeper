@@ -10,14 +10,13 @@ public class KidMachine : MonoBehaviour
     private States currentState, lastState;
     private float distToPlayer = 0.7f;
     private GameObject player;
-    private List<GameObject> waypoints;
+    private List<GameObject> waypoints = new List<GameObject>();
     private int currentWaypointIndex = 0;
     private LayerMask wallMask;
     private float currentSpeed;
 
     void Start()
     {
-        waypoints = new List<GameObject>();
         currentState = States.Following;
         player = GameObject.FindWithTag("Player");
         wallMask = LayerMask.GetMask("Wall");
@@ -29,82 +28,19 @@ public class KidMachine : MonoBehaviour
         switch (currentState)
         {
             case States.Following:
-                if (Vector2.Distance(transform.position, player.transform.position) <= distToPlayer)
-                {
-                    ChangeState(States.Hand);
-                }
-                else
-                {
-                    currentSpeed = defaultSpeed;
-                    if (!IsWallBetween(transform, player.transform))
-                    {
-                        MoveTowards(player.transform);
-                    }
-                    else
-                    {
-                        ChangeState(States.Stoped);
-                    }
-                }
+                HandleFollowingState();
                 break;
 
             case States.Hand:
-                if (Vector2.Distance(player.transform.position, transform.position) > distToPlayer)
-                {
-                    currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
-                    if (!IsWallBetween(transform, player.transform))
-                    {
-                        MoveTowards(player.transform);
-                    }
-                }
+                HandleHandState();
                 break;
 
             case States.Waypoints:
-                currentSpeed = defaultSpeed;
-
-                if (waypoints.Count < 1 || currentWaypointIndex >= waypoints.Count)
-                {
-                    ChangeState(States.Stoped);
-                }
-                else
-                {
-                    GameObject currentWaypoint = waypoints[currentWaypointIndex];
-
-                    if (!IsWallBetween(transform, currentWaypoint.transform))
-                    {
-                        if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
-                        {
-                            MoveTowards(currentWaypoint.transform);
-                        }
-                        else
-                        {
-                            currentWaypoint.SetActive(false);
-                            currentWaypointIndex++;
-
-                            if (currentWaypointIndex >= waypoints.Count)
-                            {
-                                waypoints.Clear();
-                                ResetCurrentWaypointIndex();
-                                WaypointsPool.DeactivateAll();
-                                ChangeState(States.Stoped);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (currentWaypointIndex > 0)
-                            ChangeState(States.Stoped);
-                        else if (lastState != States.Stoped)
-                            ChangeState(States.Hand);
-                    }
-                }
+                HandleWaypointsState();
                 break;
 
             case States.Stoped:
-                if (Vector2.Distance(player.transform.position, transform.position) < distToPlayer &&
-                    !IsWallBetween(transform, player.transform))
-                {
-                    ChangeState(States.Hand);
-                }
+                HandleStoppedState();
                 break;
         }
 
@@ -114,9 +50,92 @@ public class KidMachine : MonoBehaviour
         }
     }
 
+    private void HandleFollowingState()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) <= distToPlayer)
+        {
+            ChangeState(States.Hand);
+        }
+        else
+        {
+            currentSpeed = defaultSpeed;
+            if (!IsWallBetween(transform, player.transform))
+            {
+                MoveTowards(player.transform);
+            }
+            else
+            {
+                ChangeState(States.Stoped);
+            }
+        }
+    }
+
+    private void HandleHandState()
+    {
+        if (Vector2.Distance(player.transform.position, transform.position) > distToPlayer)
+        {
+            currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
+            if (!IsWallBetween(transform, player.transform))
+            {
+                MoveTowards(player.transform);
+            }
+        }
+    }
+
+    private void HandleWaypointsState()
+    {
+        currentSpeed = defaultSpeed;
+
+        if (waypoints.Count < 1 || currentWaypointIndex >= waypoints.Count)
+        {
+            ChangeState(States.Stoped);
+            return;
+        }
+
+        GameObject currentWaypoint = waypoints[currentWaypointIndex];
+
+        if (!IsWallBetween(transform, currentWaypoint.transform))
+        {
+            if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
+            {
+                MoveTowards(currentWaypoint.transform);
+            }
+            else
+            {
+                currentWaypoint.SetActive(false);
+                currentWaypointIndex++;
+
+                if (currentWaypointIndex >= waypoints.Count)
+                {
+                    waypoints.Clear();
+                    ResetCurrentWaypointIndex();
+                    WaypointsPool.DeactivateAll();
+                    ChangeState(States.Stoped);
+                }
+            }
+        }
+        else
+        {
+            if (currentWaypointIndex > 0)
+                ChangeState(States.Stoped);
+            else if (lastState != States.Stoped)
+                ChangeState(States.Hand);
+        }
+    }
+
+    private void HandleStoppedState()
+    {
+        if (Vector2.Distance(player.transform.position, transform.position) < distToPlayer &&
+            !IsWallBetween(transform, player.transform))
+        {
+            ChangeState(States.Hand);
+        }
+    }
+
     private void MoveTowards(Transform target)
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.position, currentSpeed * Time.deltaTime);
+        Vector2 newPos = Vector2.MoveTowards(transform.position, target.position, currentSpeed * Time.deltaTime);
+        transform.position = newPos;
     }
 
     private bool IsWallBetween(Transform from, Transform to)
