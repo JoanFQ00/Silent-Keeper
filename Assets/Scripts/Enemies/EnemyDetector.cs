@@ -107,7 +107,7 @@ public class EnemyDetector : MonoBehaviour
 
                 if (target.gameObject.tag == "Player")
                 {
-                    if (target.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
+                    if (target.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker && target.GetComponent<MonsterMove>().GetHiddenMonsterState() != KidMachine.States.HiddenInBush)
                     {
                         if (hit.collider == null)
                             return true;
@@ -124,7 +124,7 @@ public class EnemyDetector : MonoBehaviour
                 }
                 else if (target.gameObject.tag == "Kid")
                 {
-                    if (target.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
+                    if (target.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker && target.GetComponent<KidMachine>().GetHiddenKidState() != KidMachine.States.HiddenInBush)
                     {
                         if (hit.collider == null)
                             return true;

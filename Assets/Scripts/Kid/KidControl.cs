@@ -48,7 +48,7 @@ public class KidControl : MonoBehaviour
             {
                 kidMachine.ChangeState(KidMachine.States.Stoped);
             }
-            else if (kidMachine.GetCurrentState() != KidMachine.States.Hidden)
+            else if (kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
             {
                 kidMachine.ChangeState(KidMachine.States.Waypoints);
             }
@@ -59,7 +59,7 @@ public class KidControl : MonoBehaviour
     {
         if (!GameManager.Instance.isPaused)
         {
-            if (monsterMove.GetMonsterState() != KidMachine.States.Hidden && kidMachine.GetCurrentState() != KidMachine.States.Hidden)
+            if (monsterMove.GetMonsterState() != KidMachine.States.HiddenInLocker && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
                 kidMachine.ChangeState(KidMachine.States.Following);
         }
     }

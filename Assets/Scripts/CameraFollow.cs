@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
                     CameraMove();
                 else ReturnToTarget();
             else
-                if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hidden 
+                if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.HiddenInLocker 
                 || GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hand))
                     CameraMove();
                 else ReturnToTarget();

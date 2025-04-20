@@ -5,9 +5,13 @@ public class KidMachine : MonoBehaviour
 {
     [SerializeField] float defaultSpeed = 1.5f;
 
-    public enum States { Following, Hand, Waypoints, Stoped, Hidden }
+    [HideInInspector]
+    public int bushCounter = 0;
+    public Color originalColor;
 
-    private States currentState, lastState;
+    public enum States { Following, Hand, Waypoints, Stoped, HiddenInLocker, HiddenInBush, NotHiddenInBush }
+
+    private States currentState, lastState, hiddenState;
     private float distToPlayer = 0.7f;
     private GameObject player;
     private List<GameObject> waypoints = new List<GameObject>();
@@ -18,8 +22,13 @@ public class KidMachine : MonoBehaviour
     void Start()
     {
         currentState = States.Following;
+        hiddenState = States.NotHiddenInBush;
+
+        originalColor = GetComponent<SpriteRenderer>().color;
+
         player = GameObject.FindWithTag("Player");
         wallMask = LayerMask.GetMask("Wall");
+
         currentSpeed = defaultSpeed;
     }
 
@@ -44,7 +53,7 @@ public class KidMachine : MonoBehaviour
                 break;
         }
 
-        if (currentState == States.Hand && player.GetComponent<MonsterMove>().GetMonsterState() == States.Hidden)
+        if (currentState == States.Hand && player.GetComponent<MonsterMove>().GetMonsterState() == States.HiddenInLocker)
         {
             ChangeState(States.Stoped);
         }
@@ -181,5 +190,15 @@ public class KidMachine : MonoBehaviour
         {
             ChangeState(States.Stoped);
         }
+    }
+
+    public void ChangeHiddenState(States state)
+    {
+        hiddenState = state;
+    }
+
+    public States GetHiddenKidState()
+    {
+        return hiddenState;
     }
 }

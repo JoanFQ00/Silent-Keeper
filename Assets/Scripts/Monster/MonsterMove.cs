@@ -7,16 +7,21 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] float defaultSpeed = 2f;
     [SerializeField] float deceleration = 5f;
 
+    [HideInInspector]
+    public int bushCounter = 0;
+    public Color originalColor;
+
     private float currentSpeed;
     private Rigidbody2D rb;
     private Vector2 moveDir;
-    private KidMachine.States monsterState;
+    private KidMachine.States monsterState, monsterHiddenState;
 
     public static Action<string> OnChangeTxt;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        originalColor = GetComponent<SpriteRenderer>().color;
 
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
 
@@ -50,6 +55,16 @@ public class MonsterMove : MonoBehaviour
     public KidMachine.States GetMonsterState()
     {
         return monsterState;
+    }
+
+    public void ChangeHiddenState(KidMachine.States state)
+    {
+        monsterHiddenState = state;
+    }
+
+    public KidMachine.States GetHiddenMonsterState()
+    {
+        return monsterHiddenState;
     }
 
     private void OnMove(InputValue value)

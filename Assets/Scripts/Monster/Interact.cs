@@ -34,12 +34,12 @@ public class Interact : MonoBehaviour
         {
             if (gameObject.tag == "Kid")
             {
-                if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.Hidden)
+                if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
                     ShowInteractionKid?.Invoke(kidHit.gameObject);
             }
             else
             {
-                if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.Hidden)
+                if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
                     ShowInteractionMonster?.Invoke(MonsterHit.gameObject);
             }
         }
