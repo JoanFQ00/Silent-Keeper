@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (mainCamera != null)
+            if (mainCamera != null && !RoomBase.playersAreInRoom)
             {
                 if (mainCamera.GetComponent<CameraFollow>().GetCameraTarget().gameObject == monster)
                     mainCamera.GetComponent<CameraFollow>().ChangeTarget(kid.transform);
