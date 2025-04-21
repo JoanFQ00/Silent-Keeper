@@ -12,6 +12,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
     [Header("")]
     [SerializeField] bool hasMultipleOptions, isIndependent, keepActivated, isWall;
+    [SerializeField] private TPAxis detectionAxis = TPAxis.UpDown;
 
     [Header("Door Features Values")]
     [SerializeField] private int doorKey;
@@ -33,6 +34,12 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private GameObject teleportDestination;
 
     public static Action RefreshPlayerInventory;
+
+    private enum TPAxis
+    {
+        UpDown,
+        RightLeft
+    }
 
     private IEnumerator Start()
     {
@@ -286,24 +293,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
     }
 
-    public void Interacted()
-    {
-        if (areTwoPlayersOnDoor && thisActivated)
-        {
-            if (!doorBaseSO.isFinalDoor)
-            {
-                //RECARGAR HABILIDAD DE SALA
-            }
-            else
-            {
-                //RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA
-            }
-
-            GameObject.FindGameObjectWithTag("Player").transform.position = teleportDestination.transform.position + transform.up * 1.2f;
-            GameObject.FindGameObjectWithTag("Kid").transform.position = teleportDestination.transform.position + transform.up * 1.2f;
-        }
-    }
-
     private void OpenDoor()
     {
         if (isWall)
@@ -317,6 +306,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = false;
     }
+
     private void CloseDoor()
     {
         if (isWall)
@@ -326,6 +316,42 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         thisActivated = false;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = true;
+    }
+
+    public void Interacted()
+    {
+        if (areTwoPlayersOnDoor && thisActivated)
+        {
+            if (!doorBaseSO.isFinalDoor)
+            {
+                // RECARGAR HABILIDAD DE SALA
+            }
+            else
+            {
+                // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA
+            }
+
+            Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+            Transform kid = GameObject.FindGameObjectWithTag("Kid").transform;
+
+            Vector3 tpOffset = CalculateDynamicOffset(player) * 1.2f;
+            Vector3 destination = teleportDestination.transform.position + tpOffset;
+
+            player.position = destination;
+            kid.position = destination;
+        }
+    }
+
+    private Vector3 CalculateDynamicOffset(Transform player)
+    {
+        Vector3 toPlayer = player.position - transform.position;
+        Vector3 axis = (detectionAxis == TPAxis.UpDown)
+            ? transform.up
+            : transform.right;
+
+        float side = Vector3.Dot(toPlayer, axis);
+
+        return side >= 0 ? -axis : axis;
     }
 
     void OnDrawGizmosSelected()
