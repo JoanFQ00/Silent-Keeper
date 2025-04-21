@@ -14,7 +14,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [SerializeField] bool hasMultipleOptions, isIndependent, keepActivated, isWall;
 
     [Header("Door Features Values")]
-    [SerializeField] private List<int> thisKey = new List<int>();
+    [SerializeField] private int doorKey;
 
     [Header("")]
     [SerializeField] float detectionRadius;
@@ -47,7 +47,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
             if (isWall)
-                col.isTrigger = true;
+                col.enabled = false;
         }
         else
         {
@@ -55,7 +55,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
             if (isWall)
-                col.isTrigger = false;
+                col.enabled = true;
         }
 
         yield return null;
@@ -65,7 +65,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             foreach (int key in interactable.GetKey())
             {
-                if (thisKey.Contains(key) && !totalKeysActivated.Contains(interactable))
+                if (doorKey == key && !totalKeysActivated.Contains(interactable))
                 {
                     totalKeysActivated.Add(interactable);
                 }
@@ -83,7 +83,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     {
         foreach (int key in interactable.GetKey())
         {
-            if (thisKey.Contains(key) && totalKeysActivated.Contains(interactable))
+            if (doorKey == key && totalKeysActivated.Contains(interactable))
             {
                 totalKeysActivated.Remove(interactable);
                 interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
@@ -306,7 +306,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private void OpenDoor()
     {
         if (isWall)
-            col.isTrigger = true;
+            col.enabled = false;
 
         if (keepActivated)
             stopProcessing = true;
@@ -319,7 +319,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private void CloseDoor()
     {
         if (isWall)
-            col.isTrigger = false;
+            col.enabled = true;
 
         spriteRenderer.color = Color.red;
         thisActivated = false;
