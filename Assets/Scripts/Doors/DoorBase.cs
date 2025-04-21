@@ -16,6 +16,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("Door Features Values")]
     [SerializeField] private int doorKey;
 
+    [SerializeField] private int doorKeyTP;
+
     [Header("")]
     [SerializeField] float detectionRadius;
 
@@ -28,6 +30,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private ShadowCaster2D shadowCaster2D;
     private Collider2D col;
     private bool areTwoPlayersOnDoor, stopProcessing = true;
+    private GameObject teleportDestination;
 
     public static Action RefreshPlayerInventory;
 
@@ -69,6 +72,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 {
                     totalKeysActivated.Add(interactable);
                 }
+            }
+        }
+
+        DoorBase[] allDoors = GameObject.FindObjectsByType<DoorBase>(FindObjectsSortMode.None);
+
+        foreach (DoorBase door in allDoors)
+        {
+            if (door.doorKey == doorKeyTP)
+            {
+                teleportDestination = door.gameObject;
+                break;
             }
         }
 
@@ -272,26 +286,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
     }
 
-    private bool hasInteracted = false;
     public void Interacted()
     {
         if (areTwoPlayersOnDoor && thisActivated)
         {
-            if (!hasInteracted)
-            {
-                hasInteracted = true;
-
-                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up * 1.2f;
-                GameObject.FindGameObjectWithTag("Kid").transform.position = transform.position + transform.up * 1.2f;
-            }
-            else
-            {
-                hasInteracted = false;
-
-                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up * (-1.5f);
-                GameObject.FindGameObjectWithTag("Kid").transform.position = transform.position + transform.up * (-1.5f);
-            }
-
             if (!doorBaseSO.isFinalDoor)
             {
                 //RECARGAR HABILIDAD DE SALA
@@ -300,6 +298,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             {
                 //RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA
             }
+
+            GameObject.FindGameObjectWithTag("Player").transform.position = teleportDestination.transform.position + transform.up * 1.2f;
+            GameObject.FindGameObjectWithTag("Kid").transform.position = teleportDestination.transform.position + transform.up * 1.2f;
         }
     }
 
