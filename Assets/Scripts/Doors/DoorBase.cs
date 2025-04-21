@@ -11,7 +11,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [SerializeField] bool thisActivated;
 
     [Header("")]
-    [SerializeField] bool hasMultipleOptions, isIndependent, keepActivated, isWall;
+    [SerializeField] bool hasMultipleOptions, isIndependent, keepActivated, isMobile;
     [SerializeField] private TPAxis detectionAxis = TPAxis.UpDown;
 
     [Header("Door Features Values")]
@@ -49,14 +49,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        spriteRenderer.sprite = doorBaseSO.doorImage;
+        //if (doorBaseSO != null)
+        //    spriteRenderer.sprite = doorBaseSO.doorImage;
 
         if (thisActivated)
         {
             spriteRenderer.color = Color.green;
             if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
-            if (isWall)
+            if (isMobile)
                 col.enabled = false;
         }
         else
@@ -64,7 +65,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             spriteRenderer.color = Color.red;
             if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
-            if (isWall)
+            if (isMobile)
                 col.enabled = true;
         }
 
@@ -295,7 +296,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
     private void OpenDoor()
     {
-        if (isWall)
+        if (isMobile)
             col.enabled = false;
 
         if (keepActivated)
@@ -309,7 +310,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
     private void CloseDoor()
     {
-        if (isWall)
+        if (isMobile)
             col.enabled = true;
 
         spriteRenderer.color = Color.red;
@@ -322,11 +323,11 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     {
         if (areTwoPlayersOnDoor && thisActivated)
         {
-            if (!doorBaseSO.isFinalDoor)
+            if (doorBaseSO != null && !isMobile && !doorBaseSO.isFinalDoor)
             {
                 // RECARGAR HABILIDAD DE SALA
             }
-            else
+            else if (doorBaseSO != null && !isMobile && doorBaseSO.isFinalDoor)
             {
                 // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA
             }

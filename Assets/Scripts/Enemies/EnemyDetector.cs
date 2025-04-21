@@ -183,31 +183,32 @@ public class EnemyDetector : MonoBehaviour
         //    ResetValues();
         //}
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneChanger.instance.LoadGame();
     }
 
-    private void ResetValues()
-    {
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+    //private void ResetValues()
+    //{
+    //    startPosition = transform.position;
+    //    startRotation = transform.rotation;
 
-        stunTime = 0f;
-        enemyState = EnemyState.NORMAL;
-        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
+    //    stunTime = 0f;
+    //    enemyState = EnemyState.NORMAL;
+    //    _player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    //    _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
 
-        _light2D = GetComponent<Light2D>();
-        Color color = Color.white;
+    //    _light2D = GetComponent<Light2D>();
+    //    Color color = Color.white;
 
-        if (enemyPlayerDetector == Characters.ONE)
-        {
-            if (ColorUtility.TryParseHtmlString("#274C4D", out color))
-                _light2D.color = color;
-        }
-        else
-            if (ColorUtility.TryParseHtmlString("#FFA132", out color))
-                _light2D.color = color;
-    }
+    //    if (enemyPlayerDetector == Characters.ONE)
+    //    {
+    //        if (ColorUtility.TryParseHtmlString("#274C4D", out color))
+    //            _light2D.color = color;
+    //    }
+    //    else
+    //        if (ColorUtility.TryParseHtmlString("#FFA132", out color))
+    //            _light2D.color = color;
+    //}
 
     private void OnDrawGizmos()
     {

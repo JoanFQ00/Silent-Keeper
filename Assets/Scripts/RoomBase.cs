@@ -34,11 +34,18 @@ public class RoomBase : MonoBehaviour
 
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 GameObject kid = GameObject.FindGameObjectWithTag("Kid");
+                GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
 
-                if (!GetComponent<Collider2D>().bounds.Contains(player.transform.position) &&
-                    !GetComponent<Collider2D>().bounds.Contains(kid.transform.position))
+                if (player != null && kid != null && cameraObject != null)
                 {
-                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().ChangeTarget(player.transform);
+                    Collider2D roomCollider = GetComponent<Collider2D>();
+                    if (!roomCollider.bounds.Contains(player.transform.position) &&
+                        !roomCollider.bounds.Contains(kid.transform.position))
+                    {
+                        CameraFollow camFollow = cameraObject.GetComponent<CameraFollow>();
+                        if (camFollow != null)
+                            camFollow.ChangeTarget(player.transform);
+                    }
                 }
             }
         }

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using UnityEngine;
 
@@ -6,20 +7,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject monster, kid;
     [SerializeField] GameObject finalPanel, pausePanel;
     [SerializeField] float tiempoRestante = 120f;
+    [SerializeField] private GameObject[] mapSpawns = new GameObject[3];
 
     public float timerSpeedMultiplier = 1f;
     public bool isPaused;
 
-    private bool estaContando = true;
+    private bool isCounting = true;
     private GameObject mainCamera;
+    private static Zone currentZone = Zone.ZONE_1;
 
     public static GameManager Instance;
     public static Action<string> OnTimerUpdating;
+
+    public enum Zone
+    {
+        ZONE_1 = 0,
+        ZONE_2,
+        ZONE_3
+    }
 
     private void Start()
     {
         finalPanel.SetActive(false);
         isPaused = false;
+
+        SpawnPlayers();
     }
 
     private void Awake()
@@ -42,18 +54,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (estaContando)
+        if (isCounting)
         {
             tiempoRestante -= Time.deltaTime * timerSpeedMultiplier;
 
             if (tiempoRestante <= 0f)
             {
                 tiempoRestante = 0f;
-                estaContando = false;
+                isCounting = false;
                 SceneChanger.instance.RestartZone();
             }
 
-            ActualizarTexto();
+            RefreshText();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -73,11 +85,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ActualizarTexto()
+    private void RefreshText()
     {
         int minutos = Mathf.FloorToInt(tiempoRestante / 60f);
         int segundos = Mathf.FloorToInt(tiempoRestante % 60f);
         OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
+    }
+
+    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA MÁQUINA EXPRENDEDORA
+    public void SpawnPlayers()
+    {
+        switch (currentZone)
+        {
+            case Zone.ZONE_1:
+                monster.transform.position = mapSpawns[0].transform.position;
+                kid.transform.position = mapSpawns[0].transform.position;
+                break;
+
+            case Zone.ZONE_2:
+                monster.transform.position = mapSpawns[1].transform.position;
+                kid.transform.position = mapSpawns[1].transform.position;
+                break;
+
+            case Zone.ZONE_3:
+                monster.transform.position = mapSpawns[2].transform.position;
+                kid.transform.position = mapSpawns[2].transform.position;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //CAMBIAR DE ZONA AL ENTRAR A LA MÁQUINA EXPRENDEDORA
+    public void ChageZoneState(Zone newZone)
+    {
+        currentZone = newZone;
     }
 
     //Útil para máquina exprendedora
