@@ -221,8 +221,8 @@ public class EnemyDetector : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 forward = transform.up;
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(origin, range);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(origin, range);
 
         Quaternion leftRotation = Quaternion.Euler(0, 0, -angle / 2f);
         Quaternion rightRotation = Quaternion.Euler(0, 0, angle / 2f);

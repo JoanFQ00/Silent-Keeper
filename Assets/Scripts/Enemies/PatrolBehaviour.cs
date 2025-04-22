@@ -19,6 +19,7 @@ public class PatrolBehaviour : MonoBehaviour
     private Vector2 direction;
     private Quaternion _startRotation;
     private Quaternion _targetRotation;
+    private EnemyState patrolState;
 
     void Start()
     {
@@ -37,11 +38,13 @@ public class PatrolBehaviour : MonoBehaviour
 
         _waiting = false;
         _waitCounter = 0;
+
+        patrolState = EnemyState.NORMAL;
     }
 
     void Update()
     {
-        if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() == EnemyDetector.EnemyState.NORMAL)
+        if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() == EnemyState.NORMAL && patrolState == EnemyState.NORMAL)
         {
             if (_waiting)
             {
@@ -99,8 +102,23 @@ public class PatrolBehaviour : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("StopWall"))
         {
-            _rb.linearVelocity = Vector2.zero;
-            _rb.angularVelocity = 0f;
+            if (patrolState != EnemyState.STUNED)
+            {
+                gameObject.GetComponent<EnemyDetector>().SetEnemyState(EnemyState.STUNED);
+                patrolState = gameObject.GetComponent<EnemyDetector>().GetEnemyState();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("StopWall"))
+        {
+            if (patrolState != EnemyState.NORMAL)
+            {
+                gameObject.GetComponent<EnemyDetector>().SetEnemyState(EnemyState.NORMAL);
+                patrolState = gameObject.GetComponent<EnemyDetector>().GetEnemyState();
+            }
         }
     }
 }
