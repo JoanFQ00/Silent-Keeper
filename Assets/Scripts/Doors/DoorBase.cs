@@ -355,6 +355,38 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         return side >= 0 ? -axis : axis;
     }
 
+    public string GetTotalKeysActivated()
+    {
+        int count = 0;
+        string text = "";
+
+        foreach (InteractableBase interactable in totalKeysActivated)
+        {
+            if (interactable != null && interactable.GetIsActivated())
+                count++;
+        }
+
+        text += " | Puerta: ";
+
+        if (thisActivated)
+                text += "Abierta | ";
+        else
+            text += "Cerrada | ";
+
+        text += "Tipo: ";
+
+        if (hasMultipleOptions && isIndependent)
+            text += "Múltiple Fija | ";
+        else if (hasMultipleOptions && isIndependent)
+            text += "Múltiple Alterable | ";
+        else
+            text += "Dependiente | ";
+
+        text += "Elementos activos: ";
+
+        return text + "(" + count.ToString() + "/" + Mathf.Max(1, totalKeysActivated.Count) + ")";
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;

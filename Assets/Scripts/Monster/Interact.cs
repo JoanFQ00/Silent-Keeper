@@ -1,72 +1,33 @@
-using System;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    [SerializeField] float detectionRadius;
+    [SerializeField] float interactRadius, detectionRadius;
     public LayerMask detectionLayer;
 
-    private static bool kidDetected = false;
-    private static bool playerDetected = false;
-    private static Collider2D kidHit, MonsterHit;
-    private float scrollCooldown = 0.3f; //AQUÍ POSAR EL TEMPS QUE TRIGA EN REALITZAR L'ANIMACIÓ D'ENTRAR A LA TAQUILLA
+    private float scrollCooldown = 0.3f;
     private float lastScrollTime = 0f;
 
-    public static Action<GameObject> ShowInteractionMonster, ShowInteractionKid;
+    public float GetRadius(bool getInteractRadius)
+    {
+        if (getInteractRadius)
+            return interactRadius;
+        else
+            return detectionRadius;
+    }
 
     void Update()
     {
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
-
-        if (gameObject.CompareTag("Kid"))
-        {
-            kidHit = hit;
-            kidDetected = hit != null;
-        }
-
-        if (gameObject.CompareTag("Player"))
-        {
-            MonsterHit = hit;
-            playerDetected = hit != null;
-        }
-
-        if (hit != null)
-        {
-            if (gameObject.tag == "Kid")
-            {
-                if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
-                    ShowInteractionKid?.Invoke(kidHit.gameObject);
-            }
-            else
-            {
-                if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
-                    ShowInteractionMonster?.Invoke(MonsterHit.gameObject);
-            }
-        }
-        else
-        {
-            if (!playerDetected)
-                ShowInteractionMonster?.Invoke(null);
-            
-            if (!kidDetected)
-                ShowInteractionKid?.Invoke(null);
-        }
-
         if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Player")
         {
             if (!GameManager.Instance.isPaused)
-            {
-                ShowInteractionMonster?.Invoke(null);
                 Interacting(gameObject);
-            }
         }
 
         if (Input.mouseScrollDelta.y < 0 && gameObject.tag == "Kid")
         {
             if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
             {
-                ShowInteractionKid?.Invoke(null);
-
                 lastScrollTime = Time.time;
                 Interacting(gameObject);
             }
@@ -77,7 +38,7 @@ public class Interact : MonoBehaviour
     {
         if (this.gameObject == thisObject)
         {
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
 
             if (hit != null)
             {
@@ -125,11 +86,14 @@ public class Interact : MonoBehaviour
     //    }
     //}
 
-    public float GetDetectionRadius() { return detectionRadius; }
+    //public float GetInteractRadius() { return interacRadius; }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, interactRadius);
     }
 }
