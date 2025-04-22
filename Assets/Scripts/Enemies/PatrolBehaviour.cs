@@ -1,4 +1,5 @@
 using UnityEngine;
+using static EnemyDetector;
 
 public class PatrolBehaviour : MonoBehaviour
 {
@@ -92,5 +93,14 @@ public class PatrolBehaviour : MonoBehaviour
         Vector3 newDirection = (nextPoint.position - transform.position).normalized;
         float signedAngle = Vector3.SignedAngle(direction, newDirection, Vector3.forward);
         _targetRotation = _startRotation * Quaternion.Euler(0, 0, signedAngle);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("StopWall"))
+        {
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+        }
     }
 }

@@ -58,7 +58,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
             if (isMobile)
+            {
                 col.enabled = false;
+
+                if (transform.childCount > 0)
+                {
+                    Transform child = transform.GetChild(0);
+
+                    if (child != null)
+                        child.gameObject.SetActive(false);
+                }
+            }
         }
         else
         {
@@ -66,7 +76,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
             if (isMobile)
+            {
                 col.enabled = true;
+
+                if (transform.childCount > 0)
+                {
+                    Transform child = transform.GetChild(0);
+
+                    if (child != null)
+                        child.gameObject.SetActive(true);
+                }
+            }
         }
 
         yield return null;
@@ -297,7 +317,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private void OpenDoor()
     {
         if (isMobile)
+        {
             col.enabled = false;
+
+            if (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+
+                if (child != null)
+                    child.gameObject.SetActive(false);
+            }
+        }
 
         if (keepActivated)
             stopProcessing = true;
@@ -311,7 +341,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private void CloseDoor()
     {
         if (isMobile)
+        {
             col.enabled = true;
+
+            if (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+
+                if (child != null)
+                    child.gameObject.SetActive(true);
+            }
+        }
 
         spriteRenderer.color = Color.red;
         thisActivated = false;
