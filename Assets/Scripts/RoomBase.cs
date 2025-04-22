@@ -8,7 +8,7 @@ public class RoomBase : MonoBehaviour
 
     private void Start()
     {
-        playersAreInRoom = true;
+        playersAreInRoom = false;
         isSmallRoom = true;
     }
 

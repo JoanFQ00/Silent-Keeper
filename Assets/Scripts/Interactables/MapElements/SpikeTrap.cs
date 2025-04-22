@@ -58,6 +58,6 @@ public class SpikeTrap : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" || collision.tag == "Kid")
-            SceneChanger.instance.LoadGame();
+            SceneChanger.instance.RestartZone();
     }
 }
