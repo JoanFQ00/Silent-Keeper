@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.SetInitialCameraReference(this.gameObject);
+        GameManager.Instance.SetInitialCameraReference(gameObject);
 
         transform.position = new Vector3(target.position.x, target.position.y, -10f);
         mainCamera = GetComponent<Camera>();

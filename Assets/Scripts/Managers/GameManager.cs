@@ -6,13 +6,16 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject monster, kid;
     [SerializeField] GameObject finalPanel, pausePanel;
-    [SerializeField] float tiempoRestante = 120f;
+    [SerializeField] float remainingTime = 120f;
     [SerializeField] private GameObject[] mapSpawns = new GameObject[3];
 
-    public float timerSpeedMultiplier = 1f;
     public bool isPaused;
 
-    private bool isCounting = true;
+    [HideInInspector]
+    public float timerSpeedMultiplier = 1f;
+
+    private float initialTime;
+    private bool isCounting = true, stopCounting = false;
     private GameObject mainCamera;
     private static Zone currentZone = Zone.ZONE_1;
 
@@ -32,6 +35,8 @@ public class GameManager : MonoBehaviour
         isPaused = false;
 
         SpawnPlayers();
+
+        initialTime = remainingTime;
     }
 
     private void Awake()
@@ -54,13 +59,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isCounting)
+        if (isCounting && !stopCounting)
         {
-            tiempoRestante -= Time.deltaTime * timerSpeedMultiplier;
+            remainingTime -= Time.deltaTime * timerSpeedMultiplier;
 
-            if (tiempoRestante <= 0f)
+            if (remainingTime <= 0f)
             {
-                tiempoRestante = 0f;
+                remainingTime = 0f;
                 isCounting = false;
                 SceneChanger.instance.RestartZone();
             }
@@ -87,8 +92,8 @@ public class GameManager : MonoBehaviour
 
     private void RefreshText()
     {
-        int minutos = Mathf.FloorToInt(tiempoRestante / 60f);
-        int segundos = Mathf.FloorToInt(tiempoRestante % 60f);
+        int minutos = Mathf.FloorToInt(remainingTime / 60f);
+        int segundos = Mathf.FloorToInt(remainingTime % 60f);
         OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
     }
 
@@ -137,5 +142,16 @@ public class GameManager : MonoBehaviour
 
         if (!active) { isPaused = true; }
         else { isPaused = false; }
+    }
+
+    public void StopCounting()
+    {
+        stopCounting = true;
+    }
+
+    public void RestartTime()
+    {
+        stopCounting = false;
+        remainingTime = initialTime;
     }
 }

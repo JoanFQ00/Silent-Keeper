@@ -47,24 +47,32 @@ public class SkillUI : MonoBehaviour
 
     private void UploadSlotImageUI(Sprite image, GameObject skill, float cooldown, SlotNumber slot)
     {
-        if (currentSlot == slot)
+        if (currentSlot != SlotNumber.SLOT3)
         {
-            if (image == skill.GetComponent<ISkill>().GetSkill().gameplayImageBW)
+            if (currentSlot == slot)
             {
-                normalSkillImageUI.sprite = image;
-                normalSkillImageUI.fillAmount = Mathf.Clamp01(1 - (cooldown / skill.GetComponent<ISkill>().GetSkill().cooldown));
+                if (image == skill.GetComponent<ISkill>().GetSkill().gameplayImageBW)
+                {
+                    normalSkillImageUI.sprite = image;
+                    normalSkillImageUI.fillAmount = Mathf.Clamp01(1 - (cooldown / skill.GetComponent<ISkill>().GetSkill().cooldown));
 
-                cooldownSkillImageUI.gameObject.SetActive(true);
-                cooldownSkillImageUI.sprite = skill.GetComponent<ISkill>().GetSkill().gameplayImageWhite;
-                cooldownSkillImageUI.fillAmount = 1f;
-            }
-            else
-            {
-                normalSkillImageUI.sprite = image;
-                normalSkillImageUI.fillAmount = 1f;
+                    cooldownSkillImageUI.gameObject.SetActive(true);
+                    cooldownSkillImageUI.sprite = skill.GetComponent<ISkill>().GetSkill().gameplayImageWhite;
+                    cooldownSkillImageUI.fillAmount = 1f;
+                }
+                else
+                {
+                    normalSkillImageUI.sprite = image;
+                    normalSkillImageUI.fillAmount = 1f;
 
-                cooldownSkillImageUI.gameObject.SetActive(false);
+                    cooldownSkillImageUI.gameObject.SetActive(false);
+                }
             }
+        }
+        else
+        {
+            if (currentSlot == slot)
+                normalSkillImageUI.sprite = image;
         }
     }
 

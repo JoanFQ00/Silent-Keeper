@@ -35,11 +35,12 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public enum SkillNumber
-    {
-        SKILL1 = 0,
-        SKILL2
-    }
+    //public enum SkillNumber
+    //{
+    //    SKILL1 = 0,
+    //    SKILL2,
+    //    SKILL3
+    //}
 
     private void Start()
     {
@@ -218,6 +219,7 @@ public class SkillManager : MonoBehaviour
         else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
         {
             passiveSkill = skill;
+            OnSlotImageUpdated?.Invoke(passiveSkill.GetComponent<ISkill>().GetSkill().gameplayImage, passiveSkill, 0, SkillUI.SlotNumber.SLOT3);
         }
     }
 
@@ -235,10 +237,11 @@ public class SkillManager : MonoBehaviour
                 //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
                 //skill2.Color = blalblalba;
             }
-            else
+            else if (skill2.GetComponent<ISkill>() == reloadSkill)
             {
                 numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
                 OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
+                OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
 
                 //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
                 //skill1.Color = blalblalba;
@@ -284,6 +287,24 @@ public class SkillManager : MonoBehaviour
                 OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
                 OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
             }
+        }
+    }
+
+    public GameObject GetSlot(int slot)
+    {
+        switch (slot)
+        {
+            case 1:
+                return skill1;
+
+            case 2:
+                return skill2;
+
+            case 3:
+                return passiveSkill;
+
+            default:
+                return null;
         }
     }
 }

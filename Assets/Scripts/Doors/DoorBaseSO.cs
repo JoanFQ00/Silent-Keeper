@@ -4,5 +4,6 @@ using UnityEngine;
 public class DoorBaseSO : ScriptableObject
 {
     public Sprite doorImage;
+    public bool isZoneDoor;
     public bool isFinalDoor;
 }

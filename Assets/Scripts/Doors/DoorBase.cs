@@ -34,6 +34,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private GameObject teleportDestination;
 
     public static Action RefreshPlayerInventory;
+    public static Action OnZoneEnded;
 
     private enum TPAxis
     {
@@ -363,23 +364,33 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     {
         if (areTwoPlayersOnDoor && thisActivated)
         {
-            if (doorBaseSO != null && !isMobile && !doorBaseSO.isFinalDoor)
+            if (doorBaseSO != null && !isMobile && !doorBaseSO.isZoneDoor)
             {
-                // RECARGAR HABILIDAD DE SALA
+                // RECARGAR HABILIDAD DE SALA (LIMITAR 1 VEZ POR PUERTA) --- DE MOMENTO NO HACE FALTA
             }
-            else if (doorBaseSO != null && !isMobile && doorBaseSO.isFinalDoor)
+            else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
             {
-                // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA
+                // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA (YA NO PUEDE VOLVER ATRÁS)
+                GameManager.Instance.StopCounting();
+                OnZoneEnded?.Invoke();
+            }
+            else
+            {
+                GameManager.Instance.StopCounting();
+                //LLEVAR AL FINAL DEL JUEGO
             }
 
-            Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-            Transform kid = GameObject.FindGameObjectWithTag("Kid").transform;
+            if (teleportDestination != null)
+            {
+                Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+                Transform kid = GameObject.FindGameObjectWithTag("Kid").transform;
 
-            Vector3 tpOffset = CalculateDynamicOffset(player) * 1.2f;
-            Vector3 destination = teleportDestination.transform.position + tpOffset;
+                Vector3 tpOffset = CalculateDynamicOffset(player) * 1.2f;
+                Vector3 destination = teleportDestination.transform.position + tpOffset;
 
-            player.position = destination;
-            kid.position = destination;
+                player.position = destination;
+                kid.position = destination;
+            }
         }
     }
 
