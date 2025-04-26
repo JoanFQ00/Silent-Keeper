@@ -184,11 +184,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interacText: Abrir
-  keyMonster: {fileID: 0}
-  keyKid: {fileID: 0}
+  keyMonsterUI: {fileID: 0}
+  keyKidUI: {fileID: 0}
   iconSR: {fileID: 4168461753544539252}
-  detectionIcon: {fileID: 9126521084631362693, guid: bb84c032d4a1b1343961d9f98e3d05fa, type: 3}
-  interactIcon: {fileID: 7058526726953182157, guid: f9f010eda326706419a289ee1c81cc13, type: 3}
+  detectionIcon: {fileID: 880930425, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
+  interactIcon: {fileID: -407983306, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
 --- !u!61 &8150156571102830685
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -385,9 +385,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1135244644, guid: ee4f0ca3ffdd03c4ea2f7cfdfe1b882f, type: 3}
-  m_Color: {r: 0.18431373, g: 0.16862746, b: 0.14117648, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -78,10 +78,7 @@ public class VendingMachineBase : MonoBehaviour
         PickSkills();
 
         panelMachine.GetComponent<Animator>().SetTrigger("StartAnim");
-    }
 
-    public void OnEndCinematic()
-    {
         ButtonSkill1.SetActive(true);
         ButtonSkill2.SetActive(true);
         ButtonSkill3.SetActive(true);
@@ -89,7 +86,10 @@ public class VendingMachineBase : MonoBehaviour
         ButtonSkill1.GetComponent<Image>().sprite = skillsObtained[0].GetComponent<ISkill>().GetSkill().bigImage;
         ButtonSkill2.GetComponent<Image>().sprite = skillsObtained[1].GetComponent<ISkill>().GetSkill().bigImage;
         ButtonSkill3.GetComponent<Image>().sprite = skillsObtained[2].GetComponent<ISkill>().GetSkill().bigImage;
+    }
 
+    public void OnEndCinematic()
+    {
         //CARGAR DESCRIPCIONES Y TODA LA INFO DE SKILLBASE ;)
     }
 
