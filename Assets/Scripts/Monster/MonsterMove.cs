@@ -13,6 +13,7 @@ public class MonsterMove : MonoBehaviour
 
     private float currentSpeed;
     private Rigidbody2D rb;
+    private Animator playerAnimator;
     private Vector2 moveDir;
     private KidMachine.States monsterState, monsterHiddenState;
 
@@ -25,6 +26,8 @@ public class MonsterMove : MonoBehaviour
 
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
 
+        playerAnimator = GetComponent<Animator>();
+
         currentSpeed = defaultSpeed;
         monsterState = KidMachine.States.Stoped;
     }
@@ -34,6 +37,14 @@ public class MonsterMove : MonoBehaviour
         if (GameManager.Instance.isPaused)
         {
             rb.linearVelocity = Vector2.zero;
+
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetFloat("Horizontal", 0f);
+                playerAnimator.SetFloat("Vertical", 0f);
+                playerAnimator.SetFloat("Speed", 0f);
+            }
+
             return;
         }
 
@@ -44,6 +55,13 @@ public class MonsterMove : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("Horizontal", rb.linearVelocity.x);
+            playerAnimator.SetFloat("Vertical", rb.linearVelocity.y);
+            playerAnimator.SetFloat("Speed", rb.linearVelocity.sqrMagnitude);
         }
     }
 
