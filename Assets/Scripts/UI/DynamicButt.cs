@@ -7,8 +7,13 @@ public class DynamicButt : MonoBehaviour
     public static Action<Slider> PassMusicSlider;
     public static Action<Slider> PassAudioSlider;
 
+    public Canvas canvas;
+
     private Button button;
     private Slider audioSlider;
+    private GameObject optionsPanel;
+    private GameObject buttonPanel;
+    private GameObject pausePanel;
 
     private void Start()
     {
@@ -16,6 +21,22 @@ public class DynamicButt : MonoBehaviour
         {
             button = GetComponent<Button>();
             button.onClick.AddListener(HandleButtonClick);
+        }
+        if (canvas == null && GameObject.Find("Menu")) 
+        {
+            canvas = GameObject.Find("Menu").GetComponent<Canvas>();
+        }
+        if (optionsPanel == null && FindInCanvasByName("OptionsPanel")) 
+        {
+            optionsPanel = FindInCanvasByName("OptionsPanel");
+        }
+        if (buttonPanel == null && FindInCanvasByName("ButtonPanel")) 
+        {
+            buttonPanel = FindInCanvasByName("ButtonPanel");
+        }
+        if (pausePanel == null && FindInCanvasByName("PauseMenu")) 
+        {
+            pausePanel = FindInCanvasByName("PauseMenu");
         }
     }
 
@@ -35,6 +56,20 @@ public class DynamicButt : MonoBehaviour
         }
     }
 
+    private GameObject FindInCanvasByName(string name) 
+    {
+        Transform[] children = canvas.GetComponentsInChildren<Transform>(true);
+
+        foreach (Transform child in children) 
+        {
+            if (child.name == name) 
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
+    }
+
     private void HandleButtonClick()
     {
         SceneChanger sc = FindAnyObjectByType<SceneChanger>();
@@ -50,11 +85,18 @@ public class DynamicButt : MonoBehaviour
             case "MenuButt":
                 sc.LoadMenu();
                 break;
+            case "OptionsButt":
+                optionsPanel.SetActive(true);
+                buttonPanel.SetActive(false);
+                break;
+            case "BackButt":
+                optionsPanel.SetActive(false);
+                buttonPanel.SetActive(true);
+                break;
             case "UnpauseButt":
                 GameManager.Instance.isPaused = false;
-                break;
-            case "Menu":
-                sc.LoadMenu();
+                pausePanel.SetActive(false);
+                Debug.Log("DoingThingies");
                 break;
 
             default:
