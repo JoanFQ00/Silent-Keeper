@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -108,7 +108,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,10 +136,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 388
-        width: 107
-        height: 184
+        x: 0
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,10 +158,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_1
       rect:
         serializedVersion: 2
-        x: 139
-        y: 388
-        width: 107
-        height: 184
+        x: 128
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_2
       rect:
         serializedVersion: 2
-        x: 267
-        y: 388
-        width: 107
-        height: 184
+        x: 256
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_3
       rect:
         serializedVersion: 2
-        x: 395
-        y: 388
-        width: 107
-        height: 184
+        x: 384
+        y: 384
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_4
       rect:
         serializedVersion: 2
-        x: 12
-        y: 194
-        width: 105
-        height: 187
+        x: 0
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_5
       rect:
         serializedVersion: 2
-        x: 140
-        y: 194
-        width: 105
-        height: 187
+        x: 128
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_6
       rect:
         serializedVersion: 2
-        x: 268
-        y: 194
-        width: 105
-        height: 187
+        x: 256
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_7
       rect:
         serializedVersion: 2
-        x: 396
-        y: 195
-        width: 105
-        height: 186
+        x: 384
+        y: 192
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_8
       rect:
         serializedVersion: 2
-        x: 12
-        y: 5
-        width: 104
-        height: 181
+        x: 0
+        y: 0
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_9
       rect:
         serializedVersion: 2
-        x: 134
-        y: 7
-        width: 116
-        height: 178
+        x: 128
+        y: 0
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_10
       rect:
         serializedVersion: 2
-        x: 268
-        y: 5
-        width: 104
-        height: 181
+        x: 256
+        y: 0
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: MiglioWalkSpritesheet_11
       rect:
         serializedVersion: 2
-        x: 390
-        y: 6
-        width: 116
-        height: 179
+        x: 384
+        y: 0
+        width: 128
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c52e6787b942d214bbe4feffaf704aff
     internalID: 0
     vertices: []
     indices: 
@@ -409,7 +409,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MiglioWalkSpritesheet_0: 5178324047971178701
+      MiglioWalkSpritesheet_1: 2669370947773980179
+      MiglioWalkSpritesheet_10: -5356169859718415307
+      MiglioWalkSpritesheet_11: -8861466288368902769
+      MiglioWalkSpritesheet_2: -4273680731217671519
+      MiglioWalkSpritesheet_3: -2439757301175195429
+      MiglioWalkSpritesheet_4: -1949327438556661134
+      MiglioWalkSpritesheet_5: 6534800423200229335
+      MiglioWalkSpritesheet_6: -1557678758224401949
+      MiglioWalkSpritesheet_7: 7819154237995984163
+      MiglioWalkSpritesheet_8: -5526101582375124870
+      MiglioWalkSpritesheet_9: -914622566226162436
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
