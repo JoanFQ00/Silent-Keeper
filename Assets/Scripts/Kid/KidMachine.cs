@@ -19,6 +19,9 @@ public class KidMachine : MonoBehaviour
     private LayerMask wallMask;
     private float currentSpeed;
 
+    private Animator kidAnimator;
+    private Vector2 lastPosition;
+
     void Start()
     {
         currentState = States.Following;
@@ -30,10 +33,19 @@ public class KidMachine : MonoBehaviour
         wallMask = LayerMask.GetMask("Wall");
 
         currentSpeed = defaultSpeed;
+
+        kidAnimator = GetComponent<Animator>();
+        lastPosition = transform.position;
     }
 
     void Update()
     {
+        if (GameManager.Instance.isPaused)
+        {
+            UpdateAnimator(Vector2.zero);
+            return;
+        }
+
         switch (currentState)
         {
             case States.Following:
@@ -57,6 +69,20 @@ public class KidMachine : MonoBehaviour
         {
             ChangeState(States.Stoped);
         }
+
+        Vector2 moveDelta = (Vector2)transform.position - lastPosition;
+        UpdateAnimator(moveDelta);
+
+        lastPosition = transform.position;
+    }
+
+    private void UpdateAnimator(Vector2 moveDelta)
+    {
+        if (kidAnimator == null) return;
+
+        kidAnimator.SetFloat("Horizontal", moveDelta.x);
+        kidAnimator.SetFloat("Vertical", moveDelta.y);
+        kidAnimator.SetFloat("Speed", moveDelta.sqrMagnitude);
     }
 
     private void HandleFollowingState()
