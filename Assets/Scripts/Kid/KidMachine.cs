@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class KidMachine : MonoBehaviour
 {
     [SerializeField] float defaultSpeed = 1.5f;
+    [SerializeField] float followingDistance = 0.7f, distToPlayer = 0.5f;
 
     [HideInInspector]
     public int bushCounter = 0;
@@ -12,7 +13,6 @@ public class KidMachine : MonoBehaviour
     public enum States { Following, Hand, Waypoints, Stoped, HiddenInLocker, HiddenInBush, NotHiddenInBush }
 
     private States currentState, lastState, hiddenState;
-    private float distToPlayer = 0.7f;
     private GameObject player;
     private List<GameObject> waypoints = new List<GameObject>();
     private int currentWaypointIndex = 0;
@@ -160,7 +160,7 @@ public class KidMachine : MonoBehaviour
 
     private void HandleStoppedState()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) < distToPlayer &&
+        if (Vector2.Distance(player.transform.position, transform.position) < followingDistance &&
             !IsWallBetween(transform, player.transform))
         {
             ChangeState(States.Hand);
@@ -226,5 +226,14 @@ public class KidMachine : MonoBehaviour
     public States GetHiddenKidState()
     {
         return hiddenState;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, distToPlayer);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, followingDistance);
     }
 }
