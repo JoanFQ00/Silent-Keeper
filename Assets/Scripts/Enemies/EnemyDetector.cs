@@ -1,7 +1,11 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class EnemyDetector : MonoBehaviour
+
+
+public class EnemyDetector : TaggedMonobehaviour
 {
     private LayerMask wallLayer;
     private Vector3 startPosition;
@@ -9,6 +13,8 @@ public class EnemyDetector : MonoBehaviour
 
     private Transform _player;
     private Transform _kid;
+
+    [SerializeField]
 
     private Light2D _light2D;
 
