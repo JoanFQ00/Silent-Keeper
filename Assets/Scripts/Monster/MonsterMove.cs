@@ -56,13 +56,6 @@ public class MonsterMove : MonoBehaviour
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
         }
-
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetFloat("Horizontal", rb.linearVelocity.x);
-            playerAnimator.SetFloat("Vertical", rb.linearVelocity.y);
-            playerAnimator.SetFloat("Speed", rb.linearVelocity.sqrMagnitude);
-        }
     }
 
     public void ChangeState(KidMachine.States state)
@@ -91,16 +84,22 @@ public class MonsterMove : MonoBehaviour
 
         if (Mathf.Abs(moveDir.x) > 0.01f)
         {
-            lastNonZeroDir = moveDir;
-
             if (moveDir.x < 0)
-            {
                 transform.localScale = new Vector3(-1, 1, 1);
-            }
             else if (moveDir.x > 0)
-            {
                 transform.localScale = new Vector3(1, 1, 1);
-            }
+        }
+
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            lastNonZeroDir = moveDir;
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("Horizontal", lastNonZeroDir.x);
+            playerAnimator.SetFloat("Vertical", lastNonZeroDir.y);
+            playerAnimator.SetBool("Speed", moveDir.sqrMagnitude > 0.01f);
         }
     }
 

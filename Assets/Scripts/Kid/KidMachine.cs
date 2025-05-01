@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.Rendering.DebugUI;
 
 public class KidMachine : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class KidMachine : MonoBehaviour
     private float currentSpeed;
 
     private Animator kidAnimator;
-    private Vector2 lastPosition;
+    private Vector2 lastPosition, lastNonZeroDir = Vector2.down;
 
     void Start()
     {
@@ -80,9 +81,19 @@ public class KidMachine : MonoBehaviour
     {
         if (kidAnimator == null) return;
 
-        kidAnimator.SetFloat("Horizontal", moveDelta.x);
-        kidAnimator.SetFloat("Vertical", moveDelta.y);
-        kidAnimator.SetFloat("Speed", moveDelta.sqrMagnitude);
+        if (Mathf.Abs(moveDelta.x) > 0.01f)
+        {
+            transform.localScale = new Vector3(moveDelta.x < 0 ? -1 : 1, 1, 1);
+        }
+
+        if (moveDelta.sqrMagnitude > 0.0001f)
+        {
+            lastNonZeroDir = moveDelta.normalized;
+        }
+
+        kidAnimator.SetFloat("Horizontal", lastNonZeroDir.x);
+        kidAnimator.SetFloat("Vertical", lastNonZeroDir.y);
+        kidAnimator.SetBool("Speed", moveDelta.sqrMagnitude > 0.00001f);
     }
 
     private void HandleFollowingState()
