@@ -50,8 +50,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        //if (doorBaseSO != null)
-        //    spriteRenderer.sprite = doorBaseSO.doorImage;
+        if (doorBaseSO != null)
+            spriteRenderer.sprite = doorBaseSO.doorImage;
 
         if (thisActivated)
         {
