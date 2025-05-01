@@ -14,7 +14,7 @@ public class MonsterMove : MonoBehaviour
     private float currentSpeed;
     private Rigidbody2D rb;
     private Animator playerAnimator;
-    private Vector2 moveDir, lastDir;
+    private Vector2 moveDir, lastNonZeroDir = Vector2.right;
     private KidMachine.States monsterState, monsterHiddenState;
 
     public static Action<string> OnChangeTxt;
@@ -30,8 +30,6 @@ public class MonsterMove : MonoBehaviour
 
         currentSpeed = defaultSpeed;
         monsterState = KidMachine.States.Stoped;
-
-        lastDir = Vector2.one;
     }
 
     void FixedUpdate()
@@ -87,8 +85,6 @@ public class MonsterMove : MonoBehaviour
         return monsterHiddenState;
     }
 
-    private Vector2 lastNonZeroDir = Vector2.right; // Direccion inicial
-
     private void OnMove(InputValue value)
     {
         moveDir = value.Get<Vector2>();
@@ -97,7 +93,6 @@ public class MonsterMove : MonoBehaviour
         {
             lastNonZeroDir = moveDir;
 
-            // Cambiar la escala solo cuando realmente cambie de dirección horizontal
             if (moveDir.x < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
