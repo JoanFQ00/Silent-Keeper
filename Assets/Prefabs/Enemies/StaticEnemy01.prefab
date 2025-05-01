@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4491001864747619796}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.81, y: -1.78, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.79, y: 0.79, z: 0.79}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e898994a5c0d64095340a6257b30f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionTags: 
+  _light2D: {fileID: 0}
   enemyPlayerDetector: 0
 --- !u!114 &6841264127582095900
 MonoBehaviour:
