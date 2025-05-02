@@ -24,13 +24,13 @@ public class Interact : MonoBehaviour
                 Interacting(gameObject);
         }
 
-        if (Input.mouseScrollDelta.y < 0 && gameObject.tag == "Kid")
+        if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
         {
-            if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
-            {
-                lastScrollTime = Time.time;
-                Interacting(gameObject);
-            }
+            Interacting(gameObject);
+            // if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
+            // {
+            //     lastScrollTime = Time.time;
+            // }
         }
     }
 

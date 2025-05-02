@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             RefreshText();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (mainCamera != null && !RoomBase.playersAreInRoom)
             {
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SceneChanger.instance.RestartZone();    
+            SceneChanger.instance.RestartZone();
         }
     }
 
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
     }
 
-    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA MÁQUINA EXPRENDEDORA
+    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA Mï¿½QUINA EXPRENDEDORA
     public void SpawnPlayers()
     {
         switch (currentZone)
@@ -122,13 +122,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //CAMBIAR DE ZONA AL ENTRAR A LA MÁQUINA EXPRENDEDORA
+    //CAMBIAR DE ZONA AL ENTRAR A LA Mï¿½QUINA EXPRENDEDORA
     public void ChageZoneState(Zone newZone)
     {
         currentZone = newZone;
     }
 
-    //Útil para máquina exprendedora
+    //ï¿½til para mï¿½quina exprendedora
     public void ActiveFinalPanel()
     {
         monster.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;

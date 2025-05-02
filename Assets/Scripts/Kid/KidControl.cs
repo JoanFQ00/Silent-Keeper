@@ -15,7 +15,7 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse()
     {
-        if (!GameManager.Instance.isPaused)
+        if (!GameManager.Instance.isPaused && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
         {
             kidMachine.SafeResetWaypoints();
 
@@ -62,6 +62,7 @@ public class KidControl : MonoBehaviour
     {
         if (!GameManager.Instance.isPaused)
         {
+            kidMachine.SafeResetWaypoints();
             if (monsterMove.GetMonsterState() != KidMachine.States.HiddenInLocker && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
                 kidMachine.ChangeState(KidMachine.States.Following);
         }

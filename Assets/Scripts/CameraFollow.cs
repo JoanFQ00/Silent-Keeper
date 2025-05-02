@@ -24,14 +24,14 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.isPaused && target != null) 
+        if (!GameManager.Instance.isPaused && target != null)
         {
             if (target.gameObject.tag == "Player")
                 if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && cameraReturned)
                     CameraMove();
                 else ReturnToTarget();
             else if (target.gameObject.tag == "Kid")
-                if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.HiddenInLocker 
+                if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.HiddenInLocker
                 || GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hand))
                     CameraMove();
                 else ReturnToTarget();
