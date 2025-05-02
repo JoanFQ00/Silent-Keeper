@@ -17,6 +17,8 @@ public class KidControl : MonoBehaviour
     {
         if (!GameManager.Instance.isPaused)
         {
+            kidMachine.SafeResetWaypoints();
+
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
 
@@ -34,13 +36,14 @@ public class KidControl : MonoBehaviour
                     {
                         waypoint.transform.position = mousePos;
                         kidMachine.AddWaypoint(waypoint);
+                        kidMachine.ChangeState(KidMachine.States.Waypoints);
                     }
                 }
             }
         }
     }
 
-    private void OnRightMouse() 
+    private void OnRightMouse()
     {
         if (!GameManager.Instance.isPaused)
         {
