@@ -20,7 +20,7 @@ public class PresurePlate : MonoBehaviour
         }
         else
         {
-            spriteRenderer.color = spriteRenderer.color = new Color(0f, 166f, 255f, 1f);
+            spriteRenderer.color = spriteRenderer.color = new Color(255f, 255f, 255f, 1f);
         }
     }
 
