@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -8,56 +9,103 @@ public class Interact : MonoBehaviour
     private float scrollCooldown = 0.3f;
     private float lastScrollTime = 0f;
 
-    public float GetRadius(bool getInteractRadius)
+    //BORRAR
+    //public float GetRadius(bool getInteractRadius)
+    //{
+    //    if (getInteractRadius)
+    //        return interactRadius;
+    //    else
+    //        return detectionRadius;
+    //}
+
+    public float GetDetectionRadius()
     {
-        if (getInteractRadius)
-            return interactRadius;
-        else
-            return detectionRadius;
+        return detectionRadius;
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K) && gameObject.tag == "Kid")
+        {
+            if (!GameManager.Instance.isPaused)
+                Interacting();
+        }
+
         if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Player")
         {
             if (!GameManager.Instance.isPaused)
-                Interacting(gameObject);
+                Interacting();
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
+        //if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
+        //{
+        //    Interacting();
+        //    // if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
+        //    // {
+        //    //     lastScrollTime = Time.time;
+        //    // }
+        //}
+
+        InteractableDetection();
+    }
+
+    private void InteractableDetection()
+    {
+        Collider2D detectableHit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
+        Collider2D interactableHit = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
+
+        if (detectableHit != null)
         {
-            Interacting(gameObject);
-            // if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
-            // {
-            //     lastScrollTime = Time.time;
-            // }
+            if (interactableHit != null)
+                interactableHit.GetComponent<InteractTxt>().Checker(true, true, gameObject.tag);
+            else
+                detectableHit.GetComponent<InteractTxt>().Checker(true, false, gameObject.tag);
         }
     }
 
-    public void Interacting(GameObject thisObject)
+    private void Interacting()
     {
-        if (this.gameObject == thisObject)
-        {
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
+        Collider2D interactableObj = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
 
-            if (hit != null)
+        if (interactableObj != null)
+        {
+            if (interactableObj.GetComponent<Lever>() != null)
             {
-                if (hit.GetComponent<Lever>() != null)
+                var element = interactableObj.GetComponent<Lever>();
+                element.Interacted();
+            }
+            else if (interactableObj.GetComponent<DoorBase>() != null)
+            {
+                var element = interactableObj.GetComponent<DoorBase>();
+                element.Interacted();
+            }
+            else if (interactableObj.GetComponent<Locker>() != null)
+            {
+                if (gameObject == interactableObj.GetComponent<Locker>().GetObjectContained() || interactableObj.GetComponent<Locker>().GetObjectContained() == null)
                 {
-                    var element = hit.GetComponent<Lever>();
-                    element.Interacted();
-                }
-                else if (hit.GetComponent<DoorBase>() != null)
-                {
-                    var element = hit.GetComponent<DoorBase>();
-                    element.Interacted();
-                }
-                else if (hit.GetComponent<Locker>() != null)
-                {
-                    if (this.gameObject == hit.GetComponent<Locker>().GetObjectContained() || hit.GetComponent<Locker>().GetObjectContained() == null)
+                    if (gameObject == interactableObj.GetComponent<Locker>().GetObjectContained())
                     {
-                        var element = hit.GetComponent<Locker>();
-                        element.Interacted(this.gameObject, hit.gameObject);
+                        var element = interactableObj.GetComponent<Locker>();
+                        element.Interacted(gameObject, interactableObj.gameObject);
+                    }
+                    else
+                    {
+                        if (interactableObj.GetComponent<Locker>().GetObjectContained() == null && gameObject.tag == "Kid")
+                        {
+                            if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
+                            {
+                                var element = interactableObj.GetComponent<Locker>();
+                                element.Interacted(gameObject, interactableObj.gameObject);
+                            }
+                        }
+                        else if (interactableObj.GetComponent<Locker>().GetObjectContained() == null && gameObject.tag == "Player")
+                        {
+                            if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
+                            {
+                                var element = interactableObj.GetComponent<Locker>();
+                                element.Interacted(gameObject, interactableObj.gameObject);
+                            }
+                        }
                     }
                 }
             }

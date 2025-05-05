@@ -223,7 +223,7 @@ public class KidMachine : MonoBehaviour
         ResetCurrentWaypointIndex();
         WaypointsPool.DeactivateAll();
 
-        if (currentState != States.Hand && currentState != States.Following)
+        if (currentState != States.Hand && currentState != States.Following && currentState != States.HiddenInLocker)
         {
             ChangeState(States.Stoped);
         }

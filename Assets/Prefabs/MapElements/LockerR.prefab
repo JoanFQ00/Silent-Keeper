@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8469810873315583024}
   - component: {fileID: 7218567858897482933}
   - component: {fileID: 8902452647481880609}
+  - component: {fileID: 9178108692549989222}
   m_Layer: 6
   m_Name: LockerR
   m_TagString: Untagged
@@ -162,11 +163,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interacText: Esconderse
+  interactableArea: 1
   keyMonsterUI: {fileID: 0}
   keyKidUI: {fileID: 0}
   iconSR: {fileID: 2428483774341989986}
   detectionIcon: {fileID: 880930425, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
   interactIcon: {fileID: -407983306, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
+--- !u!58 &9178108692549989222
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069808720448317428}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &6802519673022915005
 GameObject:
   m_ObjectHideFlags: 0

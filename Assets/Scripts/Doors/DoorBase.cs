@@ -20,9 +20,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [SerializeField] private int doorKeyTP;
 
     [Header("")]
-    [SerializeField] float detectionRadius;
-
-    [Header("")]
     [SerializeField] DoorBaseSO doorBaseSO;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
@@ -30,8 +27,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private SpriteRenderer spriteRenderer;
     private ShadowCaster2D shadowCaster2D;
     private Collider2D col;
-    private bool areTwoPlayersOnDoor, stopProcessing = true;
     private GameObject teleportDestination;
+    private bool areTwoPlayersOnDoor, stopProcessing = true;
+    private float detectionRadius;
 
     public static Action RefreshPlayerInventory;
     public static Action OnZoneEnded;
@@ -49,6 +47,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         shadowCaster2D = GetComponent<ShadowCaster2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+
+        detectionRadius = GetComponent<InteractTxt>() != null ? GetComponent<InteractTxt>().GetInteractableArea() : 1.0f;
 
         if (doorBaseSO != null)
             spriteRenderer.sprite = doorBaseSO.doorImage;
@@ -118,17 +118,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         copyKeyStates.Clear();
         foreach (InteractableBase interactable in totalKeysActivated)
             copyKeyStates[interactable] = interactable.GetIsActivated();
-
-        Collider2D[] allColliders = GetComponents<Collider2D>();
-
-        foreach (var col in allColliders)
-        {
-            if (col is CircleCollider2D circle && circle.isTrigger)
-            {
-                circle.radius = detectionRadius / transform.lossyScale.x;
-                break;
-            }
-        }
 
         stopProcessing = false;
     }

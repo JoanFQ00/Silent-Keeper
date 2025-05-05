@@ -7,6 +7,7 @@ public class InteractTxt : MonoBehaviour
     [Header("Text")]
     [SerializeField] private string interacText;
 
+    [SerializeField] float interactableArea = 2f;
     [SerializeField] GameObject keyMonsterUI, keyKidUI;
     [SerializeField] private SpriteRenderer iconSR;
     [SerializeField] private Sprite detectionIcon, interactIcon;
@@ -52,6 +53,17 @@ public class InteractTxt : MonoBehaviour
             keyMonsterUI.SetActive(false);
             keyKidUI.SetActive(false);
         }
+
+        Collider2D[] allColliders = GetComponents<Collider2D>();
+
+        foreach (var col in allColliders)
+        {
+            if (col is CircleCollider2D circle && circle.isTrigger)
+            {
+                float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
+                circle.radius = interactableArea / maxScale;
+            }
+        }
     }
 
     private void Update()
@@ -70,25 +82,65 @@ public class InteractTxt : MonoBehaviour
             interacText = fullText;
         }
 
-        Checker(monster.GetComponent<Interact>().GetRadius(false), monster.GetComponent<Interact>().GetRadius(true), "Player");
-        Checker(kid.GetComponent<Interact>().GetRadius(false), kid.GetComponent<Interact>().GetRadius(true), "Kid");
+        //Checker(monster.GetComponent<Interact>().GetRadius(false), monster.GetComponent<Interact>().GetRadius(true), "Player");
+        //Checker(kid.GetComponent<Interact>().GetRadius(false), kid.GetComponent<Interact>().GetRadius(true), "Kid");
+
+        if ((monster.transform.position - transform.position).magnitude - monster.GetComponent<Interact>().GetDetectionRadius() > interactableArea
+            && (kid.transform.position - transform.position).magnitude - kid.GetComponent<Interact>().GetDetectionRadius() > interactableArea)
+            ChangeIcon(null);
     }
 
-    private void Checker(float detectionRadius, float interactionRadius, string tag)
-    {
-        Collider2D detectionHit = Physics2D.OverlapCircle(transform.position, detectionRadius, playersLayer);
-        Collider2D interactionHit = Physics2D.OverlapCircle(transform.position, interactionRadius, playersLayer);
+    //private void Checker(float detectionRadius, float interactionRadius, string tag)
+    //{
+    //    Collider2D detectionHit = Physics2D.OverlapCircle(transform.position, detectionRadius, playersLayer);
+    //    Collider2D interactionHit = Physics2D.OverlapCircle(transform.position, interactionRadius, playersLayer);
 
-        if (detectionHit != null)
+    //    if (detectionHit != null)
+    //    {
+    //        if (interactionHit != null)
+    //        {
+    //            if (tag == monster.tag && monster.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
+    //            {
+    //                VisualMonsterText(true);
+    //                ChangeIcon(interactIcon);
+    //            }
+    //            else if (tag == kid.tag && kid.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
+    //            {
+    //                VisualKidText(true);
+    //                ChangeIcon(interactIcon);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (tag == monster.tag)
+    //                VisualMonsterText(false);
+    //            else
+    //                VisualKidText(false);
+
+    //            ChangeIcon(detectionIcon);
+    //        }
+    //    }
+    //    else
+    //        ChangeIcon(null);
+    //}
+
+    public float GetInteractableArea()
+    {
+        return interactableArea;
+    }
+
+    public void Checker(bool isInDetectDistance, bool isInInteractDistance, string playerTag)
+    {
+        if (isInDetectDistance)
         {
-            if (interactionHit != null)
+            if (isInInteractDistance)
             {
-                if (tag == monster.tag && monster.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
+                if (playerTag == monster.tag && monster.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
                 {
                     VisualMonsterText(true);
                     ChangeIcon(interactIcon);
                 }
-                else if (tag == kid.tag && kid.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
+                else if (playerTag == kid.tag && kid.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
                 {
                     VisualKidText(true);
                     ChangeIcon(interactIcon);
@@ -96,7 +148,7 @@ public class InteractTxt : MonoBehaviour
             }
             else
             {
-                if (tag == monster.tag)
+                if (playerTag == monster.tag)
                     VisualMonsterText(false);
                 else
                     VisualKidText(false);
@@ -104,8 +156,6 @@ public class InteractTxt : MonoBehaviour
                 ChangeIcon(detectionIcon);
             }
         }
-        else
-            ChangeIcon(null);
     }
 
     private void ChangeIcon(Sprite newIcon)
@@ -147,5 +197,11 @@ public class InteractTxt : MonoBehaviour
     {
         keyKidUI.SetActive(activate);
         keyKidUI.GetComponent<TextMeshProUGUI>().text = textUI;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(transform.position, interactableArea);
     }
 }
