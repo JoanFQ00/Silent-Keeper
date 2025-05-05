@@ -119,6 +119,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         foreach (InteractableBase interactable in totalKeysActivated)
             copyKeyStates[interactable] = interactable.GetIsActivated();
 
+        Collider2D[] allColliders = GetComponents<Collider2D>();
+
+        foreach (var col in allColliders)
+        {
+            if (col is CircleCollider2D circle && circle.isTrigger)
+            {
+                circle.radius = detectionRadius / transform.lossyScale.x;
+                break;
+            }
+        }
+
         stopProcessing = false;
     }
 
