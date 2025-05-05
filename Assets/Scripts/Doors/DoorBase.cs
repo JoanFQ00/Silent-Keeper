@@ -139,8 +139,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         int playerLayerMask = 1 << LayerMask.NameToLayer("Players");
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayerMask);
 
-        if (colliders.Length == 2)
-            areTwoPlayersOnDoor = true;
+        if (colliders.Length > 0)
+        {
+            GameObject kid = GameObject.FindGameObjectWithTag("Kid");
+
+            if (kid.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hand)
+                areTwoPlayersOnDoor = true;
+            else
+                areTwoPlayersOnDoor = false;
+        }
         else
             areTwoPlayersOnDoor = false;
 
@@ -385,7 +392,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 Transform player = GameObject.FindGameObjectWithTag("Player").transform;
                 Transform kid = GameObject.FindGameObjectWithTag("Kid").transform;
 
-                Vector3 tpOffset = CalculateDynamicOffset(player) * 1.2f;
+                Vector3 tpOffset = CalculateDynamicOffset(player) * 2f;
                 Vector3 destination = teleportDestination.transform.position + tpOffset;
 
                 player.position = destination;

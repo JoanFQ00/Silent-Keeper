@@ -4,6 +4,7 @@ using UnityEngine;
 public class PresurePlate : MonoBehaviour
 {
     [SerializeField] bool keepActivated;
+    [SerializeField] LayerMask playerLayer;
 
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
@@ -26,10 +27,10 @@ public class PresurePlate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
             interactable.SetKeyActivated(true);
-            spriteRenderer.color = Color.green;
+            spriteRenderer.color = Color.green;//Cambiar
 
             _activeCollisions++;
         }
@@ -37,7 +38,7 @@ public class PresurePlate : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
             _activeCollisions--;
 
@@ -46,7 +47,7 @@ public class PresurePlate : MonoBehaviour
                 if (!keepActivated)
                 {
                     interactable.SetKeyActivated(false);
-                    spriteRenderer.color = new Color(0f, 166f, 255f, 1f);
+                    spriteRenderer.color = new Color(0f, 166f, 255f, 1f);//Cambiar
                 }
             }
         }
@@ -54,7 +55,7 @@ public class PresurePlate : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Kid")
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
             if (_activeCollisions > 0)
             {

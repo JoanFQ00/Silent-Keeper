@@ -117,6 +117,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepActivated: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!61 &2873480521126984717
 BoxCollider2D:
   m_ObjectHideFlags: 0
