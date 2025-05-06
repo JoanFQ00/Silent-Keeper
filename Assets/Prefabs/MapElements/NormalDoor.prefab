@@ -158,8 +158,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1725573771
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6461048, g: 0, b: 1, a: 1}
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interacText: Abrir
+  interactableArea: 2
   keyMonsterUI: {fileID: 0}
   keyKidUI: {fileID: 0}
   iconSR: {fileID: 4168461753544539252}
@@ -256,7 +257,6 @@ MonoBehaviour:
   detectionAxis: 0
   doorKey: 0
   doorKeyTP: 0
-  detectionRadius: 2.5
   doorBaseSO: {fileID: 11400000, guid: c0032fc219345434eb7fc5398791a3ff, type: 2}
 --- !u!114 &7161166935280246469
 MonoBehaviour:
