@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             RefreshText();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (mainCamera != null && !RoomBase.playersAreInRoom)
             {
