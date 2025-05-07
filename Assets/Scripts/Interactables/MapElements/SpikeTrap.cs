@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-    [SerializeField] private Sprite trapImage;
+    [SerializeField] private Sprite activatedTrap, disabledTrap, almostOpening;
     [SerializeField] private bool thisActive, isAuto;
     [SerializeField] float alternationTime;
     [SerializeField] LayerMask playerLayer;
@@ -10,11 +10,11 @@ public class SpikeTrap : MonoBehaviour
     private Collider2D col;
     private SpriteRenderer sr;
     private float counter;
+    private bool isNearToBeActivated;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        sr.sprite = trapImage;
 
         if (isAuto)
         {
@@ -23,15 +23,16 @@ public class SpikeTrap : MonoBehaviour
             if (thisActive)
             {
                 col.enabled = false;
-                sr.color = Color.green;
+                sr.sprite = disabledTrap;
             }
             else
             {
                 col.enabled = true;
-                sr.color = Color.red;
+                sr.sprite = activatedTrap;
             }
         }
 
+        isNearToBeActivated = false;
         counter = 0.0f;
     }
 
@@ -41,17 +42,23 @@ public class SpikeTrap : MonoBehaviour
         {
             counter += Time.deltaTime;
 
-            if (counter >= alternationTime)
+            if (counter >= alternationTime / 2.0f && !isNearToBeActivated && thisActive)
+            {
+                sr.sprite = almostOpening;
+                isNearToBeActivated = true;
+            }
+            else if (counter >= alternationTime)
             {
                 thisActive = !thisActive;
                 col.enabled = !thisActive;
 
                 if (thisActive)
-                    sr.color = Color.green;
-                else 
-                    sr.color = Color.red;
+                    sr.sprite = disabledTrap;
+                else
+                    sr.sprite = activatedTrap;
 
                 counter -= alternationTime;
+                isNearToBeActivated = false;
             }
         }
     }

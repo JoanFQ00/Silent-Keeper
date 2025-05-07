@@ -1,11 +1,12 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PresurePlate : MonoBehaviour
 {
-    [SerializeField] bool keepActivated;
+    [SerializeField] bool keepActivated, desactivatorPlate = false;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Sprite normalPlate, pressedPlate;
+    [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
 
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
@@ -30,7 +31,15 @@ public class PresurePlate : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
-            interactable.SetKeyActivated(true);
+            if (desactivatorPlate)
+                foreach (PresurePlate plate in presurePlates)
+                {
+                    plate.GetComponent<InteractableBase>().SetKeyActivated(false);
+                    plate.SetToNormalSprite();
+                }
+            else
+                interactable.SetKeyActivated(true);
+
             spriteRenderer.sprite = pressedPlate;
 
             _activeCollisions++;
@@ -63,5 +72,10 @@ public class PresurePlate : MonoBehaviour
                 spriteRenderer.sprite = pressedPlate;
             }
         }
+    }
+
+    public void SetToNormalSprite()
+    {
+        spriteRenderer.sprite = normalPlate;
     }
 }

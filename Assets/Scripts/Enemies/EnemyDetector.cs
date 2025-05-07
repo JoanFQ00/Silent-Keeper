@@ -14,8 +14,6 @@ public class EnemyDetector : TaggedMonobehaviour
     private Transform _player;
     private Transform _kid;
 
-    [SerializeField]
-
     private Light2D _light2D;
 
     private float VisionRange;

@@ -102,10 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e650578bf6b03a48a54ee6dda931837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapImage: {fileID: 4489566107358361773, guid: bfbeb4776e31d3c47b928bcd122b4396, type: 3}
+  activatedTrap: {fileID: -59600441, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  disabledTrap: {fileID: 1818166977, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  almostOpening: {fileID: -186665587, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   thisActive: 0
   isAuto: 0
-  alternationTime: 0
+  alternationTime: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
