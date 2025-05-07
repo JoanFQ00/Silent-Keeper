@@ -379,7 +379,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             {
                 // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA (YA NO PUEDE VOLVER ATRÁS)
                 GameManager.Instance.StopCounting();
-                OnZoneEnded?.Invoke();
+                //OnZoneEnded?.Invoke(); --> Maquina
+                GameManager.currentZone = GameManager.currentZone + 1;
+                SceneChanger.instance.NextZone();
+                GameManager.Instance.RestartTime();//BORRAR
             }
             else
             {

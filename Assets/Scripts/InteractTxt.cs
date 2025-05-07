@@ -178,13 +178,17 @@ public class InteractTxt : MonoBehaviour
     private void VisualMonsterText(bool activate)
     {
         if (keyMonsterUI == null && keyKidUI == null)
-            OnShowMonsterTextUI?.Invoke(activate, interacText);
+        {
+            //OnShowMonsterTextUI?.Invoke(activate, interacText);
+        }
     }
 
     private void VisualKidText(bool activate)
     {
         if (keyMonsterUI == null && keyKidUI == null)
-            OnShowKidTextUI?.Invoke(activate, interacText);
+        {
+            //OnShowKidTextUI?.Invoke(activate, interacText);
+        }
     }
 
     private void ShowMonsterText(bool activate, string textUI)

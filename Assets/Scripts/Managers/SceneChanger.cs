@@ -5,7 +5,7 @@ public class SceneChanger : MonoBehaviour
 {
     public static SceneChanger instance;
 
-    private const string titleSceneName = "MainMenu", gameplaySceneName = "Demo", endingSceneName = "Ending";
+    private const string titleSceneName = "MainMenu", level1 = "School", level2 = "Circus", endingSceneName = "Ending";
     private void Awake()
     {
         if (instance == null)
@@ -37,12 +37,17 @@ public class SceneChanger : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene(gameplaySceneName);
+        SceneManager.LoadScene(level1);
     }
 
     public void RestartZone()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextZone()
+    {
+        SceneManager.LoadScene(level2);
     }
 
     public void LoadEnd()

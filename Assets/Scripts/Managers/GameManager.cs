@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     private float initialTime;
     private bool isCounting = true, stopCounting = false;
     private GameObject mainCamera;
-    private static Zone currentZone = Zone.ZONE_1;
 
+    public static Zone currentZone = Zone.ZONE_1;
     public static GameManager Instance;
     public static Action<string> OnTimerUpdating;
 
@@ -108,13 +108,13 @@ public class GameManager : MonoBehaviour
                 break;
 
             case Zone.ZONE_2:
-                monster.transform.position = mapSpawns[1].transform.position;
-                kid.transform.position = mapSpawns[1].transform.position;
+                monster.transform.position = mapSpawns[0].transform.position;
+                kid.transform.position = mapSpawns[0].transform.position;
                 break;
 
             case Zone.ZONE_3:
-                monster.transform.position = mapSpawns[2].transform.position;
-                kid.transform.position = mapSpawns[2].transform.position;
+                monster.transform.position = mapSpawns[0].transform.position;
+                kid.transform.position = mapSpawns[0].transform.position;
                 break;
 
             default:

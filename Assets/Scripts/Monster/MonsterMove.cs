@@ -16,6 +16,7 @@ public class MonsterMove : MonoBehaviour
     private Animator playerAnimator;
     private Vector2 moveDir, lastNonZeroDir = Vector2.right;
     private KidMachine.States monsterState, monsterHiddenState;
+    private Vector3 initialScale;
 
     public static Action<string> OnChangeTxt;
 
@@ -28,6 +29,7 @@ public class MonsterMove : MonoBehaviour
 
         playerAnimator = GetComponent<Animator>();
 
+        initialScale = transform.localScale;
         currentSpeed = defaultSpeed;
         monsterState = KidMachine.States.Stoped;
     }
@@ -85,9 +87,9 @@ public class MonsterMove : MonoBehaviour
         if (Mathf.Abs(moveDir.x) > 0.01f)
         {
             if (moveDir.x < 0)
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-initialScale.x, initialScale.y, initialScale.z);
             else if (moveDir.x > 0)
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = initialScale;
         }
 
         if (moveDir.sqrMagnitude > 0.01f)

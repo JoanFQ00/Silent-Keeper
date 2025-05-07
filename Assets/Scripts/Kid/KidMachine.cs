@@ -22,6 +22,7 @@ public class KidMachine : MonoBehaviour
 
     private Animator kidAnimator;
     private Vector2 lastPosition, lastNonZeroDir = Vector2.down;
+    private Vector3 initialScale;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class KidMachine : MonoBehaviour
 
         kidAnimator = GetComponent<Animator>();
         lastPosition = transform.position;
+        initialScale = transform.localScale;
     }
 
     void Update()
@@ -84,7 +86,7 @@ public class KidMachine : MonoBehaviour
 
         if (Mathf.Abs(moveDelta.x) > 0.01f)
         {
-            transform.localScale = new Vector3(moveDelta.x < 0 ? -1 : 1, 1, 1);
+            transform.localScale = new Vector3(moveDelta.x < 0 ? -initialScale.x : initialScale.x, initialScale.y, initialScale.z);
         }
 
         if (moveDelta.sqrMagnitude > 0.0001f)

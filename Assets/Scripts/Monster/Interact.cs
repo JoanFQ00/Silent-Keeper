@@ -25,7 +25,7 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && gameObject.tag == "Kid")
+        if (Input.GetKeyDown(KeyCode.G) && gameObject.tag == "Kid")
         {
             if (!GameManager.Instance.isPaused)
                 Interacting();
