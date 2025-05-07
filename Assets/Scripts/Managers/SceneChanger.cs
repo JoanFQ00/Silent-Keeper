@@ -18,6 +18,13 @@ public class SceneChanger : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.M))
+        {
+            NextZone();
+        }
+    }
 
     void OnStart()
     {
