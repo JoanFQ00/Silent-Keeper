@@ -143,7 +143,7 @@ public class KidMachine : MonoBehaviour
 
         GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
-        if (!IsWallBetween(transform, currentWaypoint.transform) && !IsInteractableWithLocker(transform, player.transform))
+        if (!IsWallBetween(transform, currentWaypoint.transform))
         {
             if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
             {
@@ -196,18 +196,20 @@ public class KidMachine : MonoBehaviour
 
     private bool IsInteractableWithLocker(Transform from, Transform to)
     {
-        Vector2 direction = (to.position - from.position).normalized;
-        float distance = Vector2.Distance(from.position, to.position);
+        //Vector2 direction = (to.position - from.position).normalized;
+        //float distance = Vector2.Distance(from.position, to.position);
 
-        RaycastHit2D hit = Physics2D.Raycast(from.position, direction, distance, interactableMask);
+        //RaycastHit2D hit = Physics2D.Raycast(from.position, direction, distance, interactableMask);
 
-        if (hit.collider != null)
-        {
-            if (hit.collider.GetComponent<Locker>() != null)
-            {
-                return true;
-            }
-        }
+        //if (hit.collider != null)
+        //{
+        //    if (hit.collider.GetComponent<Locker>() != null)
+        //    {
+        //        return true;
+        //    }
+        //}
+
+        //return false;
 
         return false;
     }
