@@ -15,6 +15,6 @@ public class TimerTxt : MonoBehaviour
 
     private void UploadTimerText(string timer)
     {
-        GetComponent<TextMeshProUGUI>().text = "Tiempo Restante: " + timer;
+        GetComponent<TextMeshProUGUI>().text = "" + timer;
     }
 }
