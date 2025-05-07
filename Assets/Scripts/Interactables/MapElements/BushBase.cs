@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BushBase : MonoBehaviour
 {
+    [SerializeField] private LayerMask playerLayer;
+
     private Color hiddenColor;
 
     private void Start()
@@ -12,33 +14,39 @@ public class BushBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Kid"))
-        {
-            var kid = collision.GetComponent<KidMachine>();
-            kid.bushCounter++;
-            UpdateKidVisibility(kid, collision.GetComponent<SpriteRenderer>());
-        }
-        else if (collision.CompareTag("Player"))
-        {
-            var monster = collision.GetComponent<MonsterMove>();
-            monster.bushCounter++;
-            UpdateMonsterVisibility(monster, collision.GetComponent<SpriteRenderer>());
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0) 
+        { 
+            if (collision.transform.parent.CompareTag("Kid"))
+            {
+                var kid = collision.transform.parent.GetComponent<KidMachine>();
+                kid.bushCounter++;
+                UpdateKidVisibility(kid, collision.transform.parent.GetComponent<SpriteRenderer>());
+            }
+            else if (collision.transform.parent.CompareTag("Player"))
+            {
+                var monster = collision.transform.parent.GetComponent<MonsterMove>();
+                monster.bushCounter++;
+                UpdateMonsterVisibility(monster, collision.transform.parent.GetComponent<SpriteRenderer>());
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Kid"))
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
-            var kid = collision.GetComponent<KidMachine>();
-            kid.bushCounter = Mathf.Max(0, kid.bushCounter - 1);
-            UpdateKidVisibility(kid, collision.GetComponent<SpriteRenderer>());
-        }
-        else if (collision.CompareTag("Player"))
-        {
-            var monster = collision.GetComponent<MonsterMove>();
-            monster.bushCounter = Mathf.Max(0, monster.bushCounter - 1);
-            UpdateMonsterVisibility(monster, collision.GetComponent<SpriteRenderer>());
+            if (collision.transform.parent.CompareTag("Kid"))
+            {
+                var kid = collision.transform.parent.GetComponent<KidMachine>();
+                kid.bushCounter = Mathf.Max(0, kid.bushCounter - 1);
+                UpdateKidVisibility(kid, collision.transform.parent.GetComponent<SpriteRenderer>());
+            }
+            else if (collision.transform.parent.CompareTag("Player"))
+            {
+                var monster = collision.transform.parent.GetComponent<MonsterMove>();
+                monster.bushCounter = Mathf.Max(0, monster.bushCounter - 1);
+                UpdateMonsterVisibility(monster, collision.transform.parent.GetComponent<SpriteRenderer>());
+            }
         }
     }
 

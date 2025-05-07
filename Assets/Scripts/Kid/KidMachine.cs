@@ -17,7 +17,7 @@ public class KidMachine : MonoBehaviour
     private GameObject player;
     private List<GameObject> waypoints = new List<GameObject>();
     private int currentWaypointIndex = 0;
-    private LayerMask wallMask;
+    private LayerMask wallMask, interactableMask;
     private float currentSpeed;
 
     private Animator kidAnimator;
@@ -32,6 +32,7 @@ public class KidMachine : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         wallMask = LayerMask.GetMask("Wall");
+        interactableMask = LayerMask.GetMask("Interactable");
 
         currentSpeed = defaultSpeed;
 
@@ -105,7 +106,7 @@ public class KidMachine : MonoBehaviour
         else
         {
             currentSpeed = defaultSpeed;
-            if (!IsWallBetween(transform, player.transform))
+            if (!IsWallBetween(transform, player.transform) && !IsInteractableWithLocker(transform, player.transform))
             {
                 MoveTowards(player.transform);
             }
@@ -121,7 +122,7 @@ public class KidMachine : MonoBehaviour
         if (Vector2.Distance(player.transform.position, transform.position) > distToPlayer)
         {
             currentSpeed = player.GetComponent<MonsterMove>().GetSpeed();
-            if (!IsWallBetween(transform, player.transform))
+            if (!IsWallBetween(transform, player.transform) && !IsInteractableWithLocker(transform, player.transform))
             {
                 MoveTowards(player.transform);
             }
@@ -140,7 +141,7 @@ public class KidMachine : MonoBehaviour
 
         GameObject currentWaypoint = waypoints[currentWaypointIndex];
 
-        if (!IsWallBetween(transform, currentWaypoint.transform))
+        if (!IsWallBetween(transform, currentWaypoint.transform) && !IsInteractableWithLocker(transform, player.transform))
         {
             if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
             {
@@ -172,7 +173,7 @@ public class KidMachine : MonoBehaviour
     private void HandleStoppedState()
     {
         if (Vector2.Distance(player.transform.position, transform.position) < followingDistance &&
-            !IsWallBetween(transform, player.transform))
+            !IsWallBetween(transform, player.transform) && !IsInteractableWithLocker(transform, player.transform))
         {
             ChangeState(States.Hand);
         }
@@ -189,6 +190,24 @@ public class KidMachine : MonoBehaviour
         Vector2 direction = (to.position - from.position).normalized;
         float distance = Vector2.Distance(from.position, to.position);
         return Physics2D.Raycast(from.position, direction, distance, wallMask);
+    }
+
+    private bool IsInteractableWithLocker(Transform from, Transform to)
+    {
+        Vector2 direction = (to.position - from.position).normalized;
+        float distance = Vector2.Distance(from.position, to.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(from.position, direction, distance, interactableMask);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.GetComponent<Locker>() != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void ChangeState(States state)

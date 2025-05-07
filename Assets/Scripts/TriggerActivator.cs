@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TriggerActivator : MonoBehaviour
 {
-    [SerializeField] private bool hasToAvivateObjects;
+    [SerializeField] private bool hasToAvivateObjects, onlyOneTime;
     [SerializeField] private List<GameObject> elements = new List<GameObject>();
 
     private void Start()
@@ -23,12 +23,16 @@ public class TriggerActivator : MonoBehaviour
             if (collision.tag == "Player" || collision.tag == "Kid")
                 foreach (GameObject element in elements)
                     element.SetActive(true);
+
+            if (onlyOneTime) Destroy(gameObject);
         }
         else
         {
             if (collision.tag == "Player" || collision.tag == "Kid")
                 foreach (GameObject element in elements)
                     element.SetActive(false);
+
+            if (onlyOneTime) Destroy(gameObject);
         }
     }
 }

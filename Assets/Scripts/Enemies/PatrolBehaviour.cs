@@ -1,14 +1,15 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using static EnemyDetector;
 
 public class PatrolBehaviour : MonoBehaviour
 {
+    public bool enemyPingPong = false;
     public float Speed = 3f;
     public float WaitTime = 2f;
     public float RotationTime = 1f;
     public Transform[] PatrolPoints;
 
+    private bool _movingForward;
     private int _currentPoint;
     private float _waitTimer;
     private float _rotationTimer;
@@ -17,7 +18,6 @@ public class PatrolBehaviour : MonoBehaviour
     private bool rotating;
 
     private Rigidbody2D _rb;
-    private Light2D _light;
     private Transform targetPoint;
 
     private Vector2 direction;
@@ -29,7 +29,7 @@ public class PatrolBehaviour : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _light = GetComponent<Light2D>();
+
 
         _currentPoint = 0;
         transform.position = PatrolPoints[_currentPoint].position;
@@ -41,7 +41,9 @@ public class PatrolBehaviour : MonoBehaviour
         patrolState = EnemyState.NORMAL;
         waiting = false;
         rotating = false;
+        _movingForward = true;
     }
+
 
     void Update()
     {
@@ -74,9 +76,33 @@ public class PatrolBehaviour : MonoBehaviour
             if (_rotationTimer <= 0f)
             {
                 rotating = false;
-                if (_light != null) _light.enabled = true;
 
-                _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+                if (enemyPingPong)
+                {
+                    if (_movingForward)
+                    {
+                        _currentPoint++;
+                        if (_currentPoint >= PatrolPoints.Length)
+                        {
+                            _currentPoint = PatrolPoints.Length - 2;
+                            _movingForward = false;
+                        }
+                    }
+                    else
+                    {
+                        _currentPoint--;
+                        if (_currentPoint < 0)
+                        {
+                            _currentPoint = 1;
+                            _movingForward = true;
+                        }
+                    }
+                }
+                else
+                {
+                    _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+                }
+
                 targetPoint = PatrolPoints[_currentPoint];
                 direction = (targetPoint.position - transform.position).normalized;
             }
@@ -99,11 +125,31 @@ public class PatrolBehaviour : MonoBehaviour
         _rotationTimer = RotationTime;
         startRotation = transform.rotation;
 
-        Vector3 newDirection = (PatrolPoints[(_currentPoint + 1) % PatrolPoints.Length].position - transform.position).normalized;
+        int nextIndex;
+
+        if (enemyPingPong)
+        {
+            if (_movingForward)
+            {
+                nextIndex = _currentPoint + 1;
+                if (nextIndex >= PatrolPoints.Length)
+                    nextIndex = PatrolPoints.Length - 2;
+            }
+            else
+            {
+                nextIndex = _currentPoint - 1;
+                if (nextIndex < 0)
+                    nextIndex = 1;
+            }
+        }
+        else
+        {
+            nextIndex = (_currentPoint + 1) % PatrolPoints.Length;
+        }
+
+        Vector3 newDirection = (PatrolPoints[nextIndex].position - transform.position).normalized;
         float signedAngle = Vector3.SignedAngle(direction, newDirection, Vector3.forward);
         targetRotation = startRotation * Quaternion.Euler(0, 0, signedAngle);
-
-        if (_light != null) _light.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -128,5 +174,26 @@ public class PatrolBehaviour : MonoBehaviour
                 patrolState = EnemyState.NORMAL;
             }
         }
+    }
+
+    public void ResetCurrentPoint()
+    {
+        waiting = false;
+        rotating = false;
+        _waitTimer = 0f;
+        _rotationTimer = 0f;
+
+        patrolState = EnemyState.NORMAL;
+        GetComponent<EnemyDetector>().SetEnemyState(EnemyState.NORMAL);
+
+        _movingForward = true;
+
+        _currentPoint = 0;
+        transform.position = PatrolPoints[_currentPoint].position;
+        transform.rotation = startRotation;
+
+        _currentPoint = (_currentPoint + 1) % PatrolPoints.Length;
+        targetPoint = PatrolPoints[_currentPoint];
+        direction = (targetPoint.position - transform.position).normalized;
     }
 }
