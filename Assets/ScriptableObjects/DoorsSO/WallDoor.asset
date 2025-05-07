@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea3a19bcb1c5a840b886d963c756b30, type: 3}
+  m_Name: WallDoor
+  m_EditorClassIdentifier: 
+  doorImage: {fileID: 905233822, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  openDoorImage: {fileID: 159890275, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  isZoneDoor: 0
+  isFinalDoor: 0

@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class Locker : MonoBehaviour, IInteractableWithButton
 {
+    [SerializeField] private Sprite normalLocker, lockerBlocked;
+
     private bool activated;
     private GameObject _other;
     private Color originalColor;
-
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         _other = null;
         activated = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Interacted(GameObject other, GameObject thisObject)
@@ -22,6 +25,8 @@ public class Locker : MonoBehaviour, IInteractableWithButton
 
             if (activated)
             {
+                spriteRenderer.sprite = lockerBlocked;
+
                 _other.GetComponent<Collider2D>().enabled = !activated;
                 _other.transform.position = this.transform.position;
                 originalColor = _other.GetComponent<SpriteRenderer>().color;
@@ -65,6 +70,8 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 //    _other.GetComponent<SpriteRenderer>().color = originalColor;
                 //    _other = null;
                 //}
+
+                spriteRenderer.sprite = normalLocker;
 
                 _other.transform.position = this.transform.position + this.transform.right * 1f;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);

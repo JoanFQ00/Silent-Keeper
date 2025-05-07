@@ -55,7 +55,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
         if (thisActivated)
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = doorBaseSO.openDoorImage;
             if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
             if (isMobile)
@@ -73,7 +73,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
         else
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = doorBaseSO.doorImage;
             if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
             if (isMobile)
@@ -340,7 +340,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
-        spriteRenderer.color = Color.green;
+        spriteRenderer.sprite = doorBaseSO.openDoorImage;
         thisActivated = true;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = false;
@@ -361,7 +361,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
         }
 
-        spriteRenderer.color = Color.red;
+        spriteRenderer.sprite = doorBaseSO.doorImage;
         thisActivated = false;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = true;

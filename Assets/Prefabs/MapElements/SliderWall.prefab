@@ -98,6 +98,10 @@ PrefabInstance:
       propertyPath: isMobile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1825320173968104267, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: doorBaseSO
+      value: 
+      objectReference: {fileID: 11400000, guid: db6d95237ae24fd4597cbb7ed2af5de2, type: 2}
     - target: {fileID: 2279477883836756397, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_ShadowMesh.m_InitialTrim
       value: 0
@@ -110,9 +114,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5759217998346520600, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 905233822, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
     - target: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.88125
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -157,6 +169,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2279477883836756397, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     - {fileID: 1675504277647677117, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+    - {fileID: 3310821607828655106, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2334426095073267492, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     - {fileID: 6665791344202520497, guid: ed0f6a0874e3721489054fa59639774b, type: 3}

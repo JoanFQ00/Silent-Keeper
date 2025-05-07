@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour, IInteractableWithButton
 {
+    [SerializeField] private Sprite normalLever, leverActivated;
+
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
 
@@ -12,11 +14,11 @@ public class Lever : MonoBehaviour, IInteractableWithButton
 
         if (interactable.GetIsActivated())
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = leverActivated;
         } 
         else 
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = normalLever;
         }
     }
 
@@ -26,11 +28,11 @@ public class Lever : MonoBehaviour, IInteractableWithButton
 
         if (interactable.GetIsActivated())
         {
-            spriteRenderer.color = Color.green;
-        } 
+            spriteRenderer.sprite = leverActivated;
+        }
         else 
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = normalLever;
         }
     }
 

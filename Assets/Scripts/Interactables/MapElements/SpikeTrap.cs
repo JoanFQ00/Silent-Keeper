@@ -5,6 +5,7 @@ public class SpikeTrap : MonoBehaviour
     [SerializeField] private Sprite trapImage;
     [SerializeField] private bool thisActive, isAuto;
     [SerializeField] float alternationTime;
+    [SerializeField] LayerMask playerLayer;
 
     private Collider2D col;
     private SpriteRenderer sr;
@@ -12,12 +13,12 @@ public class SpikeTrap : MonoBehaviour
 
     private void Start()
     {
-        //GetComponent<SpriteRenderer>().sprite = trapImage;
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = trapImage;
 
         if (isAuto)
         {
             col = GetComponent<Collider2D>();
-            sr = GetComponent<SpriteRenderer>();
 
             if (thisActive)
             {
@@ -57,7 +58,7 @@ public class SpikeTrap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" || collision.tag == "Kid")
+        if (((1 << collision.gameObject.layer) & playerLayer) != 0)
             SceneChanger.instance.RestartZone();
     }
 }

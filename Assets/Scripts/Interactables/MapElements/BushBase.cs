@@ -7,7 +7,7 @@ public class BushBase : MonoBehaviour
     private void Start()
     {
         Color bushColor = GetComponent<SpriteRenderer>().color;
-        hiddenColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.8f);
+        hiddenColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.4f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

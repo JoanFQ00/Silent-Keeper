@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8017905787526269335}
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Sprite: {fileID: -947940809, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73773d950901b947a3a1c5b839ee017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalLocker: {fileID: -947940809, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  lockerBlocked: {fileID: -178538844, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
 --- !u!61 &7218567858897482933
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,17 +140,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.12259075, y: -0.038794547}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.74, y: 1.2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.49411947, y: 1.1272459}
   m_EdgeRadius: 0
 --- !u!114 &8902452647481880609
 MonoBehaviour:
@@ -167,8 +169,8 @@ MonoBehaviour:
   keyMonsterUI: {fileID: 0}
   keyKidUI: {fileID: 0}
   iconSR: {fileID: 2428483774341989986}
-  detectionIcon: {fileID: 880930425, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
-  interactIcon: {fileID: -407983306, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
+  detectionIcon: {fileID: -748350398, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  interactIcon: {fileID: -281810212, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
 --- !u!58 &9178108692549989222
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -232,7 +234,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.498, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.3, z: 0.6}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3444564009385971756}
@@ -281,7 +283,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 1135244644, guid: ee4f0ca3ffdd03c4ea2f7cfdfe1b882f, type: 3}
+  m_Sprite: {fileID: -748350398, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

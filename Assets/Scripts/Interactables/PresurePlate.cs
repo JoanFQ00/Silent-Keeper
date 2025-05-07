@@ -5,6 +5,7 @@ public class PresurePlate : MonoBehaviour
 {
     [SerializeField] bool keepActivated;
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] Sprite normalPlate, pressedPlate;
 
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
@@ -17,11 +18,11 @@ public class PresurePlate : MonoBehaviour
 
         if (interactable.GetIsActivated())
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = pressedPlate;
         }
         else
         {
-            spriteRenderer.color = spriteRenderer.color = new Color(255f, 255f, 255f, 1f);
+            spriteRenderer.sprite = normalPlate;
         }
     }
 
@@ -30,7 +31,7 @@ public class PresurePlate : MonoBehaviour
         if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
             interactable.SetKeyActivated(true);
-            spriteRenderer.color = Color.green;//Cambiar
+            spriteRenderer.sprite = pressedPlate;
 
             _activeCollisions++;
         }
@@ -47,7 +48,7 @@ public class PresurePlate : MonoBehaviour
                 if (!keepActivated)
                 {
                     interactable.SetKeyActivated(false);
-                    spriteRenderer.color = new Color(0f, 166f, 255f, 1f);//Cambiar
+                    spriteRenderer.sprite = normalPlate;
                 }
             }
         }
@@ -59,7 +60,7 @@ public class PresurePlate : MonoBehaviour
         {
             if (_activeCollisions > 0)
             {
-                spriteRenderer.color = Color.green;
+                spriteRenderer.sprite = pressedPlate;
             }
         }
     }
