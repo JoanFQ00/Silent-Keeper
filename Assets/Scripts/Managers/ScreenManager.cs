@@ -71,15 +71,23 @@ public class ScreenManager : MonoBehaviour
         List<string> options = new List<string>();
         int currentRes = 0;
 
+        var currentRefreshRate = Screen.currentResolution.refreshRateRatio;
+
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " : " + resolutions[i].refreshRateRatio;
+            int width = resolutions[i].width;
+            int height = resolutions[i].height;
+            var refresh = resolutions[i].refreshRateRatio;
+
+        if (width * 9 != height * 16 || refresh.numerator != currentRefreshRate.numerator || refresh.denominator != currentRefreshRate.denominator)
+            continue;
+
+            string option = width + " x " + height + " : " + refresh;
             options.Add(option);
 
-            if (Screen.fullScreen && (resolutions[i].width == Screen.currentResolution.width) &&
-                (resolutions[i].height == Screen.currentResolution.height))
+            if (Screen.fullScreen && width == Screen.currentResolution.width && height == Screen.currentResolution.height)
             {
-                currentRes = i;
+                currentRes = options.Count - 1; // Ajuste del índice
             }
         }
 
