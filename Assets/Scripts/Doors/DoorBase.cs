@@ -44,7 +44,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     {
         stopProcessing = true;
 
-        shadowCaster2D = GetComponent<ShadowCaster2D>();
+        shadowCaster2D = GetComponentInChildren<ShadowCaster2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8473038604510884215}
   - component: {fileID: 3734211512318302671}
   - component: {fileID: 3784241922750324052}
-  - component: {fileID: 1303817005792476742}
+  - component: {fileID: 5900721900461294910}
   m_Layer: 0
   m_Name: ManualSpikeTrap
   m_TagString: Untagged
@@ -132,8 +132,8 @@ MonoBehaviour:
   doorKey: 0
   doorKeyTP: 0
   doorBaseSO: {fileID: 0}
---- !u!58 &1303817005792476742
-CircleCollider2D:
+--- !u!61 &5900721900461294910
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -166,5 +166,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.23
+  m_Offset: {x: 0.00061643124, y: -0.013560966}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.58, y: 0.3}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.42096668, y: 0.19397783}
+  m_EdgeRadius: 0
