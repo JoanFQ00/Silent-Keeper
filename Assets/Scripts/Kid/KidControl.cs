@@ -6,6 +6,8 @@ public class KidControl : MonoBehaviour
     KidMachine kidMachine;
     MonsterMove monsterMove;
 
+    public static GameObject interactable;
+
     void Start()
     {
         kid = GameObject.FindGameObjectWithTag("Kid");
@@ -13,36 +15,39 @@ public class KidControl : MonoBehaviour
         kidMachine = kid.GetComponent<KidMachine>();
     }
 
+    private void Update()
+    {
+        if (interactable != null)
+        {
+            kid.GetComponent<Interact>().Interacting(gameObject.tag, interactable);
+        }
+    }
+
     private void OnLeftMouse()
     {
-        if (!GameManager.Instance.isPaused && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
+        if (!GameManager.Instance.isPaused)
         {
             kidMachine.SafeResetWaypoints();
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
 
-            float wallMargin = 0.3f;
+            float wallMargin = 0.001f;
             Collider2D nearWall = Physics2D.OverlapCircle(mousePos, wallMargin, LayerMask.GetMask("Wall"));
 
             if (nearWall == null)
             {
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, LayerMask.NameToLayer("Interactable"));
 
-                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactable"))
-                {
-                    kid.GetComponent<Interact>().Interacting();
-                }
+                if (hit)
+                    interactable = hit.collider.gameObject;
 
-                if (hit.collider == null || hit.collider.isTrigger)
+                var waypoint = WaypointsPool.GetObject();
+                if (waypoint != null && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
                 {
-                    var waypoint = WaypointsPool.GetObject();
-                    if (waypoint != null)
-                    {
-                        waypoint.transform.position = mousePos;
-                        kidMachine.AddWaypoint(waypoint);
-                        kidMachine.ChangeState(KidMachine.States.Waypoints);
-                    }
+                    waypoint.transform.position = mousePos;
+                    kidMachine.AddWaypoint(waypoint);
+                    kidMachine.ChangeState(KidMachine.States.Waypoints);
                 }
             }
         }

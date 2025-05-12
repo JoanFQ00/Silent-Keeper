@@ -25,16 +25,16 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G) && gameObject.tag == "Kid")
-        {
-            if (!GameManager.Instance.isPaused)
-                Interacting();
-        }
+        //if (Input.GetKeyDown(KeyCode.G) && gameObject.tag == "Kid")
+        //{
+        //    if (!GameManager.Instance.isPaused)
+        //        Interacting();
+        //}
 
         if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Player")
         {
             if (!GameManager.Instance.isPaused)
-                Interacting();
+                Interacting(gameObject.tag);
         }
 
         //if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
@@ -63,21 +63,39 @@ public class Interact : MonoBehaviour
         }
     }
 
-    public void Interacting()
+    public void Interacting(string playerTag, GameObject objectInteracted = null)
     {
+        bool canInteract = false;
         Collider2D interactableObj = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
 
-        if (interactableObj != null)
+        if (playerTag == "Kid" && interactableObj != null && objectInteracted == interactableObj)
+            canInteract = true;
+        else if (playerTag == "Player" && interactableObj != null)
+            canInteract = true;
+
+        if (canInteract)
         {
             if (interactableObj.GetComponent<Lever>() != null)
             {
                 var element = interactableObj.GetComponent<Lever>();
                 element.Interacted();
+
+                if (gameObject.tag == "Kid") 
+                {
+                    gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+                    KidControl.interactable = null; 
+                }
             }
             else if (interactableObj.GetComponent<DoorBase>() != null)
             {
                 var element = interactableObj.GetComponent<DoorBase>();
                 element.Interacted();
+
+                if (gameObject.tag == "Kid")
+                {
+                    gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+                    KidControl.interactable = null;
+                }
             }
             else if (interactableObj.GetComponent<Locker>() != null)
             {
@@ -87,6 +105,11 @@ public class Interact : MonoBehaviour
                     {
                         var element = interactableObj.GetComponent<Locker>();
                         element.Interacted(gameObject, interactableObj.gameObject);
+
+                        if (gameObject.tag == "Kid")
+                        {
+                            KidControl.interactable = null;
+                        }
                     }
                     else
                     {
@@ -96,6 +119,11 @@ public class Interact : MonoBehaviour
                             {
                                 var element = interactableObj.GetComponent<Locker>();
                                 element.Interacted(gameObject, interactableObj.gameObject);
+
+                                if (gameObject.tag == "Kid")
+                                {
+                                    KidControl.interactable = null;
+                                }
                             }
                         }
                         else if (interactableObj.GetComponent<Locker>().GetObjectContained() == null && gameObject.tag == "Player")
