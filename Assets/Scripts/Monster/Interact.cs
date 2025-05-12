@@ -63,7 +63,7 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void Interacting()
+    public void Interacting()
     {
         Collider2D interactableObj = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
 

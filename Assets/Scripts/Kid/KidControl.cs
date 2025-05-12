@@ -29,6 +29,11 @@ public class KidControl : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
+                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+                {
+                    kid.GetComponent<Interact>().Interacting();
+                }
+
                 if (hit.collider == null || hit.collider.isTrigger)
                 {
                     var waypoint = WaypointsPool.GetObject();
