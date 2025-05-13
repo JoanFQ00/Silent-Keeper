@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = new Vector3(target.position.x, target.position.y, -10f);
         mainCamera = GetComponent<Camera>();
-        mainCamera.orthographicSize = 5f;
+        mainCamera.orthographicSize = 6.3f;
         cameraReturned = true;
     }
 
