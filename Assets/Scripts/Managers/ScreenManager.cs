@@ -9,6 +9,7 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private Toggle toggle;
     public TMP_Dropdown dropdown;
     Resolution[] resolutions;
+    List<string> options;
 
     void Awake()
     {
@@ -68,26 +69,18 @@ public class ScreenManager : MonoBehaviour
     {
         resolutions = Screen.resolutions;
         dropdown.ClearOptions();
-        List<string> options = new List<string>();
+        options = new List<string>();
         int currentRes = 0;
-
-        var currentRefreshRate = Screen.currentResolution.refreshRateRatio;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            int width = resolutions[i].width;
-            int height = resolutions[i].height;
-            var refresh = resolutions[i].refreshRateRatio;
-
-        if (width * 9 != height * 16 || refresh.numerator != currentRefreshRate.numerator || refresh.denominator != currentRefreshRate.denominator)
-            continue;
-
-            string option = width + " x " + height + " : " + refresh;
+            string option = resolutions[i].width + " x " + resolutions[i].height + " : " + resolutions[i].refreshRateRatio;
             options.Add(option);
 
-            if (Screen.fullScreen && width == Screen.currentResolution.width && height == Screen.currentResolution.height)
+            if (Screen.fullScreen && (resolutions[i].width == Screen.currentResolution.width) &&
+                (resolutions[i].height == Screen.currentResolution.height))
             {
-                currentRes = options.Count - 1; // Ajuste del índice
+                currentRes = i;
             }
         }
 
@@ -101,8 +94,8 @@ public class ScreenManager : MonoBehaviour
     public void ChangeRes(int resIndx)
     {
         PlayerPrefs.SetInt("numRes", dropdown.value);
-
+        
         Resolution resolution = resolutions[resIndx];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);       
     }
 }
