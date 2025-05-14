@@ -19,7 +19,7 @@ public class KidControl : MonoBehaviour
     {
         if (interactable != null)
         {
-            kid.GetComponent<Interact>().Interacting(gameObject.tag, interactable);
+            kid.GetComponent<Interact>().Interacting("Kid", interactable);
         }
     }
 

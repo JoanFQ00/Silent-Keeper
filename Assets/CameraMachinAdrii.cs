@@ -3,8 +3,8 @@ using UnityEngine;
 public class CameraMachinAdri : MonoBehaviour
 {
     public Transform player;             // Referencia al jugador
-    public BoxCollider2D cameraZone;     // Zona límite (debe tener isTrigger activado)
-    public Camera mainCamera;            // Cámara principal
+    public BoxCollider2D cameraZone;     // Zona lï¿½mite (debe tener isTrigger activado)
+    public Camera mainCamera;            // Cï¿½mara principal
 
     private bool isPlayerInside = false;
 
@@ -30,25 +30,21 @@ public class CameraMachinAdri : MonoBehaviour
 
             Vector3 targetPos = camPos;
 
-            // Eje X
             if (bounds.size.x >= halfWidth * 2)
             {
                 targetPos.x = Mathf.Clamp(playerPos.x, minX, maxX);
             }
             else
             {
-                // Si el área es más pequeña que la cámara, centramos en X
                 targetPos.x = bounds.center.x;
             }
 
-            // Eje Y
             if (bounds.size.y >= halfHeight * 2)
             {
                 targetPos.y = Mathf.Clamp(playerPos.y, minY, maxY);
             }
             else
             {
-                // Si el área es más pequeña que la cámara, centramos en Y
                 targetPos.y = bounds.center.y;
             }
 
@@ -56,7 +52,6 @@ public class CameraMachinAdri : MonoBehaviour
         }
         else
         {
-            // Seguir libremente al jugador
             mainCamera.transform.position = new Vector3(playerPos.x, playerPos.y, camPos.z);
         }
     }

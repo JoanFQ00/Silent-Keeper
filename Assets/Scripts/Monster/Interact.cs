@@ -80,10 +80,10 @@ public class Interact : MonoBehaviour
                 var element = interactableObj.GetComponent<Lever>();
                 element.Interacted();
 
-                if (gameObject.tag == "Kid") 
+                if (gameObject.tag == "Kid")
                 {
                     gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
-                    KidControl.interactable = null; 
+                    KidControl.interactable = null;
                 }
             }
             else if (interactableObj.GetComponent<DoorBase>() != null)
