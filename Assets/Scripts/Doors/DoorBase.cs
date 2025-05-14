@@ -377,7 +377,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
             else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
             {
-                // RECARGAR HABILIDADES ENTERAS Y LLAMAR MÁQUINA EXPRENDEDORA (YA NO PUEDE VOLVER ATRÁS)
+                // RECARGAR HABILIDADES ENTERAS Y LLAMAR Mï¿½QUINA EXPRENDEDORA (YA NO PUEDE VOLVER ATRï¿½S)
                 GameManager.Instance.StopCounting();
                 //OnZoneEnded?.Invoke(); --> Maquina
                 GameManager.currentZone = GameManager.currentZone + 1;
@@ -430,16 +430,16 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         text += " | Puerta: ";
 
         if (thisActivated)
-                text += "Abierta | ";
+            text += "Abierta | ";
         else
             text += "Cerrada | ";
 
         text += "Tipo: ";
 
         if (hasMultipleOptions && isIndependent)
-            text += "Múltiple Fija | ";
+            text += "Mï¿½ltiple Fija | ";
         else if (hasMultipleOptions && isIndependent)
-            text += "Múltiple Alterable | ";
+            text += "Mï¿½ltiple Alterable | ";
         else
             text += "Dependiente | ";
 
