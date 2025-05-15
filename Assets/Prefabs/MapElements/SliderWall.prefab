@@ -130,7 +130,7 @@ MonoBehaviour:
   m_CastsShadows: 1
   m_SelfShadows: 0
   m_AlphaCutoff: 0.1
-  m_ApplyToSortingLayers: 439cbe9e
+  m_ApplyToSortingLayers: 9fb35904439cbe9ea1ac8265439cbe9e75d52599f33200b0695a142d1d53f218
   m_ShapePath:
   - {x: -0.40288725, y: -0.47441486, z: 0}
   - {x: -0.40288723, y: 0.4999969, z: 0}
@@ -202,6 +202,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6691545804593780711, guid: 872b1a4e9bea17645b96a91e9259e057, type: 3}
+    - target: {fileID: 5759217998346520600, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5759217998346520600, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1163283835
+      objectReference: {fileID: 0}
     - target: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
