@@ -13,6 +13,9 @@ public class CameraFollow : MonoBehaviour
     private bool cameraReturned;
     private PolygonCollider2D roomCollider;
     private bool checkPlayersInCam;
+    private bool playerInCam = false;
+    private bool kidInCam = false;
+
     public static CameraFollow Instance;
 
     private void Awake()
@@ -165,21 +168,30 @@ public class CameraFollow : MonoBehaviour
         ReturnToTarget();
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && collision.tag == "Kid")
-        {
+        if (collision.CompareTag("Player"))
+            playerInCam = true;
+
+        if (collision.CompareTag("Kid"))
+            kidInCam = true;
+
+        if (playerInCam && kidInCam && !checkPlayersInCam)
             checkPlayersInCam = true;
-        }
     }
 
-    public void OExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" || collision.tag == "Kid")
-        {
+        if (collision.CompareTag("Player"))
+            playerInCam = false;
+
+        if (collision.CompareTag("Kid"))
+            kidInCam = false;
+
+        if ((!playerInCam || !kidInCam) && checkPlayersInCam)
             checkPlayersInCam = false;
-        }
     }
+
     public bool CheckPlayersInCam()
     {
         return checkPlayersInCam;

@@ -36,10 +36,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         finalPanel.SetActive(false);
+        miniMapUI.SetActive(false);
         isPaused = false;
-
-        if (miniMapUI != null)
-            miniMapUI.SetActive(false);
 
         monsterObjectTexture.GetComponent<Camera>().enabled = false;
         kidObjectTexture.GetComponent<Camera>().enabled = false;
@@ -80,6 +78,19 @@ public class GameManager : MonoBehaviour
         if (!CameraFollow.Instance.CheckPlayersInCam())
         {
             miniMapUI.SetActive(true);
+
+            if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
+            {
+                monsterObjectTexture.GetComponent<Camera>().enabled = false;
+                kidObjectTexture.GetComponent<Camera>().enabled = true;
+                miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
+            }
+            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+            {
+                kidObjectTexture.GetComponent<Camera>().enabled = false;
+                monsterObjectTexture.GetComponent<Camera>().enabled = true;
+                miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
+            }
         }
         else
         {
@@ -91,27 +102,10 @@ public class GameManager : MonoBehaviour
             if (CameraFollow.Instance != null)
             {
                 if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
-                {
-                    if (miniMapUI.activeSelf)
-                    {
-                        monsterObjectTexture.GetComponent<Camera>().enabled = true;
-                        kidObjectTexture.GetComponent<Camera>().enabled = false;
-                        miniMapUI.GetComponent<RawImage>().texture = monsterTexture;
-                    }
-
                     CameraFollow.Instance.ChangeTarget(kid.transform);
-                }
-                else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
-                {
-                    if (miniMapUI.activeSelf)
-                    {
-                        kidObjectTexture.GetComponent<Camera>().enabled = true;
-                        monsterObjectTexture.GetComponent<Camera>().enabled = false;
-                        miniMapUI.GetComponent<RawImage>().texture = kidTexture;
-                    }
 
+                else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
                     CameraFollow.Instance.ChangeTarget(monster.transform);
-                }
             }
         }
 
