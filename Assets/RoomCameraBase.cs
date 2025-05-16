@@ -9,6 +9,7 @@ public class RoomCameraBase : MonoBehaviour
     private void Start()
     {
         playerHasEntered = false;
+        GetComponent<PolygonCollider2D>().isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
