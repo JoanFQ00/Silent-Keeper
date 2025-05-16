@@ -23,6 +23,7 @@ public class KidMachine : MonoBehaviour
     private Animator kidAnimator;
     private Vector2 lastPosition, lastNonZeroDir = Vector2.down;
     private Vector3 initialScale;
+    private Transform feetTransform;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class KidMachine : MonoBehaviour
         hiddenState = States.NotHiddenInBush;
 
         originalColor = GetComponent<SpriteRenderer>().color;
+        feetTransform = transform.GetChild(0);
 
         player = GameObject.FindWithTag("Player");
         wallMask = LayerMask.GetMask("Wall");
@@ -145,9 +147,9 @@ public class KidMachine : MonoBehaviour
 
         if (!IsWallBetween(transform, currentWaypoint.transform))
         {
-            if (Vector2.Distance(transform.position, currentWaypoint.transform.position) >= 0.25f)
+            if (Vector2.Distance(feetTransform.position, currentWaypoint.transform.position) >= 0.25f)
             {
-                MoveTowards(currentWaypoint.transform);
+                MoveTowardsFoot(currentWaypoint.transform);
             }
             else
             {
@@ -179,6 +181,14 @@ public class KidMachine : MonoBehaviour
         {
             ChangeState(States.Hand);
         }
+    }
+
+    private void MoveTowardsFoot(Transform target)
+    {
+        Vector3 offset = transform.position - feetTransform.position;
+        Vector3 newFeetPos = Vector3.MoveTowards(feetTransform.position, target.position, currentSpeed * Time.deltaTime);
+
+        transform.position = newFeetPos + offset;
     }
 
     private void MoveTowards(Transform target)
