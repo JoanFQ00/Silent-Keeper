@@ -11,10 +11,21 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Camera mainCamera;
     private bool cameraReturned;
+    private PolygonCollider2D roomCollider;
+
+    public static CameraFollow Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
-        GameManager.Instance.SetInitialCameraReference(gameObject);
+        ResetTarget();
 
         transform.position = new Vector3(target.position.x, target.position.y, -10f);
         mainCamera = GetComponent<Camera>();
@@ -28,13 +39,13 @@ public class CameraFollow : MonoBehaviour
         {
             if (target.gameObject.tag == "Player")
                 if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && cameraReturned)
-                    CameraMove();
-                else ReturnToTarget();
+                    FreeMove();
+                else NormalMovement();
             else if (target.gameObject.tag == "Kid")
                 if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.HiddenInLocker
                 || GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hand))
-                    CameraMove();
-                else ReturnToTarget();
+                    FreeMove();
+                else NormalMovement();
             else
             {
                 ReturnToTarget();
@@ -42,7 +53,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    private void CameraMove()
+    private void FreeMove()
     {
         Vector3 mouseScreen = Input.mousePosition;
         Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, mainCamera.transform.position.z * -1));
@@ -65,6 +76,54 @@ public class CameraFollow : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 
+    private void NormalMovement()
+    {
+        if (target == null || mainCamera == null)
+            return;
+
+        Vector3 playerPos = target.position;
+        Vector3 camPos = mainCamera.transform.position;
+
+        if (roomCollider != null)
+        {
+            Bounds bounds = roomCollider.bounds;
+
+            float halfHeight = mainCamera.orthographicSize;
+            float halfWidth = halfHeight * mainCamera.aspect;
+
+            float minX = bounds.min.x + halfWidth;
+            float maxX = bounds.max.x - halfWidth;
+            float minY = bounds.min.y + halfHeight;
+            float maxY = bounds.max.y - halfHeight;
+
+            Vector3 targetPos = camPos;
+
+            if (bounds.size.x >= halfWidth * 2)
+            {
+                targetPos.x = Mathf.Clamp(playerPos.x, minX, maxX);
+            }
+            else
+            {
+                targetPos.x = bounds.center.x;
+            }
+
+            if (bounds.size.y >= halfHeight * 2)
+            {
+                targetPos.y = Mathf.Clamp(playerPos.y, minY, maxY);
+            }
+            else
+            {
+                targetPos.y = bounds.center.y;
+            }
+
+            mainCamera.transform.position = new Vector3(targetPos.x, targetPos.y, camPos.z);
+        }
+        else
+        {
+            mainCamera.transform.position = new Vector3(playerPos.x, playerPos.y, camPos.z);
+        }
+    }
+
     private void ReturnToTarget()
     {
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
@@ -82,9 +141,20 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    public void SetRoomCollider(PolygonCollider2D collider)
+    {
+        roomCollider = collider;
+    }
+
     public Transform GetCameraTarget()
     {
         return target;
+    }
+
+    public void ResetTarget()
+    {
+        GameObject monster = GameObject.FindGameObjectWithTag("Player");
+        ChangeTarget(monster.transform);
     }
 
     public void ChangeTarget(Transform _target)
