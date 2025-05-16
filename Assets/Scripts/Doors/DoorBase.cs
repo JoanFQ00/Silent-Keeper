@@ -392,14 +392,20 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
             if (teleportDestination != null)
             {
-                Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-                Transform kid = GameObject.FindGameObjectWithTag("Kid").transform;
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                GameObject kid = GameObject.FindGameObjectWithTag("Kid");
 
-                Vector3 tpOffset = CalculateDynamicOffset(player) * 2f;
+                Vector3 tpOffset = CalculateDynamicOffset(player.transform) * 2f;
                 Vector3 destination = teleportDestination.transform.position + tpOffset;
 
-                player.position = destination;
-                kid.position = destination;
+                player.transform.position = destination;
+                kid.transform.position = destination;
+
+                foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
+                    key.transform.position = destination;
+
+                foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
+                    key.transform.position = destination;
             }
         }
     }
