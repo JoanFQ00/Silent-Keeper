@@ -37,10 +37,13 @@ public class KidControl : MonoBehaviour
 
             if (nearWall == null)
             {
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, LayerMask.NameToLayer("Interactable"));
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Interactable"));
 
-                if (hit)
+                if (hit.collider != null)
+                {
                     interactable = hit.collider.gameObject;
+                    Debug.Log(interactable.name);
+                }
 
                 var waypoint = WaypointsPool.GetObject();
                 if (waypoint != null && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
