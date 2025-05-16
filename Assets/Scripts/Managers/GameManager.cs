@@ -1,11 +1,16 @@
 using NUnit.Framework;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject monster, kid;
     [SerializeField] GameObject finalPanel, pausePanel;
+
+    [SerializeField] private GameObject miniMapUI, monsterObjectTexture, kidObjectTexture;
+    [SerializeField] private RenderTexture monsterTexture, kidTexture;
+
     [SerializeField] float remainingTime = 120f;
     [SerializeField] private GameObject[] mapSpawns = new GameObject[3];
 
@@ -16,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     private float initialTime;
     private bool isCounting = true, stopCounting = false;
-    private GameObject mainCamera;
 
     public static Zone currentZone = Zone.ZONE_1;
     public static GameManager Instance;
@@ -32,7 +36,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         finalPanel.SetActive(false);
+        miniMapUI.SetActive(false);
         isPaused = false;
+
+        monsterObjectTexture.GetComponent<Camera>().enabled = false;
+        kidObjectTexture.GetComponent<Camera>().enabled = false;
 
         SpawnPlayers();
 
@@ -51,12 +59,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetInitialCameraReference(GameObject camera)
-    {
-        mainCamera = camera;
-        mainCamera.GetComponent<CameraFollow>().ChangeTarget(monster.transform);
-    }
-
     void Update()
     {
         if (isCounting && !stopCounting)
@@ -73,14 +75,37 @@ public class GameManager : MonoBehaviour
             RefreshText();
         }
 
+        if (!CameraFollow.Instance.CheckPlayersInCam())
+        {
+            miniMapUI.SetActive(true);
+
+            if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
+            {
+                monsterObjectTexture.GetComponent<Camera>().enabled = false;
+                kidObjectTexture.GetComponent<Camera>().enabled = true;
+                miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
+            }
+            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+            {
+                kidObjectTexture.GetComponent<Camera>().enabled = false;
+                monsterObjectTexture.GetComponent<Camera>().enabled = true;
+                miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
+            }
+        }
+        else
+        {
+            miniMapUI.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (mainCamera != null && !RoomBase.playersAreInRoom)
+            if (CameraFollow.Instance != null)
             {
-                if (mainCamera.GetComponent<CameraFollow>().GetCameraTarget().gameObject == monster)
-                    mainCamera.GetComponent<CameraFollow>().ChangeTarget(kid.transform);
-                else
-                    mainCamera.GetComponent<CameraFollow>().ChangeTarget(monster.transform);
+                if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
+                    CameraFollow.Instance.ChangeTarget(kid.transform);
+
+                else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+                    CameraFollow.Instance.ChangeTarget(monster.transform);
             }
         }
 
@@ -97,7 +122,7 @@ public class GameManager : MonoBehaviour
         OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
     }
 
-    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA M�QUINA EXPRENDEDORA
+    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
     public void SpawnPlayers()
     {
         switch (currentZone)
@@ -122,13 +147,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //CAMBIAR DE ZONA AL ENTRAR A LA M�QUINA EXPRENDEDORA
+    //CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
     public void ChageZoneState(Zone newZone)
     {
         currentZone = newZone;
     }
 
-    //�til para m�quina exprendedora
+    // til para m quina exprendedora
     public void ActiveFinalPanel()
     {
         monster.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;

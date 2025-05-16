@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1227884619573155440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6026104046729260586}
+  - component: {fileID: 3425778189882097099}
+  - component: {fileID: 3174573877418663436}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6026104046729260586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227884619573155440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.5120068, y: 9.251575, z: -0.070233285}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3425778189882097099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227884619573155440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d846628aea45874a9bbbfc73d843b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 0}
+  kid: {fileID: 0}
+  finalPanel: {fileID: 0}
+  pausePanel: {fileID: 0}
+  miniMapUI: {fileID: 0}
+  monsterObjectTexture: {fileID: 0}
+  kidObjectTexture: {fileID: 0}
+  monsterTexture: {fileID: 8400000, guid: f71b3d98a43d69c4083b6e984c7ccd3d, type: 2}
+  kidTexture: {fileID: 8400000, guid: dd1ba112ad4661842aeaf774d6db7654, type: 2}
+  remainingTime: 120
+  mapSpawns:
+  - {fileID: 0}
+  isPaused: 0
+  timerSpeedMultiplier: 1
+--- !u!114 &3174573877418663436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227884619573155440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cea5b9c7aee0ee4dbde37d647f9c6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture1: {fileID: 2800000, guid: b586c7ef417b1c74b98ed718a2e4e803, type: 3}
+  cursorTexture2: {fileID: 2800000, guid: ed56d98886074f64ca4a7f1034612eb3, type: 3}
+  hotspot: {x: 0, y: 0}
+  cursorMode: 0
