@@ -99,7 +99,7 @@ public class Interact : MonoBehaviour
                     KidControl.interactable = null;
                 }
             }
-            else if (matchedCollider.GetComponent<DoorBase>() != null)
+            else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition)
             {
                 matchedCollider.GetComponent<DoorBase>().Interacted();
 

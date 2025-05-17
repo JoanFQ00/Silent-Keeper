@@ -30,9 +30,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private GameObject teleportDestination;
     private bool areTwoPlayersOnDoor, stopProcessing = true;
     private float detectionRadius;
+    private DoorBase doorTP;
 
     public static Action RefreshPlayerInventory, OnZoneEnded;
-    public static Action<int> OnStartCamTransition;
+    public static Action<int, Transform> OnStartCamTransition;
 
     private void OnEnable()
     {
@@ -121,6 +122,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (door.doorKey == doorKeyTP)
             {
                 teleportDestination = door.gameObject;
+                doorTP = door;
                 break;
             }
         }
@@ -384,7 +386,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (doorBaseSO != null && !isMobile && !doorBaseSO.isZoneDoor)
             {
                 // RECARGAR HABILIDAD DE SALA (LIMITAR 1 VEZ POR PUERTA) --- DE MOMENTO NO HACE FALTA
-                OnStartCamTransition?.Invoke(doorKey);
+                OnStartCamTransition?.Invoke(doorKey, doorTP.gameObject.transform);
             }
             else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
             {

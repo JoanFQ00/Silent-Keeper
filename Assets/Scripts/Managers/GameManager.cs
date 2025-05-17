@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
             RefreshText();
         }
 
-        if (!CameraFollow.Instance.CheckPlayersInCam() && !TransitionCamAnimation.Instance.playersTransition)
+        if (!CameraFollow.Instance.CheckPlayersInCam() && !TransitionCamAnimation.Instance.playersInTransition)
         {
             miniMapUI.SetActive(true);
 
