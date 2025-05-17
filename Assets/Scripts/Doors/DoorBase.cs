@@ -31,8 +31,18 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private bool areTwoPlayersOnDoor, stopProcessing = true;
     private float detectionRadius;
 
-    public static Action RefreshPlayerInventory;
-    public static Action OnZoneEnded;
+    public static Action RefreshPlayerInventory, OnZoneEnded;
+    public static Action<int> OnStartCamTransition;
+
+    private void OnEnable()
+    {
+        TransitionCamAnimation.OnChangedRoom += TeleportPlayers;
+    }
+
+    private void OnDisable()
+    {
+        TransitionCamAnimation.OnChangedRoom -= TeleportPlayers;
+    }
 
     private enum TPAxis
     {
@@ -374,6 +384,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (doorBaseSO != null && !isMobile && !doorBaseSO.isZoneDoor)
             {
                 // RECARGAR HABILIDAD DE SALA (LIMITAR 1 VEZ POR PUERTA) --- DE MOMENTO NO HACE FALTA
+                OnStartCamTransition?.Invoke(doorKey);
             }
             else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
             {
@@ -389,24 +400,27 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 GameManager.Instance.StopCounting();
                 //LLEVAR AL FINAL DEL JUEGO
             }
+        }
+    }
 
-            if (teleportDestination != null)
-            {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                GameObject kid = GameObject.FindGameObjectWithTag("Kid");
+    private void TeleportPlayers(int keyIdentificator)
+    {
+        if (teleportDestination != null && keyIdentificator == doorKey)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject kid = GameObject.FindGameObjectWithTag("Kid");
 
-                Vector3 tpOffset = CalculateDynamicOffset(player.transform) * 2f;
-                Vector3 destination = teleportDestination.transform.position + tpOffset;
+            Vector3 tpOffset = CalculateDynamicOffset(player.transform) * 2f;
+            Vector3 destination = teleportDestination.transform.position + tpOffset;
 
-                player.transform.position = destination;
-                kid.transform.position = destination;
+            player.transform.position = destination;
+            kid.transform.position = destination;
 
-                foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
-                    key.transform.position = destination;
+            foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
+                key.transform.position = destination;
 
-                foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
-                    key.transform.position = destination;
-            }
+            foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
+                key.transform.position = destination;
         }
     }
 
