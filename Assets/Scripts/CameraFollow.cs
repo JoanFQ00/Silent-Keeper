@@ -42,6 +42,12 @@ public class CameraFollow : MonoBehaviour
     {
         if (!GameManager.Instance.isPaused && target != null && !TransitionCamAnimation.Instance.playersInTransition && mainCamera != null)
         {
+            if (!cameraReturned)
+            {
+                ReturnToTarget();
+                return;
+            }
+
             if (target.gameObject.tag == "Player")
                 if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && cameraReturned)
                     FreeMove();
@@ -140,7 +146,6 @@ public class CameraFollow : MonoBehaviour
             {
                 transform.position = targetPosition;
                 cameraReturned = true;
-                TransitionCamAnimation.Instance.OnPlayersChanged(transform);
             }
             else
             {

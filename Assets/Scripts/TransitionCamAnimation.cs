@@ -11,7 +11,6 @@ public class TransitionCamAnimation : MonoBehaviour
 
     [SerializeField] private AnimationClip[] animationNames;
     
-    private Camera doorCamera;
     private int currentIndex = 0;
 
     private Animation anim;
@@ -32,22 +31,16 @@ public class TransitionCamAnimation : MonoBehaviour
     private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
-        doorCamera = GetComponentInChildren<Camera>();
         anim = GetComponent<Animation>();
 
         doorKeyTP = 0;
 
-        doorCamera.enabled = false;
         playersInTransition = false;
         canRunLastAnimation = false;
     }
 
     private void Update()
     {
-        if (mainCamera.GetComponent<Camera>().enabled == true)
-            OnPlayersChanged(mainCamera.transform);
-
         if (Input.GetKeyUp(KeyCode.F) && canRunLastAnimation)
         {
             ChangeToNextTransition();
@@ -74,8 +67,6 @@ public class TransitionCamAnimation : MonoBehaviour
         if (anim.GetClip(firstAnim) != null)
         {
             playersInTransition = true;
-            doorCamera.enabled = true;
-            mainCamera.GetComponent<Camera>().enabled = false;
             anim.Play(firstAnim);
             doorKeyTP = doorKey;
             doorPosition = doorTransform;
@@ -89,11 +80,11 @@ public class TransitionCamAnimation : MonoBehaviour
         OnChangedRoom?.Invoke(doorKeyTP);
     }
 
-    public void OnPlayersChanged(Transform monsterTransform)
-    {
-        float zAxis = doorCamera.transform.position.z;
-        doorCamera.transform.position = new Vector3(monsterTransform.position.x, monsterTransform.position.y, zAxis);
-    }
+    //public void OnPlayersChanged(Transform monsterTransform)
+    //{
+    //    float zAxis = doorCamera.transform.position.z;
+    //    doorCamera.transform.position = new Vector3(monsterTransform.position.x, monsterTransform.position.y, zAxis);
+    //}
 
     public void ChangeToNextTransition() //Final 1a
     {
@@ -103,8 +94,10 @@ public class TransitionCamAnimation : MonoBehaviour
 
         if (anim.GetClip(nextAnim) != null)
         {
-            float zAxis = doorCamera.transform.position.z;
-            doorCamera.transform.position = new Vector3(doorPosition.position.x, doorPosition.position.y, zAxis);
+            Debug.Log(doorPosition.gameObject);
+
+            float zAxis = mainCamera.transform.position.z;
+            mainCamera.transform.position = new Vector3(doorPosition.position.x, doorPosition.position.y, zAxis);
             anim.Play(nextAnim);
             currentIndex++;
         }
@@ -119,8 +112,6 @@ public class TransitionCamAnimation : MonoBehaviour
     {
         ResetAnimationIndex();
         playersInTransition = false;
-        doorCamera.enabled = false;
-        mainCamera.GetComponent<Camera>().enabled = true;
     }
 
     private void ResetAnimationIndex()
