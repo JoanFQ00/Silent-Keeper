@@ -131,18 +131,21 @@ public class CameraFollow : MonoBehaviour
 
     private void ReturnToTarget()
     {
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
-        float lerpSpeed = 8f;
+        if (CameraFollow.Instance != null)
+        {
+            Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
+            float lerpSpeed = 8f;
 
-        if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-        {
-            transform.position = targetPosition;
-            cameraReturned = true;
-        }
-        else
-        {
-            cameraReturned = false;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+            {
+                transform.position = targetPosition;
+                cameraReturned = true;
+            }
+            else
+            {
+                cameraReturned = false;
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+            }
         }
     }
 

@@ -10,8 +10,8 @@ public class AlphaThresholdController : MonoBehaviour
     [Range(-0.5f, 0.5f)]
     public float offsetY = 0f;
 
-    [Range(0f, 2f)]
-    public float scale = 1f;  // Único slider para ambos ejes
+    [Range(0f, 3f)]
+    public float scale = 1f;
 
     private Material material;
 
