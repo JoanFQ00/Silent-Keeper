@@ -36,12 +36,9 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance != null && GameManager.Instance.isPaused)
-            return;
-
-        if (GameManager.Instance.isPaused)
+        if (GameManager.Instance.isPaused || TransitionCamAnimation.Instance.playersInTransition)
         {
-            rb.linearVelocity = Vector2.zero;
+            StopMovement();
 
             if (playerAnimator != null)
             {
@@ -61,6 +58,11 @@ public class MonsterMove : MonoBehaviour
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
         }
+    }
+
+    public void StopMovement()
+    {
+        rb.linearVelocity = Vector2.zero;
     }
 
     public void ChangeState(KidMachine.States state)
@@ -100,7 +102,7 @@ public class MonsterMove : MonoBehaviour
             lastNonZeroDir = moveDir;
         }
 
-        if (playerAnimator != null)
+        if (playerAnimator != null && !GameManager.Instance.isPaused)
         {
             playerAnimator.SetFloat("Horizontal", lastNonZeroDir.x);
             playerAnimator.SetFloat("Vertical", lastNonZeroDir.y);

@@ -103,8 +103,7 @@ public class DynamicButt : MonoBehaviour
                 buttonPanel.SetActive(true);
                 break;
             case "UnpauseButt":
-                GameManager.Instance.isPaused = false;
-                pausePanel.SetActive(false);
+                GameManager.Instance.Pause();
                 break;
 
             default:

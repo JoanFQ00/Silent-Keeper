@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         finalPanel.SetActive(false);
         miniMapUI.SetActive(false);
         isPaused = false;
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
             RefreshText();
         }
 
-        if (!CameraFollow.Instance.CheckPlayersInCam() && !TransitionCamAnimation.Instance.playersInTransition)
+        if (!CameraFollow.Instance.CheckPlayersInCam())
         {
             miniMapUI.SetActive(true);
 
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
                 kidObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
             }
-            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid || TransitionCamAnimation.Instance.playersInTransition)
             {
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
