@@ -21,6 +21,7 @@ public class BoxS : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //if (collision.collider.gameObject.layer == LayerMask.GetMask())
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
