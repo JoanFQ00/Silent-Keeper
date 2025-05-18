@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 8451599082607785280}
   - component: {fileID: 6821869642627734145}
   - component: {fileID: 1793781545251483433}
+  - component: {fileID: 725864305322002992}
   m_Layer: 8
   m_Name: EnemyPatrol
   m_TagString: Untagged
@@ -298,6 +299,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &725864305322002992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124116584652829044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab7175eea552d345aab933bb1093d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 20
+  dangerColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4997088203671295108
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,10 @@ public class AlphaThresholdController : MonoBehaviour
     [Range(0f, 3f)]
     public float scale = 1f;
 
+    public Color auraColor = new Color(1, 0, 0, 0.5f); // Color configurable
+    [Range(0.0f, 1f)]
+    public float auraThickness = 0.05f;
+
     private Material material;
 
     public static AlphaThresholdController Instance;
@@ -56,6 +60,11 @@ public class AlphaThresholdController : MonoBehaviour
         {
             material.SetVector("_Offset", new Vector2(offsetX, offsetY));
             material.SetVector("_Scale", new Vector2(scale, scale));  // Escala uniforme
+            if (material != null)
+            {
+                material.SetColor("_AuraColor", auraColor);
+                material.SetFloat("_AuraThickness", auraThickness);
+            }
         }
     }
 
@@ -65,6 +74,11 @@ public class AlphaThresholdController : MonoBehaviour
         {
             material.SetVector("_Offset", new Vector2(offsetX, offsetY));
             material.SetVector("_Scale", new Vector2(scale, scale));  // Escala uniforme
+            if (material != null)
+            {
+                material.SetColor("_AuraColor", auraColor);
+                material.SetFloat("_AuraThickness", auraThickness);
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6841264127582095900}
   - component: {fileID: 267399191707778739}
   - component: {fileID: 11741542273269140}
+  - component: {fileID: 5492461810880874641}
   m_Layer: 8
   m_Name: StaticEnemy01 1
   m_TagString: Untagged
@@ -208,3 +209,17 @@ MonoBehaviour:
   RotationAngle: 90
   RotationSpeed: 30
   WaitTime: 2
+--- !u!114 &5492461810880874641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491001864747619796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab7175eea552d345aab933bb1093d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 10
+  dangerColor: {r: 1, g: 0, b: 0, a: 1}

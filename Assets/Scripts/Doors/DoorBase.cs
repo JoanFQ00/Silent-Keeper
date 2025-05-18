@@ -419,10 +419,16 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             kid.transform.position = destination;
 
             foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
-                key.transform.position = destination;
+            {
+                if (key != null)
+                    key.transform.position = destination;
+            }
 
             foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
-                key.transform.position = destination;
+            {
+                if (key != null)
+                    key.transform.position = destination;
+            }
         }
     }
 
