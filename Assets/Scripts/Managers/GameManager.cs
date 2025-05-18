@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f;
-            AudioListener.pause = true; // Detiene el audio si lo estás usando
+            AudioListener.pause = true;
         }
         else
         {
