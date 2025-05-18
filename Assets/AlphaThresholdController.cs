@@ -15,9 +15,17 @@ public class AlphaThresholdController : MonoBehaviour
 
     private Material material;
 
+    public static AlphaThresholdController Instance;
+
     void Awake()
     {
-        SetupMaterial();
+        if (Instance == null)
+        {
+            Instance = this;
+            SetupMaterial();
+        }
+        else
+            Destroy(gameObject);
     }
 
     void OnEnable()
