@@ -36,7 +36,7 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.isPaused || TransitionCamAnimation.Instance.playersInTransition)
+        if (GameManager.Instance.isPaused)
         {
             StopMovement();
 
@@ -50,7 +50,7 @@ public class MonsterMove : MonoBehaviour
             return;
         }
 
-        if (moveDir.magnitude > 0.1f)
+        if (moveDir.magnitude > 0.1f && !TransitionCamAnimation.Instance.playersInTransition)
         {
             rb.linearVelocity = moveDir.normalized * currentSpeed;
         }
