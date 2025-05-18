@@ -88,6 +88,7 @@ public class DynamicButt : MonoBehaviour
                 break;
             case "MenuButt":
                 sc.LoadMenu();
+                Time.timeScale = 1.0f;
                 break;
             case "OptionsButt":
                 optionsPanel.SetActive(true);
@@ -104,6 +105,16 @@ public class DynamicButt : MonoBehaviour
                 break;
             case "UnpauseButt":
                 GameManager.Instance.Pause();
+                break;
+
+            case "Level1":
+                sc.LoadGame();
+                break;
+            case "Level2":
+                sc.LoadLevel2();
+                break;
+            case "Level3":
+                sc.LoadLevel3();
                 break;
 
             default:

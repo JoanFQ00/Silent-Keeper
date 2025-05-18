@@ -141,6 +141,13 @@ public class Interact : MonoBehaviour
                     }
                 }
             }
+            else if (matchedCollider.GetComponent<BoxS>() != null)
+            {
+                if (gameObject.tag == "Player")
+                {
+                    matchedCollider.GetComponent<BoxS>().Interacted();
+                }
+            }
         }
     }
 
