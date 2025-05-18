@@ -46,6 +46,9 @@ public class KidMachine : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (GameManager.Instance.isPaused)
         {
             UpdateAnimator(Vector2.zero);

@@ -57,11 +57,14 @@ public class EnemyDetector : TaggedMonobehaviour
         }
         else
             if (ColorUtility.TryParseHtmlString("#FFA132", out color))
-                _light2D.color = color;
+            _light2D.color = color;
     }
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (enemyState == EnemyState.NORMAL)
         {
             if (_light2D != null)

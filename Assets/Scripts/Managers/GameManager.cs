@@ -162,11 +162,20 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        bool active = pausePanel.activeSelf;
-        pausePanel.SetActive(!active);
+        bool isNowPaused = !pausePanel.activeSelf;
+        pausePanel.SetActive(isNowPaused);
+        isPaused = isNowPaused;
 
-        if (!active) { isPaused = true; }
-        else { isPaused = false; }
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            AudioListener.pause = true; // Detiene el audio si lo estás usando
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
+        }
     }
 
     public void StopCounting()

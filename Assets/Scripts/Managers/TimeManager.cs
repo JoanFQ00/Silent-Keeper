@@ -19,11 +19,13 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
 
     }
 }

@@ -47,6 +47,9 @@ public class PatrolBehaviour : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() != EnemyState.NORMAL || patrolState != EnemyState.NORMAL)
         {
             _rb.linearVelocity = Vector2.zero;

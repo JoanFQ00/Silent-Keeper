@@ -36,6 +36,9 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (GameManager.Instance.isPaused)
         {
             rb.linearVelocity = Vector2.zero;

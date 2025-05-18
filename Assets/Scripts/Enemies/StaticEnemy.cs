@@ -21,6 +21,9 @@ public class StaticEnemy : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() == EnemyDetector.EnemyState.NORMAL)
         {
             if (_waiting)

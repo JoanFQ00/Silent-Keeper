@@ -17,6 +17,9 @@ public class KidControl : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+            return;
+
         if (interactable != null)
         {
             kid.GetComponent<Interact>().Interacting(kid.tag, interactable);
