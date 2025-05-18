@@ -29,7 +29,6 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         checkPlayersInCam = true;
-
         ResetTarget();
 
         transform.position = new Vector3(target.position.x, target.position.y, -10f);
@@ -49,14 +48,23 @@ public class CameraFollow : MonoBehaviour
             }
 
             if (target.gameObject.tag == "Player")
+            {
                 if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && cameraReturned)
                     FreeMove();
-                else NormalMovement();
+                else
+                    NormalMovement();
+            }
             else if (target.gameObject.tag == "Kid")
-                if (cameraReturned && (target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Stoped || target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.HiddenInLocker
-                || GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && target.gameObject.GetComponent<KidMachine>().GetCurrentState() == KidMachine.States.Hand))
+            {
+                var kidState = target.gameObject.GetComponent<KidMachine>().GetCurrentState();
+                var playerStill = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f;
+
+                if (cameraReturned && (kidState == KidMachine.States.Stoped || kidState == KidMachine.States.HiddenInLocker
+                    || (playerStill && kidState == KidMachine.States.Hand)))
                     FreeMove();
-                else NormalMovement();
+                else
+                    NormalMovement();
+            }
             else
             {
                 ReturnToTarget();
@@ -67,7 +75,7 @@ public class CameraFollow : MonoBehaviour
     private void FreeMove()
     {
         Vector3 mouseScreen = Input.mousePosition;
-        Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, mainCamera.transform.position.z * -1));
+        Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, -mainCamera.transform.position.z));
 
         Vector3 direction = mouseWorld - target.position;
         direction.z = 0;
@@ -95,6 +103,8 @@ public class CameraFollow : MonoBehaviour
         Vector3 playerPos = target.position;
         Vector3 camPos = mainCamera.transform.position;
 
+        Vector3 targetPos = playerPos;
+
         if (roomCollider != null)
         {
             Bounds bounds = roomCollider.bounds;
@@ -107,7 +117,7 @@ public class CameraFollow : MonoBehaviour
             float minY = bounds.min.y + halfHeight;
             float maxY = bounds.max.y - halfHeight;
 
-            Vector3 targetPos = camPos;
+            targetPos = camPos;
 
             if (bounds.size.x >= halfWidth * 2)
             {
@@ -126,21 +136,17 @@ public class CameraFollow : MonoBehaviour
             {
                 targetPos.y = bounds.center.y;
             }
+        }
 
-            mainCamera.transform.position = new Vector3(targetPos.x, targetPos.y, camPos.z);
-        }
-        else
-        {
-            mainCamera.transform.position = new Vector3(playerPos.x, playerPos.y, camPos.z);
-        }
+        Vector3 smoothTarget = new Vector3(targetPos.x, targetPos.y, camPos.z);
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, smoothTarget, ref velocity, smoothTime);
     }
 
     private void ReturnToTarget()
     {
-        if (CameraFollow.Instance != null)
+        if (CameraFollow.Instance != null && target != null)
         {
             Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
-            float lerpSpeed = 8f;
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
@@ -150,7 +156,7 @@ public class CameraFollow : MonoBehaviour
             else
             {
                 cameraReturned = false;
-                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+                transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime * 0.5f);
             }
         }
     }

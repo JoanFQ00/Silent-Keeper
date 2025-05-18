@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             miniMapUI.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !TransitionCamAnimation.Instance.playersInTransition)
         {
             if (CameraFollow.Instance != null)
             {
