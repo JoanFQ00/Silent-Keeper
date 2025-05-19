@@ -31,11 +31,8 @@ public class Interact : MonoBehaviour
         //        Interacting();
         //}
 
-        if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player")
-        {
-            if (!GameManager.Instance.isPaused)
-                Interacting(gameObject.tag);
-        }
+        if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player" && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
+            Interacting(gameObject.tag);
 
         //if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
         //{

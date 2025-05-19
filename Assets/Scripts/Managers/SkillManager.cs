@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class SkillManager : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class SkillManager : MonoBehaviour
         //if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && 
         //    GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
 
-        if (skill1 != null && Input.GetKeyDown(KeyCode.Q))
+        if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
             if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
             {
@@ -119,7 +120,7 @@ public class SkillManager : MonoBehaviour
         //if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
         //GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
 
-        if (skill2 != null && Input.GetKeyDown(KeyCode.E))
+        if (skill2 != null && Input.GetMouseButtonDown(0) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
             if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && numUsesSkill2 > 0)
             {

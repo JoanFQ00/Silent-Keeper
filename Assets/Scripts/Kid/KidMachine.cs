@@ -49,7 +49,7 @@ public class KidMachine : MonoBehaviour
         // if (GameManager.Instance != null && GameManager.Instance.isPaused)
         //     return;
 
-        if (GameManager.Instance.isPaused)
+        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
         {
             UpdateAnimator(Vector2.zero);
             return;

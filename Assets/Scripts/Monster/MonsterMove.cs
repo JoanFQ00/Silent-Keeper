@@ -36,7 +36,7 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.isPaused)
+        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
         {
             StopMovement();
 
@@ -44,13 +44,13 @@ public class MonsterMove : MonoBehaviour
             {
                 playerAnimator.SetFloat("Horizontal", 0f);
                 playerAnimator.SetFloat("Vertical", 0f);
-                playerAnimator.SetFloat("Speed", 0f);
+                playerAnimator.SetBool("Speed", false);
             }
 
             return;
         }
 
-        if (moveDir.magnitude > 0.1f && !TransitionCamAnimation.Instance.playersInTransition)
+        if (moveDir.magnitude > 0.1f && !TransitionCamAnimation.Instance.playersInTransition && !IntroRoomsManager.Instance.roomInAnimation)
         {
             rb.linearVelocity = moveDir.normalized * currentSpeed;
         }

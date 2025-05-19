@@ -10,6 +10,9 @@ public class IntroRoomsManager : MonoBehaviour
     private Dictionary<AnimationClip, bool> roomsAnimations = new Dictionary<AnimationClip, bool>();
     private Animation anim;
 
+    [HideInInspector]
+    public bool roomInAnimation;
+
     public static IntroRoomsManager Instance;
 
     private void Awake()
@@ -26,6 +29,8 @@ public class IntroRoomsManager : MonoBehaviour
 
         foreach (AnimationClip clip in animationNames)
             roomsAnimations[clip] = false;
+
+        roomInAnimation = false;
 
         canvas.SetActive(false);
         cam.SetActive(false);
@@ -46,6 +51,7 @@ public class IntroRoomsManager : MonoBehaviour
             return;
 
         roomsAnimations[animationToPlay] = true;
+        roomInAnimation = true;
 
         canvas.SetActive(true);
         cam.SetActive(true);
@@ -56,6 +62,7 @@ public class IntroRoomsManager : MonoBehaviour
     //AL ACABAR ANIMACIÓN, QUE LLAME A ESTA NUEVA FUNCIÓN (LA USAREMOS PARA CONGELAR EL MOVIMIENTO DE LOS PLAYERS, ENEMIGOS, HABILIDADES, INTERACCIÓN, TIEMPO)
     public void OnAnimationFinished()
     {
+        roomInAnimation = false;
         canvas.SetActive(false);
         cam.SetActive(false);
     }
