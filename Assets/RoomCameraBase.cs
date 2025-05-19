@@ -4,6 +4,7 @@ public class RoomCameraBase : MonoBehaviour
 {
     [SerializeField] private bool isCameraStatic = false;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private AnimationClip roomClip = null;
 
     private bool playerHasEntered;
 
@@ -22,12 +23,10 @@ public class RoomCameraBase : MonoBehaviour
             playerHasEntered = true;
 
             if (isCameraStatic)
-            {
-                // Puedes usar un Empty como target para centrar la cámara en una zona específica.
                 CameraFollow.Instance.ChangeTarget(transform);
-            }
 
             CameraFollow.Instance.SetRoomCollider(GetComponent<PolygonCollider2D>());
+            IntroRoomsManager.Instance.SetAnimToPlay(roomClip);
         }
     }
 

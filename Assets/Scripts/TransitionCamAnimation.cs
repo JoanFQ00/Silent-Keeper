@@ -179,10 +179,13 @@ public class TransitionCamAnimation : MonoBehaviour
 
     public void AnimationFinished() // Final 3a y Final sin press
     {
+        IntroRoomsManager.Instance.StartRoomAnim();
+
         if (fastTrans)
             fastTrans = false;
-        ResetAnimationIndex();
+
         playersInTransition = false;
+        ResetAnimationIndex();
     }
 
     private void ResetAnimationIndex()

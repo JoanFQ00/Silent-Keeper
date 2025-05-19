@@ -118,9 +118,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keepActivated: 0
   desactivatorPlate: 0
+  isBigPlate: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
   normalPlate: {fileID: 2065407394, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   pressedPlate: {fileID: -35232455, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   presurePlates: []

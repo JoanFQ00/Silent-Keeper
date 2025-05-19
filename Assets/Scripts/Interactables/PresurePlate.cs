@@ -4,7 +4,7 @@ using UnityEngine;
 public class PresurePlate : MonoBehaviour
 {
     [SerializeField] bool keepActivated, desactivatorPlate = false, isBigPlate = false;
-    [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask playerLayer, enemyLayer;
     [SerializeField] Sprite normalPlate, pressedPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
 
@@ -84,7 +84,8 @@ public class PresurePlate : MonoBehaviour
 
     private bool IsPlayer(Collider2D col)
     {
-        return ((1 << col.gameObject.layer) & playerLayer) != 0;
+        int colLayerMask = 1 << col.gameObject.layer;
+        return (colLayerMask & playerLayer) != 0 || (colLayerMask & enemyLayer) != 0;
     }
 
     public void SetToNormalSprite()
