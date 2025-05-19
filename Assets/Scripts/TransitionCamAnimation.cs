@@ -16,8 +16,9 @@ public class TransitionCamAnimation : MonoBehaviour
     private int doorKeyTP;
     private Transform doorPosition;
     private GameObject mainCamera;
+    private float pressedTime = 0.25f, counterPressedTime;
 
-    private bool controlAlphaOffset = false;
+    private bool controlAlphaOffset = false, canStartCountingInput = false, fastTrans;
 
     public static Action<int> OnChangedRoom;
 
@@ -35,12 +36,40 @@ public class TransitionCamAnimation : MonoBehaviour
         anim = GetComponent<Animation>();
 
         doorKeyTP = 0;
+        counterPressedTime = 0.0f;
         playersInTransition = false;
         canRunLastAnimation = false;
+        canStartCountingInput = false;
+        fastTrans = false;
     }
 
     private void Update()
     {
+        if (canStartCountingInput)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                counterPressedTime += Time.deltaTime;
+
+                if (counterPressedTime >= pressedTime)
+                {
+                    counterPressedTime = 0.0f;
+                    canStartCountingInput = false;
+                    ExecuteFirstTransitionPressed();
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.E))
+            {
+                if (counterPressedTime < pressedTime)
+                {
+                    counterPressedTime = 0.0f;
+                    fastTrans = true;
+                    canStartCountingInput = false;
+                    ExecuteTransition();
+                }
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.E) && canRunLastAnimation)
         {
             ChangeToNextTransition();
@@ -81,33 +110,48 @@ public class TransitionCamAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        DoorBase.OnStartCamTransition += ExecuteFirstTransition;
+        DoorBase.OnStartCamTransition += DoorInteracted;
     }
 
     private void OnDisable()
     {
-        DoorBase.OnStartCamTransition -= ExecuteFirstTransition;
+        DoorBase.OnStartCamTransition -= DoorInteracted;
     }
 
-    private void ExecuteFirstTransition(int doorKey, Transform doorTransform)
+    private void DoorInteracted(int doorKey, Transform doorTransform)
+    {
+        canStartCountingInput = true;
+        playersInTransition = true;
+        doorKeyTP = doorKey;
+        doorPosition = doorTransform;
+    }
+
+    private void ExecuteTransition()
+    {
+        if (anim == null || animationNames.Length == 0) return;
+
+        string firstAnim = animationNames[3].name;
+        anim.Play(firstAnim);
+    }
+
+    private void ExecuteFirstTransitionPressed()
     {
         if (anim == null || animationNames.Length == 0) return;
 
         string firstAnim = animationNames[0].name;
+        anim.Play(firstAnim);
 
-        if (anim.GetClip(firstAnim) != null)
-        {
-            playersInTransition = true;
-            anim.Play(firstAnim);
-            doorKeyTP = doorKey;
-            doorPosition = doorTransform;
-
-            currentIndex += 1;
-        }
+        currentIndex += 1;
     }
 
-    public void ChangePlayerPosition() // Mitad 3a
+    public void ChangePlayerPosition() // Mitad 3a y Mitad sin press
     {
+        if (fastTrans)
+        {
+            float zAxis = mainCamera.transform.position.z;
+            mainCamera.transform.position = new Vector3(doorPosition.position.x, doorPosition.position.y, zAxis);
+        }
+
         controlAlphaOffset = false;
         OnChangedRoom?.Invoke(doorKeyTP);
     }
@@ -133,8 +177,10 @@ public class TransitionCamAnimation : MonoBehaviour
         controlAlphaOffset = true;
     }
 
-    public void AnimationFinished() // Final 3a
+    public void AnimationFinished() // Final 3a y Final sin press
     {
+        if (fastTrans)
+            fastTrans = false;
         ResetAnimationIndex();
         playersInTransition = false;
     }
