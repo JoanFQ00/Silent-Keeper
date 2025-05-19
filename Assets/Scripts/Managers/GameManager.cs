@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isCounting && !stopCounting)
+        if (isCounting && !stopCounting && !IntroRoomsManager.Instance.roomInAnimation)
         {
             remainingTime -= Time.deltaTime * timerSpeedMultiplier;
 
