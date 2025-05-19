@@ -6,8 +6,8 @@ public class Interact : MonoBehaviour
     [SerializeField] float interactRadius, detectionRadius;
     public LayerMask detectionLayer;
 
-    private float scrollCooldown = 0.3f;
-    private float lastScrollTime = 0f;
+    //private float scrollCooldown = 0.3f;
+    //private float lastScrollTime = 0f;
 
     //BORRAR
     //public float GetRadius(bool getInteractRadius)
@@ -147,6 +147,11 @@ public class Interact : MonoBehaviour
                 {
                     matchedCollider.GetComponent<BoxS>().Interacted();
                 }
+            }
+            else if (matchedCollider.GetComponent<TorchBase>() != null)
+            {
+                if (gameObject.tag == "Player")
+                    matchedCollider.GetComponent<TorchBase>().Interacted(gameObject, null);
             }
         }
     }

@@ -476,6 +476,12 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         return text + "(" + count.ToString() + "/" + Mathf.Max(1, totalKeysActivated.Count) + ")";
     }
 
+
+    public int GetDoorKey()
+    {
+        return doorKey;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
