@@ -87,26 +87,29 @@ public class MonsterMove : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        moveDir = value.Get<Vector2>();
-
-        if (Mathf.Abs(moveDir.x) > 0.01f)
+        if (!GameManager.Instance.isPaused)
         {
-            if (moveDir.x < 0)
-                transform.localScale = new Vector3(-initialScale.x, initialScale.y, initialScale.z);
-            else if (moveDir.x > 0)
-                transform.localScale = initialScale;
-        }
+            moveDir = value.Get<Vector2>();
 
-        if (moveDir.sqrMagnitude > 0.01f)
-        {
-            lastNonZeroDir = moveDir;
-        }
+            if (Mathf.Abs(moveDir.x) > 0.01f)
+            {
+                if (moveDir.x < 0)
+                    transform.localScale = new Vector3(-initialScale.x, initialScale.y, initialScale.z);
+                else if (moveDir.x > 0)
+                    transform.localScale = initialScale;
+            }
 
-        if (playerAnimator != null && !GameManager.Instance.isPaused)
-        {
-            playerAnimator.SetFloat("Horizontal", lastNonZeroDir.x);
-            playerAnimator.SetFloat("Vertical", lastNonZeroDir.y);
-            playerAnimator.SetBool("Speed", moveDir.sqrMagnitude > 0.01f);
+            if (moveDir.sqrMagnitude > 0.01f)
+            {
+                lastNonZeroDir = moveDir;
+            }
+
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetFloat("Horizontal", lastNonZeroDir.x);
+                playerAnimator.SetFloat("Vertical", lastNonZeroDir.y);
+                playerAnimator.SetBool("Speed", moveDir.sqrMagnitude > 0.01f);
+            }
         }
     }
 

@@ -83,12 +83,24 @@ public class GameManager : MonoBehaviour
 
             if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
             {
+                kid.GetComponentInChildren<Camera>().orthographicSize = 4.0f;
+
                 monsterObjectTexture.GetComponent<Camera>().enabled = false;
                 kidObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
             }
-            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid || TransitionCamAnimation.Instance.playersInTransition)
+            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
             {
+                monster.GetComponentInChildren<Camera>().orthographicSize = 4.0f;
+
+                kidObjectTexture.GetComponent<Camera>().enabled = false;
+                monsterObjectTexture.GetComponent<Camera>().enabled = true;
+                miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
+            }
+            else if (TransitionCamAnimation.Instance.playersInTransition)
+            {
+                monster.GetComponentInChildren<Camera>().orthographicSize = 10.0f;
+
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;

@@ -73,15 +73,18 @@ public class EnemyDetector : TaggedMonobehaviour
                 VisionAngle = _light2D.pointLightOuterAngle;
             }
 
-            if (enemyPlayerDetector == Characters.BOTH)
+            if (_light2D.enabled)
             {
-                if (CheckTargetInVision(_player) || CheckTargetInVision(_kid))
-                    SendToSpawner();
-            }
-            else
-            {
-                if (CheckTargetInVision(_kid))
-                    SendToSpawner();
+                if (enemyPlayerDetector == Characters.BOTH)
+                {
+                    if (CheckTargetInVision(_player) || CheckTargetInVision(_kid))
+                        SendToSpawner();
+                }
+                else
+                {
+                    if (CheckTargetInVision(_kid))
+                        SendToSpawner();
+                }
             }
         }
         else
