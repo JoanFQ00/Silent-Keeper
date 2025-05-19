@@ -11,12 +11,12 @@ public class KeyBase : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInventory.KeyHasBeenUsed += DestroyKey;
+        PlayerInventory.KeyHasBeenUsed += HandleKeyUsed;
     }
 
     private void OnDisable()
     {
-        PlayerInventory.KeyHasBeenUsed -= DestroyKey;
+        PlayerInventory.KeyHasBeenUsed -= HandleKeyUsed;
     }
 
     private void Start()
@@ -55,9 +55,11 @@ public class KeyBase : MonoBehaviour
         hasBeenUsed = true;
     }
 
-    private void DestroyKey()
+    private void HandleKeyUsed()
     {
         if (hasBeenUsed)
-            Destroy(gameObject);
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

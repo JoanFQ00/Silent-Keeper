@@ -16,7 +16,6 @@ public class PlayerInventory : MonoBehaviour
     private void OnDisable()
     {
         DoorBase.RefreshPlayerInventory -= RefreshKeys;
-
     }
 
     void Start()
@@ -26,21 +25,22 @@ public class PlayerInventory : MonoBehaviour
 
     public List<KeyBase> GetKey()
     {
-        if (collectedKeys.Count == 0)
-            return new List<KeyBase>();
-        return collectedKeys;
+        return collectedKeys.FindAll(k => k != null && k.gameObject.activeSelf);
     }
 
     public void RefreshKeys()
     {
-        collectedKeys.RemoveAll(k => k == null);
+        collectedKeys.RemoveAll(k => k == null || !k.gameObject.activeSelf);
 
         Transform followTarget = transform;
 
         for (int i = 0; i < collectedKeys.Count; i++)
         {
-            collectedKeys[i].SetFollowTarget(followTarget);
-            followTarget = collectedKeys[i].transform;
+            if (collectedKeys[i] != null)
+            {
+                collectedKeys[i].SetFollowTarget(followTarget);
+                followTarget = collectedKeys[i].transform;
+            }
         }
 
         KeyHasBeenUsed?.Invoke();
@@ -48,12 +48,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void OnKeyObtained(KeyBase keyBase)
     {
-        Transform followTarget = null;
-
-        if (collectedKeys.Count == 0)
-            followTarget = transform;
-        else
-            followTarget = collectedKeys[collectedKeys.Count - 1].transform;
+        Transform followTarget = collectedKeys.Count == 0 ? transform : collectedKeys[collectedKeys.Count - 1].transform;
 
         keyBase.SetFollowTarget(followTarget);
         collectedKeys.Add(keyBase);
