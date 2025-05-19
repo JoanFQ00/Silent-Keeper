@@ -54,9 +54,8 @@ MonoBehaviour:
   kidObjectTexture: {fileID: 0}
   monsterTexture: {fileID: 8400000, guid: f71b3d98a43d69c4083b6e984c7ccd3d, type: 2}
   kidTexture: {fileID: 8400000, guid: dd1ba112ad4661842aeaf774d6db7654, type: 2}
-  remainingTime: 120
-  mapSpawns:
-  - {fileID: 0}
+  remainingTime: 200
+  mapSpawn: {fileID: 0}
   isPaused: 0
   timerSpeedMultiplier: 1
 --- !u!114 &3174573877418663436

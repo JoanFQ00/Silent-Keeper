@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RenderTexture monsterTexture, kidTexture;
 
     [SerializeField] float remainingTime = 120f;
-    [SerializeField] private GameObject[] mapSpawns = new GameObject[3];
+    [SerializeField] private GameObject mapSpawn;
 
     public bool isPaused;
 
@@ -142,18 +142,18 @@ public class GameManager : MonoBehaviour
         switch (currentZone)
         {
             case Zone.ZONE_1:
-                monster.transform.position = mapSpawns[0].transform.position;
-                kid.transform.position = mapSpawns[0].transform.position;
+                monster.transform.position = mapSpawn.transform.position;
+                kid.transform.position = mapSpawn.transform.position;
                 break;
 
             case Zone.ZONE_2:
-                monster.transform.position = mapSpawns[0].transform.position;
-                kid.transform.position = mapSpawns[0].transform.position;
+                monster.transform.position = mapSpawn.transform.position;
+                kid.transform.position = mapSpawn.transform.position;
                 break;
 
             case Zone.ZONE_3:
-                monster.transform.position = mapSpawns[0].transform.position;
-                kid.transform.position = mapSpawns[0].transform.position;
+                monster.transform.position = mapSpawn.transform.position;
+                kid.transform.position = mapSpawn.transform.position;
                 break;
 
             default:
