@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BoxS : MonoBehaviour
+public class BoxS : MonoBehaviour, IInteractableWithButton
 {
     public float forceAmount = 5f;
     private Rigidbody2D rb;

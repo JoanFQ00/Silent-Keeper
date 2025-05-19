@@ -3,6 +3,7 @@ using UnityEngine;
 public class Lever : MonoBehaviour, IInteractableWithButton
 {
     [SerializeField] private Sprite normalLever, leverActivated;
+    [SerializeField] private bool onlyKid = false;
 
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
@@ -34,6 +35,11 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         {
             spriteRenderer.sprite = normalLever;
         }
+    }
+
+    public bool OnlyKid()
+    {
+        return onlyKid;
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }

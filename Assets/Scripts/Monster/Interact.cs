@@ -6,8 +6,8 @@ public class Interact : MonoBehaviour
     [SerializeField] float interactRadius, detectionRadius;
     public LayerMask detectionLayer;
 
-    private float scrollCooldown = 0.3f;
-    private float lastScrollTime = 0f;
+    //private float scrollCooldown = 0.3f;
+    //private float lastScrollTime = 0f;
 
     //BORRAR
     //public float GetRadius(bool getInteractRadius)
@@ -31,7 +31,7 @@ public class Interact : MonoBehaviour
         //        Interacting();
         //}
 
-        if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Player")
+        if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player")
         {
             if (!GameManager.Instance.isPaused)
                 Interacting(gameObject.tag);
@@ -91,12 +91,19 @@ public class Interact : MonoBehaviour
         {
             if (matchedCollider.GetComponent<Lever>() != null)
             {
-                matchedCollider.GetComponent<Lever>().Interacted();
-
-                if (gameObject.tag == "Kid")
+                if (matchedCollider.GetComponent<Lever>().OnlyKid())
                 {
-                    gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
-                    KidControl.interactable = null;
+                    if (gameObject.tag == "Kid")
+                    {
+                        matchedCollider.GetComponent<Lever>().Interacted();
+                        gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+                        KidControl.interactable = null;
+                    }
+                }
+                else
+                {
+                    if (gameObject.tag == "Player")
+                        matchedCollider.GetComponent<Lever>().Interacted();
                 }
             }
             else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition)
@@ -147,6 +154,11 @@ public class Interact : MonoBehaviour
                 {
                     matchedCollider.GetComponent<BoxS>().Interacted();
                 }
+            }
+            else if (matchedCollider.GetComponent<TorchBase>() != null)
+            {
+                if (gameObject.tag == "Player")
+                    matchedCollider.GetComponent<TorchBase>().Interacted(gameObject, null);
             }
         }
     }

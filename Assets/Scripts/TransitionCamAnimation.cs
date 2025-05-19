@@ -41,7 +41,7 @@ public class TransitionCamAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F) && canRunLastAnimation)
+        if (Input.GetKeyUp(KeyCode.E) && canRunLastAnimation)
         {
             ChangeToNextTransition();
             canRunLastAnimation = false;
