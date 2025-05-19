@@ -87,7 +87,7 @@ public class MonsterMove : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        if (!GameManager.Instance.isPaused)
+        if (!GameManager.Instance.isPaused && !TransitionCamAnimation.Instance.playersInTransition)
         {
             moveDir = value.Get<Vector2>();
 
