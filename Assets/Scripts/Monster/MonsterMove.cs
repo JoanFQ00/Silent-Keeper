@@ -132,4 +132,9 @@ public class MonsterMove : MonoBehaviour
     {
         currentSpeed = defaultSpeed;
     }
+
+    public void ZeroMoveDir()
+    {
+        moveDir = Vector2.zero;
+    }
 }

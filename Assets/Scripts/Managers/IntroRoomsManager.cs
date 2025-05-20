@@ -4,7 +4,7 @@ using UnityEngine;
 public class IntroRoomsManager : MonoBehaviour
 {
     [SerializeField] private AnimationClip[] animationNames;
-    [SerializeField] private GameObject cam, canvas;
+    [SerializeField] private GameObject cam, canvas, camTransitionParticles;
 
     private AnimationClip animationToPlay;
     private Dictionary<AnimationClip, bool> roomsAnimations = new Dictionary<AnimationClip, bool>();
@@ -32,6 +32,7 @@ public class IntroRoomsManager : MonoBehaviour
 
         roomInAnimation = false;
 
+        camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
         cam.SetActive(false);
     }
@@ -53,6 +54,7 @@ public class IntroRoomsManager : MonoBehaviour
         roomsAnimations[animationToPlay] = true;
         roomInAnimation = true;
 
+        camTransitionParticles.SetActive(false);
         canvas.SetActive(true);
         cam.SetActive(true);
         anim.Play(animationToPlay.name);
@@ -63,6 +65,7 @@ public class IntroRoomsManager : MonoBehaviour
     public void OnAnimationFinished()
     {
         roomInAnimation = false;
+        camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
         cam.SetActive(false);
     }
