@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Camera mainCamera;
     private bool cameraReturned;
-    private PolygonCollider2D roomCollider;
+    private Collider2D roomCollider;
     private bool checkPlayersInCam;
     private bool playerInCam = false;
     private bool kidInCam = false;
@@ -161,7 +161,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    public void SetRoomCollider(PolygonCollider2D collider)
+    public void SetRoomCollider(Collider2D collider)
     {
         roomCollider = collider;
     }
