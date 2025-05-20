@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class TorchBase : MonoBehaviour, IInteractableWithButton
 {
-    [HideInInspector]
-    public static bool pickUp = false;
-
     [Header("Settings")]
     public float followDuration = 5f;
     public float followSpeed = 3f;
@@ -13,8 +10,10 @@ public class TorchBase : MonoBehaviour, IInteractableWithButton
     public LayerMask interactableLayer;
 
     [Header("References")]
+    public bool infiniteUse = false;
     public GameObject torch;
 
+    private bool pickUp = false;
     private float followTimer = 0f;
     private Transform playerTarget = null;
 
@@ -27,7 +26,6 @@ public class TorchBase : MonoBehaviour, IInteractableWithButton
     {
         if (pickUp)
         {
-            followTimer += Time.deltaTime;
 
             if (playerTarget != null)
             {
@@ -40,12 +38,17 @@ public class TorchBase : MonoBehaviour, IInteractableWithButton
                 }
             }
 
-            if (followTimer >= followDuration)
+            if (!infiniteUse)
             {
-                torch.GetComponent<InteractableBase>().SetKeyActivated(false);
-                pickUp = false;
-                followTimer = 0f;
-                ReturnToSpawn();
+                followTimer += Time.deltaTime;
+
+                if (followTimer >= followDuration)
+                {
+                    torch.GetComponent<InteractableBase>().SetKeyActivated(false);
+                    pickUp = false;
+                    followTimer = 0f;
+                    ReturnToSpawn();
+                }
             }
 
             CheckInteractableCollisions();
