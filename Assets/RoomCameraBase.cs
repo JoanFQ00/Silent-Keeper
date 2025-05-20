@@ -11,7 +11,7 @@ public class RoomCameraBase : MonoBehaviour
     private void Start()
     {
         playerHasEntered = false;
-        GetComponent<PolygonCollider2D>().isTrigger = true;
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +25,7 @@ public class RoomCameraBase : MonoBehaviour
             if (isCameraStatic)
                 CameraFollow.Instance.ChangeTarget(transform);
 
-            CameraFollow.Instance.SetRoomCollider(GetComponent<PolygonCollider2D>());
+            CameraFollow.Instance.SetRoomCollider(GetComponent<Collider2D>());
             IntroRoomsManager.Instance.SetAnimToPlay(roomClip);
         }
     }

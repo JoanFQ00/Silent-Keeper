@@ -21,6 +21,7 @@ public class TransitionCamAnimation : MonoBehaviour
     private Transform doorPosition;
     private GameObject mainCamera;
     private float pressedTime = 0.25f, counterPressedTime;
+    private MonsterMove monsterMove;
 
     private bool controlAlphaOffset = false, canStartCountingInput = false, fastTrans;
 
@@ -39,6 +40,8 @@ public class TransitionCamAnimation : MonoBehaviour
         rayImg.texture = whiteCircle;
 
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        monsterMove = GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>();
+
         anim = GetComponent<Animation>();
 
         doorKeyTP = 0;
@@ -193,6 +196,8 @@ public class TransitionCamAnimation : MonoBehaviour
             fastTrans = false;
 
         playersInTransition = false;
+
+        monsterMove.ZeroMoveDir();
 
         rayImg.texture = whiteCircle;
         ResetAnimationIndex();
