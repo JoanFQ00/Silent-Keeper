@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TransitionCamAnimation : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class TransitionCamAnimation : MonoBehaviour
 
     [HideInInspector]
     public bool playersInTransition, canRunLastAnimation;
+
+    [SerializeField] private Texture whiteCircle, whiteMonster;
+    [SerializeField] private RawImage rayImg;
 
     [SerializeField] private AnimationClip[] animationNames;
 
@@ -32,6 +36,8 @@ public class TransitionCamAnimation : MonoBehaviour
 
     private void Start()
     {
+        rayImg.texture = whiteCircle;
+
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         anim = GetComponent<Animation>();
 
@@ -130,6 +136,8 @@ public class TransitionCamAnimation : MonoBehaviour
     {
         if (anim == null || animationNames.Length == 0) return;
 
+        rayImg.texture = whiteMonster;
+
         string firstAnim = animationNames[3].name;
         anim.Play(firstAnim);
     }
@@ -185,6 +193,8 @@ public class TransitionCamAnimation : MonoBehaviour
             fastTrans = false;
 
         playersInTransition = false;
+
+        rayImg.texture = whiteCircle;
         ResetAnimationIndex();
     }
 
