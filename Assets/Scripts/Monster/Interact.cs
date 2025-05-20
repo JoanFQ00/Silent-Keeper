@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    [SerializeField] float interactRadius, detectionRadius;
+    [SerializeField] float interactRadius;
+    [SerializeField] SpriteRenderer iconSR;
+    [SerializeField] Sprite icon;
+
     public LayerMask detectionLayer;
 
     //private float scrollCooldown = 0.3f;
@@ -18,10 +21,10 @@ public class Interact : MonoBehaviour
     //        return detectionRadius;
     //}
 
-    public float GetDetectionRadius()
-    {
-        return detectionRadius;
-    }
+    //public float GetDetectionRadius()
+    //{
+    //    return detectionRadius;
+    //}
 
     void Update()
     {
@@ -48,16 +51,37 @@ public class Interact : MonoBehaviour
 
     private void InteractableDetection()
     {
-        Collider2D detectableHit = Physics2D.OverlapCircle(transform.position, detectionRadius, detectionLayer);
         Collider2D interactableHit = Physics2D.OverlapCircle(transform.position, interactRadius, detectionLayer);
 
-        if (detectableHit != null)
+        if (interactableHit != null && gameObject.tag == "Player")
         {
-            if (interactableHit != null)
-                interactableHit.GetComponent<InteractTxt>().Checker(true, true, gameObject.tag);
-            else
-                detectableHit.GetComponent<InteractTxt>().Checker(true, false, gameObject.tag);
+            bool leverOK = false;
+            bool otherInLocker = false;
+
+            if (interactableHit.TryGetComponent(out Lever lever))
+            {
+                leverOK = lever.OnlyKid();
+            }
+
+            if (interactableHit.TryGetComponent(out Locker locker))
+            {
+                otherInLocker = locker.GetObjectContained() != null && locker.GetObjectContained() != gameObject;
+            }
+
+            if (!leverOK && !otherInLocker)
+            {
+                iconSR.sprite = icon;
+                Vector3 scale = iconSR.gameObject.transform.localScale;
+                scale.x = gameObject.transform.localScale.x < 0.0f ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+                iconSR.gameObject.transform.localScale = scale;
+            }
+            else if (iconSR != null)
+                if (iconSR.sprite != null)
+                    iconSR.sprite = null;
         }
+        else if (iconSR != null)
+            if (iconSR.sprite != null)
+                iconSR.sprite = null;
     }
 
     public void Interacting(string playerTag, GameObject objectInteracted = null)
@@ -186,9 +210,6 @@ public class Interact : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, interactRadius);
     }

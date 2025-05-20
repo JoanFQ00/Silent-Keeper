@@ -59,7 +59,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        detectionRadius = GetComponent<InteractTxt>() != null ? GetComponent<InteractTxt>().GetInteractableArea() : 1.0f;
+        detectionRadius = GetComponent<CircleCollider2D>() != null ? GetComponent<CircleCollider2D>().radius : 1.0f;
 
         if (doorBaseSO != null)
             spriteRenderer.sprite = doorBaseSO.doorImage;
@@ -444,38 +444,37 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         return side >= 0 ? -axis : axis;
     }
 
-    public string GetTotalKeysActivated()
-    {
-        int count = 0;
-        string text = "";
+    //public string GetTotalKeysActivated()
+    //{
+    //    int count = 0;
+    //    string text = "";
 
-        foreach (InteractableBase interactable in totalKeysActivated)
-        {
-            if (interactable != null && interactable.GetIsActivated())
-                count++;
-        }
+    //    foreach (InteractableBase interactable in totalKeysActivated)
+    //    {
+    //        if (interactable != null && interactable.GetIsActivated())
+    //            count++;
+    //    }
 
-        text += " | Puerta: ";
+    //    text += " | Puerta: ";
 
-        if (thisActivated)
-            text += "Abierta | ";
-        else
-            text += "Cerrada | ";
+    //    if (thisActivated)
+    //        text += "Abierta | ";
+    //    else
+    //        text += "Cerrada | ";
 
-        text += "Tipo: ";
+    //    text += "Tipo: ";
 
-        if (hasMultipleOptions && isIndependent)
-            text += "M�ltiple Fija | ";
-        else if (hasMultipleOptions && isIndependent)
-            text += "M�ltiple Alterable | ";
-        else
-            text += "Dependiente | ";
+    //    if (hasMultipleOptions && isIndependent)
+    //        text += "M�ltiple Fija | ";
+    //    else if (hasMultipleOptions && isIndependent)
+    //        text += "M�ltiple Alterable | ";
+    //    else
+    //        text += "Dependiente | ";
 
-        text += "Elementos activos: ";
+    //    text += "Elementos activos: ";
 
-        return text + "(" + count.ToString() + "/" + Mathf.Max(1, totalKeysActivated.Count) + ")";
-    }
-
+    //    return text + "(" + count.ToString() + "/" + Mathf.Max(1, totalKeysActivated.Count) + ")";
+    //}
 
     public int GetDoorKey()
     {

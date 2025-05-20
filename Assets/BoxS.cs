@@ -8,7 +8,6 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private SpriteRenderer spriteRenderer;
     private GameObject player;
 
-
     void Start()
     {
         interactable = GetComponent<InteractableBase>();
