@@ -24,6 +24,12 @@ public class KidControl : MonoBehaviour
         {
             kid.GetComponent<Interact>().Interacting(kid.tag, interactable);
         }
+
+        if (kidMachine.GetCurrentState() == KidMachine.States.Hand)
+        {
+            Vector3 monsterScale = monsterMove.transform.localScale;
+            kid.transform.localScale = new Vector3(Mathf.Sign(monsterScale.x) * Mathf.Abs(kid.transform.localScale.x), kid.transform.localScale.y, kid.transform.localScale.z);
+        }
     }
 
     private void OnLeftMouse()
