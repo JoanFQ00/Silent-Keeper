@@ -76,7 +76,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2.8031168}
+  m_Size: {x: 1.88, y: 2.8031168}
   m_EdgeRadius: 0
 --- !u!1 &5412960644795136290
 GameObject:
@@ -259,6 +259,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8150156571102830685, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150156571102830685, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8344011
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150156571102830685, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.22464654
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150156571102830685, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.92
       objectReference: {fileID: 0}
@@ -276,6 +288,9 @@ PrefabInstance:
     - {fileID: 6665791344202520497, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     - {fileID: 6276287184780485412, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     - {fileID: 1390938754081017772, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+    - {fileID: 7358259563528621180, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+    - {fileID: 1304601290024923875, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+    - {fileID: 163932058595415592, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       insertIndex: -1

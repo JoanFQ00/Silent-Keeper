@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3401778165724218400}
   - component: {fileID: 1931548307000517361}
   m_Layer: 0
-  m_Name: Bush
+  m_Name: NormalBush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,9 +76,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 756308585
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1905976383, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  m_Sprite: {fileID: 1506610117, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -138,15 +138,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.000813365, y: 0.0008133799}
+  m_Offset: {x: -0.000813365, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.61, y: 0.57}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6177139, y: 0.5819255}
+  m_Size: {x: 0.6177139, y: 0.64}
   m_EdgeRadius: 0
