@@ -1,4 +1,5 @@
 using UnityEngine;
+using static HeadHUD;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -175,6 +176,7 @@ public class CameraFollow : MonoBehaviour
     {
         GameObject monster = GameObject.FindGameObjectWithTag("Player");
         ChangeTarget(monster.transform);
+        HeadHUD.Instance.OnFocusChanged(FocusTarget.Player1);
     }
 
     public void ChangeTarget(Transform _target)
