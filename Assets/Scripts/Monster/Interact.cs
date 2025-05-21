@@ -127,15 +127,9 @@ public class Interact : MonoBehaviour
                         matchedCollider.GetComponent<Lever>().Interacted();
                 }
             }
-            else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition)
+            else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition && gameObject.tag == "Player")
             {
                 matchedCollider.GetComponent<DoorBase>().Interacted();
-
-                if (gameObject.tag == "Kid")
-                {
-                    gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
-                    KidControl.interactable = null;
-                }
             }
             else if (matchedCollider.GetComponent<Locker>() != null)
             {

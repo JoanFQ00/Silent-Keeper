@@ -59,7 +59,14 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        detectionRadius = GetComponent<CircleCollider2D>() != null ? GetComponent<CircleCollider2D>().radius : 1.0f;
+        CircleCollider2D collider = GetComponent<CircleCollider2D>();
+        if (collider != null)
+        {
+            float scaleFactor = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
+            detectionRadius = collider.radius * scaleFactor;
+        }
+        else
+            detectionRadius = 1.0f;
 
         if (doorBaseSO != null)
             spriteRenderer.sprite = doorBaseSO.doorImage;
