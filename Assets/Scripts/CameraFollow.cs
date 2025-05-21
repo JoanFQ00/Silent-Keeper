@@ -50,50 +50,17 @@ public class CameraFollow : MonoBehaviour
 
             if (target.gameObject.tag == "Player")
             {
-                if (target.gameObject.GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f && cameraReturned)
-                    FreeMove();
-                else
-                    NormalMovement();
+                NormalMovement();
             }
             else if (target.gameObject.tag == "Kid")
             {
-                var kidState = target.gameObject.GetComponent<KidMachine>().GetCurrentState();
-                var playerStill = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocity.sqrMagnitude < 0.01f;
-
-                if (cameraReturned && (kidState == KidMachine.States.Stoped || kidState == KidMachine.States.HiddenInLocker
-                    || (playerStill && kidState == KidMachine.States.Hand)))
-                    FreeMove();
-                else
-                    NormalMovement();
+                NormalMovement();
             }
             else
             {
                 ReturnToTarget();
             }
         }
-    }
-
-    private void FreeMove()
-    {
-        Vector3 mouseScreen = Input.mousePosition;
-        Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, -mainCamera.transform.position.z));
-
-        Vector3 direction = mouseWorld - target.position;
-        direction.z = 0;
-
-        Vector3 offset = Vector3.zero;
-        if (direction.magnitude > deadZone)
-        {
-            Vector3 normalizedDir = direction.normalized;
-            float effectiveDistance = direction.magnitude - deadZone;
-            offset = normalizedDir * effectiveDistance * offsetFactor;
-        }
-        Vector3 clampedOffset = Vector3.ClampMagnitude(offset, maxOffsetDistance);
-
-        Vector3 targetPosition = target.position + clampedOffset;
-        targetPosition.z = transform.position.z;
-
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 
     private void NormalMovement()
