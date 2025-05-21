@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class HeadHUD : MonoBehaviour
 {
+    public Animator animator;
+
     public enum FocusTarget { None, Player1, Player2 }
 
     private FocusTarget currentFocus = FocusTarget.None;
-    private Animator animator;
     private string currentState = "00";
     private bool isTransitioning = false;
 
@@ -22,7 +23,6 @@ public class HeadHUD : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
         PlayState("00");
     }
 
@@ -78,20 +78,23 @@ public class HeadHUD : MonoBehaviour
 
     private void PlayState(string stateName)
     {
-        animator.Play(stateName, 0, 0f);
+        if (animator != null)
+        {
+            animator.Play(stateName, 0, 0f);
 
-        // Estado actual solo cambia si no es reverso ni transición cruzada
-        if (stateName == "00" || stateName == "01" || stateName == "02")
-        {
-            currentState = stateName;
-        }
-        else if (stateName == "01To02")
-        {
-            currentState = "02"; // Sabemos que la transición termina en 02
-        }
-        else if (stateName == "02To01")
-        {
-            currentState = "01"; // Sabemos que la transición termina en 01
+            // Estado actual solo cambia si no es reverso ni transición cruzada
+            if (stateName == "00" || stateName == "01" || stateName == "02")
+            {
+                currentState = stateName;
+            }
+            else if (stateName == "01To02")
+            {
+                currentState = "02"; // Sabemos que la transición termina en 02
+            }
+            else if (stateName == "02To01")
+            {
+                currentState = "01"; // Sabemos que la transición termina en 01
+            }
         }
     }
 
