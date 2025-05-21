@@ -26,7 +26,9 @@ public class RoomCameraBase : MonoBehaviour
             if (isCameraStatic)
             {
                 CameraFollow.Instance.ChangeTarget(transform);
-                HeadHUD.Instance.OnFocusChanged(FocusTarget.None);
+
+                if (HeadHUD.Instance != null)
+                    HeadHUD.Instance.OnFocusChanged(FocusTarget.None);
             }
 
             CameraFollow.Instance.SetRoomCollider(GetComponent<Collider2D>());

@@ -176,7 +176,9 @@ public class CameraFollow : MonoBehaviour
     {
         GameObject monster = GameObject.FindGameObjectWithTag("Player");
         ChangeTarget(monster.transform);
-        HeadHUD.Instance.OnFocusChanged(FocusTarget.Player1);
+
+        if (HeadHUD.Instance != null)
+            HeadHUD.Instance.OnFocusChanged(FocusTarget.Player1);
     }
 
     public void ChangeTarget(Transform _target)
