@@ -44,7 +44,6 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
         isMoving = false;
     }
     public void Interacted(GameObject other, GameObject thisObject) { }

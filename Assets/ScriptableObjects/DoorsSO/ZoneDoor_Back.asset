@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea3a19bcb1c5a840b886d963c756b30, type: 3}
+  m_Name: ZoneDoor_Back
+  m_EditorClassIdentifier: 
+  doorImage: {fileID: 4167363071909596116, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+  openDoorImage: {fileID: 4167363071909596116, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+  isZoneDoor: 1
+  isFinalDoor: 0
