@@ -8,6 +8,8 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
 
+    public ParticleSystem particleS;
+
     void Start()
     {
         interactable = GetComponent<InteractableBase>();
@@ -34,6 +36,11 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         else 
         {
             spriteRenderer.sprite = normalLever;
+        }
+
+        if (particleS != null) 
+        {
+            particleS.Play();
         }
     }
 

@@ -17,7 +17,7 @@ public class MonsterMove : MonoBehaviour
     private Vector2 moveDir, lastNonZeroDir = Vector2.right;
     private KidMachine.States monsterState, monsterHiddenState;
     private Vector3 initialScale;
-    public ParticleSystem particleS;
+    public ParticleSystem[] particleS;
 
     public static Action<string> OnChangeTxt;
 
@@ -56,7 +56,11 @@ public class MonsterMove : MonoBehaviour
             rb.linearVelocity = moveDir.normalized * currentSpeed;
 
             float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-            particleS.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+            foreach (ParticleSystem particles in particleS)
+            {
+                particles.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
         }
         else
         {
