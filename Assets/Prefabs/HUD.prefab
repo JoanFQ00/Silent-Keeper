@@ -437,6 +437,8 @@ GameObject:
   - component: {fileID: 7993650564591888019}
   - component: {fileID: 3025300474713083652}
   - component: {fileID: 5896998099019059472}
+  - component: {fileID: 1751554111351160480}
+  - component: {fileID: 5719323428298268566}
   m_Layer: 5
   m_Name: TimePanel
   m_TagString: Untagged
@@ -504,6 +506,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1751554111351160480
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938032207448041468}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bd18fd4a4ccc614c98b159bbdad9ffa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5719323428298268566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938032207448041468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695c0db5fdc1f924495d4b3b82cc870c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1751554111351160480}
 --- !u!1 &2382484241478266505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1905976383, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  m_Sprite: {fileID: 825250241, guid: 1ea82b60acd0ff64ebd1f8c621e52fd5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1382,13 +1419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad0e820a3b74024587edf5eab9d1d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interacText: 
-  interactableArea: 2
-  keyMonsterUI: {fileID: 7511663145374538115}
-  keyKidUI: {fileID: 133899424422365172}
-  iconSR: {fileID: 0}
-  detectionIcon: {fileID: 0}
-  interactIcon: {fileID: 0}
 --- !u!1 &4478384349075547055
 GameObject:
   m_ObjectHideFlags: 0
