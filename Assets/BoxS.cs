@@ -12,13 +12,9 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
     void Start()
     {
-        interactable = GetComponent<InteractableBase>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //interactable = GetComponent<InteractableBase>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
-
-        // Ya no usamos el Rigidbody para movimiento
-        var rb = GetComponent<Rigidbody2D>();
-        if (rb != null) rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     void Update()
@@ -35,22 +31,21 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
         if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
         {
-            moveDirection = new Vector2(Mathf.Sign(diff.x), 0f); // Push horizontal
+            moveDirection = new Vector2(Mathf.Sign(diff.x), 0f); 
         }
         else
         {
-            moveDirection = new Vector2(0f, Mathf.Sign(diff.y)); // Push vertical
+            moveDirection = new Vector2(0f, Mathf.Sign(diff.y)); 
         }
 
         isMoving = true;
     }
 
-    public void Interacted(GameObject other, GameObject thisObject) { }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Al colisionar con algo, se detiene
+        Debug.Log(collision.collider.name);
         isMoving = false;
-        moveDirection = Vector2.zero;
     }
+
+    public void Interacted(GameObject other, GameObject thisObject) { }
 }
