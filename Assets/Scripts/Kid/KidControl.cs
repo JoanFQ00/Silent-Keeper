@@ -27,8 +27,13 @@ public class KidControl : MonoBehaviour
 
         if (kidMachine.GetCurrentState() == KidMachine.States.Hand)
         {
-            Vector3 monsterScale = monsterMove.transform.localScale;
-            kid.transform.localScale = new Vector3(Mathf.Sign(monsterScale.x) * Mathf.Abs(kid.transform.localScale.x), kid.transform.localScale.y, kid.transform.localScale.z);
+            Vector2 kidVelocity = (Vector2)kid.transform.position - kidMachine.LastPosition;
+
+            if (kidVelocity.sqrMagnitude > 0.001f)
+            {
+                Vector3 monsterScale = monsterMove.transform.localScale;
+                kid.transform.localScale = new Vector3(Mathf.Sign(monsterScale.x) * Mathf.Abs(kid.transform.localScale.x), kid.transform.localScale.y, kid.transform.localScale.z);
+            }
         }
     }
 

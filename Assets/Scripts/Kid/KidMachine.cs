@@ -25,6 +25,10 @@ public class KidMachine : MonoBehaviour
     private Vector3 initialScale;
     private Transform feetTransform;
 
+    private bool isTouchingInteractable = false;
+    public Vector2 LastPosition => lastPosition;
+
+
     void Start()
     {
         currentState = States.Following;
@@ -80,6 +84,10 @@ public class KidMachine : MonoBehaviour
         }
 
         Vector2 moveDelta = (Vector2)transform.position - lastPosition;
+        if (currentState == States.Stoped || moveDelta.magnitude < 0.001f)
+        {
+            moveDelta = Vector2.zero; // Así mantendrá el último `lastNonZeroDir`
+        }
         UpdateAnimator(moveDelta);
 
         lastPosition = transform.position;
@@ -282,5 +290,30 @@ public class KidMachine : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, followingDistance);
+    }
+
+    private void PushBackFromCollision(float pushDistance = 0.3f)
+    {
+        Vector3 pushDir = -((Vector3)lastNonZeroDir).normalized;
+        transform.position += pushDir * pushDistance;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & interactableMask) != 0)
+        {
+            isTouchingInteractable = true;
+            ChangeState(States.Stoped);
+            PushBackFromCollision();
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & interactableMask) != 0)
+        {
+            isTouchingInteractable = false;
+        }
     }
 }
