@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoxS : MonoBehaviour, IInteractableWithButton
 {
-    public float moveSpeed = 2f; // Velocidad constante MRU
+    public float moveSpeed = 2f; 
     private Vector2 moveDirection = Vector2.zero;
     private bool isMoving = false;
 
@@ -10,11 +10,12 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private SpriteRenderer spriteRenderer;
     private GameObject player;
 
+    Rigidbody2D rb;
+
     void Start()
     {
-        //interactable = GetComponent<InteractableBase>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -31,11 +32,11 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
         if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
         {
-            moveDirection = new Vector2(Mathf.Sign(diff.x), 0f); 
+            moveDirection = new Vector2(Mathf.Sign(diff.x), 0f);
         }
         else
         {
-            moveDirection = new Vector2(0f, Mathf.Sign(diff.y)); 
+            moveDirection = new Vector2(0f, Mathf.Sign(diff.y));
         }
 
         isMoving = true;
@@ -43,8 +44,8 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.collider.name);
         isMoving = false;
     }
-
     public void Interacted(GameObject other, GameObject thisObject) { }
 }
