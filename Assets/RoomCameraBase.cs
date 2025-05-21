@@ -1,4 +1,5 @@
 using UnityEngine;
+using static HeadHUD;
 
 public class RoomCameraBase : MonoBehaviour
 {
@@ -23,7 +24,10 @@ public class RoomCameraBase : MonoBehaviour
             playerHasEntered = true;
 
             if (isCameraStatic)
+            {
                 CameraFollow.Instance.ChangeTarget(transform);
+                HeadHUD.Instance.OnFocusChanged(FocusTarget.None);
+            }
 
             CameraFollow.Instance.SetRoomCollider(GetComponent<Collider2D>());
             IntroRoomsManager.Instance.SetAnimToPlay(roomClip);

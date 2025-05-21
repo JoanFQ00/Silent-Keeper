@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static HeadHUD;
 
 public class GameManager : MonoBehaviour
 {
@@ -116,10 +117,16 @@ public class GameManager : MonoBehaviour
             if (CameraFollow.Instance != null)
             {
                 if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
+                {
                     CameraFollow.Instance.ChangeTarget(kid.transform);
+                    HeadHUD.Instance.OnFocusChanged(FocusTarget.Player2);
+                }
 
                 else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+                {
                     CameraFollow.Instance.ChangeTarget(monster.transform);
+                    HeadHUD.Instance.OnFocusChanged(FocusTarget.Player1);
+                }
             }
         }
 
