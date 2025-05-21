@@ -146,21 +146,25 @@ public class GameManager : MonoBehaviour
     //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
     public void SpawnPlayers()
     {
+        Vector3 spawnPoint = mapSpawn.transform.position;
+
+        float offset = 1.5f;
+
         switch (currentZone)
         {
             case Zone.ZONE_1:
-                monster.transform.position = mapSpawn.transform.position;
-                kid.transform.position = mapSpawn.transform.position;
+                monster.transform.position = spawnPoint + Vector3.left * offset;
+                kid.transform.position = spawnPoint + Vector3.right * offset;
                 break;
 
             case Zone.ZONE_2:
-                monster.transform.position = mapSpawn.transform.position;
-                kid.transform.position = mapSpawn.transform.position;
+                monster.transform.position = spawnPoint + Vector3.left * offset;
+                kid.transform.position = spawnPoint + Vector3.right * offset;
                 break;
 
             case Zone.ZONE_3:
-                monster.transform.position = mapSpawn.transform.position;
-                kid.transform.position = mapSpawn.transform.position;
+                monster.transform.position = spawnPoint + Vector3.left * offset;
+                kid.transform.position = spawnPoint + Vector3.right * offset;
                 break;
 
             default:
