@@ -56,17 +56,37 @@ PrefabInstance:
       propertyPath: onlyKid
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: normalLever
+      value: 
+      objectReference: {fileID: -5742248762285509559, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+    - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: leverActivated
+      value: 
+      objectReference: {fileID: 165679580949781482, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+    - target: {fileID: 7365682893392439940, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365682893392439940, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787726483854053103, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5742248762285509559, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
     - target: {fileID: 8787726483854053103, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8787726483854053103, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_Color.g
-      value: 0.72599363
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8787726483854053103, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
