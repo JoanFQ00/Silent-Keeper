@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoxS : MonoBehaviour, IInteractableWithButton
 {
-    public float moveSpeed = 2f; 
+    public float moveSpeed = 2f;
     private Vector2 moveDirection = Vector2.zero;
     private bool isMoving = false;
 
@@ -10,7 +10,9 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private SpriteRenderer spriteRenderer;
     private GameObject player;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+
+    [SerializeField] private float pushBackDistance = 0.2f;
 
     void Start()
     {
@@ -45,6 +47,17 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isMoving = false;
+
+        PushBackFromCollision();
     }
+
+    private void PushBackFromCollision()
+    {
+        if (moveDirection == Vector2.zero) return;
+
+        Vector3 pushDir = -((Vector3)moveDirection).normalized;
+        transform.position += pushDir * pushBackDistance;
+    }
+
     public void Interacted(GameObject other, GameObject thisObject) { }
 }
