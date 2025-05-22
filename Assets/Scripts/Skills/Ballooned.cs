@@ -12,7 +12,38 @@ public class Ballooned : MonoBehaviour, ISkill
     private Vector3 mousePos, ballonDirection;
 
     private float defaultBuffTime;
-    private bool finishedSkill;
+    private bool finishedSkill, ballonHasCollided;
+
+    private void Start()
+    {
+        ballonHasCollided = false;
+    }
+
+    private void OnEnable()
+    {
+        BalloonBehaviour.OnBallonImpacted += OnBallonImpacted;
+        BalloonBehaviour.OnHasFinished += OnBallonFinished;
+    }
+
+    private void OnDisable()
+    {
+        BalloonBehaviour.OnBallonImpacted -= OnBallonImpacted;
+        BalloonBehaviour.OnHasFinished -= OnBallonFinished;
+    }
+
+    private void OnBallonImpacted()
+    {
+        ballonHasCollided = true;
+    }
+
+    private void OnBallonFinished()
+    {
+        bloonTime = defaultBuffTime;
+        balloon.SetActive(false);
+        BalloonBox.AddBallon();
+        finishedSkill = true;
+        ballonHasCollided = false;
+    }
 
     public void Execute(GameObject monster)
     {
@@ -27,22 +58,28 @@ public class Ballooned : MonoBehaviour, ISkill
         balloon.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         balloon.SetActive(true);
+        balloon.GetComponent<BalloonBehaviour>().hasTimeFinished = false;
+
         finishedSkill = false;
     }
 
     public void UpdateSkill()
     {
-        if (bloonTime >= 0f)
+        if (bloonTime >= 0f && !ballonHasCollided)
         {
             balloon.transform.Translate(ballonDirection * bloonSpeed * Time.deltaTime, Space.World);
             bloonTime -= Time.deltaTime;
         }
         else
         {
-            bloonTime = defaultBuffTime;
-            balloon.SetActive(false);
-            BalloonBox.AddBallon();
-            finishedSkill = true;
+            if (!ballonHasCollided)
+            {
+                balloon.GetComponent<BalloonBehaviour>().hasTimeFinished = true;
+                balloon.GetComponent<Animator>().SetTrigger("End");
+
+                balloon.transform.Translate(ballonDirection * bloonSpeed * Time.deltaTime, Space.World);
+                bloonTime -= Time.deltaTime;
+            }
         }
     }
 
