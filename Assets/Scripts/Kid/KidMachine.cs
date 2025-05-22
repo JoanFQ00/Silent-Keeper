@@ -25,7 +25,7 @@ public class KidMachine : MonoBehaviour
     private Vector3 initialScale;
     private Transform feetTransform;
 
-    private bool isTouchingInteractable = false;
+    //private bool isTouchingInteractable = false;
     public Vector2 LastPosition => lastPosition;
 
 
@@ -302,18 +302,18 @@ public class KidMachine : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & interactableMask) != 0)
         {
-            isTouchingInteractable = true;
+            //isTouchingInteractable = true;
             ChangeState(States.Stoped);
             PushBackFromCollision();
         }
     }
 
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (((1 << collision.gameObject.layer) & interactableMask) != 0)
-        {
-            isTouchingInteractable = false;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (((1 << collision.gameObject.layer) & interactableMask) != 0)
+    //    {
+    //        isTouchingInteractable = false;
+    //    }
+    //}
 }
