@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Lever : MonoBehaviour, IInteractableWithButton
@@ -13,6 +14,9 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     private float particleTimer = 0f;
     private int particlePlayCount = 0;
     [SerializeField] private float intervalBetweenPlays = 1.0f;
+    [SerializeField] private AnimationClip circusAnim;
+
+    public static Action<AnimationClip> OnKidLeverActivated;
 
     void Start()
     {
@@ -51,10 +55,16 @@ public class Lever : MonoBehaviour, IInteractableWithButton
 
     public void Interacted() 
     {
-        interactable.SetKeyActivated(!interactable.GetIsActivated());
+        if (onlyKid && !interactable.GetIsActivated())
+            interactable.SetKeyActivated(!interactable.GetIsActivated());
+        else if (!onlyKid)
+            interactable.SetKeyActivated(!interactable.GetIsActivated());
 
         if (interactable.GetIsActivated())
         {
+            if (onlyKid)
+                OnKidLeverActivated?.Invoke(circusAnim);
+
             spriteRenderer.sprite = leverActivated;
         }
         else 
@@ -79,3 +89,72 @@ public class Lever : MonoBehaviour, IInteractableWithButton
 
     public void Interacted(GameObject other, GameObject thisObject) { }
 }
+
+/*
+ using UnityEngine;
+
+public class Lever : MonoBehaviour, IInteractableWithButton
+{
+    [SerializeField] private Sprite normalLever, leverActivated;
+    [SerializeField] private bool onlyKid = false;
+    [SerializeField] private GameObject ObjectTopDisable, ObjectTopEnable;
+
+    private InteractableBase interactable;
+    private SpriteRenderer spriteRenderer;
+
+    public ParticleSystem particleS;
+
+    void Start()
+    {
+        if (onlyKid)
+            ObjectTopEnable.SetActive(false);
+
+        interactable = GetComponent<InteractableBase>();
+        spriteRenderer = GetComponent<SpriteRenderer>();   
+
+        if (interactable.GetIsActivated())
+        {
+            spriteRenderer.sprite = leverActivated;
+        } 
+        else 
+        {
+            spriteRenderer.sprite = normalLever;
+        }
+    }
+
+    public void Interacted() 
+    {
+        if (onlyKid && !interactable.GetIsActivated())
+            interactable.SetKeyActivated(!interactable.GetIsActivated());
+        else if (!onlyKid)
+            interactable.SetKeyActivated(!interactable.GetIsActivated());
+
+        if (interactable.GetIsActivated())
+        {
+            if (onlyKid)
+            {
+                ObjectTopDisable.SetActive(false);
+                ObjectTopEnable.SetActive(true);
+            }
+
+            spriteRenderer.sprite = leverActivated;
+        }
+        else 
+        {
+            spriteRenderer.sprite = normalLever;
+        }
+
+        if (particleS != null) 
+        {
+            particleS.Play();
+        }
+    }
+
+    public bool OnlyKid()
+    {
+        return onlyKid;
+    }
+
+    public void Interacted(GameObject other, GameObject thisObject) { }
+}
+ */

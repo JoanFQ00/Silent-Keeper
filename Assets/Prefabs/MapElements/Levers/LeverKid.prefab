@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4853506938005652590}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0016554683, y: -0.7071048, z: 0.707105, w: 0.0016555013}
-  m_LocalPosition: {x: -0.007188797, y: 0.25631237, z: 1.4680399e+10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4850,16 +4850,28 @@ PrefabInstance:
       value: LeverKid
       objectReference: {fileID: 0}
     - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.520824
+      value: -16.77
       objectReference: {fileID: 0}
     - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.184322
+      value: 11.12
       objectReference: {fileID: 0}
     - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.08758194
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4889,10 +4901,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 909270828433431173, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: onlyKid
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: particleS
+      value: 
+      objectReference: {fileID: 1886022155954099191}
     - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: normalLever
       value: 
