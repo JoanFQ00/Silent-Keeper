@@ -9,6 +9,8 @@ public class Locker : MonoBehaviour, IInteractableWithButton
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
 
+    private Vector3 lastPosition;
+
     private void Start()
     {
         _other = null;
@@ -28,6 +30,7 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 spriteRenderer.sprite = lockerBlocked;
 
                 _other.GetComponent<Collider2D>().enabled = !activated;
+                lastPosition = _other.transform.position;
                 _other.transform.position = this.transform.position;
                 originalColor = _other.GetComponent<SpriteRenderer>().color;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
@@ -73,7 +76,7 @@ public class Locker : MonoBehaviour, IInteractableWithButton
 
                 spriteRenderer.sprite = normalLocker;
 
-                _other.transform.position = this.transform.position + this.transform.right * 1f;
+                _other.transform.position = lastPosition;
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
                 if (_other.gameObject.tag == "Kid")
