@@ -129,8 +129,8 @@ MonoBehaviour:
   boxLayer:
     serializedVersion: 2
     m_Bits: 0
-  normalPlate: {fileID: 2065407394, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
-  pressedPlate: {fileID: -35232455, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  normalPlate: {fileID: 8895750906691681896, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+  pressedPlate: {fileID: 8593974934036460593, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   presurePlates: []
   boxSnapDuration: 0.3
 --- !u!61 &2873480521126984717
@@ -171,7 +171,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.58, y: 0.28}
+    oldSize: {x: 0.58, y: 0.38}
     newSize: {x: 0.58, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
