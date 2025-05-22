@@ -10,7 +10,7 @@ public class AlphaThresholdController : MonoBehaviour
     [Range(-0.5f, 0.5f)]
     public float offsetY = 0f;
 
-    [Range(0f, 3f)]
+    [Range(0f, 20f)]
     public float scale = 1f;
 
     public Color auraColor = new Color(1, 0, 0, 0.5f); // Color configurable
