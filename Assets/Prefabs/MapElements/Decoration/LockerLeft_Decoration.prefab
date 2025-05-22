@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3444564009385971756}
   - component: {fileID: 573128200052365890}
   - component: {fileID: 7218567858897482933}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LockerLeft_Decoration
   m_TagString: LockerTag
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -122,15 +122,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0009958893, y: -0.0015292168}
+  m_Offset: {x: 0.22160414, y: -0.016378284}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.58, y: 1.73}
+    oldSize: {x: 0.97, y: 1.73}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.57961965, y: 1.7366433}
+  m_Size: {x: 0.52871, y: 1.673008}
   m_EdgeRadius: 0
