@@ -175,6 +175,11 @@ public class Interact : MonoBehaviour
                 if (gameObject.tag == "Player")
                     matchedCollider.GetComponent<TorchBase>().Interacted(gameObject, null);
             }
+            else if (matchedCollider.GetComponent<BalloonBox>() != null)
+            {
+                if (gameObject.tag == "Player")
+                    matchedCollider.GetComponent<BalloonBox>().Interacted();
+            }
         }
     }
 

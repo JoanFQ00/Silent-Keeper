@@ -33,6 +33,7 @@ public class CursorChanger : MonoBehaviour
                 bool otherInLocker = false;
                 bool leverOK = true;
                 bool boxOK = true;
+                bool ballonBoxOK = true;
                 bool doorOK = true;
                 //GLOBOS TMB
 
@@ -60,12 +61,17 @@ public class CursorChanger : MonoBehaviour
                     boxOK = false;
                 }
 
+                if (hit.TryGetComponent(out BalloonBox balBox))
+                {
+                    boxOK = false;
+                }
+
                 if (hit.TryGetComponent(out DoorBase door))
                 {
                     doorOK = false;
                 }
 
-                if (kidStateOK && !otherInLocker && leverOK && boxOK && doorOK)
+                if (kidStateOK && !otherInLocker && leverOK && boxOK && doorOK && ballonBoxOK)
                 {
                     Cursor.SetCursor(cursorTexture3, hotspot, cursorMode);
                     isHoveringInteractable = true;
