@@ -40,7 +40,7 @@ public class Ballooned : MonoBehaviour, ISkill
     {
         bloonTime = defaultBuffTime;
         balloon.SetActive(false);
-        BalloonBox.AddBallon();
+        BalloonBox.AddBalloon();
         finishedSkill = true;
         ballonHasCollided = false;
     }

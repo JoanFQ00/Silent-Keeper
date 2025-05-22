@@ -23,6 +23,7 @@ public class SkillManager : MonoBehaviour
     public static Action<bool, SkillUI.SlotNumber> OnSlotCooldownActivatedUpdated;
     public static Action<bool, SkillUI.SlotNumber> OnSlotImageColorWhiteUpdated;
     public static Action<string> OnSlotTextUpdated;
+    public static Action OnSlotDisable;
 
     private void Awake()
     {
@@ -57,6 +58,13 @@ public class SkillManager : MonoBehaviour
         AssignSkillToSlot(allSkills[0], 1);
         AssignSkillToSlot(allSkills[1], 2);
         AssignSkillToSlot(allSkills[2], 3);
+    }
+
+    public void OnBalloonTaked()
+    {
+        numUsesSkill2 = BalloonBox.balloonsInInventory;
+        OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
+        OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
     }
 
     private void Update()
@@ -122,9 +130,9 @@ public class SkillManager : MonoBehaviour
 
         if (skill2 != null && Input.GetMouseButtonDown(0) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
-            if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsOnInventroy > 0)
+            if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
             {
-                BalloonBox.balloonsOnInventroy--;
+                BalloonBox.balloonsInInventory--;
                 canStartCooldown2 = true;
                 cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
 
@@ -132,7 +140,7 @@ public class SkillManager : MonoBehaviour
 
                 OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
                 OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
-                OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsOnInventroy, SkillUI.SlotNumber.SLOT2);
+                OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
                 OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
             }
         }
@@ -142,7 +150,7 @@ public class SkillManager : MonoBehaviour
             if (!skill2.GetComponent<ISkill>().HasFinished())
                 skill2.GetComponent<ISkill>().UpdateSkill();
 
-            if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && BalloonBox.balloonsOnInventroy > 0)
+            if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
             {
                 if (cooldownSkill2 >= 0f)
                 {
@@ -160,11 +168,12 @@ public class SkillManager : MonoBehaviour
                     OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
                 }
             }
-            else if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && BalloonBox.balloonsOnInventroy == 0)
+            else if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && BalloonBox.balloonsInInventory == 0)
             {
                 canStartCooldown2 = false;
                 OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
                 OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
+                OnSlotDisable?.Invoke();
 
                 //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
                 //skill1.Color = blalblalba;
@@ -215,7 +224,7 @@ public class SkillManager : MonoBehaviour
             //numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
             OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
             OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
-            OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsOnInventroy, SkillUI.SlotNumber.SLOT2);
+            OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
         }
         else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
         {
