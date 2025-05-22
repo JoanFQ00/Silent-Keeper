@@ -5,7 +5,7 @@ public class PresurePlate : MonoBehaviour
 {
     [SerializeField] bool keepActivated = false, desactivatorPlate = false, isBigPlate = false, onlyBox = false;
     [SerializeField] LayerMask playerLayer, enemyLayer, boxLayer;
-    [SerializeField] Sprite normalPlate, pressedPlate;
+    [SerializeField] Sprite normalPlate, pressedPlate, mediumPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
     [SerializeField] private float boxSnapDuration = 0.3f;
 
@@ -109,6 +109,8 @@ public class PresurePlate : MonoBehaviour
         {
             if (currentPlayers.Count >= 2)
                 ActivatePlate();
+            else if (currentPlayers.Count == 1)
+                MediumPlate();
         }
         else
         {
@@ -139,8 +141,13 @@ public class PresurePlate : MonoBehaviour
 
         if (isBigPlate)
         {
-            if (currentPlayers.Count < 2 && !keepActivated)
-                DeactivatePlate();
+            if (!keepActivated)
+            {
+                if (currentPlayers.Count == 1)
+                    MediumPlate();
+                else if (currentPlayers.Count == 0)
+                    DeactivatePlate();
+            }
         }
         else
         {
@@ -165,6 +172,12 @@ public class PresurePlate : MonoBehaviour
         }
 
         spriteRenderer.sprite = pressedPlate;
+    }
+
+    private void MediumPlate()
+    {
+        interactable.SetKeyActivated(false);
+        spriteRenderer.sprite = mediumPlate;
     }
 
     private void DeactivatePlate()
