@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1631675325
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2065407394, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
+  m_Sprite: {fileID: 8895750906691681896, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,15 +119,20 @@ MonoBehaviour:
   keepActivated: 0
   desactivatorPlate: 0
   isBigPlate: 0
+  onlyBox: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  boxLayer:
+    serializedVersion: 2
+    m_Bits: 0
   normalPlate: {fileID: 2065407394, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   pressedPlate: {fileID: -35232455, guid: 58c7c9697e6830f4283e5cdea17540c4, type: 3}
   presurePlates: []
+  boxSnapDuration: 0.3
 --- !u!61 &2873480521126984717
 BoxCollider2D:
   m_ObjectHideFlags: 0
