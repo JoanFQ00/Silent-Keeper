@@ -1,12 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PopUpManager : MonoBehaviour
 {
     public GameObject[] PopUps;
+    public GameObject TicketPopUp;
+    private HashSet<GameObject> activatedPopUps = new HashSet<GameObject>();
 
     private bool isActivated;
     private float currentActivatedTime;
-    public float maxTime;
+    public float maxTime = 2.5f;
+
+    private int ticketCount;
+
+    public static PopUpManager Instance;
 
     void Start()
     {
@@ -18,6 +25,7 @@ public class PopUpManager : MonoBehaviour
 
     private void Update()
     {
+        CheckTicketPopUp();
         if (isActivated)
         {
             currentActivatedTime += Time.deltaTime;
@@ -35,6 +43,12 @@ public class PopUpManager : MonoBehaviour
 
     public void ActivateThisPopUp(GameObject popUp)
     {
+
+        if (activatedPopUps.Contains(popUp))
+        {
+            return;
+        }
+
         foreach (GameObject go in PopUps)
         {
             go.SetActive(false); 
@@ -43,5 +57,18 @@ public class PopUpManager : MonoBehaviour
         popUp.SetActive(true);
         isActivated = true;
         currentActivatedTime = 0f;
+    }
+
+    private void CheckTicketPopUp() 
+    {
+        if (ticketCount == 3) 
+        {
+            activatedPopUps.Add(TicketPopUp);
+        }
+    }
+
+    public void TicketObtainted() 
+    {
+        ticketCount++;
     }
 }
