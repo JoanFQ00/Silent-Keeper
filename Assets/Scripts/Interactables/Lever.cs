@@ -9,6 +9,10 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     private SpriteRenderer spriteRenderer;
 
     public ParticleSystem particleS;
+    private bool isPlayingParticles = false;
+    private float particleTimer = 0f;
+    private int particlePlayCount = 0;
+    [SerializeField] private float intervalBetweenPlays = 1.0f;
 
     void Start()
     {
@@ -25,6 +29,26 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         }
     }
 
+    void Update()
+    {
+        if (isPlayingParticles)
+        {
+            particleTimer += Time.deltaTime;
+
+            if (particleTimer >= intervalBetweenPlays && particlePlayCount == 1)
+            {
+                particleS.Stop();
+                particleS.Play(); 
+                particlePlayCount++;
+                particleTimer = 0f; 
+            }
+            else if (particlePlayCount >= 2)
+            {
+                isPlayingParticles = false; 
+            }
+        }
+    }
+
     public void Interacted() 
     {
         interactable.SetKeyActivated(!interactable.GetIsActivated());
@@ -38,9 +62,13 @@ public class Lever : MonoBehaviour, IInteractableWithButton
             spriteRenderer.sprite = normalLever;
         }
 
-        if (particleS != null) 
+        if (particleS != null && !isPlayingParticles)
         {
+            isPlayingParticles = true;
+            particlePlayCount = 0;
+            particleTimer = 0f;
             particleS.Play();
+            particlePlayCount++;
         }
     }
 
