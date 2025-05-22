@@ -13,11 +13,13 @@ public class SkillUI : MonoBehaviour
 
     public SlotNumber currentSlot;
     public TextMeshProUGUI cooldownLabel, usesLabel;
-
     public Image normalSkillImageUI, cooldownSkillImageUI;
+    public GameObject children1, children2;
 
     void Start()
     {
+        DisableChildern();
+
         normalSkillImageUI.type = Image.Type.Filled;
         normalSkillImageUI.fillMethod = Image.FillMethod.Radial360;
         normalSkillImageUI.fillOrigin = (int)Image.Origin360.Top;
@@ -34,6 +36,7 @@ public class SkillUI : MonoBehaviour
         SkillManager.OnSlotCooldownUpdated += UploadSlotCooldownUI;
         SkillManager.OnSlotCooldownActivatedUpdated += ActivateCooldownText;
         SkillManager.OnSlotImageColorWhiteUpdated += SetColorImage;
+        SkillManager.OnSlotDisable += DisableChildern;
     }
 
     private void OnDisable()
@@ -43,6 +46,13 @@ public class SkillUI : MonoBehaviour
         SkillManager.OnSlotCooldownUpdated -= UploadSlotCooldownUI;
         SkillManager.OnSlotCooldownActivatedUpdated -= ActivateCooldownText;
         SkillManager.OnSlotImageColorWhiteUpdated -= SetColorImage;
+        SkillManager.OnSlotDisable -= DisableChildern;
+    }
+
+    private void Update()
+    {
+        if (BalloonBox.balloonsInInventory > 0)
+            EnableChidren();
     }
 
     private void UploadSlotImageUI(Sprite image, GameObject skill, float cooldown, SlotNumber slot)
@@ -79,7 +89,13 @@ public class SkillUI : MonoBehaviour
     private void UploadSlotUsesUI(uint numSkillUses, SlotNumber slot)
     {
         if (currentSlot == slot)
-            usesLabel.text = numSkillUses.ToString();
+        {
+            if (BalloonBox.balloonsInInventory == 3)
+                usesLabel.text = "*FULL*";
+            else
+                usesLabel.text = numSkillUses.ToString();
+
+        }
     }
 
     private void UploadSlotCooldownUI(float cooldown, SlotNumber slot)
@@ -103,5 +119,17 @@ public class SkillUI : MonoBehaviour
                 normalSkillImageUI.color = Color.white;
             else
                 normalSkillImageUI.color = Color.yellow; //Se puede poner un shader :)
+    }
+
+    private void EnableChidren()
+    {
+        children1.SetActive(true);
+        children2.SetActive(true);
+    }
+
+    private void DisableChildern()
+    {
+        children1.SetActive(false);
+        children2.SetActive(false);
     }
 }

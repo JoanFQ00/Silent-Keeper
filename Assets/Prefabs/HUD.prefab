@@ -276,6 +276,8 @@ MonoBehaviour:
   usesLabel: {fileID: 544462039544720402}
   normalSkillImageUI: {fileID: 4115973909952811996}
   cooldownSkillImageUI: {fileID: 1481068357106890743}
+  children1: {fileID: 3241673601895842756}
+  children2: {fileID: 5604582814172277066}
 --- !u!1 &1292982449039122478
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -7312082916499642495, guid: 410fbb6d8a6b53c4fb35d9703b0f7b59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2043,7 +2045,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -3136489377965365103, guid: 266fceca812886f49b80b9df0d703d5c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2512,8 +2514,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3539992575
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.8235294}
+    rgba: 2650800127
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6156863}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

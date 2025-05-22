@@ -1,35 +1,43 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class BalloonBox : MonoBehaviour, IInteractableWithButton
 {
     public LayerMask interactableLayer;
 
-    private static uint boxBaloonAmount, maxAmount;
+    private static uint boxBalloonAmount;
+    private const uint maxBalloonPerBox = 3;
+    private const uint maxBalloonsInInventory = 3;
 
-    public static uint balloonsOnInventroy;
+    public static uint balloonsInInventory = 0;
 
-    public static Action OnBallonUsed;
+    public static Action OnBalloonUsed;
+
+    private bool initialized = false;
 
     private void Start()
     {
-        balloonsOnInventroy = 0;
-        maxAmount = 3;
-        boxBaloonAmount = maxAmount;
-    }
-
-    public static void AddBallon()
-    {
-        if (boxBaloonAmount < maxAmount)
-            boxBaloonAmount += 1;
-    }
-
-    public void Interacted() 
-    {
-        if (boxBaloonAmount > 0)
+        // Solo inicializa globos en la caja, no en el inventario global
+        if (!initialized)
         {
-            balloonsOnInventroy += 1;
-            boxBaloonAmount -= 1;
+            boxBalloonAmount = maxBalloonPerBox;
+            initialized = true;
+        }
+    }
+
+    public static void AddBalloon()
+    {
+        if (boxBalloonAmount < maxBalloonPerBox)
+            boxBalloonAmount += 1;
+    }
+
+    public void Interacted()
+    {
+        if (boxBalloonAmount > 0 && balloonsInInventory < maxBalloonsInInventory)
+        {
+            balloonsInInventory += 1;
+            boxBalloonAmount -= 1;
+            SkillManager.Instance.OnBalloonTaked();
         }
     }
 

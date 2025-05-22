@@ -35,7 +35,7 @@ public class BalloonBehaviour : MonoBehaviour
     public void OnEndAnim() 
     {
         transform.parent.gameObject.GetComponentInParent<Ballooned>().bloonTime = 0f;
-        BalloonBox.AddBallon();
+        BalloonBox.AddBalloon();
         OnHasFinished?.Invoke();
     }
 }
