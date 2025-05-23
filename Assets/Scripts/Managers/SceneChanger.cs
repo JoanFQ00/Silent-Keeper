@@ -63,7 +63,8 @@ public class SceneChanger : MonoBehaviour
 
     public void NextZone()
     {
-        SceneManager.LoadScene(level2);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     public void LoadEnd()
