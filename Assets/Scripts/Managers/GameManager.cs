@@ -64,19 +64,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isCounting && !stopCounting && !IntroRoomsManager.Instance.roomInAnimation)
-        {
-            remainingTime -= Time.deltaTime * timerSpeedMultiplier;
+        //if (isCounting && !stopCounting && !IntroRoomsManager.Instance.roomInAnimation)
+        //{
+        //    remainingTime -= Time.deltaTime * timerSpeedMultiplier;
 
-            if (remainingTime <= 0f)
-            {
-                remainingTime = 0f;
-                isCounting = false;
-                SceneChanger.instance.RestartZone();
-            }
+        //    if (remainingTime <= 0f)
+        //    {
+        //        remainingTime = 0f;
+        //        isCounting = false;
+        //        SceneChanger.instance.RestartZone();
+        //    }
 
-            RefreshText();
-        }
+        //    RefreshText();
+        //}
 
         if (!CameraFollow.Instance.CheckPlayersInCam())
         {
@@ -136,12 +136,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RefreshText()
-    {
-        int minutos = Mathf.FloorToInt(remainingTime / 60f);
-        int segundos = Mathf.FloorToInt(remainingTime % 60f);
-        OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
-    }
+    //private void RefreshText()
+    //{
+    //    int minutos = Mathf.FloorToInt(remainingTime / 60f);
+    //    int segundos = Mathf.FloorToInt(remainingTime % 60f);
+    //    OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
+    //}
 
     //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
     public void SpawnPlayers()

@@ -33,7 +33,7 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 lastPosition = _other.transform.position;
                 _other.transform.position = this.transform.position;
                 originalColor = _other.GetComponent<SpriteRenderer>().color;
-                _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+                _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
 
                 if (_other.gameObject.tag == "Kid")
                     _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.HiddenInLocker);
