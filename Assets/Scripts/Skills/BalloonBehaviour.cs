@@ -20,7 +20,7 @@ public class BalloonBehaviour : MonoBehaviour
     {
         if (!hasTimeFinished)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") || (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.GetComponent<Collider2D>().isTrigger == false) 
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")
                 || collision.gameObject.layer == LayerMask.NameToLayer("Diana") || collision.gameObject.layer == LayerMask.NameToLayer("Interactable") ||collision.gameObject.tag == "LockerTag")
             {
                 if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
