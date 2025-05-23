@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
             if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
             {
-                kid.GetComponentInChildren<Camera>().orthographicSize = 4.0f;
+                //kid.GetComponentInChildren<Camera>().orthographicSize = 7.0f;
 
                 monsterObjectTexture.GetComponent<Camera>().enabled = false;
                 kidObjectTexture.GetComponent<Camera>().enabled = true;
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
             }
             else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
             {
-                monster.GetComponentInChildren<Camera>().orthographicSize = 4.0f;
+                //monster.GetComponentInChildren<Camera>().orthographicSize = 7.0f;
 
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
             }
             else if (TransitionCamAnimation.Instance.playersInTransition)
             {
-                monster.GetComponentInChildren<Camera>().orthographicSize = 10.0f;
+                //monster.GetComponentInChildren<Camera>().orthographicSize = 10.0f;
 
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;

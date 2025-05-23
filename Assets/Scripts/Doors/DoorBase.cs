@@ -443,8 +443,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             Vector3 tpOffset = CalculateDynamicOffset(player.transform) * 2f;
             Vector3 destination = teleportDestination.transform.position + tpOffset;
 
-            player.transform.position = destination;
-            kid.transform.position = destination;
+            player.transform.position = destination + Vector3.left * 0.5f;
+            kid.transform.position = destination + Vector3.right * 0.5f;
 
             foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
             {
