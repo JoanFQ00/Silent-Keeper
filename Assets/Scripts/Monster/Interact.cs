@@ -7,6 +7,10 @@ public class Interact : MonoBehaviour
     [SerializeField] SpriteRenderer iconSR;
     [SerializeField] Sprite icon;
 
+    [Header("Interaction Sound")]
+    [SerializeField] private AudioSource interactAudio;
+    [SerializeField][Range(0f, 1f)] private float interactVolume = 1f;
+
     public LayerMask detectionLayer;
 
     //private float scrollCooldown = 0.3f;
@@ -35,7 +39,10 @@ public class Interact : MonoBehaviour
         //}
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player" && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
+        {
+            PlayInteractionSound();
             Interacting(gameObject.tag);
+        }
 
         //if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
         //{
@@ -206,6 +213,15 @@ public class Interact : MonoBehaviour
     //}
 
     //public float GetInteractRadius() { return interacRadius; }
+
+    private void PlayInteractionSound()
+    {
+        if (interactAudio != null)
+        {
+            interactAudio.volume = interactVolume;
+            interactAudio.Play();
+        }
+    }
 
     private void OnDrawGizmos()
     {
