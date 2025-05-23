@@ -128,7 +128,7 @@ public class SkillManager : MonoBehaviour
         //if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
         //GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
 
-        if (skill2 != null && Input.GetMouseButtonDown(0) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
+        if (skill2 != null && Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
             if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
             {
