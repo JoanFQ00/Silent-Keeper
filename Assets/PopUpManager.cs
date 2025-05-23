@@ -43,7 +43,6 @@ public class PopUpManager : MonoBehaviour
 
     public void ActivateThisPopUp(GameObject popUp)
     {
-
         if (activatedPopUps.Contains(popUp))
         {
             return;
@@ -53,7 +52,6 @@ public class PopUpManager : MonoBehaviour
         {
             go.SetActive(false); 
         }
-
         popUp.SetActive(true);
         isActivated = true;
         currentActivatedTime = 0f;
