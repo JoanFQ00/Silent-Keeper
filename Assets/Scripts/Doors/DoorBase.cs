@@ -64,6 +64,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
+        foreach (var light in GetComponentsInChildren<Light2D>())
+            light.enabled = false;
+
+        if (fireParticle1 != null && fireParticle2 != null)
+        {
+            fireParticle1.SetActive(false);
+            fireParticle2.SetActive(false);
+        }
+
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
         {
