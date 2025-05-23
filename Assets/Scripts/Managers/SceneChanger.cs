@@ -5,7 +5,7 @@ public class SceneChanger : MonoBehaviour
 {
     public static SceneChanger instance;
 
-    private const string titleSceneName = "MainMenu", level1 = "School", level2 = "Circus",level3 = "", endingSceneName = "Ending";
+    private const string titleSceneName = "MainMenu", level1 = "School", level2 = "Circus",level3 = "Void", endingSceneName = "Ending";
     private void Awake()
     {
         if (instance == null)

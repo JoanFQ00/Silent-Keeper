@@ -11,7 +11,7 @@ public class DynamicButt : MonoBehaviour
 
     private Button button;
     private Slider audioSlider;
-    private GameObject optionsPanel, controlsPanel;
+    private GameObject optionsPanel;
     private GameObject buttonPanel;
     private GameObject pausePanel;
 
@@ -29,10 +29,6 @@ public class DynamicButt : MonoBehaviour
         if (optionsPanel == null && FindInCanvasByName("OptionsPanel")) 
         {
             optionsPanel = FindInCanvasByName("OptionsPanel");
-        }
-        if (controlsPanel == null && FindInCanvasByName("ControlsPanel"))
-        {
-            controlsPanel = FindInCanvasByName("ControlsPanel");
         }
         if (buttonPanel == null && FindInCanvasByName("ButtonPanel")) 
         {
@@ -95,12 +91,10 @@ public class DynamicButt : MonoBehaviour
                 buttonPanel.SetActive(false);
                 break;
             case "ControlsButt":
-                controlsPanel.SetActive(true);
                 buttonPanel.SetActive(false);
                 break;
             case "BackButt":
                 optionsPanel.SetActive(false);
-                controlsPanel.SetActive(false);
                 buttonPanel.SetActive(true);
                 break;
             case "UnpauseButt":
@@ -118,7 +112,7 @@ public class DynamicButt : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("This Button does nothing");
+                //Debug.Log("This Button does nothing");
                 break;
         }
     }

@@ -18,8 +18,8 @@ public class LevelManager : MonoBehaviour
 
     private void InitButtons() 
     {
-        int l_LevelsUnlocked=PlayerPrefs.GetInt("Levels", 0);
-        Debug.Log("l_LevelsUnlocked "+l_LevelsUnlocked);
+        int l_LevelsUnlocked=PlayerPrefs.GetInt("Levels", 3);
+        //Debug.Log("l_LevelsUnlocked "+l_LevelsUnlocked);
         for (int i = 0; i <levelButt.Length; i++ ) 
         {
             levelButt[i].interactable=i<=l_LevelsUnlocked;
@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
     public void UnlockLevel(int nextLevel) 
     {
         PlayerPrefs.SetInt("Levels", nextLevel);
-        Debug.Log(PlayerPrefs.GetInt("Levels"));
+        //Debug.Log(PlayerPrefs.GetInt("Levels"));
     }
 
     public void ResetLevels() 
