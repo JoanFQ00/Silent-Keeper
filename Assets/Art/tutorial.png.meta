@@ -298,13 +298,13 @@ TextureImporter:
       name: tutorial_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 288
-        width: 251
-        height: 224
+        x: 17
+        y: 303
+        width: 203
+        height: 147
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 64}
       customData: 
       outline: []
       physicsShape: []
@@ -320,10 +320,10 @@ TextureImporter:
       name: tutorial_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 305
-        width: 256
-        height: 207
+        x: 264
+        y: 297
+        width: 80
+        height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: tutorial_2
       rect:
         serializedVersion: 2
-        x: 111
-        y: 167
-        width: 317
-        height: 73
+        x: 123
+        y: 179
+        width: 194
+        height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -364,10 +364,10 @@ TextureImporter:
       name: tutorial_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 164
-        width: 106
-        height: 100
+        x: 94
+        y: 174
+        width: 5
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,10 +386,10 @@ TextureImporter:
       name: tutorial_4
       rect:
         serializedVersion: 2
-        x: 5
-        y: 54
-        width: 507
-        height: 98
+        x: 17
+        y: 58
+        width: 103
+        height: 95
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,6 +400,50 @@ TextureImporter:
       bones: []
       spriteID: de7cbc6ca617c86489393395af6a37f2
       internalID: 1029420137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tutorial_5
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 249
+        width: 85
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1fdd970ed895514a8884b219d8fc69c
+      internalID: -1009741724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tutorial_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 187
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dc2d66d343deb24c9875f0836820033
+      internalID: -637843993
       vertices: []
       indices: 
       edges: []
@@ -423,6 +467,8 @@ TextureImporter:
       tutorial_2: 1135244644
       tutorial_3: 291908026
       tutorial_4: 1029420137
+      tutorial_5: -1009741724
+      tutorial_6: -637843993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
