@@ -428,7 +428,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             else
             {
                 GameManager.Instance.StopCounting();
-                //LLEVAR AL FINAL DEL JUEGO
+                SceneChanger.instance.LoadMenu();
             }
         }
     }
