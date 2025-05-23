@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class IntroRoomsManager : MonoBehaviour
     [HideInInspector]
     public bool roomInAnimation;
 
+    public static Action OnAnimationStarted, OnAnimationDisable;
+
     public static IntroRoomsManager Instance;
 
     private void Awake()
@@ -23,9 +26,16 @@ public class IntroRoomsManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && roomInAnimation)
+            OnAnimationFinished();
+    }
+
     private void Start()
     {
         anim = GetComponent<Animation>();
+        anim.enabled = true;
 
         foreach (AnimationClip clip in animationNames)
         {
@@ -60,6 +70,9 @@ public class IntroRoomsManager : MonoBehaviour
         if (hasBeenAnimated)
             return;
 
+        OnAnimationStarted?.Invoke();
+        anim.enabled = true;
+
         roomsAnimations[animationToPlay.name] = true;
         roomInAnimation = true;
 
@@ -76,5 +89,8 @@ public class IntroRoomsManager : MonoBehaviour
         camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
         cam.SetActive(false);
+
+        anim.enabled = false;
+        OnAnimationDisable?.Invoke();
     }
 }
