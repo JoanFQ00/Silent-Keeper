@@ -7,7 +7,7 @@ public class IntroRoomsManager : MonoBehaviour
     [SerializeField] private GameObject cam, canvas, camTransitionParticles;
 
     private AnimationClip animationToPlay;
-    private Dictionary<AnimationClip, bool> roomsAnimations = new Dictionary<AnimationClip, bool>();
+    private Dictionary<string, bool> roomsAnimations = new Dictionary<string, bool>();
     private Animation anim;
 
     [HideInInspector]
@@ -28,7 +28,10 @@ public class IntroRoomsManager : MonoBehaviour
         anim = GetComponent<Animation>();
 
         foreach (AnimationClip clip in animationNames)
-            roomsAnimations[clip] = false;
+        {
+            if (clip != null && !roomsAnimations.ContainsKey(clip.name))
+                roomsAnimations[clip.name] = false;
+        }
 
         roomInAnimation = false;
 
@@ -39,29 +42,34 @@ public class IntroRoomsManager : MonoBehaviour
 
     public void SetAnimToPlay(AnimationClip roomClip)
     {
+        if (roomClip == null)
+            return;
+
         animationToPlay = roomClip;
     }
 
     public void StartRoomAnim()
     {
-            bool hasBeenAnimated = false;
-        if (roomsAnimations.TryGetValue(animationToPlay, out bool isActive))
-            hasBeenAnimated = isActive;
+        if (animationToPlay == null || anim == null || animationNames.Length == 0)
+        {
+            Debug.LogWarning("StartRoomAnim cancelado por valores nulos.");
+            return;
+        }
 
-        if (anim == null || animationNames.Length == 0 || hasBeenAnimated || animationToPlay == null)
+        bool hasBeenAnimated = roomsAnimations.TryGetValue(animationToPlay.name, out bool isActive) && isActive;
+        if (hasBeenAnimated)
             return;
 
-        roomsAnimations[animationToPlay] = true;
+        roomsAnimations[animationToPlay.name] = true;
         roomInAnimation = true;
 
         camTransitionParticles.SetActive(false);
         canvas.SetActive(true);
         cam.SetActive(true);
+
         anim.Play(animationToPlay.name);
     }
 
-
-    //AL ACABAR ANIMACIÓN, QUE LLAME A ESTA NUEVA FUNCIÓN (LA USAREMOS PARA CONGELAR EL MOVIMIENTO DE LOS PLAYERS, ENEMIGOS, HABILIDADES, INTERACCIÓN, TIEMPO)
     public void OnAnimationFinished()
     {
         roomInAnimation = false;
