@@ -54,6 +54,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         RightLeft
     }
 
+    private Vector2 colliderCenter;
+
     private IEnumerator Start()
     {
         stopProcessing = true;
@@ -65,11 +67,16 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
         {
+            colliderCenter = (Vector2)transform.position + collider.offset;
+
             float scaleFactor = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
             detectionRadius = collider.radius * scaleFactor;
         }
         else
+        {
+            colliderCenter = (Vector2)transform.position;
             detectionRadius = 1.0f;
+        }
 
         if (doorBaseSO != null)
             spriteRenderer.sprite = doorBaseSO.doorImage;
@@ -159,7 +166,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private void Update()
     {
         int playerLayerMask = 1 << LayerMask.NameToLayer("Players");
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayerMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(colliderCenter, detectionRadius, playerLayerMask);
 
         if (colliders.Length > 0)
         {
@@ -368,12 +375,12 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
         foreach (var light in GetComponentsInChildren<Light2D>())
-            light.enabled = false;
+            light.enabled = true;
 
         if (fireParticle1 != null && fireParticle2 != null)
         {
-            fireParticle1.SetActive(false);
-            fireParticle2.SetActive(false);
+            fireParticle1.SetActive(true);
+            fireParticle2.SetActive(true);
         }
     }
 
@@ -398,12 +405,12 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
         foreach (var light in GetComponentsInChildren<Light2D>())
-            light.enabled = true;
+            light.enabled = false;
 
         if (fireParticle1 != null && fireParticle2 != null)
         {
-            fireParticle1.SetActive(true);
-            fireParticle2.SetActive(true);
+            fireParticle1.SetActive(false);
+            fireParticle2.SetActive(false);
         }
     }
 
@@ -512,7 +519,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(colliderCenter, detectionRadius);
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }
