@@ -9,7 +9,11 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private Toggle toggle;
     public TMP_Dropdown dropdown;
     Resolution[] resolutions;
-    List<string> options;
+    private List<Resolution> filtredRes;
+    private List<string> options;
+
+    private RefreshRate currentRefreshRate;
+    private int currentResolutionIdx;
 
     void Awake()
     {
@@ -68,24 +72,35 @@ public class ScreenManager : MonoBehaviour
     public void CheckResolution()
     {
         resolutions = Screen.resolutions;
+        filtredRes = new List<Resolution>();
+
         dropdown.ClearOptions();
-        options = new List<string>();
-        int currentRes = 0;
+        currentRefreshRate = Screen.currentResolution.refreshRateRatio;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height + " : " + resolutions[i].refreshRateRatio;
-            options.Add(option);
-
-            if (Screen.fullScreen && (resolutions[i].width == Screen.currentResolution.width) &&
-                (resolutions[i].height == Screen.currentResolution.height))
+            if (resolutions[i].refreshRateRatio.numerator == currentRefreshRate.numerator &&
+                resolutions[i].refreshRateRatio.denominator == currentRefreshRate.denominator)
             {
-                currentRes = i;
+                filtredRes.Add(resolutions[i]);
             }
         }
 
+        options = new List<string>();
+        for (int i = 0; i < filtredRes.Count; i++) 
+        {
+            string option = filtredRes[i].width + "x" + filtredRes[i].height + " " + filtredRes[i].refreshRateRatio;
+            options.Add(option);
+
+            if (filtredRes[i].width == Screen.width && filtredRes[i].height == Screen.height) 
+            {
+                currentResolutionIdx = i;
+            }
+        }
+
+
         dropdown.AddOptions(options);
-        dropdown.value = currentRes;
+        dropdown.value = currentResolutionIdx;
         dropdown.RefreshShownValue();
 
         dropdown.value = PlayerPrefs.GetInt("numRes", 0);
