@@ -132,11 +132,11 @@ MonoBehaviour:
   m_AlphaCutoff: 0.1
   m_ApplyToSortingLayers: 9fb35904439cbe9ea1ac8265439cbe9e75d52599f33200b0695a142d1d53f218
   m_ShapePath:
-  - {x: -0.40288725, y: -0.47441486, z: 0}
-  - {x: -0.40288723, y: 0.4999969, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: 0.45838043, y: -0.47441465, z: 0}
-  m_ShapePathHash: 671125761
+  - {x: -0.94376993, y: -2.086285, z: 0}
+  - {x: -0.9394427, y: 1.4500399, z: 0}
+  - {x: 0.9327064, y: 1.4607173, z: 0}
+  - {x: 0.9300302, y: -2.0649357, z: 0}
+  m_ShapePathHash: 993379805
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 0}
   m_ShadowShape2DProvider:
@@ -145,8 +145,8 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0.048556358, y: 0.0127925575, z: 0}
-      m_Extent: {x: 0.4514436, y: 0.4872074, z: 0}
+      m_Center: {x: -0.005531788, y: -0.31278396, z: 0}
+      m_Extent: {x: 0.93823814, y: 1.7735012, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.05
     m_FlipX: 0
@@ -186,6 +186,14 @@ PrefabInstance:
       propertyPath: doorBaseSO
       value: 
       objectReference: {fileID: 11400000, guid: db6d95237ae24fd4597cbb7ed2af5de2, type: 2}
+    - target: {fileID: 1825320173968104267, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: fireParticle1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825320173968104267, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: fireParticle2
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2279477883836756397, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_ShadowMesh.m_InitialTrim
       value: 0

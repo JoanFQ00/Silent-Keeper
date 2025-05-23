@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 1456804186540912955}
   - component: {fileID: 6150842534432364101}
   - component: {fileID: 7419308925605269668}
-  - component: {fileID: 2957690791744579840}
   m_Layer: 16
   m_Name: Diana
   m_TagString: Untagged
@@ -287,20 +286,3 @@ MonoBehaviour:
   onlyOneTime: 0
   elements:
   - {fileID: 0}
---- !u!111 &2957690791744579840
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6668986963634408525}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 98a371408ca77f94a91b9a7ddb1941d9, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 98a371408ca77f94a91b9a7ddb1941d9, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0

@@ -20,7 +20,7 @@ public class TriggerActivator : MonoBehaviour
     {
         if (hasToAvivateObjects)
         {
-            if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon")))
+            if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon") && GetComponent<TriggerActivator>().enabled))
                 foreach (GameObject element in elements)
                     element.SetActive(true);
 
@@ -28,7 +28,7 @@ public class TriggerActivator : MonoBehaviour
         }
         else
         {
-            if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon")))
+            if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon") && GetComponent<TriggerActivator>().enabled))
                 foreach (GameObject element in elements)
                     element.SetActive(false);
 
