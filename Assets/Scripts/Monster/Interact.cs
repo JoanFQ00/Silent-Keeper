@@ -8,7 +8,6 @@ public class Interact : MonoBehaviour
     [SerializeField] Sprite icon;
 
     public LayerMask detectionLayer;
-    [SerializeField] private AudioSource interactAudio;
 
     //private float scrollCooldown = 0.3f;
     //private float lastScrollTime = 0f;
@@ -87,9 +86,6 @@ public class Interact : MonoBehaviour
 
     public void Interacting(string playerTag, GameObject objectInteracted = null)
     {
-        if (interactAudio != null)
-            interactAudio.Play();
-
         bool canInteract = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactRadius, detectionLayer);
         Collider2D matchedCollider = null;

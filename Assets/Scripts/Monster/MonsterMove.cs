@@ -8,7 +8,7 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] float deceleration = 5f;
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioSource footstepsAudio;
+    [SerializeField] public AudioSource footstepsAudio;
     [Range(0f, 1f)]
     [SerializeField] private float footstepsVolume = 1f;
 

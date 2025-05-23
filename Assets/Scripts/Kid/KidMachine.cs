@@ -7,8 +7,12 @@ public class KidMachine : MonoBehaviour
     [SerializeField] float defaultSpeed = 1.5f;
     [SerializeField] float followingDistance = 0.7f, distToPlayer = 0.5f;
 
-    [HideInInspector]
-    public int bushCounter = 0;
+    [SerializeField]
+    public AudioSource footstepsAudio;
+    [SerializeField]
+    [Range(0f, 1f)] private float footstepsVolume = 0.5f;
+
+    [HideInInspector] public int bushCounter = 0;
     public Color originalColor;
 
     public enum States { Following, Hand, Waypoints, Stoped, HiddenInLocker, HiddenInBush, NotHiddenInBush }
@@ -25,9 +29,7 @@ public class KidMachine : MonoBehaviour
     private Vector3 initialScale;
     private Transform feetTransform;
 
-    //private bool isTouchingInteractable = false;
     public Vector2 LastPosition => lastPosition;
-
 
     void Start()
     {
@@ -50,12 +52,10 @@ public class KidMachine : MonoBehaviour
 
     void Update()
     {
-        // if (GameManager.Instance != null && GameManager.Instance.isPaused)
-        //     return;
-
         if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
         {
             UpdateAnimator(Vector2.zero);
+            StopFootstepAudio();
             return;
         }
 
@@ -64,15 +64,12 @@ public class KidMachine : MonoBehaviour
             case States.Following:
                 HandleFollowingState();
                 break;
-
             case States.Hand:
                 HandleHandState();
                 break;
-
             case States.Waypoints:
                 HandleWaypointsState();
                 break;
-
             case States.Stoped:
                 HandleStoppedState();
                 break;
@@ -86,9 +83,10 @@ public class KidMachine : MonoBehaviour
         Vector2 moveDelta = (Vector2)transform.position - lastPosition;
         if (currentState == States.Stoped || moveDelta.magnitude < 0.001f)
         {
-            moveDelta = Vector2.zero; // Así mantendrá el último `lastNonZeroDir`
+            moveDelta = Vector2.zero;
         }
         UpdateAnimator(moveDelta);
+        HandleFootstepAudio();
 
         lastPosition = transform.position;
     }
@@ -217,21 +215,6 @@ public class KidMachine : MonoBehaviour
 
     private bool IsInteractableWithLocker(Transform from, Transform to)
     {
-        //Vector2 direction = (to.position - from.position).normalized;
-        //float distance = Vector2.Distance(from.position, to.position);
-
-        //RaycastHit2D hit = Physics2D.Raycast(from.position, direction, distance, interactableMask);
-
-        //if (hit.collider != null)
-        //{
-        //    if (hit.collider.GetComponent<Locker>() != null)
-        //    {
-        //        return true;
-        //    }
-        //}
-
-        //return false;
-
         return false;
     }
 
@@ -302,18 +285,35 @@ public class KidMachine : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & interactableMask) != 0)
         {
-            //isTouchingInteractable = true;
             ChangeState(States.Stoped);
             PushBackFromCollision();
         }
     }
 
+    private void HandleFootstepAudio()
+    {
+        bool shouldPlay = (currentState == States.Following || currentState == States.Hand || currentState == States.Waypoints);
+        bool isMoving = Vector2.Distance(transform.position, lastPosition) > 0.005f;
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (((1 << collision.gameObject.layer) & interactableMask) != 0)
-    //    {
-    //        isTouchingInteractable = false;
-    //    }
-    //}
+        if (shouldPlay && isMoving)
+        {
+            if (footstepsAudio != null && !footstepsAudio.isPlaying)
+            {
+                footstepsAudio.volume = footstepsVolume;
+                footstepsAudio.Play();
+            }
+        }
+        else
+        {
+            StopFootstepAudio();
+        }
+    }
+
+    private void StopFootstepAudio()
+    {
+        if (footstepsAudio != null && footstepsAudio.isPlaying)
+        {
+            footstepsAudio.Stop();
+        }
+    }
 }
