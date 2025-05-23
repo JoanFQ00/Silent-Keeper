@@ -22,6 +22,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("")]
     [SerializeField] DoorBaseSO doorBaseSO;
 
+    [Header("Particles")]
+    [SerializeField] GameObject fireParticle1, fireParticle2;
+
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
     private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
     private SpriteRenderer spriteRenderer;
@@ -363,6 +366,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         thisActivated = true;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = false;
+
+        foreach (var light in GetComponentsInChildren<Light2D>())
+            light.enabled = false;
+
+        if (fireParticle1 != null && fireParticle2 != null)
+        {
+            fireParticle1.SetActive(false);
+            fireParticle2.SetActive(false);
+        }
     }
 
     private void CloseDoor()
@@ -384,6 +396,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         thisActivated = false;
 
         if (shadowCaster2D != null) shadowCaster2D.enabled = true;
+
+        foreach (var light in GetComponentsInChildren<Light2D>())
+            light.enabled = true;
+
+        if (fireParticle1 != null && fireParticle2 != null)
+        {
+            fireParticle1.SetActive(true);
+            fireParticle2.SetActive(true);
+        }
     }
 
     public void Interacted()

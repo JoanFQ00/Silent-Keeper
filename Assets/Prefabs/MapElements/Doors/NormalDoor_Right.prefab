@@ -279,6 +279,10 @@ PrefabInstance:
       propertyPath: detectionAxis
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1825320173968104267, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: fireParticle2
+      value: 
+      objectReference: {fileID: 4976474520899035906}
     - target: {fileID: 2961431701417688428, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.267
@@ -438,5 +442,10 @@ PrefabInstance:
 --- !u!4 &4748268722781535084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3944431925458210822, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+  m_PrefabInstance: {fileID: 8599714537389173610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4976474520899035906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3627561518131841128, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
   m_PrefabInstance: {fileID: 8599714537389173610}
   m_PrefabAsset: {fileID: 0}

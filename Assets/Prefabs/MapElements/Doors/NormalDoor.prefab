@@ -529,6 +529,8 @@ MonoBehaviour:
   doorKey: 0
   doorKeyTP: 0
   doorBaseSO: {fileID: 11400000, guid: c0032fc219345434eb7fc5398791a3ff, type: 2}
+  fireParticle1: {fileID: 7517735407664224062}
+  fireParticle2: {fileID: 637676224428682545}
 --- !u!114 &7161166935280246469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,6 +915,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+--- !u!1 &637676224428682545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3627561518131841128, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+  m_PrefabInstance: {fileID: 4219543954865562969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &879252162306979167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3944431925458210822, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
@@ -975,6 +982,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+--- !u!1 &7517735407664224062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3627561518131841128, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+  m_PrefabInstance: {fileID: 6486295614594473814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7835872539358678864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3944431925458210822, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}

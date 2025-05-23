@@ -526,6 +526,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3944431925458210822, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
   m_PrefabInstance: {fileID: 3799980313056027014}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &498652768287762926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3627561518131841128, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+  m_PrefabInstance: {fileID: 3799980313056027014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4693767909231233107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -602,6 +607,14 @@ PrefabInstance:
       propertyPath: doorBaseSO
       value: 
       objectReference: {fileID: 11400000, guid: 05d1aa1a4439e964f8abd9e13839c1d0, type: 2}
+    - target: {fileID: 6067739592937148831, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: fireParticle1
+      value: 
+      objectReference: {fileID: 7076186577541029527}
+    - target: {fileID: 6067739592937148831, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: fireParticle2
+      value: 
+      objectReference: {fileID: 498652768287762926}
     - target: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Name
       value: ZoneDoor_Back
@@ -701,6 +714,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+--- !u!1 &7076186577541029527 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3627561518131841128, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
+  m_PrefabInstance: {fileID: 5792761378860717823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7411071451945355001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3944431925458210822, guid: 721ecd8a782696948bbf465a16c825f2, type: 3}
