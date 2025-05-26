@@ -183,7 +183,7 @@ public class EnemyDetector : TaggedMonobehaviour
     {
         if (_light2D != null)
         {
-            _light2D.color = Color.red;
+            _light2D.color = Color.black;
         }
 
         //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/)
@@ -240,7 +240,7 @@ public class EnemyDetector : TaggedMonobehaviour
         Vector3 leftDir = leftRotation * forward;
         Vector3 rightDir = rightRotation * forward;
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.black;
         Gizmos.DrawLine(origin, origin + leftDir * range);
         Gizmos.DrawLine(origin, origin + rightDir * range);
     }

@@ -172,6 +172,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaticEnemy01 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5492461810880874641, guid: 6221168fb2a9b044c848a37febb2fa69, type: 3}
+      propertyPath: dangerColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492461810880874641, guid: 6221168fb2a9b044c848a37febb2fa69, type: 3}
+      propertyPath: dangerColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492461810880874641, guid: 6221168fb2a9b044c848a37febb2fa69, type: 3}
+      propertyPath: dangerColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492461810880874641, guid: 6221168fb2a9b044c848a37febb2fa69, type: 3}
+      propertyPath: detectionRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6841264127582095900, guid: 6221168fb2a9b044c848a37febb2fa69, type: 3}
       propertyPath: m_Intensity
       value: 13
