@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     private List<KeyBase> collectedKeys;
 
     public static Action KeyHasBeenUsed;
+    public static Action<int> AddKeyUI;
 
     private void OnEnable()
     {
@@ -52,5 +53,6 @@ public class PlayerInventory : MonoBehaviour
 
         keyBase.SetFollowTarget(followTarget);
         collectedKeys.Add(keyBase);
+        AddKeyUI?.Invoke(1);
     }
 }
