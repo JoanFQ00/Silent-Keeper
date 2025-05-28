@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5074025469357780608}
   - component: {fileID: 3602765964391295248}
   - component: {fileID: 9109519176994671822}
+  - component: {fileID: 3517990531669859027}
   m_Layer: 0
   m_Name: RoomArea
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 72987551
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: -20
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -158,3 +159,18 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  roomClip: {fileID: 0}
+--- !u!114 &3517990531669859027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188796982325401063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19d7c59d5c2a9d4685b6c05bfeab915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomDoors: []
+  roomWalls: []

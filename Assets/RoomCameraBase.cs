@@ -42,6 +42,7 @@ public class RoomCameraBase : MonoBehaviour
             }
 
             CameraFollow.Instance.SetRoomCollider(GetComponent<Collider2D>());
+            GetComponent<RoomDoorsAnimManager>().OnEventChanged();
             IntroRoomsManager.Instance.SetAnimToPlay(roomClip);
         }
     }
@@ -69,6 +70,7 @@ public class RoomCameraBase : MonoBehaviour
     private void OnKidLeverActivated(AnimationClip circusAnim)
     {
         IntroRoomsManager.Instance.SetAnimToPlay(circusAnim);
+        GetComponent<RoomDoorsAnimManager>().OnEventChanged();
         IntroRoomsManager.Instance.StartRoomAnim();
     }
 }

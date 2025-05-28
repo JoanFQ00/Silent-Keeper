@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -64,14 +65,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        foreach (var light in GetComponentsInChildren<Light2D>())
-            light.enabled = false;
-
-        if (fireParticle1 != null && fireParticle2 != null)
-        {
-            fireParticle1.SetActive(false);
-            fireParticle2.SetActive(false);
-        }
+        OnDoorChanged(false);
 
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
@@ -381,16 +375,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer.sprite = doorBaseSO.openDoorImage;
         thisActivated = true;
 
-        if (shadowCaster2D != null) shadowCaster2D.enabled = false;
-
-        foreach (var light in GetComponentsInChildren<Light2D>())
-            light.enabled = true;
-
-        if (fireParticle1 != null && fireParticle2 != null)
-        {
-            fireParticle1.SetActive(true);
-            fireParticle2.SetActive(true);
-        }
+        OnDoorChanged(true);
     }
 
     private void CloseDoor()
@@ -411,16 +396,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer.sprite = doorBaseSO.doorImage;
         thisActivated = false;
 
-        if (shadowCaster2D != null) shadowCaster2D.enabled = true;
-
-        foreach (var light in GetComponentsInChildren<Light2D>())
-            light.enabled = false;
-
-        if (fireParticle1 != null && fireParticle2 != null)
-        {
-            fireParticle1.SetActive(false);
-            fireParticle2.SetActive(false);
-        }
+        OnDoorChanged(false);
     }
 
     public void Interacted()
@@ -529,6 +505,20 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(colliderCenter, detectionRadius);
+    }
+
+    public void OnDoorChanged(bool active)
+    {
+        if (shadowCaster2D != null) shadowCaster2D.enabled = !active;
+
+        foreach (var light in GetComponentsInChildren<Light2D>())
+            light.enabled = active;
+
+        if (fireParticle1 != null && fireParticle2 != null)
+        {
+            fireParticle1.SetActive(active);
+            fireParticle2.SetActive(active);
+        }
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }

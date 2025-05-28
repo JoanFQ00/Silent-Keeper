@@ -9,6 +9,8 @@ public class IntroRoomsManager : MonoBehaviour
 
     private AnimationClip animationToPlay;
     private Dictionary<string, bool> roomsAnimations = new Dictionary<string, bool>();
+    private List<DoorBase> doorsList = new List<DoorBase>();
+    private List<DoorBase> wallList = new List<DoorBase>();
     private Animation anim;
 
     [HideInInspector]
@@ -92,5 +94,29 @@ public class IntroRoomsManager : MonoBehaviour
 
         anim.enabled = false;
         OnAnimationDisable?.Invoke();
+    }
+
+    public void OnDoorOpened()
+    {
+        foreach (DoorBase door in doorsList)
+            door.OnDoorChanged(true);
+
+        foreach (DoorBase wall in wallList)
+            wall.OnDoorChanged(true);
+    }
+
+    public void OnDoorClosed()
+    {
+        foreach (DoorBase wall in wallList)
+            wall.OnDoorChanged(false);
+
+        foreach (DoorBase door in doorsList)
+            door.OnDoorChanged(false);
+    }
+
+    public void OnListUpdated(List<DoorBase> newDoorList, List<DoorBase> newWallList)
+    {
+        doorsList = newDoorList;
+        wallList = newWallList;
     }
 }
