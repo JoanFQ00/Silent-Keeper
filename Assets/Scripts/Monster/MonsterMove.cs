@@ -24,6 +24,9 @@ public class MonsterMove : MonoBehaviour
     private Vector3 initialScale;
     public ParticleSystem[] particleS;
 
+    public Animator tabPanelAn;
+    private bool tabActivated;
+
     public static Action<string> OnChangeTxt;
 
     void Start()
@@ -38,6 +41,9 @@ public class MonsterMove : MonoBehaviour
         initialScale = transform.localScale;
         currentSpeed = defaultSpeed;
         monsterState = KidMachine.States.Stoped;
+
+        tabActivated = false;
+        tabPanelAn = GameObject.Find("ItemTab").GetComponent<Animator>();
 
         if (footstepsAudio != null)
         {
@@ -159,6 +165,20 @@ public class MonsterMove : MonoBehaviour
     private void OnEscapeButt()
     {
         GameManager.Instance.Pause();
+    }
+
+    private void OnOpenCloseTab()
+    {
+        if (tabActivated)
+        {
+            tabActivated = !tabActivated;
+            tabPanelAn.SetTrigger("UpAn");
+        }
+        else
+        {
+            tabActivated = true;
+            tabPanelAn.SetTrigger("DownAn");
+        } 
     }
 
     public void SetSpeed(float _speed)
