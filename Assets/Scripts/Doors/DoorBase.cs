@@ -507,6 +507,14 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         Gizmos.DrawWireSphere(colliderCenter, detectionRadius);
     }
 
+    public void OnDoorChangedAnim(bool active)
+    {
+        if (active)
+            OpenDoor();
+        else
+            CloseDoor();
+    }
+
     public void OnDoorChanged(bool active)
     {
         if (shadowCaster2D != null) shadowCaster2D.enabled = !active;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class IntroRoomsManager : MonoBehaviour
 {
@@ -96,27 +97,26 @@ public class IntroRoomsManager : MonoBehaviour
         OnAnimationDisable?.Invoke();
     }
 
+    int openCounter = 0, closeDoor = 0;
+
     public void OnDoorOpened()
     {
-        foreach (DoorBase door in doorsList)
-            door.OnDoorChanged(true);
-
-        foreach (DoorBase wall in wallList)
-            wall.OnDoorChanged(true);
+        doorsList[closeDoor].OnDoorChangedAnim(true);
+        closeDoor++;
     }
 
     public void OnDoorClosed()
     {
-        foreach (DoorBase wall in wallList)
-            wall.OnDoorChanged(false);
-
-        foreach (DoorBase door in doorsList)
-            door.OnDoorChanged(false);
+        doorsList[closeDoor].OnDoorChangedAnim(false);
+        closeDoor++;
     }
 
     public void OnListUpdated(List<DoorBase> newDoorList, List<DoorBase> newWallList)
     {
         doorsList = newDoorList;
         wallList = newWallList;
+
+        openCounter = 0; 
+        closeDoor = 0;
     }
 }
