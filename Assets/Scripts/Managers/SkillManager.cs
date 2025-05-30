@@ -135,38 +135,40 @@ public class SkillManager : MonoBehaviour
 
         if (skill2 != null)
         {
-            if (Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
+            if (!GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
             {
-                if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    isAimingBalloon = true;
-                    arrowRenderer.enabled = true;
+                    if (!isAimingBalloon && skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+                    {
+                        isAimingBalloon = true;
+                        arrowRenderer.enabled = true;
+                    }
+                    else if (isAimingBalloon)
+                    {
+                        arrowRenderer.enabled = false;
+                        isAimingBalloon = false;
+
+                        if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+                        {
+                            BalloonBox.balloonsInInventory--;
+                            canStartCooldown2 = true;
+                            cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+
+                            skill2.GetComponent<ISkill>().Execute(player);
+
+                            OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+                            OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
+                            OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
+                            OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+                        }
+                    }
                 }
             }
 
             if (Input.GetKey(KeyCode.Q) && isAimingBalloon)
             {
                 AimArrow();
-            }
-
-            if (Input.GetKeyUp(KeyCode.Q) && isAimingBalloon)
-            {
-                arrowRenderer.enabled = false;
-                isAimingBalloon = false;
-
-                if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
-                {
-                    BalloonBox.balloonsInInventory--;
-                    canStartCooldown2 = true;
-                    cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
-
-                    skill2.GetComponent<ISkill>().Execute(player);
-
-                    OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
-                    OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
-                    OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
-                    OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
-                }
             }
         }
 
