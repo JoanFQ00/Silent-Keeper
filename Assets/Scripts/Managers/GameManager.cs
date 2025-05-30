@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,19 +5,28 @@ using static HeadHUD;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Player References")]
     [SerializeField] GameObject monster, kid;
     [SerializeField] GameObject finalPanel, pausePanel;
 
+    [Header("Minimap & Cameras")]
     [SerializeField] private GameObject miniMapUI, monsterObjectTexture, kidObjectTexture;
     [SerializeField] private RenderTexture monsterTexture, kidTexture;
 
+    [Header("Timer")]
     [SerializeField] float remainingTime = 120f;
     [SerializeField] private GameObject mapSpawn;
 
+    [Header("Music")]
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioClip zone1Music;
+    [SerializeField] public AudioClip zone2Music;
+    [SerializeField] public AudioClip zone3Music;
+    [SerializeField, Range(0f, 1f)] public float musicVolume = 0.5f;
+
     public bool isPaused;
 
-    [HideInInspector]
-    public float timerSpeedMultiplier = 1f;
+    [HideInInspector] public float timerSpeedMultiplier = 1f;
 
     private float initialTime;
     private bool isCounting = true, stopCounting = false;
@@ -32,6 +40,18 @@ public class GameManager : MonoBehaviour
         ZONE_1 = 0,
         ZONE_2,
         ZONE_3
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -48,60 +68,30 @@ public class GameManager : MonoBehaviour
         SpawnPlayers();
 
         initialTime = remainingTime;
+
+        PlayMusicForCurrentScene();
     }
 
-    private void Awake()
+    private void Update()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void Update()
-    {
-        //if (isCounting && !stopCounting && !IntroRoomsManager.Instance.roomInAnimation)
-        //{
-        //    remainingTime -= Time.deltaTime * timerSpeedMultiplier;
-
-        //    if (remainingTime <= 0f)
-        //    {
-        //        remainingTime = 0f;
-        //        isCounting = false;
-        //        SceneChanger.instance.RestartZone();
-        //    }
-
-        //    RefreshText();
-        //}
-
         if (!CameraFollow.Instance.CheckPlayersInCam())
         {
             miniMapUI.SetActive(true);
 
             if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
             {
-                //kid.GetComponentInChildren<Camera>().orthographicSize = 7.0f;
-
                 monsterObjectTexture.GetComponent<Camera>().enabled = false;
                 kidObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
             }
             else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
             {
-                //monster.GetComponentInChildren<Camera>().orthographicSize = 7.0f;
-
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
             }
             else if (TransitionCamAnimation.Instance.playersInTransition)
             {
-                //monster.GetComponentInChildren<Camera>().orthographicSize = 10.0f;
-
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
@@ -121,7 +111,6 @@ public class GameManager : MonoBehaviour
                     CameraFollow.Instance.ChangeTarget(kid.transform);
                     HeadHUD.Instance.OnFocusChanged(FocusTarget.Player2);
                 }
-
                 else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
                 {
                     CameraFollow.Instance.ChangeTarget(monster.transform);
@@ -136,49 +125,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private void RefreshText()
-    //{
-    //    int minutos = Mathf.FloorToInt(remainingTime / 60f);
-    //    int segundos = Mathf.FloorToInt(remainingTime % 60f);
-    //    OnTimerUpdating?.Invoke($"{minutos:00}:{segundos:00}");
-    //}
-
-    //SPAWNEAR AL CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
-    public void SpawnPlayers()
+    private void PlayMusicForCurrentScene()
     {
-        Vector3 spawnPoint = mapSpawn.transform.position;
-
-        float offset = 1.5f;
+        AudioClip selectedClip = null;
 
         switch (currentZone)
         {
-            case Zone.ZONE_1:
-                monster.transform.position = spawnPoint + Vector3.left * offset;
-                kid.transform.position = spawnPoint + Vector3.right * offset;
-                break;
+            case Zone.ZONE_1: selectedClip = zone1Music; break;
+            case Zone.ZONE_2: selectedClip = zone2Music; break;
+            case Zone.ZONE_3: selectedClip = zone3Music; break;
+        }
 
-            case Zone.ZONE_2:
-                monster.transform.position = spawnPoint + Vector3.left * offset;
-                kid.transform.position = spawnPoint + Vector3.right * offset;
-                break;
-
-            case Zone.ZONE_3:
-                monster.transform.position = spawnPoint + Vector3.left * offset;
-                kid.transform.position = spawnPoint + Vector3.right * offset;
-                break;
-
-            default:
-                break;
+        if (selectedClip != null)
+        {
+            musicSource.clip = selectedClip;
+            musicSource.volume = musicVolume;
+            musicSource.loop = true;
+            musicSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("No music clip assigned for the current zone.");
         }
     }
 
-    //CAMBIAR DE ZONA AL ENTRAR A LA M QUINA EXPRENDEDORA
+    public void SpawnPlayers()
+    {
+        Vector3 spawnPoint = mapSpawn.transform.position;
+        float offset = 1.5f;
+
+        monster.transform.position = spawnPoint + Vector3.left * offset;
+        kid.transform.position = spawnPoint + Vector3.right * offset;
+    }
+
     public void ChageZoneState(Zone newZone)
     {
         currentZone = newZone;
     }
 
-    // til para m quina exprendedora
     public void ActiveFinalPanel()
     {
         monster.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
@@ -194,12 +178,12 @@ public class GameManager : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f;
-            AudioListener.pause = true;
+            musicSource.Pause();
         }
         else
         {
             Time.timeScale = 1f;
-            AudioListener.pause = false;
+            musicSource.UnPause();
         }
     }
 

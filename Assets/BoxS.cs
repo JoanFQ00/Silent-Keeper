@@ -6,13 +6,11 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private Vector2 moveDirection = Vector2.zero;
     private bool isMoving = false;
 
-    private InteractableBase interactable;
-    private SpriteRenderer spriteRenderer;
     private GameObject player;
-
     private Rigidbody2D rb;
 
-    [SerializeField] private float pushBackDistance = 0.2f;
+    [SerializeField] private float stopTime = 0.2f; // Tiempo que se mueve la caja antes de detenerse
+    private float moveTimer;
 
     void Start()
     {
@@ -24,7 +22,14 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     {
         if (isMoving)
         {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            moveTimer -= Time.deltaTime;
+            rb.linearVelocity = moveDirection * moveSpeed;
+
+            if (moveTimer <= 0f)
+            {
+                rb.linearVelocity = Vector2.zero;
+                isMoving = false;
+            }
         }
     }
 
@@ -42,21 +47,17 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
         }
 
         isMoving = true;
+        moveTimer = stopTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isMoving = false;
-
-        PushBackFromCollision();
-    }
-
-    private void PushBackFromCollision()
-    {
-        if (moveDirection == Vector2.zero) return;
-
-        Vector3 pushDir = -((Vector3)moveDirection).normalized;
-        transform.position += pushDir * pushBackDistance;
+        // Si choca antes de terminar el tiempo, detenerse
+        if (isMoving)
+        {
+            rb.linearVelocity = Vector2.zero;
+            isMoving = false;
+        }
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }
