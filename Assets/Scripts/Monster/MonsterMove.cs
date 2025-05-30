@@ -42,7 +42,7 @@ public class MonsterMove : MonoBehaviour
         monsterState = KidMachine.States.Stoped;
 
         tabActivated = false;
-        tabPanelAn = GameObject.Find("ItemTab").GetComponent<Animator>();
+        tabPanelAn = GameObject.Find("ItemTab")?.GetComponent<Animator>();
 
         if (footstepsAudio != null)
         {

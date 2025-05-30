@@ -65,8 +65,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        OnDoorChanged(false);
-
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
         {
@@ -100,6 +98,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     if (child != null)
                         child.gameObject.SetActive(false);
                 }
+
+                OpenDoor();
             }
         }
         else
@@ -118,6 +118,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     if (child != null)
                         child.gameObject.SetActive(true);
                 }
+
+                CloseDoor();
             }
         }
 

@@ -13,6 +13,7 @@ public class IntroRoomsManager : MonoBehaviour
     private List<DoorBase> doorsList = new List<DoorBase>();
     private List<DoorBase> wallList = new List<DoorBase>();
     private Animation anim;
+    private int openCounter = 0, closeDoor = 0;
 
     [HideInInspector]
     public bool roomInAnimation;
@@ -47,6 +48,9 @@ public class IntroRoomsManager : MonoBehaviour
         }
 
         roomInAnimation = false;
+
+        openCounter = 0;
+        closeDoor = 0;
 
         camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
@@ -97,18 +101,31 @@ public class IntroRoomsManager : MonoBehaviour
         OnAnimationDisable?.Invoke();
     }
 
-    int openCounter = 0, closeDoor = 0;
-
+    //PONER WALLS TMB
     public void OnDoorOpened()
     {
-        doorsList[closeDoor].OnDoorChangedAnim(true);
-        closeDoor++;
+        Debug.Log(doorsList[closeDoor]);
+
+        if (doorsList.Count > 0)
+            doorsList[closeDoor].OnDoorChangedAnim(true);
+
+        if (wallList.Count > 0)
+            wallList[closeDoor].OnDoorChangedAnim(true);
+
+        if (doorsList.Count > 0 || wallList.Count > 0)
+            openCounter++;
     }
 
     public void OnDoorClosed()
     {
-        doorsList[closeDoor].OnDoorChangedAnim(false);
-        closeDoor++;
+        if (doorsList.Count > 0)
+            doorsList[closeDoor].OnDoorChangedAnim(false);
+
+        if (wallList.Count > 0)
+            wallList[closeDoor].OnDoorChangedAnim(false);
+
+        if (doorsList.Count > 0 || wallList.Count > 0)
+            closeDoor++;
     }
 
     public void OnListUpdated(List<DoorBase> newDoorList, List<DoorBase> newWallList)
