@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
     public static SceneChanger instance;
+    public static Action ChangePan;
 
-    private const string titleSceneName = "MainMenu", level1 = "School", level2 = "Circus",level3 = "Void", endingSceneName = "Ending";
+    private const string titleSceneName = "MainMenu", level1 = "School", level2 = "Circus", level3 = "Void", endingSceneName = "Ending";
     private void Awake()
     {
         if (instance == null)
@@ -18,6 +20,7 @@ public class SceneChanger : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
     private void Update()
     {
         if (Input.GetKey(KeyCode.M))
@@ -46,7 +49,7 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(level1);
     }
-    public void LoadLevel2() 
+    public void LoadLevel2()
     {
         SceneManager.LoadScene(level2);
     }
