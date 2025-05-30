@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1743163979335500363}
   - component: {fileID: 3346111845479902906}
   - component: {fileID: 2873480521126984717}
+  - component: {fileID: -7867405872136597461}
   m_Layer: 0
   m_Name: PresurePlate
   m_TagString: Untagged
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1631675325
-  m_SortingLayer: -3
+  m_SortingLayerID: -1342164237
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: 8895750906691681896, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,7 +173,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.58, y: 0.38}
+    oldSize: {x: 0.64, y: 0.5}
     newSize: {x: 0.58, y: 0.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -180,3 +181,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.66211104, y: 0.36154693}
   m_EdgeRadius: 0
+--- !u!114 &-7867405872136597461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932736544825833318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1

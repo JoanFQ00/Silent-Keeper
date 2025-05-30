@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1938791985434820501, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+      propertyPath: m_IsStatic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3734211512318302671, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
       propertyPath: isAuto
       value: 1
@@ -64,9 +68,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8473038604510884215, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473038604510884215, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1342164237
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3784241922750324052, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6558704660992575453, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2689041855215842411}
   m_SourcePrefab: {fileID: 100100000, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+--- !u!1 &8027526523558525032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6558704660992575453, guid: c6dab17ad5fb9f8418a0513240936401, type: 3}
+  m_PrefabInstance: {fileID: 3774777301138554805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2689041855215842411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027526523558525032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 0

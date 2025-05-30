@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 183799060100383436, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1342164237
+      objectReference: {fileID: 0}
     - target: {fileID: 2280860465152382412, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -68,6 +72,10 @@ PrefabInstance:
       propertyPath: doorBaseSO
       value: 
       objectReference: {fileID: 11400000, guid: 2196d89bd536758448cde57169c19e11, type: 2}
+    - target: {fileID: 6206623588409224191, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: m_IsStatic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Name
       value: FinalDoor_Front
@@ -91,5 +99,26 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 740468480747814226}
   m_SourcePrefab: {fileID: 100100000, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+--- !u!1 &8796555799110252299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+  m_PrefabInstance: {fileID: 1962173884844294407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &740468480747814226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8796555799110252299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 0

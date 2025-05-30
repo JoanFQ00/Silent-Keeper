@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3602765964391295248}
   - component: {fileID: 9109519176994671822}
   - component: {fileID: 3517990531669859027}
+  - component: {fileID: -1640919932429615337}
   m_Layer: 0
   m_Name: RoomArea
   m_TagString: Untagged
@@ -174,3 +175,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomDoors: []
   roomWalls: []
+--- !u!114 &-1640919932429615337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188796982325401063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1

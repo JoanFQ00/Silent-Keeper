@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class MonsterMove : MonoBehaviour
 {
     [SerializeField] float defaultSpeed = 2f;

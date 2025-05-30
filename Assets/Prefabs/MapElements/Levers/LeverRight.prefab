@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 286156554823060565}
   - component: {fileID: 6207957690670033469}
   - component: {fileID: 7365682893392439940}
+  - component: {fileID: 9121710917482864458}
   m_Layer: 6
   m_Name: LeverRight
   m_TagString: Untagged
@@ -119,6 +120,9 @@ MonoBehaviour:
   normalLever: {fileID: 377066775369585455, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   leverActivated: {fileID: -3056818551533618486, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   onlyKid: 0
+  particleS: {fileID: 0}
+  intervalBetweenPlays: 1
+  circusAnim: {fileID: 0}
 --- !u!61 &7365682893392439940
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,3 +169,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.37541416, y: 0.58360946}
   m_EdgeRadius: 0
+--- !u!114 &9121710917482864458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322013738312802034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1
