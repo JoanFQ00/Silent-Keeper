@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4949457623229103431}
   - component: {fileID: 5087392241631811728}
   - component: {fileID: 7455012625777708688}
+  - component: {fileID: -1846665084479582225}
   m_Layer: 3
   m_Name: Kid
   m_TagString: Kid
@@ -195,6 +196,8 @@ MonoBehaviour:
   interactRadius: 1
   iconSR: {fileID: 0}
   icon: {fileID: 0}
+  interactAudio: {fileID: 0}
+  interactVolume: 1
   detectionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -232,6 +235,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1846665084479582225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224667614594267334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 0
 --- !u!1 &1001745218378002051
 GameObject:
   m_ObjectHideFlags: 0

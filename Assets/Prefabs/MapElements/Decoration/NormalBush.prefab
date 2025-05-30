@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2655796664990494086}
   - component: {fileID: 3401778165724218400}
   - component: {fileID: 1931548307000517361}
+  - component: {fileID: -3691004338862513870}
   m_Layer: 0
   m_Name: NormalBush
   m_TagString: Untagged
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 756308585
-  m_SortingLayer: 5
+  m_SortingLayerID: -1342164237
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1506610117, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,3 +151,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6177139, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &-3691004338862513870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085313522931217981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1

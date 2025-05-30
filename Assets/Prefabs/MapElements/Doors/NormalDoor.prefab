@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 1825320173968104267}
   - component: {fileID: 7161166935280246469}
   - component: {fileID: 3310821607828655106}
+  - component: {fileID: -7259101931080015573}
   m_Layer: 6
   m_Name: NormalDoor
   m_TagString: Untagged
@@ -448,8 +449,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1725573771
-  m_SortingLayer: 1
+  m_SortingLayerID: -1342164237
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8417523182997867850, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   m_Color: {r: 0.62352943, g: 0.6117647, b: 0.5686275, a: 1}
@@ -620,6 +621,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.2}
   m_Radius: 1.22
+--- !u!114 &-7259101931080015573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190950008040045784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1
 --- !u!1 &7358259563528621180
 GameObject:
   m_ObjectHideFlags: 0

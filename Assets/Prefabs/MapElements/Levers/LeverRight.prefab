@@ -119,6 +119,9 @@ MonoBehaviour:
   normalLever: {fileID: 377066775369585455, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   leverActivated: {fileID: -3056818551533618486, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
   onlyKid: 0
+  particleS: {fileID: 0}
+  intervalBetweenPlays: 1
+  circusAnim: {fileID: 0}
 --- !u!61 &7365682893392439940
 BoxCollider2D:
   m_ObjectHideFlags: 0

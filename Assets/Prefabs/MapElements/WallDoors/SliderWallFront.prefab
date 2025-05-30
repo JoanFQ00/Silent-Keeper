@@ -212,11 +212,11 @@ PrefabInstance:
       objectReference: {fileID: -1835627395857340141, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
     - target: {fileID: 5759217998346520600, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5759217998346520600, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_SortingLayerID
-      value: 418534173
+      value: -1342164237
       objectReference: {fileID: 0}
     - target: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalScale.x
@@ -306,10 +306,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1125274246466288351}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3190950008040045784, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7910370516318747204}
   m_SourcePrefab: {fileID: 100100000, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
 --- !u!4 &4233115499466168759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
   m_PrefabInstance: {fileID: 7527789421315016367}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4913599509632481911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3190950008040045784, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+  m_PrefabInstance: {fileID: 7527789421315016367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7910370516318747204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913599509632481911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1

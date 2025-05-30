@@ -26,7 +26,7 @@ public class CharacterSortingHandler : MonoBehaviour
         float kidY = kid.position.y;
         float monsterY = monster.position.y;
 
-        if (kidY < monsterY)
+        /*if (kidY < monsterY)
         {
             kidRenderer.sortingOrder = sortingBase + 1;
             monsterRenderer.sortingOrder = sortingBase;
@@ -35,6 +35,6 @@ public class CharacterSortingHandler : MonoBehaviour
         {
             kidRenderer.sortingOrder = sortingBase;
             monsterRenderer.sortingOrder = sortingBase + 1;
-        }
+        }*/
     }
 }

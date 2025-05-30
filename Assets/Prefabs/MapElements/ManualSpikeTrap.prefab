@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3734211512318302671}
   - component: {fileID: 3784241922750324052}
   - component: {fileID: 5900721900461294910}
+  - component: {fileID: -1938791985434820501}
   m_Layer: 0
   m_Name: ManualSpikeTrap
   m_TagString: Untagged
@@ -132,6 +133,8 @@ MonoBehaviour:
   doorKey: 0
   doorKeyTP: 0
   doorBaseSO: {fileID: 0}
+  fireParticle1: {fileID: 0}
+  fireParticle2: {fileID: 0}
 --- !u!61 &5900721900461294910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -178,3 +181,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.42096668, y: 0.19397783}
   m_EdgeRadius: 0
+--- !u!114 &-1938791985434820501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6558704660992575453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1
