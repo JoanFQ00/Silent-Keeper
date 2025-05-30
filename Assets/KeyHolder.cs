@@ -9,7 +9,7 @@ public class KeyHolder : MonoBehaviour
 {
     public GameObject keyText;
     private int keys;
-    public Image keyIm1, keyIm2;
+    public Image keyIm1, keyIm2, ciIm, rcIm, usIm;
     public Color blueColor = new Color(30f / 255f, 54f / 255f, 1f, 1f);
     public Color orangeColor = new Color(1f, 98f / 255f, 0f, 1f);
     public GameObject schoolPan;
@@ -83,8 +83,17 @@ public class KeyHolder : MonoBehaviour
             case KeyBase.KeyType.orange:
                 keyIm2.color = orangeColor;
                 break;
-            case KeyBase.KeyType.circus:
+            case KeyBase.KeyType.ci:
                 keys += amount;
+                ciIm.color = Color.white;
+                break;
+            case KeyBase.KeyType.rc:
+                keys += amount;
+                rcIm.color = Color.white;
+                break;
+             case KeyBase.KeyType.us:
+                keys += amount;
+                usIm.color = Color.white;
                 break;
         }
     }

@@ -9,7 +9,7 @@ public class KeyBase : MonoBehaviour
     private InteractableBase interactable;
     private bool hasBeenUsed;
 
-    public enum KeyType {blue, orange, circus }
+    public enum KeyType {blue, orange, ci,rc,us }
     public KeyType keyType;
 
     private void OnEnable()
