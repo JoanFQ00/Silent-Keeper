@@ -84,7 +84,7 @@ public class KeyHolder : MonoBehaviour
                 keyIm2.color = orangeColor;
                 break;
             case KeyBase.KeyType.circus:
-                keys += keys;
+                keys += amount;
                 break;
         }
     }
