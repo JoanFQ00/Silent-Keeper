@@ -9,6 +9,9 @@ public class KeyBase : MonoBehaviour
     private InteractableBase interactable;
     private bool hasBeenUsed;
 
+    public enum KeyType {blue, orange, circus }
+    public KeyType keyType;
+
     private void OnEnable()
     {
         PlayerInventory.KeyHasBeenUsed += HandleKeyUsed;
