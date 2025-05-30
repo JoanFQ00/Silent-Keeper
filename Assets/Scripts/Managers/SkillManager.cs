@@ -25,6 +25,11 @@ public class SkillManager : MonoBehaviour
     public static Action<string> OnSlotTextUpdated;
     public static Action OnSlotDisable;
 
+    [SerializeField] private SpriteRenderer arrowRenderer;
+    [SerializeField] private float arrowDistance = 1f;
+
+    private bool isAimingBalloon = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -128,20 +133,40 @@ public class SkillManager : MonoBehaviour
         //if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
         //GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
 
-        if (skill2 != null && Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
+        if (skill2 != null)
         {
-            if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+            if (Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
             {
-                BalloonBox.balloonsInInventory--;
-                canStartCooldown2 = true;
-                cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+                if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+                {
+                    isAimingBalloon = true;
+                    arrowRenderer.enabled = true;
+                }
+            }
 
-                skill2.GetComponent<ISkill>().Execute(player);
+            if (Input.GetKey(KeyCode.Q) && isAimingBalloon)
+            {
+                AimArrow();
+            }
 
-                OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
-                OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
-                OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
-                OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+            if (Input.GetKeyUp(KeyCode.Q) && isAimingBalloon)
+            {
+                arrowRenderer.enabled = false;
+                isAimingBalloon = false;
+
+                if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
+                {
+                    BalloonBox.balloonsInInventory--;
+                    canStartCooldown2 = true;
+                    cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+
+                    skill2.GetComponent<ISkill>().Execute(player);
+
+                    OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+                    OnSlotCooldownUpdated?.Invoke(cooldownSkill2, SkillUI.SlotNumber.SLOT2);
+                    OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
+                    OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT2);
+                }
             }
         }
 
@@ -180,32 +205,12 @@ public class SkillManager : MonoBehaviour
             }
         }
 
-        //if (skill2 != null)
-        //{
-        //    if (!skill2.GetComponent<ISkill>().HasFinished())
-        //        skill2.GetComponent<ISkill>().UpdateSkill();
-
-        //    if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && numUsesSkill2 > 1)
-        //    {
-        //        //OnSlotCooldownUpdated?.Invoke(cooldownSkill2);
-
-        //        if (cooldownSkill2 >= 0f) cooldownSkill2 -= Time.deltaTime;
-        //        else canStartCooldown2 = false;
-        //    }
-        //    else if (skill2.GetComponent<ISkill>().HasFinished() && canStartCooldown2 && numUsesSkill2 == 0)
-        //    {
-        //        canStartCooldown2 = false;
-
-        //        //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
-        //        //skill2.Color = blalblalba;
-        //    }
-        //}
-
         //if (passiveSkill != null) //if (passiveSkill != null && Input.GetKeyDown(KeyCode.P))
         //{
         //    passiveSkill.GetComponent<ISkill>().Execute(player);
         //}
     }
+
 
     // Método para ser llamado desde la máquina exprendedora
     public void AssignSkillToSlot(GameObject skill, int slot)
@@ -316,5 +321,16 @@ public class SkillManager : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+
+    private void AimArrow()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 aimDirection = (mousePos - (Vector2)player.transform.position).normalized;
+
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        arrowRenderer.transform.position = (Vector2)player.transform.position + aimDirection * arrowDistance;
+        arrowRenderer.transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 }
