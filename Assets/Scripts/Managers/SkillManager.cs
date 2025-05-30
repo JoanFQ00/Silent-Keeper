@@ -63,6 +63,8 @@ public class SkillManager : MonoBehaviour
         AssignSkillToSlot(allSkills[0], 1);
         AssignSkillToSlot(allSkills[1], 2);
         AssignSkillToSlot(allSkills[2], 3);
+
+        arrowRenderer.enabled = false;
     }
 
     public void OnBalloonTaked()
@@ -135,10 +137,15 @@ public class SkillManager : MonoBehaviour
 
         if (skill2 != null)
         {
+            if (arrowRenderer == true)
+            {
+                AimArrow();
+            }
             if (!GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
+
                     if (!isAimingBalloon && skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
                     {
                         isAimingBalloon = true;
@@ -164,11 +171,6 @@ public class SkillManager : MonoBehaviour
                         }
                     }
                 }
-            }
-
-            if (Input.GetKey(KeyCode.Q) && isAimingBalloon)
-            {
-                AimArrow();
             }
         }
 

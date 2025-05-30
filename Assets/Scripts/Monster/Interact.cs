@@ -170,11 +170,11 @@ public class Interact : MonoBehaviour
                     }
                 }
             }
-            else if (matchedCollider.GetComponent<BoxS>() != null)
+            else if (matchedCollider.GetComponent<BoxBehaviour>() != null)
             {
                 if (gameObject.tag == "Player")
                 {
-                    matchedCollider.GetComponent<BoxS>().Interacted();
+                    matchedCollider.GetComponent<BoxBehaviour>().Interacted();
                 }
             }
             else if (matchedCollider.GetComponent<TorchBase>() != null)
