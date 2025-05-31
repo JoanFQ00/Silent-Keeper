@@ -9,16 +9,6 @@ public class RoomCameraBase : MonoBehaviour
 
     private bool playerHasEntered;
 
-    private void OnEnable()
-    {
-        Lever.OnKidLeverActivated += OnKidLeverActivated;
-    }
-
-    private void OnDisable()
-    {
-        Lever.OnKidLeverActivated -= OnKidLeverActivated;
-    }
-
     private void Start()
     {
         playerHasEntered = false;
@@ -65,12 +55,5 @@ public class RoomCameraBase : MonoBehaviour
     private bool IsPlayer(Collider2D col)
     {
         return ((1 << col.gameObject.layer) & playerLayer) != 0;
-    }
-
-    private void OnKidLeverActivated(AnimationClip circusAnim)
-    {
-        IntroRoomsManager.Instance.SetAnimToPlay(circusAnim);
-        GetComponent<RoomDoorsAnimManager>().OnEventChanged();
-        IntroRoomsManager.Instance.StartRoomAnim();
     }
 }

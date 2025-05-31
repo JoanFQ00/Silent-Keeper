@@ -16,8 +16,6 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     [SerializeField] private float intervalBetweenPlays = 1.0f;
     [SerializeField] private AnimationClip circusAnim;
 
-    public static Action<AnimationClip> OnKidLeverActivated;
-
     void Start()
     {
         interactable = GetComponent<InteractableBase>();
@@ -63,7 +61,7 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         if (interactable.GetIsActivated())
         {
             if (onlyKid)
-                OnKidLeverActivated?.Invoke(circusAnim);
+                OnKidLeverActivated(circusAnim);
 
             spriteRenderer.sprite = leverActivated;
         }
@@ -88,6 +86,13 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }
+
+    private void OnKidLeverActivated(AnimationClip circusAnim)
+    {
+        GetComponent<RoomDoorsAnimManager>().OnEventChanged();
+        IntroRoomsManager.Instance.SetAnimToPlay(circusAnim);
+        IntroRoomsManager.Instance.StartRoomAnim();
+    }
 }
 
 /*

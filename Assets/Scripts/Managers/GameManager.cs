@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float timerSpeedMultiplier = 1f;
 
     private float initialTime;
-    private bool isCounting = true, stopCounting = false;
+    //private bool isCounting = true, stopCounting = false;
 
     public static Zone currentZone = Zone.ZONE_1;
     public static GameManager Instance;
@@ -189,12 +189,12 @@ public class GameManager : MonoBehaviour
 
     public void StopCounting()
     {
-        stopCounting = true;
+        //stopCounting = true;
     }
 
     public void RestartTime()
     {
-        stopCounting = false;
+        //stopCounting = false;
         remainingTime = initialTime;
     }
 }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 public class RoomDoorsAnimManager : MonoBehaviour
 {
-    [Header("Doors")]
     public List<DoorBase> roomDoors;
-    
-    [Header("Walls")]
-    public List<DoorBase> roomWalls;
+    private bool onEventExecuted = false;
 
-    //DESDE LA ANIMACIÓN
     public void OnEventChanged()
     {
-        IntroRoomsManager.Instance.OnListUpdated(roomDoors, roomWalls);
+        if (!onEventExecuted)
+        {
+            IntroRoomsManager.Instance.OnListUpdated(roomDoors);
+            onEventExecuted = true;
+        }
     }
 }

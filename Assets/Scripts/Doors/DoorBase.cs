@@ -26,6 +26,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("Particles")]
     [SerializeField] GameObject fireParticle1, fireParticle2;
 
+    [SerializeField] bool hasToBeAnimated;
+
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
     private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
     private SpriteRenderer spriteRenderer;
@@ -98,9 +100,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     if (child != null)
                         child.gameObject.SetActive(false);
                 }
-
-                OpenDoor();
             }
+                OpenDoor();
         }
         else
         {
@@ -118,9 +119,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     if (child != null)
                         child.gameObject.SetActive(true);
                 }
-
-                CloseDoor();
             }
+                CloseDoor();
         }
 
         yield return null;
@@ -277,13 +277,13 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 if (!canDoorBeOpened) break;
             }
 
-            if (canDoorBeOpened && !thisActivated)
+            if (canDoorBeOpened && !thisActivated && !hasToBeAnimated)
                 OpenDoor();
 
             foreach (InteractableBase interactable in totalKeysActivated)
             {
                 if (!interactable.GetIsActivated())
-                    if (thisActivated)
+                    if (thisActivated && !hasToBeAnimated)
                     {
                         CloseDoor();
                         break;
@@ -304,7 +304,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     if (canDoorBeOpened) break;
                 }
 
-                if (canDoorBeOpened && !thisActivated)
+                if (canDoorBeOpened && !thisActivated && !hasToBeAnimated)
                     OpenDoor();
 
                 foreach (InteractableBase interactable in totalKeysActivated)
@@ -316,7 +316,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     }
                 }
 
-                if (canDoorBeClosed && thisActivated)
+                if (canDoorBeClosed && thisActivated && !hasToBeAnimated)
                     CloseDoor();
             }
             else //CADA CAMBIO CAMBIA SU ESTADO
@@ -342,9 +342,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 {
                     if (numChanges % 2 == 1)
                     {
-                        if (thisActivated)
+                        if (thisActivated && !hasToBeAnimated)
                             CloseDoor();
-                        else
+                        else if (!hasToBeAnimated)
                             OpenDoor();
                     }
 
@@ -529,6 +529,11 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             fireParticle1.SetActive(active);
             fireParticle2.SetActive(active);
         }
+    }
+
+    public void SetKeepActivated(bool activate)
+    {
+        keepActivated = activate;
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }

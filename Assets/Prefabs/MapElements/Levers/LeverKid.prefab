@@ -4914,6 +4914,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1886022155954099191}
     - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
+      propertyPath: circusAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: 70e2a0e6605b2474583e0747b464d27f, type: 2}
+    - target: {fileID: 6207957690670033469, guid: e200bf60d2ad6474e9e0543c6efd6ee3, type: 3}
       propertyPath: normalLever
       value: 
       objectReference: {fileID: -5742248762285509559, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
@@ -4978,4 +4982,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsStatic: 0
+  m_IsStatic: 1
