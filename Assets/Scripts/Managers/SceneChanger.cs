@@ -48,15 +48,18 @@ public class SceneChanger : MonoBehaviour
     public void LoadGame()
     {
         SceneManager.LoadScene(level1);
+        GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_1);
     }
     public void LoadLevel2()
     {
         SceneManager.LoadScene(level2);
+        GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_2);
     }
 
     public void LoadLevel3() 
     {
         SceneManager.LoadScene(level3);
+        GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_3);
     }
 
     public void RestartZone()
@@ -68,6 +71,13 @@ public class SceneChanger : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+
+        int currentIndex = (int)GameManager.currentZone;
+        if (currentIndex < Enum.GetValues(typeof(GameManager.Zone)).Length - 1)
+        {
+            GameManager.Zone nextZone = (GameManager.Zone)(currentIndex + 1);
+            GameManager.Instance.ChageZoneState(nextZone);
+        }
     }
 
     public void LoadEnd()

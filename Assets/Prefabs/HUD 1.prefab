@@ -1206,9 +1206,9 @@ MonoBehaviour:
   keyText: {fileID: 1570222798740266802}
   keyIm1: {fileID: 1300578000715977696}
   keyIm2: {fileID: 8673537019612718437}
-  CiIm: {fileID: 2997654353722395362}
-  RcIm: {fileID: 8288648142896632701}
-  UsIm: {fileID: 6572826679218081749}
+  ciIm: {fileID: 2997654353722395362}
+  rcIm: {fileID: 8288648142896632701}
+  usIm: {fileID: 6572826679218081749}
   blueColor: {r: 0.11764706, g: 0.21176471, b: 1, a: 1}
   orangeColor: {r: 1, g: 0.38431373, b: 0, a: 1}
   schoolPan: {fileID: 3425965987774856527}
@@ -1232,7 +1232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2154931594360283544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3528,7 +3528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7309432707530430116
 RectTransform:
   m_ObjectHideFlags: 0
