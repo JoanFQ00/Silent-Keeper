@@ -138,8 +138,5 @@ public class IntroRoomsManager : MonoBehaviour
         openDoorCounter = 0; 
         closeDoor = 0;
         allDoorsClosed = false;
-
-        foreach (var door in doorsList)
-            Debug.Log(door);
     }
 }
