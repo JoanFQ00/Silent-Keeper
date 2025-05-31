@@ -11,9 +11,9 @@ public class IntroRoomsManager : MonoBehaviour
     private AnimationClip animationToPlay;
     private Dictionary<string, bool> roomsAnimations = new Dictionary<string, bool>();
     private List<DoorBase> doorsList = new List<DoorBase>();
-    private List<DoorBase> wallList = new List<DoorBase>();
+    private List<GameObject> otherObjects = new List<GameObject>();
     private Animation anim;
-    private int openDoorCounter = 0, openWallCounter = 0, closeDoor = 0, closeWallCounter = 0;
+    private int openDoorCounter = 0, enableObjectCouneter = 0, closeDoor = 0, disableObjectCouneter = 0;
     private bool allDoorsClosed = true;
 
     [HideInInspector]
@@ -132,11 +132,34 @@ public class IntroRoomsManager : MonoBehaviour
         }
     }
 
-    public void OnListUpdated(List<DoorBase> newDoorList)
+    public void EnableObject()
+    {
+        if (otherObjects.Count > 0 && otherObjects.Count > enableObjectCouneter)
+        {
+            otherObjects[enableObjectCouneter].SetActive(true);
+            otherObjects[enableObjectCouneter].SetActive(true);
+            enableObjectCouneter++;
+        }
+    }
+
+    public void DisableObject()
+    {
+        if (otherObjects.Count > 0 && otherObjects.Count > disableObjectCouneter)
+        {
+            otherObjects[disableObjectCouneter].SetActive(false);
+            otherObjects[disableObjectCouneter].SetActive(false);
+            disableObjectCouneter++;
+        }
+    }
+
+    public void OnListUpdated(List<DoorBase> newDoorList, List<GameObject> otherObj)
     {
         doorsList = newDoorList;
+        otherObjects = otherObj;
         openDoorCounter = 0; 
         closeDoor = 0;
+        enableObjectCouneter = 0;
+        disableObjectCouneter = 0;
         allDoorsClosed = false;
     }
 }

@@ -37,6 +37,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private bool areTwoPlayersOnDoor, stopProcessing = true;
     private float detectionRadius;
     private DoorBase doorTP;
+    private Animator animator;
 
     public static Action RefreshPlayerInventory, OnZoneEnded;
     public static Action<int, Transform> OnStartCamTransition;
@@ -66,6 +67,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         shadowCaster2D = GetComponentInChildren<ShadowCaster2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
 
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
@@ -374,7 +376,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
-        spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        //spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        if (animator != null)
+            animator.SetTrigger("Open");
+
         thisActivated = true;
 
         OnDoorChanged(true);
@@ -395,7 +400,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
         }
 
-        spriteRenderer.sprite = doorBaseSO.doorImage;
+        //spriteRenderer.sprite = doorBaseSO.doorImage;
+        if (animator != null)
+            animator.SetTrigger("Close");
+
         thisActivated = false;
 
         OnDoorChanged(false);
