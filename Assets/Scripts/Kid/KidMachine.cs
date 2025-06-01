@@ -275,7 +275,7 @@ public class KidMachine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, followingDistance);
     }
 
-    private void PushBackFromCollision(float pushDistance = 0.3f)
+    private void PushBackFromCollision(float pushDistance = 0.2f)
     {
         Vector3 pushDir = -((Vector3)lastNonZeroDir).normalized;
         transform.position += pushDir * pushDistance;
@@ -283,10 +283,20 @@ public class KidMachine : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (((1 << collision.gameObject.layer) & interactableMask) != 0)
+        int layer = collision.gameObject.layer;
+
+        if (((1 << layer) & interactableMask) != 0)
         {
             ChangeState(States.Stoped);
             PushBackFromCollision();
+        }
+        else if (((1 << layer) & wallMask) != 0)
+        {
+            if (currentState != States.Stoped)
+            {
+                ChangeState(States.Stoped);
+                PushBackFromCollision(0.1f);
+            }
         }
     }
 
