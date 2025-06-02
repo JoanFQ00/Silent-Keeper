@@ -198,6 +198,7 @@ public class TransitionCamAnimation : MonoBehaviour
         playersInTransition = false;
 
         monsterMove.ZeroMoveDir();
+        monsterMove.FreezeAnimation();
 
         rayImg.texture = whiteCircle;
         ResetAnimationIndex();
