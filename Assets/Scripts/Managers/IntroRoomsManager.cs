@@ -15,7 +15,7 @@ public class IntroRoomsManager : MonoBehaviour
     private List<DoorBase> doorsList = new List<DoorBase>();
     private List<GameObject> otherObjects = new List<GameObject>();
     private Animation anim;
-    private int openDoorCounter = 0, objectCouneter = 0, closeDoor = 0;
+    private int doorCounter = 0, objectCouneter = 0;
     private bool allDoorsClosed = true;
 
     [HideInInspector]
@@ -46,9 +46,7 @@ public class IntroRoomsManager : MonoBehaviour
 
         roomInAnimation = false;
 
-        openDoorCounter = 0;
-        closeDoor = 0;
-
+        doorCounter = 0;
         camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
         cam.SetActive(false);
@@ -127,31 +125,21 @@ public class IntroRoomsManager : MonoBehaviour
 
     public void OnDoorOpened()
     {
-        if (doorsList.Count > 0 && doorsList.Count > openDoorCounter)
+        if (doorsList.Count > 0 && doorsList.Count > doorCounter)
         {
-            doorsList[openDoorCounter].OnDoorChangedAnim(true);
-            doorsList[openDoorCounter].SetKeepActivated(true);
-            openDoorCounter++;
+            doorsList[doorCounter].OnDoorChangedAnim(true);
+            doorsList[doorCounter].SetKeepActivated(true);
+            doorCounter++;
         }
     }
 
     public void OnDoorClosed()
     {
-        if (!allDoorsClosed && doorsList.Count > 0 && doorsList.Count > closeDoor)
-            foreach (var door in doorsList)
-            {
-                doorsList[closeDoor].OnDoorChangedAnim(false);
-                doorsList[closeDoor].SetKeepActivated(false);
-                closeDoor++;
-
-                if (doorsList.Count >= closeDoor)
-                    allDoorsClosed = false;
-            }
-        else if (doorsList.Count > 0)
+        if (doorsList.Count > 0 && doorsList.Count > doorCounter)
         {
-            doorsList[closeDoor].OnDoorChangedAnim(false);
-            doorsList[closeDoor].SetKeepActivated(false);
-            closeDoor++;
+            doorsList[doorCounter].OnDoorChangedAnim(false);
+            doorsList[doorCounter].SetKeepActivated(false);
+            doorCounter++;
         }
     }
 
@@ -177,8 +165,7 @@ public class IntroRoomsManager : MonoBehaviour
     {
         doorsList = newDoorList;
         otherObjects = otherObj;
-        openDoorCounter = 0; 
-        closeDoor = 0;
+        doorCounter = 0;
         objectCouneter = 0;
         allDoorsClosed = false;
     }
