@@ -56,14 +56,7 @@ public class MonsterMove : MonoBehaviour
         if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
         {
             StopMovement();
-
-            if (playerAnimator != null)
-            {
-                playerAnimator.SetFloat("Horizontal", 0f);
-                playerAnimator.SetFloat("Vertical", 0f);
-                playerAnimator.SetBool("Speed", false);
-            }
-
+            FreezeAnimation();
             StopFootsteps();
 
             return;
@@ -135,7 +128,7 @@ public class MonsterMove : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        if (!GameManager.Instance.isPaused && !TransitionCamAnimation.Instance.playersInTransition)
+        if (!GameManager.Instance.isPaused && !TransitionCamAnimation.Instance.playersInTransition && !IntroRoomsManager.Instance.roomInAnimation)
         {
             moveDir = value.Get<Vector2>();
 
@@ -177,7 +170,7 @@ public class MonsterMove : MonoBehaviour
         {
             tabActivated = true;
             tabPanelAn.SetTrigger("DownAn");
-        } 
+        }
     }
 
     public void SetSpeed(float _speed)
@@ -198,5 +191,14 @@ public class MonsterMove : MonoBehaviour
     public void ZeroMoveDir()
     {
         moveDir = Vector2.zero;
+    }
+    public void FreezeAnimation()
+    {
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("Horizontal", 0f);
+            playerAnimator.SetFloat("Vertical", 0f);
+            playerAnimator.SetBool("Speed", false);
+        }
     }
 }

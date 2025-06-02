@@ -592,7 +592,7 @@ RectTransform:
   m_GameObject: {fileID: 1565833062425434215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2318980174622736370}
@@ -1177,8 +1177,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0746149a0d854444b41c0707bc3fd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIElement: {fileID: 582727771097969067}
   keyText: {fileID: 223211765958968082}
+  keyIm1: {fileID: 0}
+  keyIm2: {fileID: 0}
+  ciIm: {fileID: 0}
+  rcIm: {fileID: 0}
+  usIm: {fileID: 0}
+  blueColor: {r: 0.11764706, g: 0.21176471, b: 1, a: 1}
+  orangeColor: {r: 1, g: 0.38431373, b: 0, a: 1}
+  schoolPan: {fileID: 0}
+  circusPan: {fileID: 0}
+  currrentPanel: 0
+  BalloonControl: {fileID: 0}
 --- !u!1 &3425965987774856527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1475,7 @@ RectTransform:
   m_GameObject: {fileID: 3997121630722699213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 6.5}
-  m_LocalScale: {x: 0.22173283, y: 0.38737166, z: 0.23264623}
+  m_LocalScale: {x: 0.25113457, y: 0.43873712, z: 0.26349512}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7738722655897763139}
@@ -3015,7 +3025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -60, y: -5}
+  m_AnchoredPosition: {x: -37, y: -16.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5794576926461977315
