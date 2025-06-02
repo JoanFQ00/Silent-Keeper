@@ -4,12 +4,18 @@ public class BushBase : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
 
-    private Color hiddenColor;
+    private SpriteRenderer sr;
+    private Color hiddenColor, hiddenBushColor, bushColor;
+    private Animator animator;
 
     private void Start()
     {
-        Color bushColor = GetComponent<SpriteRenderer>().color;
+        sr = GetComponent<SpriteRenderer>();
+        bushColor = GetComponent<SpriteRenderer>().color;
+        animator = GetComponent<Animator>();
+
         hiddenColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.4f);
+        hiddenBushColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.7f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,12 +27,18 @@ public class BushBase : MonoBehaviour
                 var kid = collision.transform.parent.GetComponent<KidMachine>();
                 kid.bushCounter++;
                 UpdateKidVisibility(kid, collision.transform.parent.GetComponent<SpriteRenderer>());
+
+                animator.SetTrigger("Activate");
+                sr.color = hiddenBushColor;
             }
             else if (collision.transform.parent.CompareTag("Player"))
             {
                 var monster = collision.transform.parent.GetComponent<MonsterMove>();
                 monster.bushCounter++;
                 UpdateMonsterVisibility(monster, collision.transform.parent.GetComponent<SpriteRenderer>());
+
+                animator.SetTrigger("Activate");
+                sr.color = hiddenBushColor;
             }
         }
     }
@@ -40,12 +52,16 @@ public class BushBase : MonoBehaviour
                 var kid = collision.transform.parent.GetComponent<KidMachine>();
                 kid.bushCounter = Mathf.Max(0, kid.bushCounter - 1);
                 UpdateKidVisibility(kid, collision.transform.parent.GetComponent<SpriteRenderer>());
+
+                sr.color = bushColor;
             }
             else if (collision.transform.parent.CompareTag("Player"))
             {
                 var monster = collision.transform.parent.GetComponent<MonsterMove>();
                 monster.bushCounter = Mathf.Max(0, monster.bushCounter - 1);
                 UpdateMonsterVisibility(monster, collision.transform.parent.GetComponent<SpriteRenderer>());
+
+                sr.color = bushColor;
             }
         }
     }

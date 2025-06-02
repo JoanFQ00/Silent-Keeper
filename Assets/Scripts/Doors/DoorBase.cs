@@ -475,7 +475,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 //OnZoneEnded?.Invoke(); --> Maquina
                 GameManager.currentZone = GameManager.currentZone + 1;
                 SceneChanger.instance.NextZone();
-                GameManager.Instance.RestartTime();//BORRAR
+                //GameManager.Instance.RestartTime();//BORRAR
             }
             else
             {
