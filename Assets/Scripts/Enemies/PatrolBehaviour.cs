@@ -27,12 +27,12 @@ public class PatrolBehaviour : MonoBehaviour
 
     private EnemyState patrolState;
 
-    private Light2D enemyLight;
+    //private Light2D enemyLight;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        enemyLight = GetComponentInChildren<Light2D>();
+        //enemyLight = GetComponentInChildren<Light2D>();
 
         _currentPoint = 0;
         transform.position = PatrolPoints[_currentPoint].position;
@@ -85,8 +85,8 @@ public class PatrolBehaviour : MonoBehaviour
             {
                 rotating = false;
 
-                if (enemyLight != null)
-                    enemyLight.enabled = true;
+                //if (enemyLight != null)
+                //    enemyLight.enabled = true;
 
                 if (enemyPingPong)
                 {
@@ -136,8 +136,8 @@ public class PatrolBehaviour : MonoBehaviour
         _rotationTimer = RotationTime;
         startRotation = transform.rotation;
 
-        if (enemyLight != null)
-            enemyLight.enabled = false;
+        //if (enemyLight != null)
+        //    enemyLight.enabled = false;
 
         int nextIndex;
 

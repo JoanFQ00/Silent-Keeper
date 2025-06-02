@@ -73,7 +73,7 @@ public class EnemyDetector : TaggedMonobehaviour
                 VisionAngle = _light2D.pointLightOuterAngle;
             }
 
-            if (_light2D.enabled)
+            if (_light2D.enabled && !TransitionCamAnimation.Instance.playersInTransition)
             {
                 if (enemyPlayerDetector == Characters.BOTH)
                 {
