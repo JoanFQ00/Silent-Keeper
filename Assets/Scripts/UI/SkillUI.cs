@@ -14,7 +14,7 @@ public class SkillUI : MonoBehaviour
     public SlotNumber currentSlot;
     public TextMeshProUGUI cooldownLabel, usesLabel;
     public Image normalSkillImageUI, cooldownSkillImageUI;
-    public GameObject children1, children2;
+    public GameObject children1, children2, children3, children4;
 
     void Start()
     {
@@ -125,11 +125,15 @@ public class SkillUI : MonoBehaviour
     {
         children1.SetActive(true);
         children2.SetActive(true);
+        children3.SetActive(true);
+        children4.SetActive(true);
     }
 
     private void DisableChildern()
     {
         children1.SetActive(false);
         children2.SetActive(false);
+        children3.SetActive(false);
+        children4.SetActive(false);
     }
 }
