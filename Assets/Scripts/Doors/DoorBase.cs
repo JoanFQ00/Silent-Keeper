@@ -26,7 +26,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("Particles")]
     [SerializeField] GameObject fireParticle1, fireParticle2;
 
-    [SerializeField] bool hasToBeAnimated;
+    [SerializeField] bool hasToBeAnimated, penultimateDoor;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
     private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
@@ -34,7 +34,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private ShadowCaster2D shadowCaster2D;
     private Collider2D col;
     private GameObject teleportDestination;
-    private bool areTwoPlayersOnDoor, stopProcessing = true;
+    private bool areTwoPlayersOnDoor, stopProcessing = true, penultimateDoorOpened = false;
     private float detectionRadius;
     private DoorBase doorTP;
     private Animator animator;
@@ -147,6 +147,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             {
                 teleportDestination = door.gameObject;
                 doorTP = door;
+
+                if (penultimateDoor)
+                    doorTP.SetOtherPenultimateDoor();
                 break;
             }
         }
@@ -411,11 +414,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
     public void Interacted()
     {
-        if (areTwoPlayersOnDoor && thisActivated)
+        if (areTwoPlayersOnDoor && thisActivated && (!penultimateDoor || (penultimateDoor && !penultimateDoorOpened)))
         {
             if (doorBaseSO != null && !isMobile && !doorBaseSO.isZoneDoor)
             {
                 // RECARGAR HABILIDAD DE SALA (LIMITAR 1 VEZ POR PUERTA) --- DE MOMENTO NO HACE FALTA
+                if (penultimateDoor)
+                {
+                    doorTP.CloseDoor();
+                    penultimateDoorOpened = true;
+                }
+
                 OnStartCamTransition?.Invoke(doorKey, doorTP.gameObject.transform);
             }
             else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
@@ -542,6 +551,15 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     public void SetKeepActivated(bool activate)
     {
         keepActivated = activate;
+    }
+
+    public void SetOtherPenultimateDoor()
+    {
+        if (!penultimateDoor)
+        {
+            penultimateDoor = true;
+            penultimateDoorOpened = true;
+        }
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }
