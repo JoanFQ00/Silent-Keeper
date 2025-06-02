@@ -30,6 +30,10 @@ public class SkillManager : MonoBehaviour
 
     private bool isAimingBalloon = false;
 
+    [SerializeField] public float maxArrowTime = 5f;
+    private float arrowTimer = 0f;
+    private bool isArrowTimerRunning = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -140,6 +144,17 @@ public class SkillManager : MonoBehaviour
             if (arrowRenderer == true)
             {
                 AimArrow();
+                if (arrowRenderer.enabled && isArrowTimerRunning)
+                {
+                    arrowTimer += Time.deltaTime;
+                    if (arrowTimer >= maxArrowTime)
+                    {
+                        arrowRenderer.enabled = false;
+                        isAimingBalloon = false;
+                        isArrowTimerRunning = false;
+                        arrowTimer = 0f;
+                    }
+                }
             }
             if (!GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
             {
@@ -150,11 +165,17 @@ public class SkillManager : MonoBehaviour
                     {
                         isAimingBalloon = true;
                         arrowRenderer.enabled = true;
+
+                        isArrowTimerRunning = true;
+                        arrowTimer = 0f;
                     }
                     else if (isAimingBalloon)
                     {
                         arrowRenderer.enabled = false;
                         isAimingBalloon = false;
+
+                        isArrowTimerRunning = false;
+                        arrowTimer = 0f;
 
                         if (skill2.GetComponent<ISkill>().HasFinished() && !canStartCooldown2 && BalloonBox.balloonsInInventory > 0)
                         {
