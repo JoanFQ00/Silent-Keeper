@@ -103,7 +103,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                         child.gameObject.SetActive(false);
                 }
             }
-                OpenDoor();
+                OpenFirstDoor();
         }
         else
         {
@@ -122,7 +122,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                         child.gameObject.SetActive(true);
                 }
             }
-                CloseDoor();
+                CloseFinalDoor();
         }
 
         yield return null;
@@ -359,6 +359,47 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 }
             }
         }
+    }
+
+    private void OpenFirstDoor()
+    {
+        if (isMobile)
+        {
+            col.enabled = false;
+
+            if (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+
+                if (child != null)
+                    child.gameObject.SetActive(false);
+            }
+        }
+
+        if (keepActivated)
+            stopProcessing = true;
+
+        thisActivated = true;
+        OnDoorChanged(true);
+    }
+
+    private void CloseFinalDoor()
+    {
+        if (isMobile)
+        {
+            col.enabled = true;
+
+            if (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+
+                if (child != null)
+                    child.gameObject.SetActive(true);
+            }
+        }
+
+        thisActivated = false;
+        OnDoorChanged(false);
     }
 
     private void OpenDoor()

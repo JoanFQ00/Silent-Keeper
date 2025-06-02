@@ -15,7 +15,7 @@ public class IntroRoomsManager : MonoBehaviour
     private List<DoorBase> doorsList = new List<DoorBase>();
     private List<GameObject> otherObjects = new List<GameObject>();
     private Animation anim;
-    private int openDoorCounter = 0, enableObjectCouneter = 0, closeDoor = 0, disableObjectCouneter = 0;
+    private int openDoorCounter = 0, objectCouneter = 0, closeDoor = 0;
     private bool allDoorsClosed = true;
 
     [HideInInspector]
@@ -157,19 +157,19 @@ public class IntroRoomsManager : MonoBehaviour
 
     public void EnableObject()
     {
-        if (otherObjects.Count > 0 && otherObjects.Count > enableObjectCouneter)
+        if (otherObjects.Count > 0 && otherObjects.Count > objectCouneter)
         {
-            otherObjects[enableObjectCouneter].SetActive(true);
-            enableObjectCouneter++;
+            otherObjects[objectCouneter].SetActive(true);
+            objectCouneter++;
         }
     }
 
     public void DisableObject()
     {
-        if (otherObjects.Count > 0 && otherObjects.Count > disableObjectCouneter)
+        if (otherObjects.Count > 0 && otherObjects.Count > objectCouneter)
         {
-            otherObjects[disableObjectCouneter].SetActive(false);
-            disableObjectCouneter++;
+            otherObjects[objectCouneter].SetActive(false);
+            objectCouneter++;
         }
     }
 
@@ -179,8 +179,7 @@ public class IntroRoomsManager : MonoBehaviour
         otherObjects = otherObj;
         openDoorCounter = 0; 
         closeDoor = 0;
-        enableObjectCouneter = 0;
-        disableObjectCouneter = 0;
+        objectCouneter = 0;
         allDoorsClosed = false;
     }
 }

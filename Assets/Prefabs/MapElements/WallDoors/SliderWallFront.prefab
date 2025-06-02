@@ -170,6 +170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1114098672339070798, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1099d385a9165104ea31a0639c639f9b, type: 2}
     - target: {fileID: 1518324786620187772, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: isWall
       value: 1
