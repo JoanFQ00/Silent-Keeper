@@ -16,6 +16,7 @@ public class KeyHolder : MonoBehaviour
     public GameObject circusPan;
     public enum Panels { schoolPan, circusPan}
     public Panels currrentPanel;
+    public GameObject BalloonControl;
 
 
     private void OnEnable()
@@ -54,6 +55,18 @@ public class KeyHolder : MonoBehaviour
         if (keyText != null)
         {
             keyText.GetComponent<TMP_Text>().text = keys.ToString() + "/3";
+        }
+
+        if (BalloonControl != null)
+        {
+            if (BalloonBox.balloonsInInventory != 0)
+            {
+                BalloonControl.gameObject.SetActive(true);
+            }
+            else
+            {
+                BalloonControl.gameObject.SetActive(false);
+            }
         }
     }
 
