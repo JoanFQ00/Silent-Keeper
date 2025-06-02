@@ -91,7 +91,7 @@ public class IntroRoomsManager : MonoBehaviour
     {
         if (animationToPlay == null || anim == null || animationNames.Length == 0)
         {
-            Debug.LogWarning("StartRoomAnim cancelado por valores nulos.");
+            //Debug.LogWarning("StartRoomAnim cancelado por valores nulos.");
             return;
         }
 
