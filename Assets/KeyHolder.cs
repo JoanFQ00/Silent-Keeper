@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class KeyHolder : MonoBehaviour
+public class HudManager : MonoBehaviour
 {
     public GameObject keyText;
     private int keys;
