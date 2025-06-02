@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
@@ -7,6 +8,7 @@ public class IntroRoomsManager : MonoBehaviour
 {
     [SerializeField] private AnimationClip[] animationNames;
     [SerializeField] private GameObject cam, canvas, camTransitionParticles;
+    [SerializeField] private float speedAnimSkip = 10.0f;
 
     private AnimationClip animationToPlay;
     private Dictionary<string, bool> roomsAnimations = new Dictionary<string, bool>();
@@ -31,12 +33,6 @@ public class IntroRoomsManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && roomInAnimation)
-            OnAnimationFinished();
-    }
-
     private void Start()
     {
         anim = GetComponent<Animation>();
@@ -56,6 +52,33 @@ public class IntroRoomsManager : MonoBehaviour
         camTransitionParticles.SetActive(true);
         canvas.SetActive(false);
         cam.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && roomInAnimation)
+            SkipAnimationAndRunEvents();
+    }
+
+    private void SkipAnimationAndRunEvents()
+    {
+        if (anim == null || animationToPlay == null)
+            return;
+
+        StartCoroutine(FastForwardAnimation());
+    }
+
+    private IEnumerator FastForwardAnimation()
+    {
+        anim[animationToPlay.name].speed = speedAnimSkip;
+        anim.Play(animationToPlay.name);
+
+        while (anim.isPlaying)
+            yield return null;
+
+        anim[animationToPlay.name].speed = 1f;
+
+        OnAnimationFinished();
     }
 
     public void SetAnimToPlay(AnimationClip roomClip)
@@ -137,7 +160,6 @@ public class IntroRoomsManager : MonoBehaviour
         if (otherObjects.Count > 0 && otherObjects.Count > enableObjectCouneter)
         {
             otherObjects[enableObjectCouneter].SetActive(true);
-            otherObjects[enableObjectCouneter].SetActive(true);
             enableObjectCouneter++;
         }
     }
@@ -146,7 +168,6 @@ public class IntroRoomsManager : MonoBehaviour
     {
         if (otherObjects.Count > 0 && otherObjects.Count > disableObjectCouneter)
         {
-            otherObjects[disableObjectCouneter].SetActive(false);
             otherObjects[disableObjectCouneter].SetActive(false);
             disableObjectCouneter++;
         }
