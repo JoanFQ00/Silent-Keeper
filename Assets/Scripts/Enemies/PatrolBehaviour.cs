@@ -49,7 +49,7 @@ public class PatrolBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
+        if (GameManager.Instance.isPaused)
         {
             _rb.linearVelocity = Vector2.zero;
             return;
