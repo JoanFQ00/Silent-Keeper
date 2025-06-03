@@ -89,40 +89,20 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (thisActivated)
         {
             spriteRenderer.sprite = doorBaseSO.openDoorImage;
-            if (shadowCaster2D != null) shadowCaster2D.enabled = false;
 
             if (isMobile)
-            {
-                col.enabled = false;
-
-                if (transform.childCount > 0)
-                {
-                    Transform child = transform.GetChild(0);
-
-                    if (child != null)
-                        child.gameObject.SetActive(false);
-                }
-            }
+                OpenDoor();
+            else
                 OpenFirstDoor();
         }
         else
         {
             spriteRenderer.sprite = doorBaseSO.doorImage;
-            if (shadowCaster2D != null) shadowCaster2D.enabled = true;
 
             if (isMobile)
-            {
-                col.enabled = true;
-
-                if (transform.childCount > 0)
-                {
-                    Transform child = transform.GetChild(0);
-
-                    if (child != null)
-                        child.gameObject.SetActive(true);
-                }
-            }
-                CloseFinalDoor();
+                CloseDoor();
+            else
+                CloseFirstDoor();
         }
 
         yield return null;
@@ -383,7 +363,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         OnDoorChanged(true);
     }
 
-    private void CloseFinalDoor()
+    private void CloseFirstDoor()
     {
         if (isMobile)
         {

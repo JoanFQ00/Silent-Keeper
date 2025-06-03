@@ -30,18 +30,23 @@ public class TriggerActivator : MonoBehaviour
         else if (hasToAvivateObjects)
         {
             if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon") && GetComponent<TriggerActivator>().enabled))
+            {
                 foreach (GameObject element in elements)
                     element.SetActive(true);
 
-            if (onlyOneTime) Destroy(gameObject);
+                if (onlyOneTime) Destroy(gameObject);
+            }
+
         }
         else
         {
             if (collision.tag == "Player" || collision.tag == "Kid" || (gameObject.layer == LayerMask.NameToLayer("Diana") && collision.gameObject.layer == LayerMask.NameToLayer("Balloon") && GetComponent<TriggerActivator>().enabled))
+            {
                 foreach (GameObject element in elements)
                     element.SetActive(false);
 
-            if (onlyOneTime) Destroy(gameObject);
+                if (onlyOneTime) Destroy(gameObject);
+            }
         }
     }
 }
