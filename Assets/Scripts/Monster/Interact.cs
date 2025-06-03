@@ -7,9 +7,9 @@ public class Interact : MonoBehaviour
     [SerializeField] SpriteRenderer iconSR;
     [SerializeField] Sprite icon;
 
-    [Header("Interaction Sound")]
-    [SerializeField] private AudioSource interactAudio;
-    [SerializeField][Range(0f, 1f)] private float interactVolume = 1f;
+    // [Header("Interaction Sound")]
+    // [SerializeField] private AudioSource interactAudio;
+    // [SerializeField][Range(0f, 1f)] private float interactVolume = 1f;
 
     public LayerMask detectionLayer;
 
@@ -40,7 +40,7 @@ public class Interact : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player" && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
-            PlayInteractionSound();
+            // PlayInteractionSound();
             Interacting(gameObject.tag);
         }
 
@@ -124,6 +124,7 @@ public class Interact : MonoBehaviour
                     if (gameObject.tag == "Kid")
                     {
                         matchedCollider.GetComponent<Lever>().Interacted();
+                        AudioManager.Instance.PlaySFX("lever");
                         gameObject.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
                         KidControl.interactable = null;
                     }
@@ -131,7 +132,10 @@ public class Interact : MonoBehaviour
                 else
                 {
                     if (gameObject.tag == "Player")
+                    {
                         matchedCollider.GetComponent<Lever>().Interacted();
+                        AudioManager.Instance.PlaySFX("palanca");
+                    }
                 }
             }
             else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition && gameObject.tag == "Player")
@@ -148,6 +152,7 @@ public class Interact : MonoBehaviour
                     if (gameObject == containedObj)
                     {
                         locker.Interacted(gameObject, matchedCollider.gameObject);
+                        AudioManager.Instance.PlaySFX("taquilla");
                         if (gameObject.tag == "Kid") KidControl.interactable = null;
                     }
                     else
@@ -157,6 +162,7 @@ public class Interact : MonoBehaviour
                             if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
                             {
                                 locker.Interacted(gameObject, matchedCollider.gameObject);
+                                AudioManager.Instance.PlaySFX("taquilla");
                                 KidControl.interactable = null;
                             }
                         }
@@ -165,6 +171,7 @@ public class Interact : MonoBehaviour
                             if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
                             {
                                 locker.Interacted(gameObject, matchedCollider.gameObject);
+                                AudioManager.Instance.PlaySFX("taquilla");
                             }
                         }
                     }
@@ -180,7 +187,10 @@ public class Interact : MonoBehaviour
             else if (matchedCollider.GetComponent<TorchBase>() != null)
             {
                 if (gameObject.tag == "Player")
+                {
                     matchedCollider.GetComponent<TorchBase>().Interacted(gameObject, null);
+                    AudioManager.Instance.PlaySFX("fireball");
+                }
             }
             else if (matchedCollider.GetComponent<BalloonBox>() != null)
             {
@@ -214,14 +224,14 @@ public class Interact : MonoBehaviour
 
     //public float GetInteractRadius() { return interacRadius; }
 
-    private void PlayInteractionSound()
-    {
-        if (interactAudio != null)
-        {
-            interactAudio.volume = interactVolume;
-            interactAudio.Play();
-        }
-    }
+    // private void PlayInteractionSound()
+    // {
+    //     if (interactAudio != null)
+    //     {
+    //         interactAudio.volume = interactVolume;
+    //         interactAudio.Play();
+    //     }
+    // }
 
     private void OnDrawGizmos()
     {

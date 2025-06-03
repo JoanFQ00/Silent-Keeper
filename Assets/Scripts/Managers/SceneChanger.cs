@@ -20,7 +20,23 @@ public class SceneChanger : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+    private void EnsureAudioManager()
+    {
+        if (AudioManager.Instance == null)
+        {
+            GameObject audioManagerPrefab = Resources.Load<GameObject>("Prefabs/AudioManager");
+            if (audioManagerPrefab != null)
+            {
+                Instantiate(audioManagerPrefab);
+            }
+            else
+            {
+                Debug.LogWarning("AudioManager prefab not found in Resources/Prefabs.");
+            }
+        }
+    }
+
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.M))
@@ -47,6 +63,7 @@ public class SceneChanger : MonoBehaviour
 
     public void LoadGame()
     {
+        EnsureAudioManager();
         SceneManager.LoadScene(level1);
         GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_1);
     }
@@ -56,7 +73,7 @@ public class SceneChanger : MonoBehaviour
         GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_2);
     }
 
-    public void LoadLevel3() 
+    public void LoadLevel3()
     {
         SceneManager.LoadScene(level3);
         GameManager.Instance.ChageZoneState(GameManager.Zone.ZONE_3);

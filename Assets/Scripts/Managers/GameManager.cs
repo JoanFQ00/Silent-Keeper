@@ -17,12 +17,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] float remainingTime = 120f;
     [SerializeField] private GameObject mapSpawn;
 
-    [Header("Music")]
-    [SerializeField] public AudioSource musicSource;
-    [SerializeField] public AudioClip zone1Music;
-    [SerializeField] public AudioClip zone2Music;
-    [SerializeField] public AudioClip zone3Music;
-    [SerializeField, Range(0f, 1f)] public float musicVolume = 0.5f;
+    // [Header("Music")]
+    // [SerializeField] public AudioSource musicSource;
+    // [SerializeField] public AudioClip zone1Music;
+    // [SerializeField] public AudioClip zone2Music;
+    // [SerializeField] public AudioClip zone3Music;
+    // [SerializeField, Range(0f, 1f)] public float musicVolume = 0.5f;
 
     public bool isPaused;
 
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         initialTime = remainingTime;
 
-        PlayMusicForCurrentScene();
+        // PlayMusicForCurrentScene();
     }
 
     private void Update()
@@ -131,29 +131,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayMusicForCurrentScene()
-    {
-        AudioClip selectedClip = null;
+    // private void PlayMusicForCurrentScene()
+    // {
+    //     AudioClip selectedClip = null;
 
-        switch (currentZone)
-        {
-            case Zone.ZONE_1: selectedClip = zone1Music; break;
-            case Zone.ZONE_2: selectedClip = zone2Music; break;
-            case Zone.ZONE_3: selectedClip = zone3Music; break;
-        }
+    //     switch (currentZone)
+    //     {
+    //         case Zone.ZONE_1: selectedClip = zone1Music; break;
+    //         case Zone.ZONE_2: selectedClip = zone2Music; break;
+    //         case Zone.ZONE_3: selectedClip = zone3Music; break;
+    //     }
 
-        if (selectedClip != null)
-        {
-            musicSource.clip = selectedClip;
-            musicSource.volume = musicVolume;
-            musicSource.loop = true;
-            musicSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("No music clip assigned for the current zone.");
-        }
-    }
+    //     if (selectedClip != null)
+    //     {
+    //         musicSource.clip = selectedClip;
+    //         musicSource.volume = musicVolume;
+    //         musicSource.loop = true;
+    //         musicSource.Play();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("No music clip assigned for the current zone.");
+    //     }
+    // }
 
     public void SpawnPlayers()
     {
@@ -184,14 +184,13 @@ public class GameManager : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f;
-            musicSource.Pause();
         }
         else
         {
             Time.timeScale = 1f;
-            musicSource.UnPause();
         }
     }
+
 
     public void StopCounting()
     {
