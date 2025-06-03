@@ -9,6 +9,7 @@ public class PatrolBehaviour : MonoBehaviour
     public float WaitTime = 2f;
     public float RotationTime = 1f;
     public Transform[] PatrolPoints;
+    public bool enemyCircusAnim = false;
 
     private bool _movingForward;
     private int _currentPoint;
@@ -28,6 +29,22 @@ public class PatrolBehaviour : MonoBehaviour
     private EnemyState patrolState;
 
     //private Light2D enemyLight;
+
+    private void OnEnable()
+    {
+        IntroRoomsManager.OnCircusEnemyAnim += OnEnemyCircusCanMove;
+    }
+
+    private void OnDisable()
+    {
+        IntroRoomsManager.OnCircusEnemyAnim -= OnEnemyCircusCanMove;
+    }
+
+    private void OnEnemyCircusCanMove()
+    {
+        if (enemyCircusAnim)
+            enemyCircusAnim = false;
+    }
 
     void Start()
     {
@@ -49,11 +66,20 @@ public class PatrolBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isPaused)
+        if (enemyCircusAnim)
         {
-            _rb.linearVelocity = Vector2.zero;
-            return;
+            if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
+            {
+                _rb.linearVelocity = Vector2.zero;
+                return;
+            }
         }
+        else
+            if (GameManager.Instance.isPaused)
+            {
+                _rb.linearVelocity = Vector2.zero;
+                return;
+            }
 
         if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() != EnemyState.NORMAL || patrolState != EnemyState.NORMAL)
         {

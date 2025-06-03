@@ -21,7 +21,7 @@ public class IntroRoomsManager : MonoBehaviour
     [HideInInspector]
     public bool roomInAnimation;
 
-    public static Action OnAnimationStarted, OnAnimationDisable;
+    public static Action OnAnimationStarted, OnAnimationDisable, OnCircusEnemyAnim;
 
     public static IntroRoomsManager Instance;
 
@@ -168,5 +168,10 @@ public class IntroRoomsManager : MonoBehaviour
         doorCounter = 0;
         objectCouneter = 0;
         allDoorsClosed = false;
+    }
+
+    public void OnCircusEnemyActivated()
+    {
+        OnCircusEnemyAnim?.Invoke();
     }
 }

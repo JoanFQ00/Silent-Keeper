@@ -3,6 +3,7 @@ using UnityEngine;
 public class BushBase : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float alphaTranparency = 0.7f;
 
     private SpriteRenderer sr;
     private Color hiddenColor, hiddenBushColor, bushColor;
@@ -15,7 +16,7 @@ public class BushBase : MonoBehaviour
         animator = GetComponent<Animator>();
 
         hiddenColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.4f);
-        hiddenBushColor = new Color(bushColor.r, bushColor.g, bushColor.b, 0.7f);
+        hiddenBushColor = new Color(bushColor.r, bushColor.g, bushColor.b, alphaTranparency);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
