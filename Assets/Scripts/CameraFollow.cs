@@ -182,4 +182,9 @@ public class CameraFollow : MonoBehaviour
     {
         return checkPlayersInCam;
     }
+
+    public bool GetCameraReturned()
+    {
+        return cameraReturned;
+    }
 }

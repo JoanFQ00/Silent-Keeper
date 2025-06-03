@@ -74,30 +74,36 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!CameraFollow.Instance.CheckPlayersInCam())
+        if (!CameraFollow.Instance.CheckPlayersInCam() && !TransitionCamAnimation.Instance.playersInTransition)
         {
-            miniMapUI.SetActive(true);
-
-            if (CameraFollow.Instance.GetCameraTarget().gameObject == monster)
+            if (CameraFollow.Instance.GetCameraTarget().gameObject == monster && kid.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
             {
+                miniMapUI.SetActive(true);
+
                 monsterObjectTexture.GetComponent<Camera>().enabled = false;
                 kidObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = kidTexture;
             }
-            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid)
+            else if (CameraFollow.Instance.GetCameraTarget().gameObject == kid && monster.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
             {
+                miniMapUI.SetActive(true);
+
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
             }
             else if (TransitionCamAnimation.Instance.playersInTransition)
             {
+                miniMapUI.SetActive(true);
+
                 kidObjectTexture.GetComponent<Camera>().enabled = false;
                 monsterObjectTexture.GetComponent<Camera>().enabled = true;
                 miniMapUI.GetComponentInChildren<RawImage>().texture = monsterTexture;
             }
+            else if (kid.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker || monster.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
+                miniMapUI.SetActive(false);
         }
-        else
+        else if (CameraFollow.Instance.GetCameraReturned())
         {
             miniMapUI.SetActive(false);
         }
