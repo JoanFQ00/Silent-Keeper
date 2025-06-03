@@ -8,7 +8,7 @@ public class BalloonBehaviour : MonoBehaviour
 
     public static Action OnBallonImpacted, OnHasFinished;
     public static Action<Transform> OnBallonExploded;
-    public GameObject BalloonParticles;
+    public GameObject globusImpactPos;
 
     [HideInInspector]
     public bool hasTimeFinished;
@@ -29,8 +29,7 @@ public class BalloonBehaviour : MonoBehaviour
                 if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                     transform.parent.gameObject.GetComponentInParent<Ballooned>().BallonHasEnemyCollided(collision.gameObject);
 
-                OnBallonExploded?.Invoke(transform);
-                BalloonParticles.GetComponent<ParticleSystem>().Play();
+                OnBallonExploded?.Invoke(globusImpactPos.transform);
 
                 OnBallonImpacted?.Invoke();
                 animator.SetTrigger("End");
