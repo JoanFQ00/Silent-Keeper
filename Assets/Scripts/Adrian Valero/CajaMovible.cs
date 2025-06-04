@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CajaMovible : MonoBehaviour
+public class CajaMovible : MonoBehaviour, IInteractableWithButton
 {
     public float velocidad = 3f;
     private Vector2 direccionMovimiento;
@@ -28,11 +28,14 @@ public class CajaMovible : MonoBehaviour
         if (!moviendo)
         {
             direccionMovimiento = direccion.normalized;
-            ultimaDireccion = direccion.normalized; //  Importante para el posicionamiento
+            ultimaDireccion = direccion.normalized;
             moviendo = true;
         }
     }
 
+    public void Interacted() { }
+
+    public void Interacted(GameObject other, GameObject thisObject) { }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -48,13 +51,10 @@ public class CajaMovible : MonoBehaviour
 
     private void DetenerMovimiento()
     {
-
         moviendo = false;
 
-        // Obtenemos la posición actual
         Vector2 posicionActual = transform.position;
 
-        // Ajustamos según la última dirección (como ya hacías)
         if (ultimaDireccion == Vector2.right)
             posicionActual.x -= 0.5f;
         else if (ultimaDireccion == Vector2.left)
@@ -64,13 +64,11 @@ public class CajaMovible : MonoBehaviour
         else if (ultimaDireccion == Vector2.down)
             posicionActual.y += 0.5f;
 
-        // 🔧 REDONDEAMOS el otro eje para que termine en .5
         posicionActual.x = Mathf.Floor(posicionActual.x) + 0.5f;
         posicionActual.y = Mathf.Floor(posicionActual.y) + 0.5f;
 
         transform.position = posicionActual;
 
         rb.linearVelocity = Vector2.zero;
-
     }
 }

@@ -12,6 +12,8 @@ public class Interact : MonoBehaviour
     // [SerializeField][Range(0f, 1f)] private float interactVolume = 1f;
 
     public LayerMask detectionLayer;
+    private MonsterMove monsterMove;
+    private Vector2 lastDirBox;
 
     //private float scrollCooldown = 0.3f;
     //private float lastScrollTime = 0f;
@@ -29,6 +31,17 @@ public class Interact : MonoBehaviour
     //{
     //    return detectionRadius;
     //}
+
+    private void Start()
+    {
+        if (gameObject.tag == "Player")
+            monsterMove = GetComponent<MonsterMove>();
+
+        if (monsterMove != null)
+            lastDirBox = monsterMove.GetMoveDir();
+        else
+            lastDirBox = Vector2.zero;
+    }
 
     void Update()
     {
@@ -96,6 +109,14 @@ public class Interact : MonoBehaviour
         bool canInteract = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactRadius, detectionLayer);
         Collider2D matchedCollider = null;
+
+        if (monsterMove != null)
+        {
+            if (monsterMove.GetMoveDir() != Vector2.zero)
+                lastDirBox = monsterMove.GetMoveDir();
+        }
+        else
+            lastDirBox = Vector2.zero;
 
         if (playerTag == "Kid" && objectInteracted != null)
         {
@@ -196,6 +217,11 @@ public class Interact : MonoBehaviour
             {
                 if (gameObject.tag == "Player")
                     matchedCollider.GetComponent<BalloonBox>().Interacted();
+            }
+            else if (matchedCollider.GetComponent<CajaMovible>() != null)
+            {
+                if (gameObject.tag == "Player")
+                    matchedCollider.GetComponent<CajaMovible>().MoverEnDireccion(lastDirBox);
             }
         }
     }

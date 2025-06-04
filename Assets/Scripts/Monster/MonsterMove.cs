@@ -192,6 +192,12 @@ public class MonsterMove : MonoBehaviour
     {
         moveDir = Vector2.zero;
     }
+
+    public Vector2 GetMoveDir()
+    {
+        return moveDir;
+    }
+
     public void FreezeAnimation()
     {
         if (playerAnimator != null)
