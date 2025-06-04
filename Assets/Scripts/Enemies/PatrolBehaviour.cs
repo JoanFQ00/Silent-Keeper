@@ -9,7 +9,7 @@ public class PatrolBehaviour : MonoBehaviour
     public float WaitTime = 2f;
     public float RotationTime = 1f;
     public Transform[] PatrolPoints;
-    public bool enemyCircusAnim = false;
+    public bool enemyCircusAnim = false, isMonsterEnemy = false;
 
     private bool _movingForward;
     private int _currentPoint;
@@ -94,6 +94,10 @@ public class PatrolBehaviour : MonoBehaviour
             if (_waitTimer <= 0f)
             {
                 waiting = false;
+
+               //if (!isMonsterEnemy)
+               //     StartRotation();
+
                 StartRotation();
             }
             return;
@@ -104,8 +108,11 @@ public class PatrolBehaviour : MonoBehaviour
             _rb.linearVelocity = Vector2.zero;
             _rotationTimer -= Time.deltaTime;
 
-            float t = 1f - (_rotationTimer / RotationTime);
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
+            if (!isMonsterEnemy)
+            {
+                float t = 1f - (_rotationTimer / RotationTime);
+                transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
+            }
 
             if (_rotationTimer <= 0f)
             {
