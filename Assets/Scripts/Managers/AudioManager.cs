@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEditor.Rendering;
+//using UnityEditor.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
@@ -89,7 +89,7 @@ public class AudioManager : MonoBehaviour
         sfxVolume = value;
         sfxSource.volume = value;
     }
-    
+
     private void LoadSFX()
     {
         AudioClip[] clips = Resources.LoadAll<AudioClip>("SFX");
