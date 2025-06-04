@@ -40,6 +40,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private float detectionRadius;
     private DoorBase doorTP;
     private Animator animator;
+    private GameObject wallChild;
 
     public static Action OnZoneEnded;
     public static Action<KeyBase> RefreshPlayerInventory;
@@ -134,6 +135,20 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 if (penultimateDoor)
                     doorTP.SetOtherPenultimateDoor();
                 break;
+            }
+        }
+
+        if (isMobile)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+
+                if (child.CompareTag("StopEnemy"))
+                {
+                    wallChild = child.gameObject;
+                    break;
+                }
             }
         }
 
@@ -349,13 +364,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             col.enabled = false;
 
-            if (transform.childCount > 0)
-            {
-                Transform child = transform.GetChild(0);
-
-                if (child != null)
-                    child.gameObject.SetActive(false);
-            }
+            if (wallChild != null)
+                wallChild.SetActive(false);
         }
 
         if (keepActivated)
@@ -374,13 +384,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             col.enabled = true;
 
-            if (transform.childCount > 0)
-            {
-                Transform child = transform.GetChild(0);
-
-                if (child != null)
-                    child.gameObject.SetActive(true);
-            }
+            if (wallChild != null)
+                wallChild.SetActive(true);
         }
 
         // if (circusDoor)
@@ -396,13 +401,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             col.enabled = false;
 
-            if (transform.childCount > 0)
-            {
-                Transform child = transform.GetChild(0);
-
-                if (child != null)
-                    child.gameObject.SetActive(false);
-            }
+            if (wallChild != null)
+                wallChild.SetActive(false);
         }
 
         if (keepActivated)
@@ -424,13 +424,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             col.enabled = true;
 
-            if (transform.childCount > 0)
-            {
-                Transform child = transform.GetChild(0);
-
-                if (child != null)
-                    child.gameObject.SetActive(true);
-            }
+            if (wallChild != null)
+                wallChild.SetActive(true);
         }
 
         // if (circusDoor)
