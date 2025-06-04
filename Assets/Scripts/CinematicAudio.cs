@@ -33,4 +33,14 @@ public class CinematicAudio : MonoBehaviour
         GameManager.Instance.StopCounting();
         SceneChanger.instance.LoadMenu();
     }
+
+    public void EnableCursor()
+    {
+        Cursor.visible = true;
+    }
+
+    public void DisableCursor()
+    {
+        Cursor.visible = false;
+    }
 }

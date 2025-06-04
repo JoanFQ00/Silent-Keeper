@@ -104,7 +104,7 @@ public class AudioManager : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 5)
             musicSource.Stop();
         else
         {
