@@ -15,7 +15,8 @@ public class HudManager : MonoBehaviour
     public Color orangeColor = new Color(1f, 98f / 255f, 0f, 1f);
     public GameObject schoolPan;
     public GameObject circusPan;
-    public enum Panels { schoolPan, circusPan}
+    public GameObject voidPan;
+    public enum Panels { schoolPan, circusPan, voidPanel}
     public Panels currrentPanel;
 
     private void OnEnable()
@@ -44,11 +45,23 @@ public class HudManager : MonoBehaviour
             circusPan = FindInActiveObjectByName("CircusTabPanel");
         }
 
+        if (voidPan == null) 
+        {
+            voidPan = FindInActiveObjectByName("voidPanel");
+        }
+
         if (SceneManager.GetActiveScene().name == "Circus")
         {
-            ChangePanel();
+            ChangePanel(Panels.circusPan);
         }
-        
+        else if (SceneManager.GetActiveScene().name == "Void")
+        {
+            ChangePanel(Panels.voidPanel);
+        }
+        else if (SceneManager.GetActiveScene().name == "School")
+        {
+            ChangePanel(Panels.schoolPan);
+        }
     }
 
     void Update()
@@ -59,19 +72,28 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    private void ChangePanel()
+    private void ChangePanel(Panels panel)
     {
-        if (currrentPanel == Panels.schoolPan)
+        if (panel == Panels.circusPan)
         {
             currrentPanel = Panels.circusPan;
             schoolPan.SetActive(false);
             circusPan.SetActive(true);
+            voidPan.SetActive(false);
         }
-        else
+        else if (panel == Panels.circusPan)
         {
             currrentPanel = Panels.schoolPan;
             schoolPan.SetActive(true);
             circusPan.SetActive(false);
+            voidPan.SetActive(false);
+        }
+        else if (panel == Panels.voidPanel) 
+        {
+            currrentPanel = Panels.voidPanel;
+            schoolPan.SetActive(false);
+            circusPan.SetActive(false);
+            voidPan.SetActive(true);
         }
     }
 

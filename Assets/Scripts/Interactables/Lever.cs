@@ -29,6 +29,7 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         {
             spriteRenderer.sprite = normalLever;
         }
+        isPlayingParticles = false;
     }
 
     void Update()
