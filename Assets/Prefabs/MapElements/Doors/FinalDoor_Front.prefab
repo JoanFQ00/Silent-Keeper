@@ -72,10 +72,18 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 1.4
       objectReference: {fileID: 0}
+    - target: {fileID: 4513198378575419707, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6067739592937148831, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: doorBaseSO
       value: 
       objectReference: {fileID: 11400000, guid: 2196d89bd536758448cde57169c19e11, type: 2}
+    - target: {fileID: 6067739592937148831, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: smokeParticles
+      value: 
+      objectReference: {fileID: 3755830048942252772}
     - target: {fileID: 6206623588409224191, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_IsStatic
       value: 1
@@ -83,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Name
       value: FinalDoor_Front
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111271889843539950, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.761
       objectReference: {fileID: 0}
     - target: {fileID: 8795668934125831286, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Color.b
@@ -111,6 +123,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5181763025649375530}
   m_SourcePrefab: {fileID: 100100000, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+--- !u!1 &3755830048942252772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3396955773383844835, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+  m_PrefabInstance: {fileID: 1962173884844294407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8796555799110252299 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}

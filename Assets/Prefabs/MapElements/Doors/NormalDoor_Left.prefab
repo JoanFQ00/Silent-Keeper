@@ -508,6 +508,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: NormalDoor_Left
       objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.198
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.394
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 5071939070173197522, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.6329114
@@ -567,6 +579,18 @@ PrefabInstance:
     - target: {fileID: 8150156571102830685, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341295462283072495, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341295462283072495, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341295462283072495, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

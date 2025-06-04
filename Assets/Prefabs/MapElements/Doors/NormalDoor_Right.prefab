@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: fireParticle2
       value: 
       objectReference: {fileID: 4976474520899035906}
+    - target: {fileID: 1825320173968104267, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: smokeParticles
+      value: 
+      objectReference: {fileID: 4064386418870683075}
     - target: {fileID: 2961431701417688428, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.267
@@ -310,6 +314,18 @@ PrefabInstance:
     - target: {fileID: 3194246577875097874, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_SortingOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.232
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.576
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445383591653459258, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3994789966955466402, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
       propertyPath: m_Intensity
@@ -387,6 +403,14 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2.25
       objectReference: {fileID: 0}
+    - target: {fileID: 8341295462283072495, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341295462283072495, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 2.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6276287184780485412, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
@@ -407,6 +431,11 @@ PrefabInstance:
 --- !u!4 &640863739517072364 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5964763195943771928, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
+  m_PrefabInstance: {fileID: 6495271116735163636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4064386418870683075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7080871663959484727, guid: ed0f6a0874e3721489054fa59639774b, type: 3}
   m_PrefabInstance: {fileID: 6495271116735163636}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8533017869768396844 stripped

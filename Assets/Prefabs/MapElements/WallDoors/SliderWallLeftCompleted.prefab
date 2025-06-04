@@ -168,9 +168,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4384070158639780747, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.798
+      objectReference: {fileID: 0}
     - target: {fileID: 4913599509632481911, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
       propertyPath: m_Name
       value: SliderWallLeftCompleted
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972999994728924510, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972999994728924510, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972999994728924510, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7910370516318747204, guid: 53f724f7e8839c8439892d1a4d9699ed, type: 3}
       propertyPath: m_IsStatic
