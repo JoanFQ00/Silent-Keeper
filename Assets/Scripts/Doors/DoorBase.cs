@@ -28,7 +28,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [SerializeField] GameObject smokeParticles;
     public static Action<Transform> OnWallActivated;
 
-    [SerializeField] bool hasToBeAnimated, penultimateDoor, circusDoor = false;
+    [SerializeField] bool hasToBeAnimated, penultimateDoor;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
     private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
@@ -361,8 +361,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
-        if (circusDoor)
-            spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        // if (circusDoor)
+        //     spriteRenderer.sprite = doorBaseSO.openDoorImage;
 
         thisActivated = true;
         OnDoorChanged(true);
@@ -383,8 +383,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
         }
 
-        if (circusDoor)
-            spriteRenderer.sprite = doorBaseSO.doorImage;
+        // if (circusDoor)
+        //     spriteRenderer.sprite = doorBaseSO.doorImage;
 
         thisActivated = false;
         OnDoorChanged(false);
@@ -408,9 +408,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
-        if (circusDoor)
-            spriteRenderer.sprite = doorBaseSO.openDoorImage;
-        else if (animator != null)
+        // if (circusDoor)
+        //     spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        if (animator != null)
             animator.SetTrigger("Open");
 
         thisActivated = true;
@@ -433,9 +433,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
         }
 
-        if (circusDoor)
-            spriteRenderer.sprite = doorBaseSO.doorImage;
-        else if (animator != null)
+        // if (circusDoor)
+        //     spriteRenderer.sprite = doorBaseSO.doorImage;
+        if (animator != null)
             animator.SetTrigger("Close");
 
         thisActivated = false;
