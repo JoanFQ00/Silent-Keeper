@@ -194,7 +194,7 @@ public class EnemyDetector : TaggedMonobehaviour
         //}
 
         //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        SceneChanger.instance.RestartZone();
+        GameManager.Instance.SpawnPlayers();
     }
 
     //private void ResetValues()

@@ -7,7 +7,8 @@ public class Checkpoint : MonoBehaviour
         if (collision.CompareTag("Kid") || collision.CompareTag("Player"))
         {
             GameManager.Instance.currentSpawn = this.transform;
-            Destroy(gameObject);
+            GetComponent<CircleCollider2D>().enabled = false;
+            //Destroy(gameObject);
         }
     }
 }
