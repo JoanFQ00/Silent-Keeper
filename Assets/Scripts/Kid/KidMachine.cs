@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
+//using static UnityEngine.Rendering.DebugUI;
 
 public class KidMachine : MonoBehaviour
 {
@@ -287,8 +287,17 @@ public class KidMachine : MonoBehaviour
 
         if (((1 << layer) & interactableMask) != 0)
         {
-            ChangeState(States.Stoped);
-            PushBackFromCollision();
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+            if (rb != null && rb.linearVelocity.magnitude > 0.05f)
+            {
+                PushBackFromCollision();
+            }
+            else
+            {
+                ChangeState(States.Stoped);
+                PushBackFromCollision();
+            }
         }
         else if (((1 << layer) & wallMask) != 0)
         {
