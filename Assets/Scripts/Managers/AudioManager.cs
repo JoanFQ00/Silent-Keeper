@@ -58,13 +58,19 @@ public class AudioManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         string sceneName = scene.name;
-
-        AudioClip musicClip = Resources.Load<AudioClip>("Audio/" + sceneName);
-
-        if (musicClip != null)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            musicSource.clip = musicClip;
-            musicSource.Play();
+            musicSource.Stop();
+        }
+        else
+        {
+            AudioClip musicClip = Resources.Load<AudioClip>("Audio/" + sceneName);
+
+            if (musicClip != null)
+            {
+                musicSource.clip = musicClip;
+                musicSource.Play();
+            }
         }
     }
 
