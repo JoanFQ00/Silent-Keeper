@@ -1070,8 +1070,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 694, y: 221}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 694, y: 296.1247}
+  m_SizeDelta: {x: 0, y: 404.354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &402648265
 MonoBehaviour:
@@ -3028,8 +3028,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 73, y: 221}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 73, y: 296.1247}
+  m_SizeDelta: {x: 0, y: 404.354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203268951
 MonoBehaviour:
@@ -3468,7 +3468,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 727761148}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.00985679}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.00024414062}
@@ -4412,9 +4412,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sonidos:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 1c2c75d601ffc054a87976dfe09b3c33, type: 3}
+  - {fileID: 8300000, guid: c11002b2180f7af46813d31f58f9cc83, type: 3}
+  - {fileID: 8300000, guid: a78881bf7bc986349beedcf2b4a59d6a, type: 3}
 --- !u!82 &1652171982
 AudioSource:
   m_ObjectHideFlags: 0
