@@ -39,7 +39,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     private DoorBase doorTP;
     private Animator animator;
 
-    public static Action RefreshPlayerInventory, OnZoneEnded;
+    public static Action OnZoneEnded;
+    public static Action<KeyBase> RefreshPlayerInventory;
     public static Action<int, Transform> OnStartCamTransition;
 
     private void OnEnable()
@@ -148,7 +149,8 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (doorKey == key && totalKeysActivated.Contains(interactable))
             {
                 totalKeysActivated.Remove(interactable);
-                interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
+                RefreshPlayerInventory?.Invoke(interactable.gameObject.GetComponent<KeyBase>());
+                //interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
             }
         }
     }
@@ -198,8 +200,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
             foreach (InteractableBase interactable in keysToRemove)
                 RemoveInteractable(interactable);
-
-            RefreshPlayerInventory?.Invoke();
         }
 
         if (colliders.Length != 0)
@@ -486,17 +486,17 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             player.transform.position = destination + Vector3.left * 0.5f;
             kid.transform.position = destination + Vector3.right * 0.5f;
 
-            foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
-            {
-                if (key != null)
-                    key.transform.position = destination;
-            }
+            //foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
+            //{
+            //    if (key != null)
+            //        key.transform.position = destination;
+            //}
 
-            foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
-            {
-                if (key != null)
-                    key.transform.position = destination;
-            }
+            //foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
+            //{
+            //    if (key != null)
+            //        key.transform.position = destination;
+            //}
         }
     }
 

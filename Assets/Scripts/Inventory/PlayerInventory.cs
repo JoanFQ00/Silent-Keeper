@@ -29,29 +29,32 @@ public class PlayerInventory : MonoBehaviour
         return collectedKeys.FindAll(k => k != null && k.gameObject.activeSelf);
     }
 
-    public void RefreshKeys()
+    public void RefreshKeys(KeyBase key)
     {
-        collectedKeys.RemoveAll(k => k == null || !k.gameObject.activeSelf);
+        //collectedKeys.RemoveAll(k => k == null || !k.gameObject.activeSelf);
 
-        Transform followTarget = transform;
+        //Transform followTarget = transform;
 
-        for (int i = 0; i < collectedKeys.Count; i++)
-        {
-            if (collectedKeys[i] != null)
-            {
-                collectedKeys[i].SetFollowTarget(followTarget);
-                followTarget = collectedKeys[i].transform;
-            }
-        }
+        //for (int i = 0; i < collectedKeys.Count; i++)
+        //{
+        //    if (collectedKeys[i] != null)
+        //    {
+        //        collectedKeys[i].SetFollowTarget(followTarget);
+        //        followTarget = collectedKeys[i].transform;
+        //    }
+        //}
 
-        KeyHasBeenUsed?.Invoke();
+        //KeyHasBeenUsed?.Invoke();
+
+        collectedKeys.Remove(key);
+        key.gameObject.SetActive(false);
     }
 
     public void OnKeyObtained(KeyBase keyBase)
     {
-        Transform followTarget = collectedKeys.Count == 0 ? transform : collectedKeys[collectedKeys.Count - 1].transform;
+        //Transform followTarget = collectedKeys.Count == 0 ? transform : collectedKeys[collectedKeys.Count - 1].transform;
 
-        keyBase.SetFollowTarget(followTarget);
+        //keyBase.SetFollowTarget(followTarget);
         collectedKeys.Add(keyBase);
         AddKeyUI?.Invoke(1, keyBase.keyType);
     }
