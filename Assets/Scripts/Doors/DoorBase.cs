@@ -414,7 +414,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             animator.SetTrigger("Open");
 
         thisActivated = true;
-        OnWallActivated?.Invoke(transform);
+        smokeParticles.GetComponent<ParticleSystem>().Play();
         OnDoorChanged(true);
     }
 
@@ -439,7 +439,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             animator.SetTrigger("Close");
 
         thisActivated = false;
-        OnWallActivated?.Invoke(transform);
+        smokeParticles.GetComponent<ParticleSystem>().Play();
         OnDoorChanged(false);
     }
 
