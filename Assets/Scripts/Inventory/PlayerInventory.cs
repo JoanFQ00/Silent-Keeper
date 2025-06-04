@@ -7,7 +7,7 @@ public class PlayerInventory : MonoBehaviour
     private List<KeyBase> collectedKeys;
 
     public static Action KeyHasBeenUsed;
-    public static Action<int, KeyBase.KeyType> AddKeyUI;
+    public static Action<int, KeyBase.KeyType> AddKeyUI, RemoveKeyUI;
 
     private void OnEnable()
     {
@@ -47,6 +47,7 @@ public class PlayerInventory : MonoBehaviour
         //KeyHasBeenUsed?.Invoke();
 
         collectedKeys.Remove(key);
+        RemoveKeyUI?.Invoke(1, key.keyType);
         key.gameObject.SetActive(false);
     }
 
