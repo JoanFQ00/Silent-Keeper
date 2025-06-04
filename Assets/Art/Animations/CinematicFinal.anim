@@ -764,7 +764,25 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -70
+        value: -110
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 2.65
+        value: -110
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.0333333
+        value: -110
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -774,8 +792,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 9.483334
         value: -70
-        inSlope: 0
-        outSlope: 0
+        inSlope: 21.476511
+        outSlope: 21.476511
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -1649,7 +1667,25 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -70
+        value: -110
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 2.65
+        value: -110
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.0333333
+        value: -110
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1659,8 +1695,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 9.483334
         value: -70
-        inSlope: 0
-        outSlope: 0
+        inSlope: 21.476511
+        outSlope: 21.476511
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -2250,6 +2286,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 9.316667
+    functionName: PlayCinematicSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 17.266666
     functionName: PlayCinematicSound
     data: 
     objectReferenceParameter: {fileID: 0}
