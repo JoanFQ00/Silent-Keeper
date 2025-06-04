@@ -39,14 +39,12 @@ public class CajaMovible : MonoBehaviour, IInteractableWithButton
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        int layerCaja = LayerMask.NameToLayer("Caja");
+        int layerCaja = LayerMask.NameToLayer("Interactable");
         int layerPared = LayerMask.NameToLayer("Way");
 
         if (moviendo &&
            (collision.gameObject.layer == layerCaja || collision.gameObject.layer == layerPared))
-        {
             DetenerMovimiento();
-        }
     }
 
     private void DetenerMovimiento()

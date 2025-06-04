@@ -112,11 +112,11 @@ public class Interact : MonoBehaviour
 
         if (monsterMove != null)
         {
-            if (monsterMove.GetMoveDir() != Vector2.zero)
-                lastDirBox = monsterMove.GetMoveDir();
+            Vector2 moveDir = monsterMove.GetMoveDir();
+
+            if (moveDir != Vector2.zero && (moveDir.x == 0 || moveDir.y == 0))
+                lastDirBox = moveDir;
         }
-        else
-            lastDirBox = Vector2.zero;
 
         if (playerTag == "Kid" && objectInteracted != null)
         {
