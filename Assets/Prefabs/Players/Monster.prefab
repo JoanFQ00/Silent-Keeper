@@ -187,8 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSpeed: 3.5
   deceleration: 7
-  footstepsAudio: {fileID: 5219765405580660220}
-  footstepsVolume: 0.158
   bushCounter: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   particleS:
@@ -209,8 +207,6 @@ MonoBehaviour:
   interactRadius: 1.5
   iconSR: {fileID: 1987343841044642822}
   icon: {fileID: 1515509703, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
-  interactAudio: {fileID: 298128697447220596}
-  interactVolume: 0.3
   detectionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -583,7 +579,7 @@ Transform:
   m_GameObject: {fileID: 6259351450876090978}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.02, y: -1.55, z: 0}
+  m_LocalPosition: {x: -0.001, y: -1.456, z: 0}
   m_LocalScale: {x: 1.25, y: 1.2499999, z: 1.2499999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,7 +668,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -843,7 +839,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.08
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1924,7 +1920,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     mode: 0
     timeMode: 0
     fps: 30
@@ -2035,7 +2031,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 1
+    tilesX: 6
     tilesY: 1
     animationType: 0
     rowIndex: 0
@@ -5336,7 +5332,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b4c6638217fc20b4f8702c32ef2db32c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
