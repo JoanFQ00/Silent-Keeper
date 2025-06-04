@@ -160,6 +160,8 @@ public class PresurePlate : MonoBehaviour
     {
         if (desactivatorPlate)
         {
+            //ACTIVAR SONIDO ERROR
+
             foreach (PresurePlate plate in presurePlates)
             {
                 plate.GetComponent<InteractableBase>().SetKeyActivated(false);

@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour
     private float initialTime;
     //private bool isCounting = true, stopCounting = false;
 
+    public static bool lastCheckpoint = false;
     public static Zone currentZone = Zone.ZONE_1;
     public static GameManager Instance;
     public static Action<string> OnTimerUpdating;
-    public Transform currentSpawn;
+    public static Vector3 currentSpawn;
 
     public enum Zone
     {
@@ -66,12 +67,13 @@ public class GameManager : MonoBehaviour
         monsterObjectTexture.GetComponent<Camera>().enabled = false;
         kidObjectTexture.GetComponent<Camera>().enabled = false;
 
-        SpawnPlayers();
 
         initialTime = remainingTime;
 
-        currentSpawn = mapSpawn.transform;
+        if (!lastCheckpoint)
+            currentSpawn = mapSpawn.transform.position;
 
+        SpawnInitialPlayers();
         // PlayMusicForCurrentScene();
     }
 
@@ -158,13 +160,27 @@ public class GameManager : MonoBehaviour
     //     }
     // }
 
-    public void SpawnPlayers()
+    private void SpawnInitialPlayers()
     {
-        Vector3 spawnPoint = currentSpawn != null ? currentSpawn.position : mapSpawn.transform.position;
+        Vector3 spawnPoint = currentSpawn != null ? currentSpawn : mapSpawn.transform.position;
         float offset = 1.5f;
 
         monster.transform.position = spawnPoint + Vector3.left * offset;
         kid.transform.position = spawnPoint + Vector3.right * offset;
+    }
+
+    public void SpawnPlayers()
+    {
+        Vector3 spawnPoint = currentSpawn != null ? currentSpawn : mapSpawn.transform.position;
+        float offset = 1.5f;
+
+        if (currentSpawn == mapSpawn.transform.position)
+            SceneChanger.instance.RestartZone();
+        else
+        {
+            monster.transform.position = spawnPoint + Vector3.left * offset;
+            kid.transform.position = spawnPoint + Vector3.right * offset;
+        }
     }
 
 
@@ -205,11 +221,5 @@ public class GameManager : MonoBehaviour
     {
         //stopCounting = false;
         remainingTime = initialTime;
-    }
-
-    public void RespawnAtCheckpoint()
-    {
-        SpawnPlayers();
-        //RestartTime();  // reiniciar tiempo si es necesario
     }
 }

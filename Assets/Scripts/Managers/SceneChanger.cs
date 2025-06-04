@@ -52,43 +52,56 @@ public class SceneChanger : MonoBehaviour
 
     public void QuitGame()
     {
+        GameManager.lastCheckpoint = false;
         Debug.Log("Exit Game");
         Application.Quit();
     }
 
     public void LoadMenu()
     {
+        GameManager.lastCheckpoint = false;
         SceneManager.LoadScene(titleSceneName);
     }
 
     public void LoadGame()
     {
         EnsureAudioManager();
+        GameManager.lastCheckpoint = false;
         SceneManager.LoadScene(level1);
     }
     public void LoadLevel2()
     {
+        GameManager.lastCheckpoint = false;
         SceneManager.LoadScene(level2);
     }
 
     public void LoadLevel3()
     {
+        GameManager.lastCheckpoint = false;
         SceneManager.LoadScene(level3);
     }
 
     public void RestartZone()
+    {
+        GameManager.lastCheckpoint = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void RestartCheckPointZone()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void NextZone()
     {
+        GameManager.lastCheckpoint = false;
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     public void LoadEnd()
     {
+        GameManager.lastCheckpoint = false;
         SceneManager.LoadScene(endingSceneName);
     }
 }

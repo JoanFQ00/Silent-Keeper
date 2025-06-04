@@ -66,6 +66,11 @@ public class SpikeTrap : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & playerLayer) != 0)
-            SceneChanger.instance.RestartZone();
+        {
+            if (!GameManager.lastCheckpoint)
+                GameManager.Instance.SpawnPlayers();
+            else
+                SceneChanger.instance.RestartCheckPointZone();
+        }
     }
 }
