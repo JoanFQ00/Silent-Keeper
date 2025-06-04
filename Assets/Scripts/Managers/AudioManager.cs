@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEditor.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class AudioManager : MonoBehaviour
 
     public float musicVolume = 0.5f;
     public float sfxVolume = 1f;
+
+    private Slider musicSlider;
+    private Slider audioSlider;
 
     private Dictionary<string, AudioClip> sfxClips = new Dictionary<string, AudioClip>();
 
@@ -45,6 +50,46 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        DynamicButt.PassMusicSlider += GetSlider;
+        DynamicButt.PassAudioSlider += GetSlider;
+    }
+
+    void OnDisable()
+    {
+        DynamicButt.PassMusicSlider -= GetSlider;
+        DynamicButt.PassAudioSlider -= GetSlider;
+    }
+
+    void GetSlider(Slider slider)
+    {
+        if (slider.gameObject.name == "VolumeM_Sl")
+        {
+            musicSlider = slider;
+            musicSlider.value = musicVolume;
+            musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        }
+        else if (slider.gameObject.name == "VolumeS_Sl")
+        {
+            audioSlider = slider;
+            audioSlider.value = sfxVolume;
+            audioSlider.onValueChanged.AddListener(SetSFXVolume);
+        }
+    }
+
+    void SetMusicVolume(float value)
+    {
+        musicVolume = value;
+        musicSource.volume = value;
+    }
+
+    void SetSFXVolume(float value)
+    {
+        sfxVolume = value;
+        sfxSource.volume = value;
+    }
+    
     private void LoadSFX()
     {
         AudioClip[] clips = Resources.LoadAll<AudioClip>("SFX");

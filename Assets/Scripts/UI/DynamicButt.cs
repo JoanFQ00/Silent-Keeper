@@ -45,7 +45,7 @@ public class DynamicButt : MonoBehaviour
         if (GetComponent<Slider>() != null)
         {
             audioSlider = GetComponent<Slider>();
-            if (audioSlider.gameObject.name == "Volume_Sl")
+            if (audioSlider.gameObject.name == "VolumeM_Sl")
             {
                 PassMusicSlider?.Invoke(audioSlider);
             }
