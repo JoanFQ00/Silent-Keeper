@@ -26,7 +26,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("Particles")]
     [SerializeField] GameObject fireParticle1, fireParticle2;
 
-    [SerializeField] bool hasToBeAnimated, penultimateDoor;
+    [SerializeField] bool hasToBeAnimated, penultimateDoor, circusDoor = false;
 
     private List<InteractableBase> totalKeysActivated = new List<InteractableBase>();
     private Dictionary<InteractableBase, bool> copyKeyStates = new Dictionary<InteractableBase, bool>();
@@ -359,6 +359,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
+        if (circusDoor)
+            spriteRenderer.sprite = doorBaseSO.openDoorImage;
+
         thisActivated = true;
         OnDoorChanged(true);
     }
@@ -377,6 +380,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                     child.gameObject.SetActive(true);
             }
         }
+
+        if (circusDoor)
+            spriteRenderer.sprite = doorBaseSO.doorImage;
 
         thisActivated = false;
         OnDoorChanged(false);
@@ -400,8 +406,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (keepActivated)
             stopProcessing = true;
 
-        //spriteRenderer.sprite = doorBaseSO.openDoorImage;
-        if (animator != null)
+        if (circusDoor)
+            spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        else if (animator != null)
             animator.SetTrigger("Open");
 
         thisActivated = true;
@@ -424,8 +431,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
         }
 
-        //spriteRenderer.sprite = doorBaseSO.doorImage;
-        if (animator != null)
+        if (circusDoor)
+            spriteRenderer.sprite = doorBaseSO.doorImage;
+        else if (animator != null)
             animator.SetTrigger("Close");
 
         thisActivated = false;
