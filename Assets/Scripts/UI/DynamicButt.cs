@@ -77,7 +77,7 @@ public class DynamicButt : MonoBehaviour
         switch (gameObject.name)
         {
             case "StartButt":
-                sc.LoadGame();
+                sc.NextZone();
                 break;
             case "ExitButt":
                 sc.QuitGame();

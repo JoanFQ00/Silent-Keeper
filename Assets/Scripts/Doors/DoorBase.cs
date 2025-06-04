@@ -470,7 +470,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             else
             {
                 GameManager.Instance.StopCounting();
-                SceneChanger.instance.LoadMenu();
+                SceneChanger.instance.NextZone();
             }
         }
     }

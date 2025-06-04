@@ -16,7 +16,7 @@ public class IntroRoomsManager : MonoBehaviour
     private List<GameObject> otherObjects = new List<GameObject>();
     private Animation anim;
     private int doorCounter = 0, objectCouneter = 0;
-    private bool allDoorsClosed = true;
+    //private bool allDoorsClosed = true;
 
     [HideInInspector]
     public bool roomInAnimation;
@@ -167,7 +167,7 @@ public class IntroRoomsManager : MonoBehaviour
         otherObjects = otherObj;
         doorCounter = 0;
         objectCouneter = 0;
-        allDoorsClosed = false;
+        //allDoorsClosed = false;
     }
 
     public void OnCircusEnemyActivated()

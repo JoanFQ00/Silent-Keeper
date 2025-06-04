@@ -59,13 +59,19 @@ public class AudioManager : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        AudioClip musicClip = Resources.Load<AudioClip>("Audio/" + sceneName);
-
-        if (musicClip != null)
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 0)
+            musicSource.Stop();
+        else
         {
-            musicSource.clip = musicClip;
-            musicSource.Play();
+            AudioClip musicClip = Resources.Load<AudioClip>("Audio/" + sceneName);
+
+            if (musicClip != null)
+            {
+                musicSource.clip = musicClip;
+                musicSource.Play();
+            }
         }
+
     }
 
     public void PlaySFX(string name)

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class KeyBase : MonoBehaviour
 {
-    [SerializeField] float distToTarget = 1f;
-    [SerializeField] float followSpeed = 5f;
+    //[SerializeField] float distToTarget = 1f;
+    //[SerializeField] float followSpeed = 5f;
 
     private Transform followTarget;
     private InteractableBase interactable;
@@ -11,7 +11,7 @@ public class KeyBase : MonoBehaviour
     private CircleCollider2D circleCollider;
     //private bool hasBeenUsed;
 
-    public enum KeyType {blue, orange, ci,rc,us }
+    public enum KeyType { blue, orange, ci, rc, us }
     public KeyType keyType;
 
     //private void OnEnable()

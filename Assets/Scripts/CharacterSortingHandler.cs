@@ -4,7 +4,7 @@ public class CharacterSortingHandler : MonoBehaviour
 {
     [SerializeField] private Transform kid;
     [SerializeField] private Transform monster;
-    [SerializeField] private int sortingBase = 1000;
+    //[SerializeField] private int sortingBase = 1000;
 
     private SpriteRenderer kidRenderer;
     private SpriteRenderer monsterRenderer;
