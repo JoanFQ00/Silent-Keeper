@@ -8,14 +8,15 @@ public class SkillManager : MonoBehaviour
 
     public GameObject player;
     public GameObject[] allSkills;
+    public float ballonCooldown = 2.0f;
 
     private GameObject skill1;
     private GameObject skill2;
     private GameObject passiveSkill;
 
     private bool canStartCooldown1, canStartCooldown2;
-    private float cooldownSkill1, cooldownSkill2;
     private uint numUsesSkill1, numUsesSkill2;
+    private float cooldownSkill1, cooldownSkill2;
 
     public static Action<Sprite, GameObject, float, SkillUI.SlotNumber> OnSlotImageUpdated;
     public static Action<uint, SkillUI.SlotNumber> OnSlotUsesUpdated;
@@ -181,7 +182,8 @@ public class SkillManager : MonoBehaviour
                         {
                             BalloonBox.balloonsInInventory--;
                             canStartCooldown2 = true;
-                            cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+                            //cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+                            cooldownSkill2 = ballonCooldown;
 
                             skill2.GetComponent<ISkill>().Execute(player);
 
@@ -318,7 +320,8 @@ public class SkillManager : MonoBehaviour
             {
                 numUsesSkill2--;
                 canStartCooldown2 = true;
-                cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+                //cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
+                cooldownSkill2 = ballonCooldown;
 
                 skill2.GetComponent<ISkill>().Execute(player);
 
