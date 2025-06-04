@@ -2313,6 +2313,7 @@ GameObject:
   - component: {fileID: 1002485468}
   - component: {fileID: 1002485467}
   - component: {fileID: 1002485472}
+  - component: {fileID: 1002485473}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2444,7 +2445,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2528,6 +2529,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1002485473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002485466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a231dbaa15ba4d349a24ea848af67610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sonidos:
+  - {fileID: 8300000, guid: 77f97f0f9daef4d47a8397ec4e7fae1e, type: 3}
+  - {fileID: 8300000, guid: d7a0153476ede744f9462c3ca486f582, type: 3}
+  - {fileID: 8300000, guid: d7a0153476ede744f9462c3ca486f582, type: 3}
+  - {fileID: 8300000, guid: d7a0153476ede744f9462c3ca486f582, type: 3}
+  - {fileID: 8300000, guid: d7a0153476ede744f9462c3ca486f582, type: 3}
+  - {fileID: 8300000, guid: 35cc5b2e714d0f4479edaaf224798743, type: 3}
 --- !u!1 &1065401559
 GameObject:
   m_ObjectHideFlags: 0
