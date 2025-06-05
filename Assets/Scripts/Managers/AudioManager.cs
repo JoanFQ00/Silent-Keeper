@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-
     public AudioSource musicSource;
     public AudioSource sfxSource;
 

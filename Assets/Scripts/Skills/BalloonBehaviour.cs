@@ -31,6 +31,7 @@ public class BalloonBehaviour : MonoBehaviour
                 OnBallonExploded?.Invoke(globusImpactPos.transform);
 
                 OnBallonImpacted?.Invoke();
+                AudioManager.Instance.PlaySFX("balloonPop");
                 animator.SetTrigger("End");
             }
         }
