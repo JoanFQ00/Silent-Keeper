@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PresurePlate : MonoBehaviour
 {
-    [SerializeField] bool keepActivated = false, desactivatorPlate = false, isBigPlate = false, onlyBox = false;
+    [SerializeField] bool keepActivated = false, desactivatorPlate = false, isBigPlate = false, onlyBox = false, hasToActivateObjects = false, hasToDisableObjects = false;
     [SerializeField] LayerMask playerLayer, enemyLayer, boxLayer;
     [SerializeField] Sprite normalPlate, pressedPlate, mediumPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
@@ -112,13 +112,21 @@ public class PresurePlate : MonoBehaviour
         }
         else
         {
-            if (onlyBox && !objectsEnabled)
+            if ((onlyBox || (hasToActivateObjects && !hasToDisableObjects)) && !objectsEnabled)
             {
                 foreach (GameObject element in objectsToEnabe)
                     element.SetActive(true);
 
                 objectsEnabled = true;
             }
+            else if ((onlyBox || (hasToActivateObjects && hasToDisableObjects)) && !objectsEnabled)
+            {
+                foreach (GameObject element in objectsToEnabe)
+                    element.SetActive(false);
+
+                objectsEnabled = true;
+            }
+
             interactable.SetKeyActivated(true);
         }
 
