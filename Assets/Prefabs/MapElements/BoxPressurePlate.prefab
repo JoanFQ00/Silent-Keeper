@@ -13,6 +13,22 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2873480521126984717, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873480521126984717, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Size.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873480521126984717, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873480521126984717, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873480521126984717, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.56
       objectReference: {fileID: 0}
@@ -31,10 +47,22 @@ PrefabInstance:
     - target: {fileID: 3346111845479902906, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: pressedPlate
       value: 
-      objectReference: {fileID: 2702728422648800847, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+      objectReference: {fileID: 8593974934036460593, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
+    - target: {fileID: 3346111845479902906, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: keepActivated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3346111845479902906, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: boxLayer.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346111845479902906, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: presurePlates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346111845479902906, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: objectsToEnabe.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4965268570186535619, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85,12 +113,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2702728422648800847, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
     - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Color.b
+      value: 0.74074405
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Color.g
+      value: 0.74074405
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7228127641443353955, guid: 4185d13895882f546878d25c54cbde03, type: 3}
       propertyPath: m_SortingLayerID
-      value: -1342164237
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

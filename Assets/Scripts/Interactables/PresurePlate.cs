@@ -8,10 +8,12 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] Sprite normalPlate, pressedPlate, mediumPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
     [SerializeField] private float boxSnapDuration = 0.3f;
+    [SerializeField] List<GameObject> objectsToEnabe = new List<GameObject>();
 
     private InteractableBase interactable;
     private SpriteRenderer spriteRenderer;
     private HashSet<Collider2D> currentPlayers = new HashSet<Collider2D>();
+    private bool objectsEnabled = false;
 
     private class BoxTimerInfo
     {
@@ -20,8 +22,6 @@ public class PresurePlate : MonoBehaviour
         public Vector3 targetPosition;
         public bool isMoving = false;
     }
-
-    private Dictionary<Collider2D, BoxTimerInfo> boxTimers = new Dictionary<Collider2D, BoxTimerInfo>();
 
     void Start()
     {
@@ -34,68 +34,13 @@ public class PresurePlate : MonoBehaviour
             spriteRenderer.sprite = normalPlate;
     }
 
-    void Update()
-    {
-        List<Collider2D> boxesToActivate = new List<Collider2D>();
-
-        foreach (var kvp in boxTimers)
-        {
-            Collider2D boxCollider = kvp.Key;
-            BoxTimerInfo info = kvp.Value;
-
-            if (!info.isMoving)
-            {
-                info.timer += Time.deltaTime;
-
-                if (info.timer >= 2f)
-                {
-                    Vector3 currentPos = info.boxTransform.position;
-                    float gridSize = 0.5f;
-                    info.targetPosition = new Vector3(
-                        Mathf.Round(currentPos.x / gridSize) * gridSize,
-                        Mathf.Round(currentPos.y / gridSize) * gridSize,
-                        currentPos.z
-                    );
-                    info.isMoving = true;
-                }
-            }
-            else
-            {
-                info.boxTransform.position = Vector3.MoveTowards(
-                    info.boxTransform.position,
-                    info.targetPosition,
-                    (1 / boxSnapDuration) * Time.deltaTime
-                );
-
-                if (Vector3.Distance(info.boxTransform.position, info.targetPosition) < 0.01f)
-                {
-                    info.boxTransform.position = info.targetPosition;
-                    boxesToActivate.Add(boxCollider);
-                }
-            }
-        }
-
-        foreach (var box in boxesToActivate)
-        {
-            ActivatePlate();
-            boxTimers.Remove(box);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (onlyBox)
         {
             if (!IsBox(collision)) return;
-
-            if (!boxTimers.ContainsKey(collision))
-            {
-                boxTimers[collision] = new BoxTimerInfo
-                {
-                    boxTransform = collision.transform
-                };
-            }
-
+            
+            ActivatePlate();
             return;
         }
         else
@@ -123,9 +68,6 @@ public class PresurePlate : MonoBehaviour
         if (onlyBox)
         {
             if (!IsBox(collision)) return;
-
-            if (boxTimers.ContainsKey(collision))
-                boxTimers.Remove(collision);
 
             if (!keepActivated)
                 DeactivatePlate();
@@ -170,6 +112,13 @@ public class PresurePlate : MonoBehaviour
         }
         else
         {
+            if (onlyBox && !objectsEnabled)
+            {
+                foreach (GameObject element in objectsToEnabe)
+                    element.SetActive(true);
+
+                objectsEnabled = true;
+            }
             interactable.SetKeyActivated(true);
         }
 
