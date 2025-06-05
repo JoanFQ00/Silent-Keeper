@@ -40,6 +40,7 @@ public class PresurePlate : MonoBehaviour
         {
             if (!IsBox(collision)) return;
 
+            AudioManager.Instance.PlaySFX("pressurePlate");
             ActivatePlate();
             return;
         }
@@ -50,10 +51,16 @@ public class PresurePlate : MonoBehaviour
 
         currentPlayers.Add(collision);
 
+        if (currentPlayers.Count == 1)
+            AudioManager.Instance.PlaySFX("pressurePlate");
+
         if (isBigPlate)
         {
             if (currentPlayers.Count >= 2)
+            {
                 ActivatePlate();
+                AudioManager.Instance.PlaySFX("pressurePlate");
+            }
             else if (currentPlayers.Count == 1)
                 MediumPlate();
         }
