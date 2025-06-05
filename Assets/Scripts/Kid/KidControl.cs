@@ -39,33 +39,40 @@ public class KidControl : MonoBehaviour
 
     private void OnLeftMouse()
     {
-        if (!GameManager.Instance.isPaused)
+        if (GameManager.Instance.isPaused)
+            return;
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+
+        Collider2D hitInteractable = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Interactable"));
+        if (hitInteractable != null)
         {
-            kidMachine.SafeResetWaypoints();
-
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
-
-            float wallMargin = 0.001f;
-            Collider2D nearWall = Physics2D.OverlapCircle(mousePos, wallMargin, LayerMask.GetMask("Wall"));
-
-            if (nearWall == null)
+            if (hitInteractable.CompareTag("CajaMovible"))
             {
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Interactable"));
-
-                if (hit.collider != null)
-                    interactable = hit.collider.gameObject;
-
-                var waypoint = WaypointsPool.GetObject();
-                if (waypoint != null && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
-                {
-                    waypoint.transform.position = mousePos;
-                    kidMachine.AddWaypoint(waypoint);
-                    kidMachine.ChangeState(KidMachine.States.Waypoints);
-                }
+                interactable = hitInteractable.gameObject;
+                return;
+            }
+            else
+            {
+                interactable = hitInteractable.gameObject;
             }
         }
+
+        Collider2D wallHit = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Wall"));
+        if (wallHit != null)
+            return;
+
+        kidMachine.SafeResetWaypoints();
+        var waypoint = WaypointsPool.GetObject();
+        if (waypoint != null && kidMachine.GetCurrentState() != KidMachine.States.HiddenInLocker)
+        {
+            waypoint.transform.position = mousePos;
+            kidMachine.AddWaypoint(waypoint);
+            kidMachine.ChangeState(KidMachine.States.Waypoints);
+        }
     }
+
 
     private void OnRightMouse()
     {
