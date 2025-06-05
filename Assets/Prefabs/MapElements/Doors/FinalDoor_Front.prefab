@@ -48,6 +48,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4513198378575419707, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513198378575419707, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513198378575419707, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513198378575419707, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Name
       value: FinalDoor_Front

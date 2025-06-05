@@ -26,7 +26,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
     [Header("Particles")]
     [SerializeField] GameObject fireParticle1, fireParticle2;
     [SerializeField] GameObject smokeParticles;
-    public static Action<Transform> OnWallActivated;
 
     [SerializeField] bool hasToBeAnimated, penultimateDoor;
 
@@ -374,6 +373,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         // if (circusDoor)
         //     spriteRenderer.sprite = doorBaseSO.openDoorImage;
 
+        smokeParticles.GetComponent<ParticleSystem>().Play();
         thisActivated = true;
         OnDoorChanged(true);
     }
@@ -391,6 +391,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         // if (circusDoor)
         //     spriteRenderer.sprite = doorBaseSO.doorImage;
 
+        smokeParticles.GetComponent<ParticleSystem>().Play();
         thisActivated = false;
         OnDoorChanged(false);
     }

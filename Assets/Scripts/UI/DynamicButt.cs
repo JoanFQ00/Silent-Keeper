@@ -100,7 +100,6 @@ public class DynamicButt : MonoBehaviour
             case "UnpauseButt":
                 GameManager.Instance.Pause();
                 break;
-
             case "Level1":
                 sc.LoadGame();
                 break;
@@ -109,6 +108,9 @@ public class DynamicButt : MonoBehaviour
                 break;
             case "Level3":
                 sc.LoadLevel3();
+                break;
+            case "ResetButt":
+                sc.RestartZone();
                 break;
 
             default:

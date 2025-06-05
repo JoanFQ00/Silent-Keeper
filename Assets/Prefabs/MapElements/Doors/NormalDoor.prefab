@@ -537,7 +537,6 @@ MonoBehaviour:
   smokeParticles: {fileID: 7080871663959484727}
   hasToBeAnimated: 0
   penultimateDoor: 0
-  circusDoor: 0
 --- !u!114 &7161166935280246469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,11 +855,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 547940106590454185, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.825
+      value: -0.778
       objectReference: {fileID: 0}
     - target: {fileID: 547940106590454185, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 547940106590454185, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -894,7 +893,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6595775124312463228, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595775124312463228, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8823297300245272170, guid: 803479452e9ec684a9bb8578f3c56cc6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
