@@ -123,6 +123,7 @@ public class Interact : MonoBehaviour
             else if (matchedCollider.GetComponent<DoorBase>() != null && !TransitionCamAnimation.Instance.playersInTransition && gameObject.tag == "Player")
             {
                 matchedCollider.GetComponent<DoorBase>().Interacted();
+                AudioManager.Instance.PlaySFX("enterDoor");
             }
             else if (matchedCollider.GetComponent<Locker>() != null)
             {

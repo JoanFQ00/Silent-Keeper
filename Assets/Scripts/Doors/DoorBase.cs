@@ -457,6 +457,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 SceneChanger.instance.NextZone();
             }
         }
+        else
+        {
+            AudioManager.Instance.PlaySFX("error");
+        }
     }
 
     private void TeleportPlayers(int keyIdentificator)
