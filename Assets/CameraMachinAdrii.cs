@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CameraMachinAdri : MonoBehaviour
 {
-    public Transform player;             // Referencia al jugador
-    public BoxCollider2D cameraZone;     // Zona l�mite (debe tener isTrigger activado)
-    public Camera mainCamera;            // C�mara principal
+    public Transform player;
+    public BoxCollider2D cameraZone;
+    public Camera mainCamera;
 
     private bool isPlayerInside = false;
 

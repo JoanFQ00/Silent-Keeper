@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-
-
 public class EnemyDetector : TaggedMonobehaviour
 {
     private LayerMask wallLayer;
@@ -13,7 +11,6 @@ public class EnemyDetector : TaggedMonobehaviour
 
     private Transform _player;
     private Transform _kid;
-
     private Light2D _light2D;
 
     private float VisionRange;
@@ -49,15 +46,6 @@ public class EnemyDetector : TaggedMonobehaviour
 
         _light2D = GetComponent<Light2D>();
         Color color = Color.white;
-
-        //if (enemyPlayerDetector == Characters.ONE)
-        //{
-        //    if (ColorUtility.TryParseHtmlString("#274C4D", out color))
-        //        _light2D.color = color;
-        //}
-        //else
-        //    if (ColorUtility.TryParseHtmlString("#FFA132", out color))
-        //    _light2D.color = color;
     }
 
     void Update()
@@ -181,20 +169,6 @@ public class EnemyDetector : TaggedMonobehaviour
 
     private void SendToSpawner()
     {
-        //if (_light2D != null)
-        //{
-        //    _light2D.color = Color.black;
-        //}
-
-        //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/)
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        //else
-        //{
-        //    ResetValues();
-        //}
-
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-
         if (!GameManager.lastCheckpoint)
         {
             GameManager.Instance.SpawnPlayers();
@@ -203,29 +177,6 @@ public class EnemyDetector : TaggedMonobehaviour
         else
             SceneChanger.instance.RestartCheckPointZone();
     }
-
-    //private void ResetValues()
-    //{
-    //    startPosition = transform.position;
-    //    startRotation = transform.rotation;
-
-    //    stunTime = 0f;
-    //    enemyState = EnemyState.NORMAL;
-    //    _player = GameObject.FindGameObjectWithTag("Player")?.transform;
-    //    _kid = GameObject.FindGameObjectWithTag("Kid")?.transform;
-
-    //    _light2D = GetComponent<Light2D>();
-    //    Color color = Color.white;
-
-    //    if (enemyPlayerDetector == Characters.ONE)
-    //    {
-    //        if (ColorUtility.TryParseHtmlString("#274C4D", out color))
-    //            _light2D.color = color;
-    //    }
-    //    else
-    //        if (ColorUtility.TryParseHtmlString("#FFA132", out color))
-    //            _light2D.color = color;
-    //}
 
     private void OnDrawGizmos()
     {
@@ -237,9 +188,6 @@ public class EnemyDetector : TaggedMonobehaviour
 
         Vector3 origin = transform.position;
         Vector3 forward = transform.up;
-
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(origin, range);
 
         Quaternion leftRotation = Quaternion.Euler(0, 0, -angle / 2f);
         Quaternion rightRotation = Quaternion.Euler(0, 0, angle / 2f);

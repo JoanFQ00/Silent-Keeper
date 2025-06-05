@@ -4,7 +4,6 @@ using UnityEngine;
 public class BalloonBox : MonoBehaviour, IInteractableWithButton
 {
     public LayerMask interactableLayer;
-
     private static uint boxBalloonAmount;
     private const uint maxBalloonPerBox = 3;
     private const uint maxBalloonsInInventory = 3;
@@ -17,7 +16,6 @@ public class BalloonBox : MonoBehaviour, IInteractableWithButton
 
     private void Start()
     {
-        // Solo inicializa globos en la caja, no en el inventario global
         if (!initialized)
         {
             boxBalloonAmount = maxBalloonPerBox;
@@ -42,6 +40,4 @@ public class BalloonBox : MonoBehaviour, IInteractableWithButton
     }
 
     public void Interacted(GameObject other, GameObject thisObject) { }
-
-    //QUITAR IMAGEN DEL HUD SI HAY 0
 }

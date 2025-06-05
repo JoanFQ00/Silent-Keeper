@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class IntroRoomsManager : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class IntroRoomsManager : MonoBehaviour
     private List<GameObject> otherObjects = new List<GameObject>();
     private Animation anim;
     private int doorCounter = 0, objectCouneter = 0;
-    //private bool allDoorsClosed = true;
 
     [HideInInspector]
     public bool roomInAnimation;
@@ -91,7 +89,6 @@ public class IntroRoomsManager : MonoBehaviour
     {
         if (animationToPlay == null || anim == null || animationNames.Length == 0)
         {
-            //Debug.LogWarning("StartRoomAnim cancelado por valores nulos.");
             return;
         }
 
@@ -167,7 +164,6 @@ public class IntroRoomsManager : MonoBehaviour
         otherObjects = otherObj;
         doorCounter = 0;
         objectCouneter = 0;
-        //allDoorsClosed = false;
     }
 
     public void OnCircusEnemyActivated()

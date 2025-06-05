@@ -119,7 +119,7 @@ public class SkillUI : MonoBehaviour
             if (isWhite)
                 normalSkillImageUI.color = Color.white;
             else
-                normalSkillImageUI.color = Color.yellow; //Se puede poner un shader :)
+                normalSkillImageUI.color = Color.yellow;
     }
 
     private void EnableChidren()

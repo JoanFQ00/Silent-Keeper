@@ -22,19 +22,19 @@ public class DynamicButt : MonoBehaviour
             button = GetComponent<Button>();
             button.onClick.AddListener(HandleButtonClick);
         }
-        if (canvas == null && GameObject.Find("Menu")) 
+        if (canvas == null && GameObject.Find("Menu"))
         {
             canvas = GameObject.Find("Menu").GetComponent<Canvas>();
         }
-        if (optionsPanel == null && FindInCanvasByName("OptionsPanel")) 
+        if (optionsPanel == null && FindInCanvasByName("OptionsPanel"))
         {
             optionsPanel = FindInCanvasByName("OptionsPanel");
         }
-        if (buttonPanel == null && FindInCanvasByName("ButtonPanel")) 
+        if (buttonPanel == null && FindInCanvasByName("ButtonPanel"))
         {
             buttonPanel = FindInCanvasByName("ButtonPanel");
         }
-        if (pausePanel == null && FindInCanvasByName("PauseMenu")) 
+        if (pausePanel == null && FindInCanvasByName("PauseMenu"))
         {
             pausePanel = FindInCanvasByName("PauseMenu");
         }
@@ -56,13 +56,13 @@ public class DynamicButt : MonoBehaviour
         }
     }
 
-    private GameObject FindInCanvasByName(string name) 
+    private GameObject FindInCanvasByName(string name)
     {
         Transform[] children = canvas.GetComponentsInChildren<Transform>(true);
 
-        foreach (Transform child in children) 
+        foreach (Transform child in children)
         {
-            if (child.name == name) 
+            if (child.name == name)
             {
                 return child.gameObject;
             }
@@ -114,7 +114,6 @@ public class DynamicButt : MonoBehaviour
                 break;
 
             default:
-                //Debug.Log("This Button does nothing");
                 break;
         }
     }

@@ -31,21 +31,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void RefreshKeys(KeyBase key)
     {
-        //collectedKeys.RemoveAll(k => k == null || !k.gameObject.activeSelf);
-
-        //Transform followTarget = transform;
-
-        //for (int i = 0; i < collectedKeys.Count; i++)
-        //{
-        //    if (collectedKeys[i] != null)
-        //    {
-        //        collectedKeys[i].SetFollowTarget(followTarget);
-        //        followTarget = collectedKeys[i].transform;
-        //    }
-        //}
-
-        //KeyHasBeenUsed?.Invoke();
-
         collectedKeys.Remove(key);
         RemoveKeyUI?.Invoke(1, key.keyType);
         key.gameObject.SetActive(false);
@@ -53,9 +38,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void OnKeyObtained(KeyBase keyBase)
     {
-        //Transform followTarget = collectedKeys.Count == 0 ? transform : collectedKeys[collectedKeys.Count - 1].transform;
-
-        //keyBase.SetFollowTarget(followTarget);
         collectedKeys.Add(keyBase);
         AddKeyUI?.Invoke(1, keyBase.keyType);
     }

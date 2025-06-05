@@ -13,10 +13,8 @@ public class TaggedMonobehaviour : MonoBehaviour
 }
 public class TaggedGameObject : TaggedMonobehaviour
 {
-
 }
 
 public static class TaggedMonoBehaviourUtils
 {
-
 }
