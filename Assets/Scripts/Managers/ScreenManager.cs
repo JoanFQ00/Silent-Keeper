@@ -1,19 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
-    [SerializeField] private Toggle toggle; 
-    public TMP_Dropdown dropdown; 
+    [SerializeField] private Toggle toggle;
+    public TMP_Dropdown dropdown;
 
     private Resolution[] resolutions;
     private List<Resolution> filtredRes;
     private List<string> options;
 
-    private RefreshRate currentRefreshRate;
-    private int currentResolutionIdx; 
+    private int currentResolutionIdx;
 
     void Awake()
     {
@@ -28,21 +28,26 @@ public class ScreenManager : MonoBehaviour
 
         CheckResolution();
 
-        if (!PlayerPrefs.HasKey("numRes"))
+        int defaultIndex = filtredRes.FindIndex(res => res.width == 1920 && res.height == 1200);
+        if (defaultIndex == -1)
         {
-            int index1920x1200 = filtredRes.FindIndex(res => res.width == 1920 && res.height == 1200);
+            defaultIndex = filtredRes.FindIndex(res => res.width >= 1920 && res.height >= 1200);
+        }
 
-            if (index1920x1200 != -1)
-            {
-                ChangeRes(index1920x1200);
-                dropdown.value = index1920x1200;
-                PlayerPrefs.SetInt("numRes", index1920x1200);
-                PlayerPrefs.Save();
-            }
-  
+        if (defaultIndex != -1)
+        {
+            ChangeRes(defaultIndex);
+            dropdown.value = defaultIndex;
+            PlayerPrefs.SetInt("numRes", defaultIndex);
+            PlayerPrefs.Save();
+        }
+        else if (filtredRes.Count > 0)
+        {
+            // Fallback: usar la primera opción disponible
+            ChangeRes(0);
+            dropdown.value = 0;
         }
     }
-
 
     public void ChangeScreen(bool fullScreen)
     {
@@ -59,31 +64,34 @@ public class ScreenManager : MonoBehaviour
     private void Save()
     {
         PlayerPrefs.SetInt("Fullscreen", toggle.isOn ? 1 : 0);
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
     }
 
     public void CheckResolution()
     {
-        resolutions = Screen.resolutions; 
-        filtredRes = new List<Resolution>(); 
-        dropdown.ClearOptions(); 
+        resolutions = Screen.resolutions;
+        filtredRes = new List<Resolution>();
+        dropdown.ClearOptions();
 
-        currentRefreshRate = Screen.currentResolution.refreshRateRatio; 
-
-        for (int i = 0; i < resolutions.Length; i++)
+        foreach (var res in resolutions)
         {
-            if (resolutions[i].refreshRateRatio.numerator == currentRefreshRate.numerator &&
-                resolutions[i].refreshRateRatio.denominator == currentRefreshRate.denominator)
+            float aspectRatio = (float)res.width / res.height;
+            if (Mathf.Abs(aspectRatio - 16f / 10f) < 0.01f)
             {
-                filtredRes.Add(resolutions[i]);
+                if (!filtredRes.Exists(r => r.width == res.width && r.height == res.height))
+                {
+                    filtredRes.Add(res);
+                }
             }
         }
 
-        options = new List<string>(); 
+        filtredRes = filtredRes.OrderBy(r => r.width).ThenBy(r => r.height).ToList();
+
+        options = new List<string>();
 
         for (int i = 0; i < filtredRes.Count; i++)
         {
-            string option = $"{filtredRes[i].width}x{filtredRes[i].height} @ {filtredRes[i].refreshRateRatio.value:0}Hz";
+            string option = $"{filtredRes[i].width}x{filtredRes[i].height}";
             options.Add(option);
 
             if (filtredRes[i].width == Screen.width && filtredRes[i].height == Screen.height)
@@ -92,10 +100,9 @@ public class ScreenManager : MonoBehaviour
             }
         }
 
-        dropdown.AddOptions(options); 
+        dropdown.AddOptions(options);
 
         int savedIdx = PlayerPrefs.GetInt("numRes", currentResolutionIdx);
-
         dropdown.value = Mathf.Clamp(savedIdx, 0, filtredRes.Count - 1);
         dropdown.RefreshShownValue();
     }
@@ -103,7 +110,7 @@ public class ScreenManager : MonoBehaviour
     public void ChangeRes(int resIndx)
     {
         PlayerPrefs.SetInt("numRes", resIndx);
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
 
         if (resIndx >= 0 && resIndx < filtredRes.Count)
         {
