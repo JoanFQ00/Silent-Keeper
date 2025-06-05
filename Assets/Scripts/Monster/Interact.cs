@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -6,31 +5,9 @@ public class Interact : MonoBehaviour
     [SerializeField] float interactRadius;
     [SerializeField] SpriteRenderer iconSR;
     [SerializeField] Sprite icon;
-
-    // [Header("Interaction Sound")]
-    // [SerializeField] private AudioSource interactAudio;
-    // [SerializeField][Range(0f, 1f)] private float interactVolume = 1f;
-
     public LayerMask detectionLayer;
     private MonsterMove monsterMove;
     private Vector2 lastDirBox;
-
-    //private float scrollCooldown = 0.3f;
-    //private float lastScrollTime = 0f;
-
-    //BORRAR
-    //public float GetRadius(bool getInteractRadius)
-    //{
-    //    if (getInteractRadius)
-    //        return interactRadius;
-    //    else
-    //        return detectionRadius;
-    //}
-
-    //public float GetDetectionRadius()
-    //{
-    //    return detectionRadius;
-    //}
 
     private void Start()
     {
@@ -45,26 +22,10 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.G) && gameObject.tag == "Kid")
-        //{
-        //    if (!GameManager.Instance.isPaused)
-        //        Interacting();
-        //}
-
         if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player" && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
-            // PlayInteractionSound();
             Interacting(gameObject.tag);
         }
-
-        //if (Input.GetKeyDown(KeyCode.F) && gameObject.tag == "Kid")
-        //{
-        //    Interacting();
-        //    // if (!GameManager.Instance.isPaused && Time.time - lastScrollTime > scrollCooldown)
-        //    // {
-        //    //     lastScrollTime = Time.time;
-        //    // }
-        //}
 
         InteractableDetection();
     }
@@ -218,46 +179,13 @@ public class Interact : MonoBehaviour
                 if (gameObject.tag == "Player")
                     matchedCollider.GetComponent<BalloonBox>().Interacted();
             }
-            else if (matchedCollider.GetComponent<CajaMovible>() != null)
+            else if (matchedCollider.GetComponent<MoveBox>() != null)
             {
                 if (gameObject.tag == "Player")
-                    matchedCollider.GetComponent<CajaMovible>().MoverEnDireccion(lastDirBox);
+                    matchedCollider.GetComponent<MoveBox>().MoverEnDireccion(lastDirBox);
             }
         }
     }
-
-    //INPUT SYSTEM
-    //private void OnInteractionExecutedMonster()
-    //{
-    //    //CUANDO TENGAMOS LAS 2 TECLAS DIFERENTES
-    //    if (!GameManager.Instance.isPaused)
-    //    {
-    //        if (gameObject.tag == "Player")
-    //            Interacting(this.gameObject);
-
-    //        Interacting(gameObject);
-    //    }
-    //}
-
-    //private void OnInteractionExecutedKid()
-    //{
-    //    if (!GameManager.Instance.isPaused)
-    //    {
-    //        if (gameObject.tag == "Kid")
-    //            Interacting(this.gameObject);
-    //    }
-    //}
-
-    //public float GetInteractRadius() { return interacRadius; }
-
-    // private void PlayInteractionSound()
-    // {
-    //     if (interactAudio != null)
-    //     {
-    //         interactAudio.volume = interactVolume;
-    //         interactAudio.Play();
-    //     }
-    // }
 
     private void OnDrawGizmos()
     {

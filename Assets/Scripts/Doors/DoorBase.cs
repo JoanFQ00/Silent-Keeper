@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -166,7 +165,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             {
                 totalKeysActivated.Remove(interactable);
                 RefreshPlayerInventory?.Invoke(interactable.gameObject.GetComponent<KeyBase>());
-                //interactable.gameObject.GetComponent<KeyBase>().KeyHasBeenUsed();
             }
         }
     }
@@ -266,7 +264,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
     private void DoorChecker()
     {
-        if (!hasMultipleOptions) //SI O SI SE ABRE CON TODAS A LA VEZ
+        if (!hasMultipleOptions)
         {
             bool canDoorBeOpened = true;
 
@@ -293,7 +291,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
         else
         {
-            if (hasMultipleOptions && isIndependent) //SOLO NECESITA 1 PARA ACTIVARSE, Y TODAS PARA DESACTIVARSE
+            if (hasMultipleOptions && isIndependent)
             {
                 bool canDoorBeOpened = false, canDoorBeClosed = true;
 
@@ -320,7 +318,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 if (canDoorBeClosed && thisActivated && !hasToBeAnimated)
                     CloseDoor();
             }
-            else //CADA CAMBIO CAMBIA SU ESTADO
+            else
             {
                 int numChanges = 0;
 
@@ -368,10 +366,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
 
         if (keepActivated)
+        {
             stopProcessing = true;
-
-        // if (circusDoor)
-        //     spriteRenderer.sprite = doorBaseSO.openDoorImage;
+        }
 
         smokeParticles.GetComponent<ParticleSystem>().Play();
         thisActivated = true;
@@ -387,9 +384,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             if (wallChild != null)
                 wallChild.SetActive(true);
         }
-
-        // if (circusDoor)
-        //     spriteRenderer.sprite = doorBaseSO.doorImage;
 
         smokeParticles.GetComponent<ParticleSystem>().Play();
         thisActivated = false;
@@ -407,10 +401,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         }
 
         if (keepActivated)
+        {
             stopProcessing = true;
+        }
 
-        // if (circusDoor)
-        //     spriteRenderer.sprite = doorBaseSO.openDoorImage;
         if (animator != null)
             animator.SetTrigger("Open");
 
@@ -429,8 +423,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 wallChild.SetActive(true);
         }
 
-        // if (circusDoor)
-        //     spriteRenderer.sprite = doorBaseSO.doorImage;
         if (animator != null)
             animator.SetTrigger("Close");
 
@@ -445,7 +437,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         {
             if (doorBaseSO != null && !isMobile && !doorBaseSO.isZoneDoor)
             {
-                // RECARGAR HABILIDAD DE SALA (LIMITAR 1 VEZ POR PUERTA) --- DE MOMENTO NO HACE FALTA
                 if (penultimateDoor)
                 {
                     doorTP.CloseDoor();
@@ -456,12 +447,9 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             }
             else if (doorBaseSO != null && !isMobile && doorBaseSO.isZoneDoor && !doorBaseSO.isFinalDoor)
             {
-                // RECARGAR HABILIDADES ENTERAS Y LLAMAR M�QUINA EXPRENDEDORA (YA NO PUEDE VOLVER ATR�S)
                 GameManager.Instance.StopCounting();
-                //OnZoneEnded?.Invoke(); --> Maquina
                 GameManager.currentZone = GameManager.currentZone + 1;
                 SceneChanger.instance.NextZone();
-                //GameManager.Instance.RestartTime();//BORRAR
             }
             else
             {
@@ -483,18 +471,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
             player.transform.position = destination + Vector3.left * 0.5f;
             kid.transform.position = destination + Vector3.right * 0.5f;
-
-            //foreach (var key in player.GetComponent<PlayerInventory>().GetKey())
-            //{
-            //    if (key != null)
-            //        key.transform.position = destination;
-            //}
-
-            //foreach (var key in kid.GetComponent<PlayerInventory>().GetKey())
-            //{
-            //    if (key != null)
-            //        key.transform.position = destination;
-            //}
         }
     }
 
@@ -509,38 +485,6 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
 
         return side >= 0 ? -axis : axis;
     }
-
-    //public string GetTotalKeysActivated()
-    //{
-    //    int count = 0;
-    //    string text = "";
-
-    //    foreach (InteractableBase interactable in totalKeysActivated)
-    //    {
-    //        if (interactable != null && interactable.GetIsActivated())
-    //            count++;
-    //    }
-
-    //    text += " | Puerta: ";
-
-    //    if (thisActivated)
-    //        text += "Abierta | ";
-    //    else
-    //        text += "Cerrada | ";
-
-    //    text += "Tipo: ";
-
-    //    if (hasMultipleOptions && isIndependent)
-    //        text += "M�ltiple Fija | ";
-    //    else if (hasMultipleOptions && isIndependent)
-    //        text += "M�ltiple Alterable | ";
-    //    else
-    //        text += "Dependiente | ";
-
-    //    text += "Elementos activos: ";
-
-    //    return text + "(" + count.ToString() + "/" + Mathf.Max(1, totalKeysActivated.Count) + ")";
-    //}
 
     public int GetDoorKey()
     {

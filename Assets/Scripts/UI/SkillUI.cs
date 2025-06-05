@@ -64,7 +64,6 @@ public class SkillUI : MonoBehaviour
                 if (image == skill.GetComponent<ISkill>().GetSkill().gameplayImageBW)
                 {
                     normalSkillImageUI.sprite = image;
-                    //normalSkillImageUI.fillAmount = Mathf.Clamp01(1 - (cooldown / skill.GetComponent<ISkill>().GetSkill().cooldown));
                     normalSkillImageUI.fillAmount = Mathf.Clamp01(1 - (cooldown / SkillManager.Instance.ballonCooldown));
 
                     cooldownSkillImageUI.gameObject.SetActive(true);
@@ -119,7 +118,7 @@ public class SkillUI : MonoBehaviour
             if (isWhite)
                 normalSkillImageUI.color = Color.white;
             else
-                normalSkillImageUI.color = Color.yellow; //Se puede poner un shader :)
+                normalSkillImageUI.color = Color.yellow;
     }
 
     private void EnableChidren()

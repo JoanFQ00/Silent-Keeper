@@ -7,7 +7,7 @@ public class VendingMachineBase : MonoBehaviour
 {
     [SerializeField] private GameObject panelMachine, finalPanel, ButtonSkill1, ButtonSkill2, ButtonSkill3, Slot1UI, Slot2UI, Slot3UI, SkillSelectedUI;
 
-    private GameObject[] skillsObtained; 
+    private GameObject[] skillsObtained;
     private GameObject skillSelected;
 
     public static VendingMachineBase Instance;
@@ -49,12 +49,10 @@ public class VendingMachineBase : MonoBehaviour
 
     private void PickSkills()
     {
-        //MIRAR DE ESCOGER LAS QUE NO TIENES
         GameObject[] allSkills = SkillManager.Instance.allSkills;
 
         if (allSkills.Length < 3)
         {
-            //No hay suficientes habilidades para elegir
             return;
         }
 
@@ -68,8 +66,6 @@ public class VendingMachineBase : MonoBehaviour
 
     private void OnStartCinematic()
     {
-        //GameManager.Instance.Pause(); MIRAR DE HACER OTRA FORMA DE PONERLO EN PAUSA DESDE EL GAMEMANAGER
-
         ButtonSkill1.SetActive(false);
         ButtonSkill2.SetActive(false);
         ButtonSkill3.SetActive(false);
@@ -90,7 +86,6 @@ public class VendingMachineBase : MonoBehaviour
 
     public void OnEndCinematic()
     {
-        //CARGAR DESCRIPCIONES Y TODA LA INFO DE SKILLBASE ;)
     }
 
     public void OnSkill1Selected()

@@ -1,10 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static KeyBase;
 
 public class HudManager : MonoBehaviour
 {
@@ -16,20 +13,18 @@ public class HudManager : MonoBehaviour
     public GameObject schoolPan;
     public GameObject circusPan;
     public GameObject voidPan;
-    public enum Panels { schoolPan, circusPan, voidPanel}
+    public enum Panels { schoolPan, circusPan, voidPanel }
     public Panels currrentPanel;
 
     private void OnEnable()
     {
         PlayerInventory.AddKeyUI += AddKey;
-        //PlayerInventory.RemoveKeyUI += RemoveKey;
         SceneChanger.ChangePan += ChangePanel;
     }
 
     private void OnDisable()
     {
         PlayerInventory.AddKeyUI -= AddKey;
-        //PlayerInventory.RemoveKeyUI -= RemoveKey;
         SceneChanger.ChangePan -= ChangePanel;
     }
 
@@ -45,7 +40,7 @@ public class HudManager : MonoBehaviour
             circusPan = FindInActiveObjectByName("CircusTabPanel");
         }
 
-        if (voidPan == null) 
+        if (voidPan == null)
         {
             voidPan = FindInActiveObjectByName("voidPanel");
         }
@@ -88,7 +83,7 @@ public class HudManager : MonoBehaviour
             circusPan.SetActive(false);
             voidPan.SetActive(false);
         }
-        else if (panel == Panels.voidPanel) 
+        else if (panel == Panels.voidPanel)
         {
             currrentPanel = Panels.voidPanel;
             schoolPan.SetActive(false);
@@ -115,26 +110,13 @@ public class HudManager : MonoBehaviour
                 keys += amount;
                 rcIm.color = Color.white;
                 break;
-             case KeyBase.KeyType.us:
+            case KeyBase.KeyType.us:
                 keys += amount;
                 usIm.color = Color.white;
                 break;
         }
     }
 
-    //private void RemoveKey(int amount, KeyBase.KeyType keyType) 
-    //{
-    //    switch (keyType)
-    //    {
-    //        case KeyBase.KeyType.blue:
-    //            keyIm1.color = Color.black;
-    //            break;
-    //        case KeyBase.KeyType.orange:
-    //            keyIm2.color = Color.black;
-    //            break;
-    //        }
-    //    }
-    
     private GameObject FindInActiveObjectByName(string name)
     {
         Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>();

@@ -27,8 +27,6 @@ public class Locker : MonoBehaviour, IInteractableWithButton
 
             if (activated)
             {
-                //ACTIVAR ANIMACIÓN OJOS
-
                 spriteRenderer.sprite = lockerBlocked;
 
                 _other.GetComponent<Collider2D>().enabled = !activated;
@@ -46,37 +44,7 @@ public class Locker : MonoBehaviour, IInteractableWithButton
             }
             else
             {
-
-                //Camera cam = GameObject.FindAnyObjectByType<Camera>();
-
-                //if (cam.GetComponent<CameraFollow>().GetCameraTarget().tag == "Kid" && _other.gameObject.tag == "Kid")
-                //{
-                //    _other.transform.position = this.transform.position + this.transform.right * 1.2f;
-                //    _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-
-                //    _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
-
-                //    _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-
-                //    //_other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-                //    _other.GetComponent<SpriteRenderer>().color = originalColor;
-                //    _other = null;
-                //}
-                //else if (cam.GetComponent<CameraFollow>().GetCameraTarget().tag == "Player" && _other.gameObject.tag == "Player")
-                //{
-                //    _other.transform.position = this.transform.position + this.transform.right * 1.2f;
-                //    _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-
-                //    _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Stoped);
-
-                //    _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-
-                //    //_other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-                //    _other.GetComponent<SpriteRenderer>().color = originalColor;
-                //    _other = null;
-                //}
-
-                //DESACTIVAR ANIMACIÓN OJOS
+                //DESACTIVAR ANIMACIoN OJOS
 
                 spriteRenderer.sprite = normalLocker;
 
@@ -90,7 +58,6 @@ public class Locker : MonoBehaviour, IInteractableWithButton
 
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-                //_other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
                 _other.GetComponent<SpriteRenderer>().color = originalColor;
                 _other.GetComponent<Collider2D>().enabled = !activated;
                 _other = null;

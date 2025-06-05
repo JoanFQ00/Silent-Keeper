@@ -15,20 +15,20 @@ public class SkillBase : ScriptableObject
         ZONE
     }
 
-    public Sprite bigImage, gameplayImage, gameplayImageBW, gameplayImageWhite; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public Sprite bigImage, gameplayImage, gameplayImageBW, gameplayImageWhite; // Will be used in SkillManager or in the vending machine to set up the observer with the UI | No need to put it in the update ;)
 
     [HideInInspector]
-    public string selectedSkillName; //Se usará en SkillManager o en la máquiana exprendedora para hacer el observer con la UI | No hace falta ponerse en el update ;)
+    public string selectedSkillName; // Will be used in SkillManager or in the vending machine to set up the observer with the UI | No need to put it in the update ;)
 
-    public SkillType currentSkillType { get; private set; } //Se usará en la máquina exprendedora a la hora de asignar a qué stak va usando la función de SkillManager "AssignSkillToSlot"
-    public ReloadType currentReloadType { get; private set; } //Se ha de aplicar un observer externamente y que afecte a las condiciones del SkillManager (va en relación a "uses") (por ejemplo al cruzar purtas, por lo tanto 2 tipos, puertas de sala (de 1 solo uso) y la puerta final de zona)
-    public string skillDescription { get; private set; } //Se usará en el SkillManager (gameplayImage) y/o en la máquiana exprendedora (bigImage) para hacer el observer con la UI | No hace falta ponerse en el update ;)
-    public uint uses { get; private set; } //Se usa en SkillManager (si se gastan que se queden transparentes hasta que se recarguen)
-    public float cooldown { get; private set; } //Se usa en SkillManager para recargar la habilidad
+    public SkillType currentSkillType { get; private set; } // Will be used in the vending machine when assigning which stack it goes to using the SkillManager function "AssignSkillToSlot"
+    public ReloadType currentReloadType { get; private set; } // An external observer must be applied and it should affect the SkillManager conditions (related to "uses") (e.g., when crossing doors, therefore two types: room doors (single use) and the final zone door)
+    public string skillDescription { get; private set; } // Will be used in SkillManager (gameplayImage) and/or in the vending machine (bigImage) to set up the observer with the UI | No need to put it in the update ;)
+    public uint uses { get; private set; } // Used in SkillManager (if used up, make them transparent until reloaded)
+    public float cooldown { get; private set; } // Used in SkillManager to reload the ability
 
-    private const string CSV_PATH = "CSV/Skills";  // Ruta a la carpeta Resources
+    private const string CSV_PATH = "CSV/Skills";  // Path to the Resources folder
 
-    // Método para cargar datos desde el CSV
+    // Method to load data from the CSV
     public void LoadFromCSV(TextAsset csvFile)
     {
         if (csvFile == null)
@@ -38,12 +38,12 @@ public class SkillBase : ScriptableObject
         }
 
         string[] lines = csvFile.text.Split('\n');
-        for (int i = 1; i < lines.Length; i++) // Saltar la cabecera
+        for (int i = 1; i < lines.Length; i++) // Skip the header
         {
             string[] values = lines[i].Split(',');
             if (values.Length < 6) continue;
 
-            // Si el nombre coincide con el seleccionado, cargar la habilidad
+            // If the name matches the selected one, load the skill
             if (values[0].Trim() == selectedSkillName)
             {
                 currentSkillType = values[2].Trim().ToUpper() == "ACTIVE" ? SkillType.ACTIVE : SkillType.PASSIVE;
@@ -55,11 +55,11 @@ public class SkillBase : ScriptableObject
         }
     }
 
-    // Este método se ejecutará al cargar el ScriptableObject (cuando se reinicie el proyecto o ejecute la build)
+    // This method will execute when the ScriptableObject loads (when the project restarts or the build is run)
     public void Awake()
     {
-        // Si ya se tiene un selectedSkillName, cargar desde el CSV
-        TextAsset csvFile = Resources.Load<TextAsset>(CSV_PATH);  // Cargar desde Resources
+        // If a selectedSkillName already exists, load from CSV
+        TextAsset csvFile = Resources.Load<TextAsset>(CSV_PATH);  // Load from Resources
         if (!string.IsNullOrEmpty(selectedSkillName))
         {
             LoadFromCSV(csvFile);

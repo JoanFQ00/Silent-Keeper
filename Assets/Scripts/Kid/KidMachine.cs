@@ -1,16 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-//using static UnityEngine.Rendering.DebugUI;
 
 public class KidMachine : MonoBehaviour
 {
     [SerializeField] float defaultSpeed = 1.5f;
     [SerializeField] float followingDistance = 0.7f, distToPlayer = 0.5f;
-
-    // [SerializeField]
-    // public AudioSource footstepsAudio;
-    // [SerializeField]
-    // [Range(0f, 1f)] private float footstepsVolume = 0.5f;
 
     [HideInInspector] public int bushCounter = 0;
     public Color originalColor;
@@ -67,7 +61,6 @@ public class KidMachine : MonoBehaviour
         if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
         {
             UpdateAnimator(Vector2.zero);
-            // StopFootstepAudio();
             return;
         }
 
@@ -98,7 +91,6 @@ public class KidMachine : MonoBehaviour
             moveDelta = Vector2.zero;
         }
         UpdateAnimator(moveDelta);
-        // HandleFootstepAudio();
 
         lastPosition = transform.position;
     }
@@ -320,31 +312,4 @@ public class KidMachine : MonoBehaviour
             }
         }
     }
-
-    // private void HandleFootstepAudio()
-    // {
-    //     bool shouldPlay = (currentState == States.Following || currentState == States.Hand || currentState == States.Waypoints);
-    //     bool isMoving = Vector2.Distance(transform.position, lastPosition) > 0.005f;
-
-    //     if (shouldPlay && isMoving)
-    //     {
-    //         if (footstepsAudio != null && !footstepsAudio.isPlaying)
-    //         {
-    //             footstepsAudio.volume = footstepsVolume;
-    //             footstepsAudio.Play();
-    //         }
-    //     }
-    //     else
-    //     {
-    //         StopFootstepAudio();
-    //     }
-    // }
-
-    // private void StopFootstepAudio()
-    // {
-    //     if (footstepsAudio != null && footstepsAudio.isPlaying)
-    //     {
-    //         footstepsAudio.Stop();
-    //     }
-    // }
 }

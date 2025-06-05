@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
 
 public class SkillManager : MonoBehaviour
 {
@@ -47,13 +46,6 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    //public enum SkillNumber
-    //{
-    //    SKILL1 = 0,
-    //    SKILL2,
-    //    SKILL3
-    //}
-
     private void Start()
     {
         canStartCooldown1 = false;
@@ -64,7 +56,6 @@ public class SkillManager : MonoBehaviour
             g.GetComponent<ISkill>().SetInitialHasFinished();
         }
 
-        //Esto es solo para el prototipo
         AssignSkillToSlot(allSkills[0], 1);
         AssignSkillToSlot(allSkills[1], 2);
         AssignSkillToSlot(allSkills[2], 3);
@@ -81,65 +72,6 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
-        //ESTO BORRAR CUANDO ESTÉN LOS INPUTS BIEN IMPLEMENTADOS
-        //if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && 
-        //    GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
-
-        if (skill1 != null && Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
-        {
-            if (skill1.GetComponent<ISkill>().HasFinished() && !canStartCooldown1 && numUsesSkill1 > 0)
-            {
-                //numUsesSkill1--;
-                //canStartCooldown1 = true;
-                //cooldownSkill1 = skill1.GetComponent<ISkill>().GetSkill().cooldown;
-
-                //skill1.GetComponent<ISkill>().Execute(player);
-
-                //OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
-                //OnSlotCooldownUpdated?.Invoke(cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-                //OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
-                //OnSlotImageColorWhiteUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
-            }
-        }
-
-        if (skill1 != null)
-        {
-            //if (!skill1.GetComponent<ISkill>().HasFinished())
-            //    skill1.GetComponent<ISkill>().UpdateSkill();
-
-            //if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 > 0)
-            //{
-            //    if (cooldownSkill1 >= 0f)
-            //    {
-            //        OnSlotCooldownActivatedUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
-            //        OnSlotCooldownUpdated?.Invoke(cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-            //        OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-            //        OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
-
-            //        cooldownSkill1 -= Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        canStartCooldown1 = false;
-            //        OnSlotCooldownActivatedUpdated?.Invoke(false, SkillUI.SlotNumber.SLOT1);
-            //        OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImage, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-            //    }
-            //}
-            //else if (skill1.GetComponent<ISkill>().HasFinished() && canStartCooldown1 && numUsesSkill1 == 0)
-            //{
-            //    canStartCooldown1 = false;
-            //    OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT1);
-            //    OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-
-            //    //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
-            //    //skill1.Color = blalblalba;
-            //}
-        }
-
-        //ESTO BORRAR CUANDO ESTÉN LOS INPUTS BIEN IMPLEMENTADOS
-        //if (skill2 != null && Input.GetKeyDown(KeyCode.E) &&
-        //GameObject.FindGameObjectWithTag("Player").GetComponent<MonsterMove>().GetCurrentMode() == MonsterMove.Mode.MonsterCon)
-
         if (skill2 != null)
         {
             if (arrowRenderer == true)
@@ -182,7 +114,6 @@ public class SkillManager : MonoBehaviour
                         {
                             BalloonBox.balloonsInInventory--;
                             canStartCooldown2 = true;
-                            //cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
                             cooldownSkill2 = ballonCooldown;
 
                             skill2.GetComponent<ISkill>().Execute(player);
@@ -226,20 +157,12 @@ public class SkillManager : MonoBehaviour
                 OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
                 OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImageBW, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
                 OnSlotDisable?.Invoke();
-
-                //DESACTIVAR LA HABILIDAD (Mostrar en transparente)
-                //skill1.Color = blalblalba;
             }
         }
-
-        //if (passiveSkill != null) //if (passiveSkill != null && Input.GetKeyDown(KeyCode.P))
-        //{
-        //    passiveSkill.GetComponent<ISkill>().Execute(player);
-        //}
     }
 
 
-    // Método para ser llamado desde la máquina exprendedora
+    // Method to be called from the vending machine
     public void AssignSkillToSlot(GameObject skill, int slot)
     {
         if (slot == 1)
@@ -253,19 +176,18 @@ public class SkillManager : MonoBehaviour
         else if (slot == 2)
         {
             skill2 = skill;
-            //numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
             OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
             OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
             OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
         }
-        else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
+        else //slot 3 [LIMIT THIS VALUE FROM THE VENDING MACHINE!]
         {
             passiveSkill = skill;
             OnSlotImageUpdated?.Invoke(passiveSkill.GetComponent<ISkill>().GetSkill().gameplayImage, passiveSkill, 0, SkillUI.SlotNumber.SLOT3);
         }
     }
 
-    //YA MIRARÉ SI SE HA DE AÑADIR UNA COLUMNA MÁS AL EXCXEL
+    // I’LL SEE LATER IF ANOTHER COLUMN NEEDS TO BE ADDED TO THE EXCEL
     public void SetNumUsesSkill(ISkill reloadSkill)
     {
         foreach (GameObject g in allSkills)
@@ -275,18 +197,12 @@ public class SkillManager : MonoBehaviour
                 numUsesSkill1 = skill1.GetComponent<ISkill>().GetSkill().uses;
                 OnSlotUsesUpdated?.Invoke(numUsesSkill1, SkillUI.SlotNumber.SLOT1);
                 OnSlotImageUpdated?.Invoke(skill1.GetComponent<ISkill>().GetSkill().gameplayImage, skill1, cooldownSkill1, SkillUI.SlotNumber.SLOT1);
-
-                //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
-                //skill2.Color = blalblalba;
             }
             else if (skill2.GetComponent<ISkill>() == reloadSkill)
             {
                 numUsesSkill2 = skill2.GetComponent<ISkill>().GetSkill().uses;
                 OnSlotUsesUpdated?.Invoke(numUsesSkill2, SkillUI.SlotNumber.SLOT2);
                 OnSlotImageUpdated?.Invoke(skill2.GetComponent<ISkill>().GetSkill().gameplayImage, skill2, cooldownSkill2, SkillUI.SlotNumber.SLOT2);
-
-                //DESACTIVAR LA HABILIDAD QUE HA HECHO ESTO
-                //skill1.Color = blalblalba;
             }
         }
     }
@@ -320,7 +236,6 @@ public class SkillManager : MonoBehaviour
             {
                 numUsesSkill2--;
                 canStartCooldown2 = true;
-                //cooldownSkill2 = skill2.GetComponent<ISkill>().GetSkill().cooldown;
                 cooldownSkill2 = ballonCooldown;
 
                 skill2.GetComponent<ISkill>().Execute(player);

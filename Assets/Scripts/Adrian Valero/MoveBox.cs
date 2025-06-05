@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CajaMovible : MonoBehaviour, IInteractableWithButton
+public class MoveBox : MonoBehaviour, IInteractableWithButton
 {
     public float velocidad = 3f;
     private Vector2 direccionMovimiento;
