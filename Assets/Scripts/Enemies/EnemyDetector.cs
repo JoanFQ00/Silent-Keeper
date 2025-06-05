@@ -51,7 +51,7 @@ public class EnemyDetector : TaggedMonobehaviour
 
     void Update()
     {
-        if (GameManager.Instance != null && GameManager.Instance.isPaused)
+        if (GameManager.Instance != null && GameManager.Instance.isPaused && DeathAnimScript.Instance.dying)
             return;
 
         if (enemyState == EnemyState.NORMAL)
@@ -62,7 +62,7 @@ public class EnemyDetector : TaggedMonobehaviour
                 VisionAngle = _light2D.pointLightOuterAngle;
             }
 
-            if (_light2D.enabled && !TransitionCamAnimation.Instance.playersInTransition && !IntroRoomsManager.Instance.roomInAnimation)
+            if (_light2D.enabled && !TransitionCamAnimation.Instance.playersInTransition && !IntroRoomsManager.Instance.roomInAnimation && !DeathAnimScript.Instance.dying)
             {
                 if (enemyPlayerDetector == Characters.BOTH)
                 {
@@ -170,12 +170,12 @@ public class EnemyDetector : TaggedMonobehaviour
 
     private void SendToSpawner()
     {
-        if (!GameManager.lastCheckpoint)
-        {
-            OnDugbullState?.Invoke();
-        }
-        else
-            SceneChanger.instance.RestartCheckPointZone();
+        OnDugbullState?.Invoke();
+
+        //if (!GameManager.lastCheckpoint)
+        //    OnDugbullState?.Invoke();
+        //else
+        //    SceneChanger.instance.RestartCheckPointZone();
     }
 
     private void OnDrawGizmos()

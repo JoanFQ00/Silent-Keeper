@@ -58,7 +58,7 @@ public class KidMachine : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
+        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation || DeathAnimScript.Instance.dying)
         {
             UpdateAnimator(Vector2.zero);
             return;

@@ -42,7 +42,7 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation)
+        if (GameManager.Instance.isPaused || IntroRoomsManager.Instance.roomInAnimation || DeathAnimScript.Instance.dying)
         {
             StopMovement();
             FreezeAnimation();
