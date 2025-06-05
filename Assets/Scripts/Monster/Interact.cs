@@ -178,7 +178,11 @@ public class Interact : MonoBehaviour
             else if (matchedCollider.GetComponent<MoveBox>() != null)
             {
                 if (gameObject.tag == "Player")
+                {
                     matchedCollider.GetComponent<MoveBox>().MoverEnDireccion(lastDirBox);
+                    AudioManager.Instance.PlaySFX("box");
+                }
+
             }
         }
     }

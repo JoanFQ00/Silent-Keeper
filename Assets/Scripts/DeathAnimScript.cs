@@ -15,9 +15,14 @@ public class DeathAnimScript : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -50,6 +55,8 @@ public class DeathAnimScript : MonoBehaviour
         dying = true;
         animator.enabled = true;
         animator.SetTrigger("01");
+
+        AudioManager.Instance.PlaySFX("die");
     }
 
     public void OnAnimationFinished()
