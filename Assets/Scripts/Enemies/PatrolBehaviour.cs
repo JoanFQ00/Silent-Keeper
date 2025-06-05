@@ -28,8 +28,6 @@ public class PatrolBehaviour : MonoBehaviour
 
     private EnemyState patrolState;
 
-    //private Light2D enemyLight;
-
     private void OnEnable()
     {
         IntroRoomsManager.OnCircusEnemyAnim += OnEnemyCircusCanMove;
@@ -49,7 +47,6 @@ public class PatrolBehaviour : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        //enemyLight = GetComponentInChildren<Light2D>();
 
         _currentPoint = 0;
         transform.position = PatrolPoints[_currentPoint].position;
@@ -76,10 +73,10 @@ public class PatrolBehaviour : MonoBehaviour
         }
         else
             if (GameManager.Instance.isPaused)
-            {
-                _rb.linearVelocity = Vector2.zero;
-                return;
-            }
+        {
+            _rb.linearVelocity = Vector2.zero;
+            return;
+        }
 
         if (gameObject.GetComponent<EnemyDetector>().GetEnemyState() != EnemyState.NORMAL || patrolState != EnemyState.NORMAL)
         {
@@ -94,10 +91,6 @@ public class PatrolBehaviour : MonoBehaviour
             if (_waitTimer <= 0f)
             {
                 waiting = false;
-
-               //if (!isMonsterEnemy)
-               //     StartRotation();
-
                 StartRotation();
             }
             return;
@@ -117,9 +110,6 @@ public class PatrolBehaviour : MonoBehaviour
             if (_rotationTimer <= 0f)
             {
                 rotating = false;
-
-                //if (enemyLight != null)
-                //    enemyLight.enabled = true;
 
                 if (enemyPingPong)
                 {
@@ -168,9 +158,6 @@ public class PatrolBehaviour : MonoBehaviour
         rotating = true;
         _rotationTimer = RotationTime;
         startRotation = transform.rotation;
-
-        //if (enemyLight != null)
-        //    enemyLight.enabled = false;
 
         int nextIndex;
 

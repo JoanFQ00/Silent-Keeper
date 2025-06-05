@@ -9,7 +9,7 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
     private GameObject player;
     private Rigidbody2D rb;
 
-    [SerializeField] private float stopTime = 0.2f; // Tiempo que se mueve la caja antes de detenerse
+    [SerializeField] private float stopTime = 0.2f;
     private float moveTimer;
 
     void Start()
@@ -52,7 +52,6 @@ public class BoxS : MonoBehaviour, IInteractableWithButton
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Si choca antes de terminar el tiempo, detenerse
         if (isMoving)
         {
             rb.linearVelocity = Vector2.zero;

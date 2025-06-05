@@ -22,7 +22,6 @@ public class CameraWaypointTour : MonoBehaviour
     {
         if (isTourActive && waypoints != null && currentIndex < waypoints.Count)
         {
-
         }
     }
 
@@ -85,54 +84,3 @@ public class CameraWaypointTour : MonoBehaviour
         }
     }
 }
-
-// using System.Collections.Generic;
-// using UnityEngine;
-
-// public class CameraWaypointTour : MonoBehaviour
-// {
-//     [SerializeField] private float speed = 3f;
-
-//     public List<Transform> waypoints = new List<Transform>(); // ← Ahora es pública
-//     private int currentWaypointIndex = 0;
-//     private bool isTourActive = false;
-
-//     private void Update()
-//     {
-//         if (!isTourActive || waypoints.Count == 0) return;
-
-//         Transform targetWaypoint = waypoints[currentWaypointIndex];
-//         transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
-
-//         if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.05f)
-//         {
-//             currentWaypointIndex++;
-
-//             if (currentWaypointIndex >= waypoints.Count)
-//             {
-//                 isTourActive = false;
-//             }
-//         }
-//     }
-
-//     public void StartTour()
-//     {
-//         if (waypoints == null || waypoints.Count == 0)
-//         {
-//             Debug.LogWarning("StartTour: Lista de waypoints vacía.");
-//             return;
-//         }
-
-//         currentWaypointIndex = 0;
-//         isTourActive = true;
-
-//         transform.position = waypoints[0].position;
-//     }
-
-//     public void ClearAndSetNewWaypoints(List<Transform> newWaypoints)
-//     {
-//         waypoints.Clear();
-//         waypoints.AddRange(newWaypoints);
-//         StartTour();
-//     }
-// }

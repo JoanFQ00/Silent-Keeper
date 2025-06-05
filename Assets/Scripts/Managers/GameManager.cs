@@ -17,19 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] float remainingTime = 120f;
     [SerializeField] private GameObject mapSpawn;
 
-    // [Header("Music")]
-    // [SerializeField] public AudioSource musicSource;
-    // [SerializeField] public AudioClip zone1Music;
-    // [SerializeField] public AudioClip zone2Music;
-    // [SerializeField] public AudioClip zone3Music;
-    // [SerializeField, Range(0f, 1f)] public float musicVolume = 0.5f;
-
     public bool isPaused;
 
     [HideInInspector] public float timerSpeedMultiplier = 1f;
 
     private float initialTime;
-    //private bool isCounting = true, stopCounting = false;
 
     public static bool lastCheckpoint = false;
     public static Zone currentZone = Zone.ZONE_1;
@@ -74,7 +66,6 @@ public class GameManager : MonoBehaviour
             currentSpawn = mapSpawn.transform.position;
 
         SpawnInitialPlayers();
-        // PlayMusicForCurrentScene();
     }
 
     private void Update()
@@ -136,30 +127,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // private void PlayMusicForCurrentScene()
-    // {
-    //     AudioClip selectedClip = null;
-
-    //     switch (currentZone)
-    //     {
-    //         case Zone.ZONE_1: selectedClip = zone1Music; break;
-    //         case Zone.ZONE_2: selectedClip = zone2Music; break;
-    //         case Zone.ZONE_3: selectedClip = zone3Music; break;
-    //     }
-
-    //     if (selectedClip != null)
-    //     {
-    //         musicSource.clip = selectedClip;
-    //         musicSource.volume = musicVolume;
-    //         musicSource.loop = true;
-    //         musicSource.Play();
-    //     }
-    //     else
-    //     {
-    //         Debug.LogWarning("No music clip assigned for the current zone.");
-    //     }
-    // }
-
     private void SpawnInitialPlayers()
     {
         Vector3 spawnPoint = currentSpawn != null ? currentSpawn : mapSpawn.transform.position;
@@ -214,12 +181,10 @@ public class GameManager : MonoBehaviour
 
     public void StopCounting()
     {
-        //stopCounting = true;
     }
 
     public void RestartTime()
     {
-        //stopCounting = false;
         remainingTime = initialTime;
     }
 }

@@ -6,11 +6,6 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] float defaultSpeed = 2f;
     [SerializeField] float deceleration = 5f;
 
-    // [Header("Audio Settings")]
-    // [SerializeField] public AudioSource footstepsAudio;
-    // [Range(0f, 1f)]
-    // [SerializeField] private float footstepsVolume = 1f;
-
     [HideInInspector]
     public int bushCounter = 0;
     public Color originalColor;
@@ -43,12 +38,6 @@ public class MonsterMove : MonoBehaviour
 
         tabActivated = false;
         tabPanelAn = GameObject.Find("ItemTab")?.GetComponent<Animator>();
-
-        // if (footstepsAudio != null)
-        // {
-        //     footstepsAudio.loop = true;
-        //     footstepsAudio.volume = footstepsVolume;
-        // }
     }
 
     void FixedUpdate()
@@ -57,7 +46,6 @@ public class MonsterMove : MonoBehaviour
         {
             StopMovement();
             FreezeAnimation();
-            // StopFootsteps();
 
             return;
         }
@@ -72,34 +60,12 @@ public class MonsterMove : MonoBehaviour
             {
                 particles.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
-            // PlayFootsteps();
         }
         else
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, Time.fixedDeltaTime * deceleration);
-            // StopFootsteps();
         }
     }
-
-    // private void PlayFootsteps()
-    // {
-    //     if (footstepsAudio != null)
-    //     {
-    //         if (!footstepsAudio.isPlaying)
-    //         {
-    //             footstepsAudio.volume = footstepsVolume;
-    //             footstepsAudio.Play();
-    //         }
-    //     }
-    // }
-
-    // private void StopFootsteps()
-    // {
-    //     if (footstepsAudio != null && footstepsAudio.isPlaying)
-    //     {
-    //         footstepsAudio.Stop();
-    //     }
-    // }
 
     public void StopMovement()
     {

@@ -19,13 +19,13 @@ public class Lever : MonoBehaviour, IInteractableWithButton
     void Start()
     {
         interactable = GetComponent<InteractableBase>();
-        spriteRenderer = GetComponent<SpriteRenderer>();   
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (interactable.GetIsActivated())
         {
             spriteRenderer.sprite = leverActivated;
-        } 
-        else 
+        }
+        else
         {
             spriteRenderer.sprite = normalLever;
         }
@@ -41,18 +41,18 @@ public class Lever : MonoBehaviour, IInteractableWithButton
             if (particleTimer >= intervalBetweenPlays && particlePlayCount == 1)
             {
                 particleS.Stop();
-                particleS.Play(); 
+                particleS.Play();
                 particlePlayCount++;
-                particleTimer = 0f; 
+                particleTimer = 0f;
             }
             else if (particlePlayCount >= 2)
             {
-                isPlayingParticles = false; 
+                isPlayingParticles = false;
             }
         }
     }
 
-    public void Interacted() 
+    public void Interacted()
     {
         if (onlyKid && !interactable.GetIsActivated())
             interactable.SetKeyActivated(!interactable.GetIsActivated());
@@ -66,7 +66,7 @@ public class Lever : MonoBehaviour, IInteractableWithButton
 
             spriteRenderer.sprite = leverActivated;
         }
-        else 
+        else
         {
             spriteRenderer.sprite = normalLever;
         }
@@ -95,72 +95,3 @@ public class Lever : MonoBehaviour, IInteractableWithButton
         IntroRoomsManager.Instance.StartRoomAnim();
     }
 }
-
-/*
- using UnityEngine;
-
-public class Lever : MonoBehaviour, IInteractableWithButton
-{
-    [SerializeField] private Sprite normalLever, leverActivated;
-    [SerializeField] private bool onlyKid = false;
-    [SerializeField] private GameObject ObjectTopDisable, ObjectTopEnable;
-
-    private InteractableBase interactable;
-    private SpriteRenderer spriteRenderer;
-
-    public ParticleSystem particleS;
-
-    void Start()
-    {
-        if (onlyKid)
-            ObjectTopEnable.SetActive(false);
-
-        interactable = GetComponent<InteractableBase>();
-        spriteRenderer = GetComponent<SpriteRenderer>();   
-
-        if (interactable.GetIsActivated())
-        {
-            spriteRenderer.sprite = leverActivated;
-        } 
-        else 
-        {
-            spriteRenderer.sprite = normalLever;
-        }
-    }
-
-    public void Interacted() 
-    {
-        if (onlyKid && !interactable.GetIsActivated())
-            interactable.SetKeyActivated(!interactable.GetIsActivated());
-        else if (!onlyKid)
-            interactable.SetKeyActivated(!interactable.GetIsActivated());
-
-        if (interactable.GetIsActivated())
-        {
-            if (onlyKid)
-            {
-                ObjectTopDisable.SetActive(false);
-                ObjectTopEnable.SetActive(true);
-            }
-
-            spriteRenderer.sprite = leverActivated;
-        }
-        else 
-        {
-            spriteRenderer.sprite = normalLever;
-        }
-
-        if (particleS != null) 
-        {
-            particleS.Play();
-        }
-    }
-
-    public bool OnlyKid()
-    {
-        return onlyKid;
-    }
-
-    public void Interacted(GameObject other, GameObject thisObject) { }
-}
- */

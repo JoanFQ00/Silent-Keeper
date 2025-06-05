@@ -4,7 +4,6 @@ public class CharacterSortingHandler : MonoBehaviour
 {
     [SerializeField] private Transform kid;
     [SerializeField] private Transform monster;
-    //[SerializeField] private int sortingBase = 1000;
 
     private SpriteRenderer kidRenderer;
     private SpriteRenderer monsterRenderer;
@@ -25,16 +24,5 @@ public class CharacterSortingHandler : MonoBehaviour
 
         float kidY = kid.position.y;
         float monsterY = monster.position.y;
-
-        /*if (kidY < monsterY)
-        {
-            kidRenderer.sortingOrder = sortingBase + 1;
-            monsterRenderer.sortingOrder = sortingBase;
-        }
-        else
-        {
-            kidRenderer.sortingOrder = sortingBase;
-            monsterRenderer.sortingOrder = sortingBase + 1;
-        }*/
     }
 }
