@@ -27,6 +27,8 @@ public class Locker : MonoBehaviour, IInteractableWithButton
 
             if (activated)
             {
+                //ACTIVAR ANIMACIÓN OJOS
+
                 spriteRenderer.sprite = lockerBlocked;
 
                 _other.GetComponent<Collider2D>().enabled = !activated;
@@ -73,6 +75,8 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 //    _other.GetComponent<SpriteRenderer>().color = originalColor;
                 //    _other = null;
                 //}
+
+                //DESACTIVAR ANIMACIÓN OJOS
 
                 spriteRenderer.sprite = normalLocker;
 
