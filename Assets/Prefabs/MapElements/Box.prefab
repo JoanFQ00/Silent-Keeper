@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1391986536566498058}
   - component: {fileID: 3594328570941732579}
   - component: {fileID: 3814352615416667290}
+  - component: {fileID: -7031388312198742223}
   m_Layer: 6
   m_Name: Box
   m_TagString: CajaMovible
@@ -176,3 +177,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
+--- !u!114 &-7031388312198742223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4803923686397609478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 1
