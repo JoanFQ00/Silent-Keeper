@@ -78,22 +78,22 @@ public class HudManager : MonoBehaviour
         {
             currrentPanel = Panels.circusPan;
             schoolPan.SetActive(false);
-            //circusPan.SetActive(true);
-            //voidPan.SetActive(false);
+            circusPan.SetActive(true);
+            voidPan.SetActive(false);
         }
         else if (panel == Panels.circusPan)
         {
             currrentPanel = Panels.schoolPan;
             schoolPan.SetActive(true);
-            //circusPan.SetActive(false);
-            //voidPan.SetActive(false);
+            circusPan.SetActive(false);
+            voidPan.SetActive(false);
         }
         else if (panel == Panels.voidPanel) 
         {
             currrentPanel = Panels.voidPanel;
             schoolPan.SetActive(false);
-            //circusPan.SetActive(false);
-            //voidPan.SetActive(true);
+            circusPan.SetActive(false);
+            voidPan.SetActive(true);
         }
     }
 

@@ -31,6 +31,18 @@ public class KidMachine : MonoBehaviour
 
     public Vector2 LastPosition => lastPosition;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("KidBar"))
+            kidAnimator.SetTrigger("OnBarEnter");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("KidBar"))
+            kidAnimator.SetTrigger("OnBarExit");
+    }
+
     void Start()
     {
         currentState = States.Following;
