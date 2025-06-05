@@ -39,7 +39,7 @@ public class PresurePlate : MonoBehaviour
         if (onlyBox)
         {
             if (!IsBox(collision)) return;
-            
+
             ActivatePlate();
             return;
         }
@@ -102,7 +102,7 @@ public class PresurePlate : MonoBehaviour
     {
         if (desactivatorPlate)
         {
-            //ACTIVAR SONIDO ERROR
+            AudioManager.Instance.PlaySFX("error");
 
             foreach (PresurePlate plate in presurePlates)
             {

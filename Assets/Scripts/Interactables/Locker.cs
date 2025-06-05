@@ -36,9 +36,15 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
 
                 if (_other.gameObject.tag == "Kid")
+                {
                     _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.HiddenInLocker);
+                    AudioManager.Instance.PlaySFX("entryLocker");
+                }
                 else if (_other.gameObject.tag == "Player")
+                {
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.HiddenInLocker);
+                    AudioManager.Instance.PlaySFX("entryLocker");
+                }
 
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             }
@@ -52,9 +58,15 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 _other.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
                 if (_other.gameObject.tag == "Kid")
+                {
                     _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+                    AudioManager.Instance.PlaySFX("exitLocker");
+                }
                 else if (_other.gameObject.tag == "Player")
+                {
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Stoped);
+                    AudioManager.Instance.PlaySFX("exitLocker");
+                }
 
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 _other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;

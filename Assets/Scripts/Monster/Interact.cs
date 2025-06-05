@@ -116,7 +116,7 @@ public class Interact : MonoBehaviour
                     if (gameObject.tag == "Player")
                     {
                         matchedCollider.GetComponent<Lever>().Interacted();
-                        AudioManager.Instance.PlaySFX("palanca");
+                        AudioManager.Instance.PlaySFX("lever");
                     }
                 }
             }
@@ -134,7 +134,6 @@ public class Interact : MonoBehaviour
                     if (gameObject == containedObj)
                     {
                         locker.Interacted(gameObject, matchedCollider.gameObject);
-                        AudioManager.Instance.PlaySFX("taquilla");
                         if (gameObject.tag == "Kid") KidControl.interactable = null;
                     }
                     else
@@ -144,7 +143,6 @@ public class Interact : MonoBehaviour
                             if (gameObject.GetComponent<KidMachine>().GetCurrentState() != KidMachine.States.HiddenInLocker)
                             {
                                 locker.Interacted(gameObject, matchedCollider.gameObject);
-                                AudioManager.Instance.PlaySFX("taquilla");
                                 KidControl.interactable = null;
                             }
                         }
@@ -153,7 +151,6 @@ public class Interact : MonoBehaviour
                             if (gameObject.GetComponent<MonsterMove>().GetMonsterState() != KidMachine.States.HiddenInLocker)
                             {
                                 locker.Interacted(gameObject, matchedCollider.gameObject);
-                                AudioManager.Instance.PlaySFX("taquilla");
                             }
                         }
                     }
@@ -171,7 +168,6 @@ public class Interact : MonoBehaviour
                 if (gameObject.tag == "Player")
                 {
                     matchedCollider.GetComponent<TorchBase>().Interacted(gameObject, null);
-                    AudioManager.Instance.PlaySFX("fireball");
                 }
             }
             else if (matchedCollider.GetComponent<BalloonBox>() != null)

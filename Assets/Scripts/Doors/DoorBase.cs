@@ -515,7 +515,11 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
         if (fireParticle1 != null && fireParticle2 != null)
         {
             fireParticle1.SetActive(active);
+            AudioManager.Instance.PlaySFX("fireball1");
             fireParticle2.SetActive(active);
+
+            if (active)
+                AudioManager.Instance.PlaySFX("doorOpen");
         }
     }
 
