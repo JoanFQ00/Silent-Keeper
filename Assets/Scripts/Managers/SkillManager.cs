@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
 
 public class SkillManager : MonoBehaviour
 {
@@ -163,7 +162,7 @@ public class SkillManager : MonoBehaviour
     }
 
 
-    // Método para ser llamado desde la máquina exprendedora
+    // Method to be called from the vending machine
     public void AssignSkillToSlot(GameObject skill, int slot)
     {
         if (slot == 1)
@@ -181,14 +180,14 @@ public class SkillManager : MonoBehaviour
             OnSlotImageColorWhiteUpdated?.Invoke(true, SkillUI.SlotNumber.SLOT2);
             OnSlotUsesUpdated?.Invoke(BalloonBox.balloonsInInventory, SkillUI.SlotNumber.SLOT2);
         }
-        else //slot 3 [LIMITAR DESDE LA MÁQUINA EXPRENDEDORA ESTE VALOR!]
+        else //slot 3 [LIMIT THIS VALUE FROM THE VENDING MACHINE!]
         {
             passiveSkill = skill;
             OnSlotImageUpdated?.Invoke(passiveSkill.GetComponent<ISkill>().GetSkill().gameplayImage, passiveSkill, 0, SkillUI.SlotNumber.SLOT3);
         }
     }
 
-    //YA MIRARÉ SI SE HA DE AÑADIR UNA COLUMNA MÁS AL EXCXEL
+    // I’LL SEE LATER IF ANOTHER COLUMN NEEDS TO BE ADDED TO THE EXCEL
     public void SetNumUsesSkill(ISkill reloadSkill)
     {
         foreach (GameObject g in allSkills)

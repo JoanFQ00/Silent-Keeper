@@ -155,7 +155,7 @@ public class TransitionCamAnimation : MonoBehaviour
         currentIndex += 1;
     }
 
-    public void ChangePlayerPosition() // Mitad 3a y Mitad sin press
+    public void ChangePlayerPosition() // Midpoint 3rd and midpoint without pressing
     {
         if (fastTrans)
         {
@@ -167,7 +167,7 @@ public class TransitionCamAnimation : MonoBehaviour
         OnChangedRoom?.Invoke(doorKeyTP);
     }
 
-    public void ChangeToNextTransition() // Final 1a
+    public void ChangeToNextTransition() // Final part 1
     {
         if (anim == null || currentIndex >= animationNames.Length) return;
 
@@ -182,13 +182,13 @@ public class TransitionCamAnimation : MonoBehaviour
         }
     }
 
-    public void CanRunLastTransition() // Final 2a
+    public void CanRunLastTransition() // Final part 2
     {
         canRunLastAnimation = true;
         controlAlphaOffset = true;
     }
 
-    public void AnimationFinished() // Final 3a y Final sin press
+    public void AnimationFinished() // Final part 3 and final without pressing
     {
         IntroRoomsManager.Instance.StartRoomAnim();
 

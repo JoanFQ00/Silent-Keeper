@@ -55,7 +55,7 @@ public class CursorChanger : MonoBehaviour
                     leverOK = lever.OnlyKid();
                 }
 
-                if (hit.TryGetComponent(out CajaMovible box))
+                if (hit.TryGetComponent(out MoveBox box))
                 {
                     boxOK = false;
                 }

@@ -1,10 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static KeyBase;
 
 public class HudManager : MonoBehaviour
 {

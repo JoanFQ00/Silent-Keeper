@@ -44,7 +44,7 @@ public class Locker : MonoBehaviour, IInteractableWithButton
             }
             else
             {
-                //DESACTIVAR ANIMACI�N OJOS
+                //DESACTIVAR ANIMACIoN OJOS
 
                 spriteRenderer.sprite = normalLocker;
 

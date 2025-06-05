@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
@@ -180,10 +179,10 @@ public class Interact : MonoBehaviour
                 if (gameObject.tag == "Player")
                     matchedCollider.GetComponent<BalloonBox>().Interacted();
             }
-            else if (matchedCollider.GetComponent<CajaMovible>() != null)
+            else if (matchedCollider.GetComponent<MoveBox>() != null)
             {
                 if (gameObject.tag == "Player")
-                    matchedCollider.GetComponent<CajaMovible>().MoverEnDireccion(lastDirBox);
+                    matchedCollider.GetComponent<MoveBox>().MoverEnDireccion(lastDirBox);
             }
         }
     }
