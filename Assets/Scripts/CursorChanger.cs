@@ -35,7 +35,6 @@ public class CursorChanger : MonoBehaviour
                 bool boxOK = true;
                 bool ballonBoxOK = true;
                 bool doorOK = true;
-                //GLOBOS TMB
 
                 if (kid.TryGetComponent(out KidMachine kidMachine))
                 {
@@ -56,7 +55,7 @@ public class CursorChanger : MonoBehaviour
                     leverOK = lever.OnlyKid();
                 }
 
-                if (hit.TryGetComponent(out BoxS box))
+                if (hit.TryGetComponent(out CajaMovible box))
                 {
                     boxOK = false;
                 }
