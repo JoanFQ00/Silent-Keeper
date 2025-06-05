@@ -181,10 +181,10 @@ public class EnemyDetector : TaggedMonobehaviour
 
     private void SendToSpawner()
     {
-        if (_light2D != null)
-        {
-            _light2D.color = Color.black;
-        }
+        //if (_light2D != null)
+        //{
+        //    _light2D.color = Color.black;
+        //}
 
         //if (/*HABILITAT BOOL PER PREGUNTAR SI S'HA UTILITZAT*/)
         //    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
@@ -196,7 +196,10 @@ public class EnemyDetector : TaggedMonobehaviour
         //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 
         if (!GameManager.lastCheckpoint)
+        {
             GameManager.Instance.SpawnPlayers();
+            _kid.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+        }
         else
             SceneChanger.instance.RestartCheckPointZone();
     }
