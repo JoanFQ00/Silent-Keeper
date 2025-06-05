@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 6821869642627734145}
   - component: {fileID: 1793781545251483433}
   - component: {fileID: 725864305322002992}
+  - component: {fileID: 4540015735178028620}
   m_Layer: 8
   m_Name: EnemyPatrol
   m_TagString: Untagged
@@ -116,7 +117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1342164237
   m_SortingLayer: 3
-  m_SortingOrder: 23
+  m_SortingOrder: 0
   m_Sprite: {fileID: -7411342522690757764, guid: 943d7ac6e133e3e46a6de83375c1ed1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -315,6 +316,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 1
   dangerColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &4540015735178028620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124116584652829044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142abb9e1d2e34d4489ee07ff4124fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsStatic: 0
 --- !u!1 &4997088203671295108
 GameObject:
   m_ObjectHideFlags: 0
