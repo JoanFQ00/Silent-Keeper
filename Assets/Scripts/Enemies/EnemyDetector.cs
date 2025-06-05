@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System;
 
 public class EnemyDetector : TaggedMonobehaviour
 {
@@ -14,6 +15,8 @@ public class EnemyDetector : TaggedMonobehaviour
     private float VisionRange;
     private float VisionAngle;
     private float stunTime;
+
+    public static Action OnDugbullState;
 
     public enum EnemyState
     {
@@ -169,8 +172,7 @@ public class EnemyDetector : TaggedMonobehaviour
     {
         if (!GameManager.lastCheckpoint)
         {
-            GameManager.Instance.SpawnPlayers();
-            _kid.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+            OnDugbullState?.Invoke();
         }
         else
             SceneChanger.instance.RestartCheckPointZone();
