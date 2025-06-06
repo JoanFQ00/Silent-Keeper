@@ -17,6 +17,9 @@ public class AudioManager : MonoBehaviour
 
     private Dictionary<string, AudioClip> sfxClips = new Dictionary<string, AudioClip>();
 
+    public float sfxDelay = 2f;
+    private float gameStartTime;
+
     private void Awake()
     {
         if (Instance == null)
@@ -47,6 +50,12 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        gameStartTime = Time.time;
+    }
+
 
     void OnEnable()
     {
@@ -119,12 +128,13 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
+        if (Time.time - gameStartTime < sfxDelay)
+            return;
+
         if (sfxClips.ContainsKey(name))
         {
             sfxSource.PlayOneShot(sfxClips[name]);
         }
-        else
-        {
-        }
     }
+
 }
