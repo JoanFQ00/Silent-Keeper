@@ -7,7 +7,7 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] LayerMask playerLayer, enemyLayer, boxLayer;
     [SerializeField] Sprite normalPlate, pressedPlate, mediumPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
-    [SerializeField] private float boxSnapDuration = 0.3f;
+    [SerializeField] private float boxSnapDuration = 0.3f;//BORRAR
     [SerializeField] private float boxActivationTime = 2f; // <- NUEVA VARIABLE
     [SerializeField] List<GameObject> objectsToEnabe = new List<GameObject>();
 
