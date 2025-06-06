@@ -121,15 +121,17 @@ public class PresurePlate : MonoBehaviour
         {
             if ((onlyBox || (hasToActivateObjects && !hasToDisableObjects)) && !objectsEnabled)
             {
-                foreach (GameObject element in objectsToEnabe)
-                    element.SetActive(true);
+                if (objectsToEnabe != null)
+                    foreach (GameObject element in objectsToEnabe)
+                        element.SetActive(true);
 
                 objectsEnabled = true;
             }
             else if ((onlyBox || (hasToActivateObjects && hasToDisableObjects)) && !objectsEnabled)
             {
-                foreach (GameObject element in objectsToEnabe)
-                    element.SetActive(false);
+                if (objectsToEnabe != null)
+                    foreach (GameObject element in objectsToEnabe)
+                        element.SetActive(false);
 
                 objectsEnabled = true;
             }
