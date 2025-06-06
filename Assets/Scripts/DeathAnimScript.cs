@@ -25,10 +25,6 @@ public class DeathAnimScript : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log(dying);
-    }
     private void Start()
     {
         monster = GameObject.FindGameObjectWithTag("Player");
