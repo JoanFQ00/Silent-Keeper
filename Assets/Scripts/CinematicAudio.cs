@@ -30,7 +30,10 @@ public class CinematicAudio : MonoBehaviour
 
     public void OnCinematicFinished()
     {
-        GameManager.Instance.StopCounting();
+        if (GameManager.Instance != null) 
+        {
+            GameManager.Instance.StopCounting();
+        }
         SceneChanger.instance.LoadMenu();
     }
 
