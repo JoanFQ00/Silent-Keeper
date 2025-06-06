@@ -64,12 +64,17 @@ PrefabInstance:
       propertyPath: ShapeModule.m_Scale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6067739592937148831, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
+      propertyPath: smokeParticles
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7001037091285972492, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
       propertyPath: m_Name
       value: FinalDoor_Front
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3396955773383844835, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530ab5e5a613ed4a923d63a64877e22, type: 3}
