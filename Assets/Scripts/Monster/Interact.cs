@@ -20,8 +20,15 @@ public class Interact : MonoBehaviour
             lastDirBox = Vector2.zero;
     }
 
-    void Update()
+    private void Update()
     {
+        if (monsterMove != null)
+        {
+            Vector2 moveDir = monsterMove.GetMoveDir();
+            if (moveDir != Vector2.zero && (moveDir.x == 0 || moveDir.y == 0))
+                lastDirBox = moveDir;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && gameObject.tag == "Player" && !GameManager.Instance.isPaused && !IntroRoomsManager.Instance.roomInAnimation)
         {
             Interacting(gameObject.tag);
@@ -155,13 +162,6 @@ public class Interact : MonoBehaviour
                             }
                         }
                     }
-                }
-            }
-            else if (matchedCollider.GetComponent<BoxS>() != null)
-            {
-                if (gameObject.tag == "Player")
-                {
-                    matchedCollider.GetComponent<BoxS>().Interacted();
                 }
             }
             else if (matchedCollider.GetComponent<TorchBase>() != null)
