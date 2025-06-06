@@ -17,6 +17,12 @@ public class DynamicButt : MonoBehaviour
 
     private void Start()
     {
+        if (canvas != null)
+        {
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 9999;
+        }
+
         if (GetComponent<Button>() != null)
         {
             button = GetComponent<Button>();
