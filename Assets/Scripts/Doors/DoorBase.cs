@@ -370,7 +370,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             stopProcessing = true;
         }
 
-        smokeParticles.GetComponent<ParticleSystem>().Play();
+        if (smokeParticles != null)
+        {
+            smokeParticles.GetComponent<ParticleSystem>().Play();
+        }
         thisActivated = true;
         OnDoorChanged(true);
     }
@@ -385,7 +388,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
                 wallChild.SetActive(true);
         }
 
-        smokeParticles.GetComponent<ParticleSystem>().Play();
+        if (smokeParticles != null)
+        {
+            smokeParticles.GetComponent<ParticleSystem>().Play();
+        }
         thisActivated = false;
         OnDoorChanged(false);
     }
@@ -409,7 +415,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             animator.SetTrigger("Open");
 
         thisActivated = true;
-        smokeParticles.GetComponent<ParticleSystem>().Play();
+        if (smokeParticles != null)
+        {
+            smokeParticles.GetComponent<ParticleSystem>().Play();
+        }
         OnDoorChanged(true);
     }
 
@@ -427,7 +436,10 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             animator.SetTrigger("Close");
 
         thisActivated = false;
-        smokeParticles.GetComponent<ParticleSystem>().Play();
+        if (smokeParticles != null)
+        {
+            smokeParticles.GetComponent<ParticleSystem>().Play();
+        }
         OnDoorChanged(false);
     }
 
