@@ -56,7 +56,21 @@ public class DeathAnimScript : MonoBehaviour
         animator.enabled = true;
         animator.SetTrigger("01");
 
+        ForceExitMonsterFromLocker();
+
         AudioManager.Instance.PlaySFX("die");
+    }
+
+    private void ForceExitMonsterFromLocker()
+    {
+        foreach (var locker in Locker.AllLockers)
+        {
+            if (locker.GetObjectContained() == monster)
+            {
+                locker.ForceExit();
+                break;
+            }
+        }
     }
 
     public void OnAnimationFinished()
@@ -68,13 +82,38 @@ public class DeathAnimScript : MonoBehaviour
         }
 
         GameManager.Instance.SpawnPlayers();
-        kid.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
-        monster.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Stoped);
 
-        kid.GetComponent<SpriteRenderer>().color = Color.white;
-        monster.GetComponent<SpriteRenderer>().color = Color.white;
+        ResetEntity(monster);
+        ResetEntity(kid);
 
         OnStartGame();
+    }
+
+    private void ResetEntity(GameObject entity)
+    {
+        if (entity.CompareTag("Player"))
+        {
+            var monsterMove = entity.GetComponent<MonsterMove>();
+            monsterMove.ChangeState(KidMachine.States.Stoped);
+
+            var rb = entity.GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            var collider = entity.GetComponent<Collider2D>();
+            if (collider != null) collider.enabled = true;
+
+            var sr = entity.GetComponent<SpriteRenderer>();
+            sr.color = Color.white;
+        }
+        else if (entity.CompareTag("Kid"))
+        {
+            var kidMachine = entity.GetComponent<KidMachine>();
+            kidMachine.ChangeState(KidMachine.States.Stoped);
+
+            var sr = entity.GetComponent<SpriteRenderer>();
+            sr.color = Color.white;
+        }
     }
 
     private void OnStartGame()
