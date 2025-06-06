@@ -64,10 +64,9 @@ public class DeathAnimScript : MonoBehaviour
     {
         foreach (var locker in Locker.AllLockers)
         {
-            if (locker.GetObjectContained() == monster)
+            if (locker.GetObjectContained() == monster || locker.GetObjectContained() == kid)
             {
                 locker.ForceExit();
-                break;
             }
         }
     }
