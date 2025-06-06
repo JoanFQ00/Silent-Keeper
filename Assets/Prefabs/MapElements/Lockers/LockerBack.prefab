@@ -89,12 +89,24 @@ PrefabInstance:
       value: -0.13531272
       objectReference: {fileID: 0}
     - target: {fileID: 7218567858897482933, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218567858897482933, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 7218567858897482933, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469810873315583024, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
+      propertyPath: kidEyes
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469810873315583024, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
+      propertyPath: monsterEyes
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8469810873315583024, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
       propertyPath: normalLocker
@@ -105,7 +117,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1477577855, guid: 2e829e862f03c6a4bb4e6a7a1bae8b17, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5262728059825525101, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
+    - {fileID: 449961839442382071, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4069808720448317428, guid: ddc3123d2580ca24c9bf7a78be4fe839, type: 3}

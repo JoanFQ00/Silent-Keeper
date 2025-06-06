@@ -3,6 +3,7 @@ using UnityEngine;
 public class Locker : MonoBehaviour, IInteractableWithButton
 {
     [SerializeField] private Sprite normalLocker, lockerBlocked;
+    [SerializeField] private GameObject kidEyes, monsterEyes;
 
     private bool activated;
     private GameObject _other;
@@ -16,6 +17,9 @@ public class Locker : MonoBehaviour, IInteractableWithButton
         _other = null;
         activated = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        kidEyes.SetActive(false);
+        monsterEyes.SetActive(false);
     }
 
     public void Interacted(GameObject other, GameObject thisObject)
@@ -38,11 +42,13 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 if (_other.gameObject.tag == "Kid")
                 {
                     _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.HiddenInLocker);
+                    kidEyes.SetActive(true);
                     AudioManager.Instance.PlaySFX("entryLocker");
                 }
                 else if (_other.gameObject.tag == "Player")
                 {
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.HiddenInLocker);
+                    monsterEyes.SetActive(true);
                     AudioManager.Instance.PlaySFX("entryLocker");
                 }
 
@@ -60,11 +66,13 @@ public class Locker : MonoBehaviour, IInteractableWithButton
                 if (_other.gameObject.tag == "Kid")
                 {
                     _other.GetComponent<KidMachine>().ChangeState(KidMachine.States.Stoped);
+                    kidEyes.SetActive(false);
                     AudioManager.Instance.PlaySFX("exitLocker");
                 }
                 else if (_other.gameObject.tag == "Player")
                 {
                     _other.GetComponent<MonsterMove>().ChangeState(KidMachine.States.Stoped);
+                    monsterEyes.SetActive(false);
                     AudioManager.Instance.PlaySFX("exitLocker");
                 }
 
