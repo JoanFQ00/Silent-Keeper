@@ -120,11 +120,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneChanger.instance.RestartZone();
-        }
     }
 
     private void SpawnInitialPlayers()
