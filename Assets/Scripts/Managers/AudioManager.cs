@@ -27,7 +27,6 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Cargar PlayerPrefs si existen
             if (PlayerPrefs.HasKey("MusicVolume"))
                 musicVolume = PlayerPrefs.GetFloat("MusicVolume");
 
@@ -119,6 +118,8 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        gameStartTime = Time.time; // Resetear el delay al cargar una nueva escena
+
         string sceneName = scene.name;
 
         if (scene.buildIndex == 0 || scene.buildIndex == 1 || scene.buildIndex == 5)
