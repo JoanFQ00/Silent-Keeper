@@ -403,10 +403,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             col.enabled = false;
 
             if (wallChild != null)
-            {
                 wallChild.SetActive(false);
-            }
-            AudioManager.Instance.PlaySFX("doorOpen");
         }
 
         if (keepActivated)
@@ -432,10 +429,7 @@ public class DoorBase : MonoBehaviour, IInteractableWithButton
             col.enabled = true;
 
             if (wallChild != null)
-            {
                 wallChild.SetActive(true);
-            }
-            AudioManager.Instance.PlaySFX("doorOpen");
         }
 
         if (animator != null)
