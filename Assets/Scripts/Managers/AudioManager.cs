@@ -9,8 +9,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;
     public AudioSource sfxSource;
 
-    public float musicVolume = 0.5f;
-    public float sfxVolume = 1f;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
 
     private Slider musicSlider;
     private Slider audioSlider;
@@ -26,6 +26,13 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Cargar PlayerPrefs si existen
+            if (PlayerPrefs.HasKey("MusicVolume"))
+                musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+
+            if (PlayerPrefs.HasKey("SFXVolume"))
+                sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
 
             if (musicSource == null)
             {
@@ -55,7 +62,6 @@ public class AudioManager : MonoBehaviour
     {
         gameStartTime = Time.time;
     }
-
 
     void OnEnable()
     {
@@ -89,12 +95,16 @@ public class AudioManager : MonoBehaviour
     {
         musicVolume = value;
         musicSource.volume = value;
+        PlayerPrefs.SetFloat("MusicVolume", value);
+        PlayerPrefs.Save();
     }
 
     void SetSFXVolume(float value)
     {
         sfxVolume = value;
         sfxSource.volume = value;
+        PlayerPrefs.SetFloat("SFXVolume", value);
+        PlayerPrefs.Save();
     }
 
     private void LoadSFX()
@@ -111,7 +121,7 @@ public class AudioManager : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 5)
+        if (scene.buildIndex == 0 || scene.buildIndex == 1 || scene.buildIndex == 5)
             musicSource.Stop();
         else
         {
@@ -123,7 +133,6 @@ public class AudioManager : MonoBehaviour
                 musicSource.Play();
             }
         }
-
     }
 
     public void PlaySFX(string name)
@@ -136,5 +145,4 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(sfxClips[name]);
         }
     }
-
 }
