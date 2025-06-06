@@ -8,6 +8,7 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] Sprite normalPlate, pressedPlate, mediumPlate;
     [SerializeField] List<PresurePlate> presurePlates = new List<PresurePlate>();
     [SerializeField] private float boxSnapDuration = 0.3f;
+    [SerializeField] private float boxActivationTime = 2f; // <- NUEVA VARIABLE
     [SerializeField] List<GameObject> objectsToEnabe = new List<GameObject>();
 
     private InteractableBase interactable;
@@ -15,23 +16,40 @@ public class PresurePlate : MonoBehaviour
     private HashSet<Collider2D> currentPlayers = new HashSet<Collider2D>();
     private bool objectsEnabled = false;
 
-    private class BoxTimerInfo
-    {
-        public float timer = 0f;
-        public Transform boxTransform;
-        public Vector3 targetPosition;
-        public bool isMoving = false;
-    }
+    private Dictionary<Collider2D, float> boxTimers = new Dictionary<Collider2D, float>();
+    private bool boxPlateActivated = false;
 
     void Start()
     {
         interactable = GetComponent<InteractableBase>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        if (interactable.GetIsActivated())
-            spriteRenderer.sprite = pressedPlate;
-        else
-            spriteRenderer.sprite = normalPlate;
+        spriteRenderer.sprite = interactable.GetIsActivated() ? pressedPlate : normalPlate;
+    }
+
+    void Update()
+    {
+        if (onlyBox && !boxPlateActivated && boxTimers.Count > 0)
+        {
+            var keys = new List<Collider2D>(boxTimers.Keys);
+            foreach (var box in keys)
+            {
+                if (box == null)
+                {
+                    boxTimers.Remove(box);
+                    continue;
+                }
+
+                boxTimers[box] += Time.deltaTime;
+
+                if (boxTimers[box] >= boxActivationTime)
+                {
+                    boxPlateActivated = true;
+                    ActivatePlate();
+                    break;
+                }
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -40,8 +58,9 @@ public class PresurePlate : MonoBehaviour
         {
             if (!IsBox(collision)) return;
 
-            AudioManager.Instance.PlaySFX("pressurePlate");
-            ActivatePlate();
+            if (!boxTimers.ContainsKey(collision))
+                boxTimers.Add(collision, 0f);
+
             return;
         }
         else
@@ -76,8 +95,14 @@ public class PresurePlate : MonoBehaviour
         {
             if (!IsBox(collision)) return;
 
+            if (boxTimers.ContainsKey(collision))
+                boxTimers.Remove(collision);
+
             if (!keepActivated)
+            {
+                boxPlateActivated = false;
                 DeactivatePlate();
+            }
 
             return;
         }
@@ -107,6 +132,8 @@ public class PresurePlate : MonoBehaviour
 
     private void ActivatePlate()
     {
+        if (interactable.GetIsActivated()) return;
+
         if (desactivatorPlate)
         {
             AudioManager.Instance.PlaySFX("error");
@@ -121,18 +148,14 @@ public class PresurePlate : MonoBehaviour
         {
             if ((onlyBox || (hasToActivateObjects && !hasToDisableObjects)) && !objectsEnabled)
             {
-                if (objectsToEnabe != null)
-                    foreach (GameObject element in objectsToEnabe)
-                        element.SetActive(true);
-
+                foreach (GameObject element in objectsToEnabe)
+                    element.SetActive(true);
                 objectsEnabled = true;
             }
             else if ((onlyBox || (hasToActivateObjects && hasToDisableObjects)) && !objectsEnabled)
             {
-                if (objectsToEnabe != null)
-                    foreach (GameObject element in objectsToEnabe)
-                        element.SetActive(false);
-
+                foreach (GameObject element in objectsToEnabe)
+                    element.SetActive(false);
                 objectsEnabled = true;
             }
 
@@ -140,6 +163,7 @@ public class PresurePlate : MonoBehaviour
         }
 
         spriteRenderer.sprite = pressedPlate;
+        AudioManager.Instance.PlaySFX("pressurePlate");
     }
 
     private void MediumPlate()
